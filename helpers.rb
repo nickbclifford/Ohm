@@ -23,6 +23,14 @@ class Ohm
       factorial(n) / factorial(n - r)
     end
 
+    def powerset(set)
+      return [set] if set.empty?
+
+      popped = set.pop
+      subset = powerset(set)
+      subset | subset.map {|a| a | [popped]}
+    end
+
     def untyped_to_s(n)
       n.is_a?(Numeric) ? format('%g', n) : n.to_s
     end
