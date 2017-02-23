@@ -57,10 +57,16 @@ vwxyz{|}~\u00C7\u00FC\u00E9\u00E2\u00E4\u00E0\u00E5\u00E7\u00EA\u00EB\u00E8\u00E
       # elsif (other special cases)
       else
         command_lambda = COMMANDS[current_command]
-        stack_mode = GET.include?(current_command) ? :last : :pop
+        stack_mode = STACK_GET.include?(current_command) ? :last : :pop
 
         result = instance_exec(*@stack.method(stack_mode).call(command_lambda.arity), &command_lambda)
-        @stack << result unless result.nil? # Don't push if there's no return value
+        unless result.nil?
+          if MULTIPLE_PUSH.include?(current_command)
+            @stack.push(*result)
+          else
+            @stack << result
+          end
+        end
       end
 
       pointer += 1
@@ -71,10 +77,13 @@ vwxyz{|}~\u00C7\u00FC\u00E9\u00E2\u00E4\u00E0\u00E5\u00E7\u00EA\u00EB\u00E8\u00E
 end
 
 opts = {
-  debug: true,
+  debug: false,
   encoding: 'utf-8',
   eval: false
 }
+
+ARGV << '-h' if ARGV.empty? # Print help if no arguments passed
+
 OptionParser.new do |parser|
   parser.banner << ' <program>' # This is ARGV[0] after parsing
   parser.on('-c', '--cp437', 'Read file <program> with CP-437 encoding') {opts[:encoding] = 'cp437'}

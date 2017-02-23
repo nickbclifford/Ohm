@@ -1,15 +1,18 @@
 require 'prime'
 
+require_relative 'helpers'
+
 class Ohm
+  include Helpers
   # These lambdas are executed during Ohm#exec.
   COMMANDS = {
     ' ' => ->{},
-    '!' => ->(a){(1..a).reduce(1, :*)},
+    '!' => ->(a){factorial(a)},
     '"' => ->{},
     '#' => ->{},
     '$' => ->{@register},
     '%' => ->(a, b){a.to_f % b.to_f},
-    '&' => ->{},
+    '&' => ->(a, b){a && b},
     '\'' => ->(a){a.to_i.chr},
     '(' => ->{},
     ')' => ->{},
@@ -21,16 +24,16 @@ class Ohm
     '/' => ->(a, b){a.to_f / b.to_f},
     ':' => ->{},
     ';' => ->{},
-    '<' => ->{},
+    '<' => ->(a){a - 1},
     '=' => ->(a){@printed = true; puts a},
-    '>' => ->{},
+    '>' => ->(a){a + 1},
     '?' => ->{}, # TODO: if statement
     '@' => ->{},
     'A' => ->{},
     'B' => ->{},
     'C' => ->{},
-    'D' => ->(a){a},
-    'E' => ->{},
+    'D' => ->(a){return a, a},
+    'E' => ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
     'F' => ->{false},
     'G' => ->{},
     'H' => ->{},
@@ -48,7 +51,7 @@ class Ohm
     'T' => ->{true},
     'U' => ->{},
     'V' => ->{},
-    'W' => ->{},
+    'W' => ->(a){[a]},
     'X' => ->{},
     'Y' => ->{},
     'Z' => ->{},
@@ -60,9 +63,9 @@ class Ohm
     '`' => ->(a){a.ord},
     'a' => ->{},
     'b' => ->{},
-    'c' => ->{},
+    'c' => ->(a, b){nCr(a.to_f, b.to_f)},
     'd' => ->{},
-    'e' => ->{},
+    'e' => ->(a, b){nPr(a.to_f, b.to_f)},
     'f' => ->{},
     'g' => ->{},
     'h' => ->{},
@@ -85,7 +88,7 @@ class Ohm
     'y' => ->{},
     'z' => ->{},
     '{' => ->{},
-    '|' => ->{},
+    '|' => ->(a, b){a || b},
     '}' => ->{},
     '~' => ->(a){-a.to_f},
     "\u00C7" => ->{},
@@ -188,10 +191,10 @@ class Ohm
     "\u00DF" => ->{},
     "\u0393" => ->{},
     "\u03C0" => ->(a){Prime.take(a.to_i).last},
-    "\u03A3" => ->{},
+    "\u03A3" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(0, :+)}},
     "\u03C3" => ->{},
     "\u00B5" => ->{},
-    "\u03C4" => ->{},
+    "\u03C4" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(1, :*)}},
     "\u03A6" => ->{},
     "\u0398" => ->{},
     "\u03A9" => ->{},
@@ -200,7 +203,7 @@ class Ohm
     "\u03C6" => ->{},
     "\u03B5" => ->{},
     "\u2229" => ->{},
-    "\u2261" => ->{},
+    "\u2261" => ->(a){return a, a, a},
     "\u00B1" => ->{},
     "\u2265" => ->{},
     "\u2264" => ->{},
@@ -218,5 +221,8 @@ class Ohm
   }
 
   # When these commands are run, the values given to them will only be retrieved from the stack instead of being popped.
-  GET = "=D".split('')
+  STACK_GET = %W(=)
+
+  # When these commands are run, their return value will be appended to the stack with a splat operator.
+  MULTIPLE_PUSH = %W(D \u2261)
 end
