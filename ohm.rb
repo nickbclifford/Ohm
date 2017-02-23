@@ -93,7 +93,7 @@ OptionParser.new do |parser|
 end.parse!
 
 program = Ohm.new(opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8'), opts[:debug]).exec
-tos = program.stack[0]
+tos = program.stack.last
 
 puts (tos.is_a?(Array) ? tos.inspect : tos) unless program.printed
 puts "Stack at end of program: #{program.stack}" if opts[:debug]
