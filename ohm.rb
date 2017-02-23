@@ -1,3 +1,5 @@
+require 'optparse'
+
 require_relative 'commands'
 
 class Ohm
@@ -58,4 +60,15 @@ vwxyz{|}~\u00C7\u00FC\u00E9\u00E2\u00E4\u00E0\u00E5\u00E7\u00EA\u00EB\u00E8\u00E
 
     p @stack
   end
+end
+
+opts = {
+  debug: true
+  encoding: 'utf-8'
+  eval: false
+}
+OptionParser.new do |parser|
+  parser.on('-c', '--cp437', 'Read file with CP-437 encoding') {opts[:encoding] = 'cp437'}
+  parser.on('-d', '--debug', 'Enter debug mode') {opts[:debug] = true}
+  parser.on('-h', '--help', 'Prints this help') {puts parser; exit}
 end
