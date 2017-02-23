@@ -31,6 +31,10 @@ class Ohm
       subset | subset.map {|a| a | [popped]}
     end
 
+    def untyped_puts(n)
+      puts untyped_to_s(n)
+    end
+
     def untyped_to_s(n)
       n.is_a?(Numeric) ? format('%g', n) : n.to_s
     end
