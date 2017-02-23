@@ -8,4 +8,4 @@ Ohm is a stack-oriented language inspired by [05AB1E](https://github.com/Adriand
 ### Example
 
 ## Running
-The Ohm interpreter is written in Ruby. However, it does not rely on any external gems.
+The Ohm interpreter is written in Ruby. It does not rely on any external gems other than the standard library.
