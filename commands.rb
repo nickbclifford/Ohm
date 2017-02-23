@@ -1,7 +1,7 @@
 require 'prime'
 
 class Ohm
-  # These lambdas are executed during Ohm#eval.
+  # These lambdas are executed during Ohm#exec.
   COMMANDS = {
     ' ' => ->{},
     '!' => ->(a){(1..a).reduce(1, :*)},
@@ -15,21 +15,21 @@ class Ohm
     ')' => ->{},
     '*' => ->(a, b){a.to_f * b.to_f},
     '+' => ->(a, b){a.to_f + b.to_f},
-    ',' => ->{},
+    ',' => ->(a){@printed = true; puts a},
     '-' => ->(a, b){a.to_f - b.to_f},
     '.' => ->{},
     '/' => ->(a, b){a.to_f / b.to_f},
     ':' => ->{},
     ';' => ->{},
     '<' => ->{},
-    '=' => ->{},
+    '=' => ->(a){@printed = true; puts a},
     '>' => ->{},
     '?' => ->{}, # TODO: if statement
     '@' => ->{},
     'A' => ->{},
     'B' => ->{},
     'C' => ->{},
-    'D' => ->{},
+    'D' => ->(a){a},
     'E' => ->{},
     'F' => ->{false},
     'G' => ->{},
@@ -218,5 +218,5 @@ class Ohm
   }
 
   # When these commands are run, the values given to them will only be retrieved from the stack instead of being popped.
-  GET = %W() # TODO
+  GET = "=D".split('')
 end
