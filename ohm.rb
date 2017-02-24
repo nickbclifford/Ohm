@@ -73,7 +73,6 @@ class Ohm
           puts 'Condition is true, executing if clause' if @debug
         elsif else_index
           pointer = else_index + 1
-          p @wire[pointer..cond_end]
           new_circuit_str = @wire[pointer..cond_end] # Get circuit string up to end
           puts 'Condition is false, executing else clause' if @debug
         else
