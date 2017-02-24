@@ -50,7 +50,7 @@ class Ohm
 
   # Executes circuits given in #initialize.
   def exec
-    puts "\nActive circuit/wire:\n#{@wire}\n\n" if @debug
+    puts "\nActive circuit:\n#{@wire}\n\n" if @debug
     pointer = 0
 
     while pointer < @wire.length
@@ -58,7 +58,7 @@ class Ohm
       break if current_component == "\n"
       puts "Component: #{current_component} || Stack: #{@stack}" if @debug
 
-      # Special cases where the behavior can't be described with a lambda
+      # Special cases where the behavior can't be described with a concise lambda
       # Literals
       if /[0-9]/ =~ current_component # Number literal
         number = @wire[pointer..@wire.length][/[0-9]+/]
@@ -93,20 +93,20 @@ class Ohm
         execute = true
 
         if @stack.pop
-          new_circuit_str = @wire[pointer...(else_index || cond_end)] # Get circuit string up to else component or end
-          puts 'Condition is true, executing if clause' if @debug
+          block_str = @wire[pointer...(else_index || cond_end)] # Get block string up to else component or end
+          puts 'Condition is true, executing if block' if @debug
         elsif else_index
-          new_circuit_str = @wire[(else_index + 1)...cond_end] # Get circuit string up to end
-          puts 'Condition is false, executing else clause' if @debug
+          block_str = @wire[(else_index + 1)...cond_end] # Get block string up to end
+          puts 'Condition is false, executing else block' if @debug
         else
           execute = false
           puts 'Condition is false, no else clause, skipping to ";" or end' if @debug
         end
 
         if execute
-          new_circuit = Ohm.new(new_circuit_str, @debug, @top_level, @stack, @vars).exec
-          @printed ||= new_circuit.printed
-          @stack = new_circuit.stack
+          block = Ohm.new(block_str, @debug, @top_level, @stack, @vars).exec
+          @printed ||= block.printed
+          @stack = block.stack
         end
 
         pointer = cond_end
@@ -120,13 +120,15 @@ class Ohm
           new_vars[:value] = v
           new_vars[:index] = i
 
-          new_circuit = Ohm.new(@wire[pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
-          @printed ||= new_circuit.printed
-          @stack = new_circuit.stack
+          block = Ohm.new(@wire[pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
+          @printed ||= block.printed
+          @stack = block.stack
         end
 
         pointer = loop_end
       # Special behavior for calling wires
+      elsif current_component == "\u03A6"
+        instance_exec(@stack.pop.to_i, &method(:exec_wire_at_index))
       elsif current_component == "\u0398"
         instance_exec(@top_level[:index] - 1, &method(:exec_wire_at_index))
       elsif current_component == "\u03A9"

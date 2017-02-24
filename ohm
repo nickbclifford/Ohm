@@ -7,7 +7,8 @@ require_relative 'ohm'
 opts = {
   debug: false,
   encoding: 'utf-8',
-  eval: false
+  eval: false,
+  time: false
 }
 
 ARGV << '-h' if ARGV.empty? # Print help if no arguments passed
@@ -18,10 +19,16 @@ OptionParser.new do |parser|
   parser.on('-d', '--debug', 'Enter debug mode') {opts[:debug] = true}
   parser.on('-e', '--eval', 'Evaluate <circuit> as Ohm code') {opts[:eval] = true}
   parser.on('-h', '--help', 'Prints this help') {puts parser; exit}
+  parser.on('-t', '--time', 'Print time taken to execute <circuit>') {opts[:time] = true}
 end.parse!
 
+start = Time.now if opts[:time]
 circuit = Ohm.new(opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8').strip, opts[:debug]).exec
+the_end = Time.now if opts[:time]
+
 puts Ohm::Helpers.untyped_to_s(circuit.stack.last) unless circuit.printed
 puts "Stack at end of circuit: #{circuit.stack}" if opts[:debug]
+
+puts "Time taken: #{the_end - start} seconds" if opts[:time]
 
 trap('SIGINT') {exit!}

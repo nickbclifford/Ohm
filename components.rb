@@ -6,7 +6,6 @@ class Ohm
   include Helpers
   # These lambdas are executed during Ohm#exec.
   COMPONENTS = {
-    ' ' => ->{},
     '!' => ->(a){factorial(a.to_f)},
     '"' => ->{},
     '#' => ->(a){(0..a.to_f).to_a},
@@ -27,7 +26,7 @@ class Ohm
     '@' => ->(a){(1..a.to_f).to_a},
     'A' => ->{},
     'B' => ->(a, b){to_base(a.to_i, b.to_i)},
-    'C' => ->(a, b){a.concat(b)},
+    'C' => ->(a, b){arr_else_str(a).concat(arr_else_str(b))},
     'D' => ->(a){return a, a},
     'E' => ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
     'F' => ->{false},
@@ -51,7 +50,7 @@ class Ohm
     'X' => ->{},
     'Y' => ->{},
     'Z' => ->{},
-    '[' => ->{},
+    '[' => ->(a){@stack[a]},
     '\\' => ->(a){!a},
     ']' => ->{@stack = [@stack]; nil},
     '^' => ->{@vars[:index]},
@@ -125,7 +124,7 @@ class Ohm
     "\u00FA" => ->{},
     "\u00F1" => ->{},
     "\u00D1" => ->{},
-    "\u00AA" => ->{},
+    "\u00AA" => ->(a, b){a[b.to_i]},
     "\u00BA" => ->(a){2 ** a.to_f},
     "\u2310" => ->(a){(a.is_a?(Array) ? a : [a]).permutation.to_a},
     "\u00AC" => ->(a){powerset(a)},
@@ -189,7 +188,6 @@ class Ohm
     "\u03C3" => ->(a, b){a.is_a?(Array) ? a.each_slice(b.to_i).to_a : untyped_to_s(a).scan(/.{1,#{b.to_i}}/)},
     "\u00B5" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(1, :*)}},
     "\u03C4" => ->{10},
-    "\u03A6" => ->{},
     "\u03B4" => ->{},
     "\u03C6" => ->{},
     "\u03B5" => ->(a, b){begin a.include?(b) rescue false end},
@@ -217,6 +215,6 @@ class Ohm
   # When these components are run, their return value will be appended to the stack with a splat operator.
   MULTIPLE_PUSH = %W(D \u2261)
 
-  # These components mark the opening statement of a wire block.
+  # These components mark the opening statement of a block.
   OPENERS = %W(? :)
 end

@@ -13,6 +13,10 @@ class Ohm
       end
     end
 
+    def arr_else_str(arg)
+      arg.is_a?(Array) ? arg : untyped_to_s(arg)
+    end
+
     def factorial(n)
       (1..n).reduce(1, :*)
     end
