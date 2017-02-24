@@ -21,7 +21,7 @@ OptionParser.new do |parser|
 end.parse!
 
 circuit = Ohm.new(opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8').strip, opts[:debug]).exec
-Ohm::Helpers.untyped_puts(circuit.stack.last) unless circuit.printed
+puts Ohm::Helpers.untyped_to_s(circuit.stack.last) unless circuit.printed
 puts "Stack at end of circuit: #{circuit.stack}" if opts[:debug]
 
 trap('SIGINT') {exit!}
