@@ -63,6 +63,13 @@ class Ohm
       elsif current_component == '.' # Character literal
         pointer += 1
         @stack << @wire[pointer]
+      elsif current_component == '"' # String literal
+        pointer += 1
+        lit_end = @wire[pointer..@wire.length].index('"')
+        lit_end = lit_end.nil? ? @wire.length : lit_end + pointer
+
+        @stack << @wire[pointer...lit_end]
+        pointer = lit_end
       elsif current_component == "\u2551" # Base-221 number literal
         pointer += 1
         lit_end = @wire[pointer..@wire.length].index("\u2551")
