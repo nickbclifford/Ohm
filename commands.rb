@@ -34,7 +34,7 @@ class Ohm
     'F' => ->{false},
     'G' => ->(a, b){(a.to_f..b.to_f).to_a},
     'H' => ->{},
-    'I' => ->{gets.strip},
+    'I' => ->{$stdin.gets.chomp},
     'J' => ->{},
     'K' => ->{},
     'L' => ->{},

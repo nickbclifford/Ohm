@@ -24,6 +24,19 @@ vwxyz{|}~\u00C7\u00FC\u00E9\u00E2\u00E4\u00E0\u00E5\u00E7\u00EA\u00EB\u00E8\u00E
   # Represents an Ohm program.
   def initialize(program, debug, stack = [], vars = DEFAULT_VARS)
     @stack = stack
+
+    # Implicit input
+    %i(pop last).each do |i|
+      @stack.define_singleton_method(i) do |n=1|
+        len = length # The length changes after the call to `super`, so we get it first.
+        result = super(n)
+        if n > len
+          (n - len).times {result << $stdin.gets.chomp}
+        end
+        result
+      end
+    end
+
     @program = program
 
     # This prints the stack and command at each iteration (like 05AB1E).
@@ -129,7 +142,5 @@ OptionParser.new do |parser|
 end.parse!
 
 program = Ohm.new(opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8'), opts[:debug]).exec
-tos = program.stack.last
-
-Ohm::Helpers.untyped_puts((tos.is_a?(Array) ? tos.inspect : tos)) unless program.printed
+Ohm::Helpers.untyped_puts(*program.stack.last) unless program.printed
 puts "Stack at end of program: #{program.stack}" if opts[:debug]
