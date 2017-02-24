@@ -1,6 +1,8 @@
 require 'optparse'
 
-require_relative 'commands'
+require_relative 'components'
+
+trap('SIGINT') {exit!}
 
 class Ohm
   # It makes me sad that 0x00-1F in CP437 are generally interpreted as control characters instead of smileys like Wikipedia shows :(
@@ -21,8 +23,8 @@ vwxyz{|}~\u00C7\u00FC\u00E9\u00E2\u00E4\u00E0\u00E5\u00E7\u00EA\u00EB\u00E8\u00E
   attr_accessor :counter, :register
   attr_reader :stack, :printed
 
-  # Represents an Ohm program.
-  def initialize(program, debug, stack = [], vars = DEFAULT_VARS)
+  # Represents an Ohm circuit.
+  def initialize(circuit, debug, top_level = nil, stack = [], vars = DEFAULT_VARS)
     @stack = stack
 
     # Implicit input
@@ -33,13 +35,14 @@ vwxyz{|}~\u00C7\u00FC\u00E9\u00E2\u00E4\u00E0\u00E5\u00E7\u00EA\u00EB\u00E8\u00E
         if n > len
           (n - len).times {result << $stdin.gets.chomp}
         end
-        result
+        result.length > 1 || result[0].is_a?(Array) ? result : result[0]
       end
     end
 
-    @program = program
+    @top_level = top_level || {wires: circuit.split("\n"), index: 0}
+    @wire = circuit
 
-    # This prints the stack and command at each iteration (like 05AB1E).
+    # This prints the stack and component at each iteration (like 05AB1E).
     @debug = debug
 
     @vars = vars
@@ -48,69 +51,80 @@ vwxyz{|}~\u00C7\u00FC\u00E9\u00E2\u00E4\u00E0\u00E5\u00E7\u00EA\u00EB\u00E8\u00E
     @printed = false
   end
 
-  # Executes program given in #initialize.
+  # Executes circuits given in #initialize.
   def exec
-    puts "Full program: #{@program}" if @debug
+    puts "\nActive circuit/wire:\n#{@wire}\n\n" if @debug
     pointer = 0
 
-    while pointer < @program.length
-      current_command = @program[pointer]
+    while pointer < @wire.length
+      current_component = @wire[pointer]
 
-      puts "Command: #{current_command} || Stack: #{@stack}" if @debug
+      puts "Component: #{current_component} || Stack: #{@stack}" if @debug && current_component != "\n"
 
       # Special cases where the behavior can't be described with a lambda
-      if /[0-9]/ =~ current_command
-        number = @program[pointer..@program.length][/[0-9]+/]
+      if /[0-9]/ =~ current_component
+        number = @wire[pointer..@wire.length][/[0-9]+/]
         pointer += number.length - 1
         @stack << number
-      elsif current_command == '.'
+      elsif current_component == '.'
         pointer += 1
-        @stack << @program[pointer]
-      elsif current_command == '?'
+        @stack << @wire[pointer]
+      elsif current_component == '?'
         execute = true
-        else_index = @program.index("\u00BF")
-        cond_end = (@program.index(';') || @program.length) - 1
+        else_index = @wire.index("\u00BF")
+        cond_end = (@wire.index(';') || @wire.length) - 1
 
         if @stack.pop
           pointer += 1
-          new_prog_str = @program[pointer..(else_index &- 1 || cond_end)] # Get program string up to else command or end
-          puts "Condition is true, executing if clause \"#{new_prog_str}\"" if @debug
+          new_circuit_str = @wire[pointer..((else_index &- 1 || cond_end) - 1)] # Get circuit string up to else component or end
+          puts 'Condition is true, executing if clause' if @debug
         elsif else_index
           pointer = else_index + 1
-          new_prog_str = @program[pointer..cond_end] # Get program string up to end
-          puts "Condition is false, executing else clause \"#{new_prog_str}\"" if @debug
+          p @wire[pointer..cond_end]
+          new_circuit_str = @wire[pointer..cond_end] # Get circuit string up to end
+          puts 'Condition is false, executing else clause' if @debug
         else
           execute = false
           puts 'Condition is false, no else clause, skipping to ";"' if @debug
         end
 
         if execute
-          new_program = Ohm.new(new_prog_str, @debug, @stack, @vars).exec
-          @printed ||= new_program.printed
-          @stack = new_program.stack
+          new_circuit = Ohm.new(new_circuit_str, @debug, @top_level, @stack, @vars).exec
+          @printed ||= new_circuit.printed
+          # @stack = new_circuit.stack
         end
 
         pointer = cond_end
-      elsif current_command == ':'
+      elsif current_component == ':'
         pointer += 1
-        new_prog_str = @program[pointer..(@program.index(';') || @program.length) - 1]
+        new_circuit_str = @wire[pointer..(@wire.index(';') || @wire.length) - 1]
 
         @stack.pop.each_with_index do |i, v|
           new_vars = @vars.clone
           new_vars[:index] = i
           new_vars[:value] = v
 
-          new_program = Ohm.new(new_prog_str, @debug, @stack, new_vars).exec
-          @printed ||= new_program.printed
-          @stack = new_program.stack
+          new_circuit = Ohm.new(new_circuit_str, @debug, @top_level, @stack, new_vars).exec
+          @printed ||= new_circuit.printed
+          # @stack = new_circuit.stack
         end
+      elsif current_component == "\u0398"
+        new_index = @top_level.clone
+        new_index[:index] -= 1
+        Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @vars).exec
+      elsif current_component == "\u03A9"
+        new_index = @top_level.clone
+        new_index[:index] += 1
+        Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @vars).exec
+      elsif current_component == "\u221E"
+        Ohm.new(@top_level[:wires][@top_level[:index]], @debug, @top_level, @stack, @vars).exec
       else
-        command_lambda = COMMANDS[current_command] || ->{} # No-op if command not found
-        stack_mode = STACK_GET.include?(current_command) ? :last : :pop
+        component_lambda = COMPONENTS[current_component] || ->{} # No-op if component not found
+        stack_mode = STACK_GET.include?(current_component) ? :last : :pop
 
-        result = instance_exec(*@stack.method(stack_mode).call(command_lambda&.arity), &command_lambda)
+        result = instance_exec(*@stack.method(stack_mode).call(component_lambda.arity), &component_lambda)
         unless result.nil?
-          if MULTIPLE_PUSH.include?(current_command)
+          if MULTIPLE_PUSH.include?(current_component)
             @stack.push(*result)
           else
             @stack << result
@@ -134,13 +148,13 @@ opts = {
 ARGV << '-h' if ARGV.empty? # Print help if no arguments passed
 
 OptionParser.new do |parser|
-  parser.banner << ' <program>' # This is ARGV[0] after parsing
-  parser.on('-c', '--cp437', 'Read file <program> with CP-437 encoding') {opts[:encoding] = 'cp437'}
+  parser.banner << ' <circuit>' # This is ARGV[0] after parsing
+  parser.on('-c', '--cp437', 'Read file <circuit> with CP-437 encoding') {opts[:encoding] = 'cp437'}
   parser.on('-d', '--debug', 'Enter debug mode') {opts[:debug] = true}
-  parser.on('-e', '--eval', 'Evaluate <program> as Ohm code') {opts[:eval] = true}
+  parser.on('-e', '--eval', 'Evaluate <circuit> as Ohm code') {opts[:eval] = true}
   parser.on('-h', '--help', 'Prints this help') {puts parser; exit}
 end.parse!
 
-program = Ohm.new(opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8'), opts[:debug]).exec
-Ohm::Helpers.untyped_puts(*program.stack.last) unless program.printed
-puts "Stack at end of program: #{program.stack}" if opts[:debug]
+circuit = Ohm.new(opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8').strip, opts[:debug]).exec
+Ohm::Helpers.untyped_puts(circuit.stack.last) unless circuit.printed
+puts "Stack at end of circuit: #{circuit.stack}" if opts[:debug]

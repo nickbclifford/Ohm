@@ -5,7 +5,7 @@ require_relative 'helpers'
 class Ohm
   include Helpers
   # These lambdas are executed during Ohm#exec.
-  COMMANDS = {
+  COMPONENTS = {
     ' ' => ->{},
     '!' => ->(a){factorial(a.to_f)},
     '"' => ->{},
@@ -39,7 +39,7 @@ class Ohm
     'K' => ->{},
     'L' => ->{},
     'M' => ->{},
-    'N' => ->{},
+    'N' => ->(a, b){untyped_to_s(a) != untyped_to_s(b)},
     'O' => ->{},
     'P' => ->(a){Prime.entries(a.to_i)},
     'Q' => ->{},
@@ -53,7 +53,7 @@ class Ohm
     'Y' => ->{},
     'Z' => ->{},
     '[' => ->{},
-    '\\' => ->{},
+    '\\' => ->(a){!a},
     ']' => ->{@stack = [@stack]; nil},
     '^' => ->{@vars[:index]},
     '_' => ->{@vars[:value]},
@@ -90,7 +90,7 @@ class Ohm
     '~' => ->(a){-a.to_f},
     "\u00C7" => ->{},
     "\u00FC" => ->{},
-    "\u00E9" => ->{},
+    "\u00E9" => ->(a){a.to_f % 2 == 0},
     "\u00E2" => ->{},
     "\u00E4" => ->{},
     "\u00E0" => ->{},
@@ -98,7 +98,7 @@ class Ohm
     "\u00E7" => ->{},
     "\u00EA" => ->{},
     "\u00EB" => ->{},
-    "\u00E8" => ->{},
+    "\u00E8" => ->(a){a.to_f % 2 == 1},
     "\u00EF" => ->{},
     "\u00EE" => ->{},
     "\u00EC" => ->{},
@@ -189,9 +189,9 @@ class Ohm
     "\u03C0" => ->(a){Prime.take(a.to_i).last},
     "\u03A3" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(0, :+)}},
     "\u03C3" => ->{},
-    "\u00B5" => ->{},
+    "\u00B5" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(1, :*)}},
     "\u03C4" => ->{10},
-    "\u03A6" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(1, :*)}},
+    "\u03A6" => ->{},
     "\u0398" => ->{},
     "\u03A9" => ->{},
     "\u03B4" => ->{},
@@ -210,15 +210,15 @@ class Ohm
     "\u00B0" => ->(a){10 ** a.to_f},
     "\u2219" => ->{},
     "\u00B7" => ->(a, b){a * b.to_f}, # Repeat string
-    "\u221A" => ->{},
+    "\u221A" => ->(a){Math.sqrt(a)},
     "\u207F" => ->(a, b){a.to_f ** b.to_f},
     "\u00B2" => ->(a){a.to_f ** 2},
     "\u25A0" => ->{}
   }
 
-  # When these commands are run, the values given to them will only be retrieved from the stack instead of being popped.
+  # When these components are run, the values given to them will only be retrieved from the stack instead of being popped.
   STACK_GET = %W(=)
 
-  # When these commands are run, their return value will be appended to the stack with a splat operator.
+  # When these components are run, their return value will be appended to the stack with a splat operator.
   MULTIPLE_PUSH = %W(D \u2261)
 end
