@@ -55,29 +55,41 @@ class Ohm
       puts "Component: #{current_component} || Stack: #{@stack}" if @debug && current_component != "\n"
 
       # Special cases where the behavior can't be described with a lambda
-      if /[0-9]/ =~ current_component
+      # Literals
+      if /[0-9]/ =~ current_component # Number literal
         number = @wire[pointer..@wire.length][/[0-9]+/]
         pointer += number.length - 1
         @stack << number
-      elsif current_component == '.'
+      elsif current_component == '.' # Character literal
         pointer += 1
         @stack << @wire[pointer]
+      elsif current_component == "\u2551" # Base-221 number literal
+        pointer += 1
+        lit_end = @wire[pointer..@wire.length].index("\u2551")
+        lit_end = lit_end.nil? ? @wire.length : lit_end + pointer
+
+        @stack << from_base(@wire[pointer...lit_end], BASE_DIGITS.length)
+        pointer = lit_end
+      # Conditionals/loops
       elsif current_component == '?'
+        pointer += 1
+
+        else_index = outermost_delim(@wire[pointer..@wire.length], "\u00BF", OPENERS)
+        else_index += pointer unless else_index.nil?
+        cond_end = outermost_delim(@wire[pointer..@wire.length], ';', OPENERS)
+        cond_end = cond_end.nil? ? @wire.length : cond_end + pointer
+
         execute = true
-        else_index = @wire.index("\u00BF")
-        cond_end = (@wire.index(';') || @wire.length) - 1
 
         if @stack.pop
-          pointer += 1
-          new_circuit_str = @wire[pointer...(else_index &- 1 || cond_end)] # Get circuit string up to else component or end
+          new_circuit_str = @wire[pointer...(else_index || cond_end)] # Get circuit string up to else component or end
           puts 'Condition is true, executing if clause' if @debug
         elsif else_index
-          pointer = else_index + 1
-          new_circuit_str = @wire[pointer..cond_end] # Get circuit string up to end
+          new_circuit_str = @wire[(else_index + 1)...cond_end] # Get circuit string up to end
           puts 'Condition is false, executing else clause' if @debug
         else
           execute = false
-          puts 'Condition is false, no else clause, skipping to ";"' if @debug
+          puts 'Condition is false, no else clause, skipping to ";" or end' if @debug
         end
 
         if execute
@@ -88,16 +100,20 @@ class Ohm
         pointer = cond_end
       elsif current_component == ':'
         pointer += 1
-        new_circuit_str = @wire[pointer..(@wire.index(';') || @wire.length) - 1]
+        loop_end = outermost_delim(@wire[pointer..@wire.length], ';', OPENERS)
+        loop_end = loop_end.nil? ? @wire.length : loop_end + pointer
 
         @stack.pop.each_with_index do |i, v|
           new_vars = @vars.clone
           new_vars[:index] = i
           new_vars[:value] = v
 
-          new_circuit = Ohm.new(new_circuit_str, @debug, @top_level, @stack, new_vars).exec
+          new_circuit = Ohm.new(@wire[pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
           @printed ||= new_circuit.printed
         end
+
+        pointer = loop_end
+      # Special behavior for calling wires
       elsif current_component == "\u0398"
         new_index = @top_level.clone
         new_index[:index] -= 1

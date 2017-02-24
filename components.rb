@@ -26,7 +26,7 @@ class Ohm
     '>' => ->(a, b){a.to_f > b.to_f},
     '@' => ->(a){(1..a.to_f).to_a},
     'A' => ->{},
-    'B' => ->{},
+    'B' => ->(a, b){to_base(a.to_i, b.to_i)},
     'C' => ->{},
     'D' => ->(a){return a, a},
     'E' => ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
@@ -58,7 +58,7 @@ class Ohm
     '_' => ->{@vars[:value]},
     '`' => ->(a){untyped_to_s(a).ord},
     'a' => ->{},
-    'b' => ->{},
+    'b' => ->(a){to_base(a.to_i, 2)},
     'c' => ->(a, b){nCr(a.to_f, b.to_f)},
     'd' => ->(a){a.to_f * 2},  
     'e' => ->(a, b){nPr(a.to_f, b.to_f)},
@@ -76,11 +76,11 @@ class Ohm
     'q' => ->{},
     'r' => ->{},
     's' => ->{},
-    't' => ->{},
+    't' => ->(a, b){from_base(a.to_i, b.to_i)},
     'u' => ->{},
     'v' => ->{},
     'w' => ->{},
-    'x' => ->{},
+    'x' => ->(a){to_base(a.to_i, 16)},
     'y' => ->{},
     'z' => ->{},
     '{' => ->{},
@@ -144,7 +144,6 @@ class Ohm
     "\u2556" => ->{},
     "\u2555" => ->{},
     "\u2563" => ->{},
-    "\u2551" => ->{},
     "\u2557" => ->{},
     "\u255D" => ->{},
     "\u255C" => ->{},
@@ -217,4 +216,7 @@ class Ohm
 
   # When these components are run, their return value will be appended to the stack with a splat operator.
   MULTIPLE_PUSH = %W(D \u2261)
+
+  # These components mark the opening statement of a wire block.
+  OPENERS = %W(? :)
 end
