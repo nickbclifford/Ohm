@@ -19,20 +19,24 @@ class Ohm
   def initialize(circuit, debug, top_level = nil, stack = [], vars = DEFAULT_VARS)
     @stack = stack
 
-    # Implicit input
-    %i(pop last).each do |i|
-      @stack.define_singleton_method(i) do |n=1|
-        len = length # The length changes after the call to `super`, so we get it first.
-        result = super(n)
-        result = result[0] if n == 1
-        if n > len
-          (n - len).times {result << $stdin.gets.chomp}
+    # Only define singleton methods if top-level
+    if top_level.nil?
+      %i(pop last).each do |i|
+        @stack.define_singleton_method(i) do |n=1|
+          len = length # The length changes after the call to `super`, so we get it first.
+          result = super(n)
+          result = result[0] if n == 1
+          if n > len
+            (n - len).times {result << $stdin.gets.chomp}
+          end
+          result
         end
-        result
       end
     end
 
     @top_level = top_level || {wires: circuit.split("\n"), index: 0}
+    raise IndexError, "invalid wire index #{@top_level[:index]}" if @top_level[:wires][@top_level[:index]].nil?
+
     @wire = circuit
 
     # This prints the stack and component at each iteration (like 05AB1E).
@@ -51,8 +55,8 @@ class Ohm
 
     while pointer < @wire.length
       current_component = @wire[pointer]
-
-      puts "Component: #{current_component} || Stack: #{@stack}" if @debug && current_component != "\n"
+      break if current_component == "\n"
+      puts "Component: #{current_component} || Stack: #{@stack}" if @debug
 
       # Special cases where the behavior can't be described with a lambda
       # Literals
@@ -102,6 +106,7 @@ class Ohm
         if execute
           new_circuit = Ohm.new(new_circuit_str, @debug, @top_level, @stack, @vars).exec
           @printed ||= new_circuit.printed
+          @stack = new_circuit.stack
         end
 
         pointer = cond_end
@@ -110,27 +115,24 @@ class Ohm
         loop_end = outermost_delim(@wire[pointer..@wire.length], ';', OPENERS)
         loop_end = loop_end.nil? ? @wire.length : loop_end + pointer
 
-        @stack.pop.each_with_index do |i, v|
+        @stack.pop.each_with_index do |v, i|
           new_vars = @vars.clone
-          new_vars[:index] = i
           new_vars[:value] = v
+          new_vars[:index] = i
 
           new_circuit = Ohm.new(@wire[pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
           @printed ||= new_circuit.printed
+          @stack = new_circuit.stack
         end
 
         pointer = loop_end
       # Special behavior for calling wires
       elsif current_component == "\u0398"
-        new_index = @top_level.clone
-        new_index[:index] -= 1
-        Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @vars).exec
+        instance_exec(@top_level[:index] - 1, &method(:exec_wire_at_index))
       elsif current_component == "\u03A9"
-        new_index = @top_level.clone
-        new_index[:index] += 1
-        Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @vars).exec
+        instance_exec(@top_level[:index] + 1, &method(:exec_wire_at_index))
       elsif current_component == "\u221E"
-        Ohm.new(@top_level[:wires][@top_level[:index]], @debug, @top_level, @stack, @vars).exec
+        instance_exec(&method(:exec_wire_at_index))
       else
         component_lambda = COMPONENTS[current_component] || ->{} # No-op if component not found
         stack_mode = STACK_GET.include?(current_component) ? :last : :pop
