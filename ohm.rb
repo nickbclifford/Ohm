@@ -69,7 +69,7 @@ class Ohm
 
         if @stack.pop
           pointer += 1
-          new_circuit_str = @wire[pointer..((else_index &- 1 || cond_end) - 1)] # Get circuit string up to else component or end
+          new_circuit_str = @wire[pointer...(else_index &- 1 || cond_end)] # Get circuit string up to else component or end
           puts 'Condition is true, executing if clause' if @debug
         elsif else_index
           pointer = else_index + 1
