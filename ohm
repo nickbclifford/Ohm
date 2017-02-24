@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# -*- mode: ruby -*-
+require 'optparse'
+
+require_relative 'ohm'
+
+opts = {
+  debug: false,
+  encoding: 'utf-8',
+  eval: false
+}
+
+ARGV << '-h' if ARGV.empty? # Print help if no arguments passed
+
+OptionParser.new do |parser|
+  parser.banner << ' <circuit>' # This is ARGV[0] after parsing
+  parser.on('-c', '--cp437', 'Read file <circuit> with CP-437 encoding') {opts[:encoding] = 'cp437'}
+  parser.on('-d', '--debug', 'Enter debug mode') {opts[:debug] = true}
+  parser.on('-e', '--eval', 'Evaluate <circuit> as Ohm code') {opts[:eval] = true}
+  parser.on('-h', '--help', 'Prints this help') {puts parser; exit}
+end.parse!
+
+circuit = Ohm.new(opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8').strip, opts[:debug]).exec
+Ohm::Helpers.untyped_puts(circuit.stack.last) unless circuit.printed
+puts "Stack at end of circuit: #{circuit.stack}" if opts[:debug]
+
+trap('SIGINT') {exit!}
