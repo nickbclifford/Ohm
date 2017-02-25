@@ -130,7 +130,7 @@ class Ohm
     "\u00A2" => ->(a){@vars[:register] = a}, # This doesn't have to go under GET since assignment still returns the value
     "\u00A3" => ->{},
     "\u00A5" => ->{},
-    "\u20A7" => ->{},
+    "\u20A7" => ->(a){untyped_to_s(a) == untyped_to_s(a).reverse},
     "\u0192" => ->(a){nth_fibonacci(a.to_i)},
     "\u00E1" => ->{},
     "\u00ED" => ->{},
