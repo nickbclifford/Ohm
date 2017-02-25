@@ -22,12 +22,18 @@ class Ohm
     # Only define singleton methods if top-level
     if top_level.nil?
       %i(pop last).each do |i|
-        @stack.define_singleton_method(i) do |n=1|
+        @stack.define_singleton_method(i) do |n=nil|
           len = length # The length changes after the call to `super`, so we get it first.
-          result = super(n)
-          result = result[0] if n == 1
-          if n > len
-            (n - len).times {result << $stdin.gets.chomp}
+          if n.nil? # For some reason, just doing if `n == 1` doesn't work, so I guess we'll do it like this
+            result = super()
+            if len.zero?
+              result = $stdin.gets.chomp
+            end
+          else
+            result = super(n)
+            if n > len
+              (n - len).times {result << $stdin.gets.chomp}
+            end
           end
           result
         end
@@ -51,10 +57,10 @@ class Ohm
   # Executes circuits given in #initialize.
   def exec
     puts "\nActive circuit:\n#{@wire}\n\n" if @debug
-    pointer = 0
+    @pointer = 0
 
-    while pointer < @wire.length
-      current_component = @wire[pointer]
+    while @pointer < @wire.length
+      current_component = @wire[@pointer]
       break if current_component == "\n"
       puts "Component: #{current_component} || Stack: #{@stack}" if @debug
 
@@ -62,39 +68,39 @@ class Ohm
       # Literals
       case current_component
       when /[0-9]/ # Number literal
-        number = @wire[pointer..@wire.length][/[0-9]+/]
-        pointer += number.length - 1
+        number = @wire[@pointer..@wire.length][/[0-9]+/]
+        @pointer += number.length - 1
         @stack << number
       when '.' # Character literal
-        pointer += 1
-        @stack << @wire[pointer]
+        @pointer += 1
+        @stack << @wire[@pointer]
       when '"' # String literal
-        pointer += 1
-        lit_end = @wire[pointer..@wire.length].index('"')
-        lit_end = lit_end.nil? ? @wire.length : lit_end + pointer
+        @pointer += 1
+        lit_end = @wire[@pointer..@wire.length].index('"')
+        lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
-        @stack << @wire[pointer...lit_end]
-        pointer = lit_end
+        @stack << @wire[@pointer...lit_end]
+        @pointer = lit_end
       when "\u2551" # Base-221 number literal
-        pointer += 1
-        lit_end = @wire[pointer..@wire.length].index("\u2551")
-        lit_end = lit_end.nil? ? @wire.length : lit_end + pointer
+        @pointer += 1
+        lit_end = @wire[@pointer..@wire.length].index("\u2551")
+        lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
-        @stack << from_base(@wire[pointer...lit_end], BASE_DIGITS.length)
-        pointer = lit_end
+        @stack << from_base(@wire[@pointer...lit_end], BASE_DIGITS.length)
+        @pointer = lit_end
       # Conditionals/loops
       when '?'
-        pointer += 1
+        @pointer += 1
 
-        else_index = outermost_delim(@wire[pointer..@wire.length], "\u00BF", OPENERS)
-        else_index += pointer unless else_index.nil?
-        cond_end = outermost_delim(@wire[pointer..@wire.length], ';', OPENERS)
-        cond_end = cond_end.nil? ? @wire.length : cond_end + pointer
+        else_index = outermost_delim(@wire[@pointer..@wire.length], "\u00BF", OPENERS)
+        else_index += @pointer unless else_index.nil?
+        cond_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
+        cond_end = cond_end.nil? ? @wire.length : cond_end + @pointer
 
         execute = true
 
         if @stack.pop
-          block_str = @wire[pointer...(else_index || cond_end)] # Get block string up to else component or end
+          block_str = @wire[@pointer...(else_index || cond_end)] # Get block string up to else component or end
           puts 'Condition is true, executing if block' if @debug
         elsif else_index
           block_str = @wire[(else_index + 1)...cond_end] # Get block string up to end
@@ -110,11 +116,11 @@ class Ohm
           @stack = block.stack
         end
 
-        pointer = cond_end
+        @pointer = cond_end
       when ':'
-        pointer += 1
-        loop_end = outermost_delim(@wire[pointer..@wire.length], ';', OPENERS)
-        loop_end = loop_end.nil? ? @wire.length : loop_end + pointer
+        @pointer += 1
+        loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
+        loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
 
         popped = @stack.pop
 
@@ -123,12 +129,19 @@ class Ohm
           new_vars[:value] = v
           new_vars[:index] = i
 
-          block = Ohm.new(@wire[pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
         end
 
-        pointer = loop_end
+        @pointer = loop_end
+      # Array operations
+      when "\u2591"
+        instance_exec(:select, &method(:arr_operation))
+      when "\u2592"
+        instance_exec(:reject, &method(:arr_operation))
+      when "\u2593"
+        instance_exec(:map, &method(:arr_operation))
       # Special behavior for calling wires
       when "\u03A6"
         instance_exec(@stack.pop.to_i, &method(:exec_wire_at_index))
@@ -142,8 +155,8 @@ class Ohm
         component_lambda =
           case COMPONENTS[current_component]
           when Hash # Multi-character component
-            pointer += 1
-            COMPONENTS[current_component][@wire[pointer]]
+            @pointer += 1
+            COMPONENTS[current_component][@wire[@pointer]]
           when nil # Component not found
             ->{} # No-op
           else
@@ -162,7 +175,7 @@ class Ohm
         end
       end
 
-      pointer += 1
+      @pointer += 1
     end
 
     self

@@ -4,6 +4,31 @@ class Ohm
   module Helpers
     module_function
 
+    def arr_else_str(arg)
+      arg.is_a?(Array) ? arg : untyped_to_s(arg)
+    end
+
+    def arr_operation(meth)
+      @pointer += 1
+      loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
+      loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
+
+      popped = @stack.pop
+
+      @stack << (popped.is_a?(String) ? popped.each_char : popped).method(meth).call.each_with_index do |v, i|
+        new_vars = @vars.clone
+        new_vars[:value] = v
+        new_vars[:index] = i
+
+        block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
+        @printed ||= block.printed
+        @stack = block.stack
+        @stack.pop unless @stack.dup.last.nil? # Using `.dup` doesn't clone over the singleton methods.
+      end
+
+      @pointer = loop_end
+    end
+
     def arr_or_stack(arg, &block)
       if arg.is_a?(Array)
         block.call(arg)
@@ -11,10 +36,6 @@ class Ohm
         @stack = [block.call(@stack << arg)] # The argument gets popped, so we have to push it back
         nil
       end
-    end
-
-    def arr_else_str(arg)
-      arg.is_a?(Array) ? arg : untyped_to_s(arg)
     end
 
     def factorial(n)

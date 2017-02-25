@@ -147,9 +147,6 @@ class Ohm
     "\u00A1" => ->{@vars[:counter] += 1; nil},
     "\u00AB" => ->{},
     "\u00BB" => ->{},
-    "\u2591" => ->{},
-    "\u2592" => ->{},
-    "\u2593" => ->{},
     "\u2502" => ->{},
     "\u2524" => ->{},
     "\u2561" => ->{},
@@ -234,5 +231,5 @@ class Ohm
   MULTIPLE_PUSH = %W(D \u2261)
 
   # These components mark the opening statement of a block.
-  OPENERS = %W(? :)
+  OPENERS = %W(? : \u2591 \u2592 \u2593)
 end
