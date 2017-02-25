@@ -5,6 +5,8 @@ Does tacit programming make no sense to you, but you really wish you could use J
 
 ## Programs and Syntax
 
+Check the [full list of components](https://github.com/MiningPotatoes/Ohm/blob/master/components.md) for more info!
+
 ### The Stack
 Ohm uses a stack memory model. Think of the stack as a big array that every component of an Ohm circuit interacts with. For example, when the instruction pointer hits a number, it will *push* that number to the stack and continue, while the `+` component *pops* two elements off the stack, adds them, and *pushes* their result. Thus, the following circuit will output 15.
 
