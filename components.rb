@@ -103,21 +103,36 @@ class Ohm
     "\u00C4" => ->{},
     "\u00C5" => ->{},
     "\u00C9" => ->{},
-    "\u00E6" => ->{},
-    "\u00C6" => ->{},
+    "\u00E6" => {
+      'L' => ->(a){Math.log(a.to_f)}
+      'M' => ->(a){Math.log10(a.to_f)}
+      'N' => ->(a){Math.log2(a.to_f)}
+      'R' => ->(a, b){x = (a.to_f / b.to_f); return x.numerator, x.denominator},
+      'l' => ->(a, b){Math.log(b.to_f) / Math.log(a.to_f)},
+    },
+    "\u00C6" => {
+      'C' => ->(a){Math.cos(a.to_f)},
+      'D' => ->(a){a.to_f * (180 / Math::PI)},
+      'R' => ->(a){a.to_f * (Math::PI / 180)},
+      'S' => ->(a){Math.sin(a.to_f)},
+      'T' => ->(a){Math.tan(a.to_f)},
+      'c' => ->(a){Math.acos(a.to_f)},
+      's' => ->(a){Math.asin(a.to_f)},
+      't' => ->(a){Math.atan(a.to_f)},
+    },
     "\u00F4" => ->{},
     "\u00F6" => ->{},
     "\u00F2" => ->{},
     "\u00FB" => ->{},
     "\u00F9" => ->{},
     "\u00FF" => ->{},
-    "\u00D6" => ->{},
+    "\u00D6" => ->(a){a.to_f == 0.0},
     "\u00DC" => ->{},
     "\u00A2" => ->(a){@vars[:register] = a}, # This doesn't have to go under GET since assignment still returns the value
     "\u00A3" => ->{},
     "\u00A5" => ->{},
     "\u20A7" => ->{},
-    "\u0192" => ->{},
+    "\u0192" => ->(a){},
     "\u00E1" => ->{},
     "\u00ED" => ->{},
     "\u00F3" => ->{},
@@ -181,6 +196,8 @@ class Ohm
     "\u2590" => ->{},
     "\u2580" => ->{},
     "\u03B1" => {
+      'K' => ->{'`1234567890-=qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./'},
+      'k' => ->{'qwertyuiopasdfghjklzxcvbnm'}
       "\u00DF" => ->{('a'..'z').to_a.join('')}, # Heh. Alpha-beta.
     },
     "\u00DF" => ->{},
@@ -195,7 +212,7 @@ class Ohm
     "\u03B5" => ->(a, b){begin a.include?(b) rescue false end},
     "\u2229" => ->{},
     "\u2261" => ->(a){return a, a, a},
-    "\u00B1" => ->{},
+    "\u00B1" => ->(a, b){a.to_f ** (1 / b.to_f)},
     "\u2265" => ->(a){a.to_f + 1},
     "\u2264" => ->(a){a.to_f - 1},
     "\u2320" => ->(a){a.to_f.ceil},
