@@ -60,21 +60,22 @@ class Ohm
 
       # Special cases where the behavior can't be described with a concise lambda
       # Literals
-      if /[0-9]/ =~ current_component # Number literal
+      case current_component
+      when /[0-9]/ # Number literal
         number = @wire[pointer..@wire.length][/[0-9]+/]
         pointer += number.length - 1
         @stack << number
-      elsif current_component == '.' # Character literal
+      when '.' # Character literal
         pointer += 1
         @stack << @wire[pointer]
-      elsif current_component == '"' # String literal
+      when '"' # String literal
         pointer += 1
         lit_end = @wire[pointer..@wire.length].index('"')
         lit_end = lit_end.nil? ? @wire.length : lit_end + pointer
 
         @stack << @wire[pointer...lit_end]
         pointer = lit_end
-      elsif current_component == "\u2551" # Base-221 number literal
+      when "\u2551" # Base-221 number literal
         pointer += 1
         lit_end = @wire[pointer..@wire.length].index("\u2551")
         lit_end = lit_end.nil? ? @wire.length : lit_end + pointer
@@ -82,7 +83,7 @@ class Ohm
         @stack << from_base(@wire[pointer...lit_end], BASE_DIGITS.length)
         pointer = lit_end
       # Conditionals/loops
-      elsif current_component == '?'
+      when '?'
         pointer += 1
 
         else_index = outermost_delim(@wire[pointer..@wire.length], "\u00BF", OPENERS)
@@ -110,12 +111,14 @@ class Ohm
         end
 
         pointer = cond_end
-      elsif current_component == ':'
+      when ':'
         pointer += 1
         loop_end = outermost_delim(@wire[pointer..@wire.length], ';', OPENERS)
         loop_end = loop_end.nil? ? @wire.length : loop_end + pointer
 
-        @stack.pop.each_with_index do |v, i|
+        popped = @stack.pop
+
+        (popped.is_a?(String) ? popped.each_char : popped).each_with_index do |v, i|
           new_vars = @vars.clone
           new_vars[:value] = v
           new_vars[:index] = i
@@ -127,16 +130,26 @@ class Ohm
 
         pointer = loop_end
       # Special behavior for calling wires
-      elsif current_component == "\u03A6"
+      when "\u03A6"
         instance_exec(@stack.pop.to_i, &method(:exec_wire_at_index))
-      elsif current_component == "\u0398"
+      when "\u0398"
         instance_exec(@top_level[:index] - 1, &method(:exec_wire_at_index))
-      elsif current_component == "\u03A9"
+      when "\u03A9"
         instance_exec(@top_level[:index] + 1, &method(:exec_wire_at_index))
-      elsif current_component == "\u221E"
+      when "\u221E"
         instance_exec(&method(:exec_wire_at_index))
       else
-        component_lambda = COMPONENTS[current_component] || ->{} # No-op if component not found
+        component_lambda =
+          case COMPONENTS[current_component]
+          when Hash # Multi-character component
+            pointer += 1
+            COMPONENTS[current_component][@wire[pointer]]
+          when nil # Component not found
+            ->{} # No-op
+          else
+            COMPONENTS[current_component]
+          end
+
         stack_mode = STACK_GET.include?(current_component) ? :last : :pop
 
         result = instance_exec(*@stack.method(stack_mode).call(component_lambda.arity), &component_lambda)
