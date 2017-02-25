@@ -8,6 +8,10 @@ class Ohm
       arg.is_a?(Array) ? arg : untyped_to_s(arg)
     end
 
+    def arr_else_chars(arg)
+      arg.is_a?(Array) ? arg : untyped_to_s(arg).each_char.to_a
+    end
+
     def arr_operation(meth)
       @pointer += 1
       loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)

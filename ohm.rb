@@ -22,9 +22,9 @@ class Ohm
     # Only define singleton methods if top-level
     if top_level.nil?
       %i(pop last).each do |i|
-        @stack.define_singleton_method(i) do |n=nil|
+        @stack.define_singleton_method(i) do |n = 1|
           len = length # The length changes after the call to `super`, so we get it first.
-          if n.nil? # For some reason, just doing if `n == 1` doesn't work, so I guess we'll do it like this
+          if n == 1
             result = super()
             if len.zero?
               result = $stdin.gets.chomp
@@ -163,9 +163,13 @@ class Ohm
             COMPONENTS[current_component]
           end
 
-        stack_mode = STACK_GET.include?(current_component) ? :last : :pop
-
-        result = instance_exec(*@stack.method(stack_mode).call(component_lambda.arity), &component_lambda)
+        result = instance_exec(
+          *@stack.method(
+            STACK_GET.include?(current_component) ? :last : :pop
+          ).call(component_lambda.arity),
+          
+          &component_lambda
+        )
         unless result.nil?
           if MULTIPLE_PUSH.include?(current_component)
             @stack.push(*result)
