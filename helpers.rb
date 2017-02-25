@@ -21,6 +21,22 @@ class Ohm
       (1..n).reduce(1, :*)
     end
 
+    def fibonacci?(n)
+      perf_sqr = ->(x){Math.sqrt(x).to_i == Math.sqrt(x)}
+      perf_sqr.call(5 * (n ** 2) + 4) || perf_sqr.call(5 * (n ** 2) + 4)
+    end
+
+    def fibonacci_upto(n)
+      result = [1, 1]
+      i = 2
+      while result.last < n
+        result << result[i - 1] + result[i - 2]
+        i += 1
+      end
+      result.pop if result.last > n
+      result
+    end
+
     def from_base(str, base)
       str.reverse.each_char.each_with_index.reduce(0) do |memo, kv|
         char, i = kv
@@ -30,6 +46,11 @@ class Ohm
 
     def nCr(n, r)
       nPr(n, r) / factorial(r)
+    end
+
+    def nth_fibonacci(n, memo = {}) # Memoization makes it really fast
+      return n if (0..1).include?(n)
+      memo[n] ||= nth_fibonacci(n - 1, memo) + nth_fibonacci(n - 2, memo)
     end
 
     def nPr(n, r)
