@@ -104,9 +104,9 @@ class Ohm
     "\u00C5" => ->{},
     "\u00C9" => ->{},
     "\u00E6" => {
-      'L' => ->(a){Math.log(a.to_f)}
-      'M' => ->(a){Math.log10(a.to_f)}
-      'N' => ->(a){Math.log2(a.to_f)}
+      'L' => ->(a){Math.log(a.to_f)},
+      'M' => ->(a){Math.log10(a.to_f)},
+      'N' => ->(a){Math.log2(a.to_f)},
       'R' => ->(a, b){x = (a.to_f / b.to_f); return x.numerator, x.denominator},
       'l' => ->(a, b){Math.log(b.to_f) / Math.log(a.to_f)},
     },
@@ -197,7 +197,7 @@ class Ohm
     "\u2580" => ->{},
     "\u03B1" => {
       'K' => ->{'`1234567890-=qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./'},
-      'k' => ->{'qwertyuiopasdfghjklzxcvbnm'}
+      'k' => ->{'qwertyuiopasdfghjklzxcvbnm'},
       "\u00DF" => ->{('a'..'z').to_a.join('')}, # Heh. Alpha-beta.
     },
     "\u00DF" => ->{},
