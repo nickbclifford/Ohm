@@ -110,7 +110,7 @@ class Ohm
       'L' => ->(a){Math.log(a.to_f)},
       'M' => ->(a){Math.log10(a.to_f)},
       'N' => ->(a){Math.log2(a.to_f)},
-      'R' => ->(a, b){x = (a.to_f / b.to_f); return x.numerator, x.denominator},
+      'R' => ->(a, b){x = (a.to_f / b.to_f).to_r; return x.numerator, x.denominator},
       'S' => ->(a){Math.sin(a.to_f)},
       'T' => ->(a){Math.tan(a.to_f)},
       'c' => ->(a){Math.acos(a.to_f)},
