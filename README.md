@@ -48,3 +48,8 @@ The Ohm interpreter is written in Ruby 2.x. It does not rely on any external gem
 |`-e, --eval`|Evaluates the given circuit as Ohm code.|
 |`-h, --help`|Prints usage help.|
 |`-t, --time`|Shows the time taken to execute (in seconds) after completion.|
+
+## Troubleshooting
+If some of the components you're using seem to be no-ops (i.e. they either don't do anything or hang execution), make sure your terminal is in **UTF-8** mode. This can be achieved on Windows with the command `chcp 65001`.
+
+If that doesn't fix it, feel free to open an issue here on GitHub.
