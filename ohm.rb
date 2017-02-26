@@ -169,6 +169,7 @@ class Ohm
 
         result =
           if component_lambda.arity == 1
+            args.flatten!(1) if args.is_a?(Array)
             instance_exec(args, &component_lambda)
           else
             instance_exec(*args, &component_lambda)

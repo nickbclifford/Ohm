@@ -29,6 +29,7 @@ These components will execute all components between them and a `;` character (o
 |`%`|Pop `a`, `b`|Pushes `a % b` (modulo).|
 |`&`|Pop `a`, `b`|Pushes `a && b` (boolean AND).|
 |`'`|Pop `a`|Pushes the character with char code `a`.|
+|`)`|Pop `a`|If `a` is an array, pushes `a` without the last element, else removes the last element from the stack.|
 |`*`|Pop `a`, `b`|Pushes `a * b` (multiplication).|
 |`+`|Pop `a`, `b`|Pushes `a + b` (addition).|
 |`,`|Pop `a`|Prints `a` to standard output (with trailing newline).|
@@ -53,6 +54,8 @@ These components will execute all components between them and a `;` character (o
 |`R`|Pop `a`|Pushes `a` reversed.|
 |`S`|Pop `a`|Pushes `a` sorted.|
 |`T`|N/A|Pushes boolean `true`.|
+|`U`|Pop `a`|Pushes `a` uniquified.|
+|`V`|Pop `a`|Pushes divisors of `a`.|
 |`W`|N/A|Pushes `[stack]` (wrap).|
 |`[`|Pop `a`|Pushes `stack[a]`.|
 |`\`|Pop `a`|Pushes `!a` (boolean NOT).|
@@ -68,6 +71,9 @@ These components will execute all components between them and a `;` character (o
 |`g`|Pop `a`, `b`|Pushes the range `a...b`.|
 |`j`|Pop `a`, `b`|If `a` is an array, pushes `a.join(b)`, else pushes `stack.join(b)`.|
 |`k`|Pop `a`, `b`|Pushes index of `b` in `a`.|
+|`m`|Pop `a`|Pushes prime factors of `a`.|
+|`n`|Pop `a`|Pushes *exponents* of prime factorization of `a`.|
+|`o`|Pop `a`|Pushes full prime factorization of `a`.|
 |`p`|Pop `a`|Pushes whether or not `a` is a prime number.|
 |`t`|Pop `a`, `b`|Pushes `a` converted to base 10 from base `b`.|
 |`w`|Pop `a`|Pushes `[a]` (wrap).|
