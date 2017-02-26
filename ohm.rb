@@ -142,6 +142,8 @@ class Ohm
         instance_exec(:reject, &method(:arr_operation))
       when "\u2593"
         instance_exec(:map, &method(:arr_operation))
+      when "\u2560"
+        instance_exec(:sort_by, &method(:arr_operation))
       # Special behavior for calling wires
       when "\u03A6"
         instance_exec(@stack.pop.to_i, &method(:exec_wire_at_index))
