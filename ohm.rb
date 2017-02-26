@@ -163,13 +163,17 @@ class Ohm
             COMPONENTS[current_component]
           end
 
-        result = instance_exec(
-          *@stack.method(
-            STACK_GET.include?(current_component) ? :last : :pop
-          ).call(component_lambda.arity),
-          
-          &component_lambda
-        )
+        args = @stack.method(
+          STACK_GET.include?(current_component) ? :last : :pop
+        ).call(component_lambda.arity)
+
+        result =
+          if component_lambda.arity == 1
+            instance_exec(args, &component_lambda)
+          else
+            instance_exec(*args, &component_lambda)
+          end
+
         unless result.nil?
           if MULTIPLE_PUSH.include?(current_component)
             @stack.push(*result)
