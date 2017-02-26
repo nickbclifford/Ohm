@@ -174,7 +174,7 @@ class Ohm
             instance_exec(*args, &component_lambda)
           end
 
-        unless result.nil?
+        unless result.nil? && !PUSH_NILS.include?(current_component)
           if MULTIPLE_PUSH.include?(current_component)
             @stack.push(*result)
           else

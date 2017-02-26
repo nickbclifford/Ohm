@@ -66,6 +66,8 @@ These components will execute all components between them and a `;` character (o
 |`e`|Pop `a`, `b`|Pushes `a nPr b` (permutations).|
 |`f`|Pop `a`|Pushes all Fibonacci numbers up to `f`.|
 |`g`|Pop `a`, `b`|Pushes the range `a...b`.|
+|`j`|Pop `a`, `b`|If `a` is an array, pushes `a.join(b)`, else pushes `stack.join(b)`.|
+|`k`|Pop `a`, `b`|Pushes index of `b` in `a`.|
 |`p`|Pop `a`|Pushes whether or not `a` is a prime number.|
 |`t`|Pop `a`, `b`|Pushes `a` converted to base 10 from base `b`.|
 |`w`|Pop `a`|Pushes `[a]` (wrap).|

@@ -64,8 +64,8 @@ class Ohm
     'g' => ->(a, b){(a.to_f...b.to_f).to_a},
     'h' => ->{},
     'i' => ->{},
-    'j' => ->{},
-    'k' => ->{},
+    'j' => ->(a, b){arr_or_stack(a) {|a| a.join(untyped_to_s(b))}},
+    'k' => ->(a, b){arr_else_str(a).index(b)},
     'l' => ->{},
     'm' => ->{},
     'n' => ->{},
@@ -229,6 +229,9 @@ class Ohm
 
   # When these components are run, their return value will be appended to the stack with a splat operator.
   MULTIPLE_PUSH = %W(D \u2261)
+
+  # When these components are run, their return value will be appended to the stack even if it's nil.
+  PUSH_NILS = %W(k)
 
   # These components mark the opening statement of a block.
   OPENERS = %W(? : \u2591 \u2592 \u2593)
