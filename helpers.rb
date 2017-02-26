@@ -123,7 +123,7 @@ class Ohm
           num = num.div(base) # Amputate last digit
         end
 
-        num_converted.sub(/^0+/, '').reverse # Remove leading zeroes
+        num_converted.reverse.sub(/^0+/, '') # Remove leading zeroes
       end
     end
 

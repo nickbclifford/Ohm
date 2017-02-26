@@ -81,7 +81,7 @@ class Ohm
 
         @stack << @wire[@pointer...lit_end]
         @pointer = lit_end
-      when "\u2551" # Base-221 number literal
+      when "\u2551" # Base-220 number literal
         @pointer += 1
         lit_end = @wire[@pointer..@wire.length].index("\u2551")
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer

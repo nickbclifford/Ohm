@@ -117,6 +117,7 @@ class Ohm
       'l' => ->(a, b){Math.log(b.to_f) / Math.log(a.to_f)},
       's' => ->(a){Math.asin(a.to_f)},
       't' => ->(a){Math.atan(a.to_f)},
+      'u' => ->(a, b){Math.atan2(b.to_f, a.to_f)},
     },
     "\u00F4" => ->{},
     "\u00F6" => ->(a){a.to_f != 0.0},
