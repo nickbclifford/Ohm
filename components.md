@@ -3,7 +3,7 @@ This is a list of all (currently implemented) components that are usable in an O
 
 ## Single character
 
-### Control flow
+### Components with blocks
 These components will execute all components between them and a `;` character (or end of line), called a *block*.
 
 |Component|Description|
@@ -14,6 +14,10 @@ These components will execute all components between them and a `;` character (o
 |`░`|Pops `a` and pushes an array containing all elements of `a` for which its associated block pushes `true` (filter/select).|
 |`▒`|Same as above, except `false` instead of `true` (reject).|
 |`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|
+
+### Wire flow
+|Component|Description|
+|---------|-----------|
 |`Φ`|Pops `a` and executes the wire at index `a`.|
 |`Θ`|Executes the wire at the index before the current one.|
 |`Ω`|Executes the wire at the index after the current one.|
