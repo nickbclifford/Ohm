@@ -52,6 +52,7 @@ These components will execute all components between them and a `;` character (o
 |`E`|Pop `a`, `b`|Pushes `a == b` (equality).|
 |`F`|N/A|Pushes boolean `false`.|
 |`G`|Pop `a`, `b`|Pushes the range `a..b`.|
+|`H`|Pop `a`, `b`|Pushes `a.push(b)` (Note that this **does not work** with strings).|
 |`I`|N/A|Pushes input from standard input.|
 |`J`|Pop `a`|If `a` is an array, pushes `a.join('')`, else pushes `stack.join('')`.|
 |`L`|Pop `a`|Prints `a` to standard output (*without* trailing newline).|

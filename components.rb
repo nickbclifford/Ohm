@@ -30,7 +30,7 @@ class Ohm
     'E' => ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
     'F' => ->{false},
     'G' => ->(a, b){(a.to_i..b.to_i).to_a},
-    'H' => ->{},
+    'H' => ->(a, b){a.push(arr_else_str(b))},
     'I' => ->{$stdin.gets.chomp},
     'J' => ->(a){arr_or_stack(a) {|a| a.join('')}},
     'K' => ->{},
