@@ -139,6 +139,6 @@ These components will execute all components between them and a `;` character (o
 
 |Component|Description|
 |---------|-----------|
-|`αK`|Pushes all the keys on a keyboard (``1234567890-=qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./`).|
+|`αK`|Pushes all the keys on a keyboard (`` `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ ``).|
 |`αk`|Pushes the alphabet ordered like it is on a keyboard (`qwertyuiopasdfghjklzxcvbnm`).|
 |`αß`|Pushes the normal alphabet (`abcdefghijklmnopqrstuvwxyz`).|
