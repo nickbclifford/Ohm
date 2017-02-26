@@ -14,6 +14,7 @@ These components will execute all components between them and a `;` character (o
 |`░`|Pops `a` and pushes an array containing all elements of `a` for which its associated block pushes `true` (filter/select).|
 |`▒`|Same as above, except `false` instead of `true` (reject).|
 |`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|
+|`╠`|Pops `a` and pushes `a` sorted by the results of running its associated block once for every element in `a`.|
 
 ### Wire flow
 |Component|Description|
@@ -33,6 +34,7 @@ These components will execute all components between them and a `;` character (o
 |`%`|Pop `a`, `b`|Pushes `a % b` (modulo).|
 |`&`|Pop `a`, `b`|Pushes `a && b` (boolean AND).|
 |`'`|Pop `a`|Pushes the character with char code `a`.|
+|`(`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
 |`)`|Pop `a`|If `a` is an array, pushes `a` without the last element, else removes the last element from the stack.|
 |`*`|Pop `a`, `b`|Pushes `a * b` (multiplication).|
 |`+`|Pop `a`, `b`|Pushes `a + b` (addition).|
@@ -75,6 +77,7 @@ These components will execute all components between them and a `;` character (o
 |`g`|Pop `a`, `b`|Pushes the range `a...b`.|
 |`j`|Pop `a`, `b`|If `a` is an array, pushes `a.join(b)`, else pushes `stack.join(b)`.|
 |`k`|Pop `a`, `b`|Pushes index of `b` in `a`.|
+|`l`|Pop `a`|Pushes length of `a`.|
 |`m`|Pop `a`|Pushes prime factors of `a`.|
 |`n`|Pop `a`|Pushes *exponents* of prime factorization of `a`.|
 |`o`|Pop `a`|Pushes full prime factorization of `a`.|
@@ -86,6 +89,7 @@ These components will execute all components between them and a `;` character (o
 |`|`|Pop `a`, `b`|Pushes `a || b` (boolean OR).|
 |`}`|Pop `a`|Pushes `a` split into slices of 1 (shorthand for `1σ`).|
 |`~`|Pop `a`|Pushes `-a` (negative).|
+|`Ç`|Pop `a`, `b`|Pushes an array of each every `b` consecutive elements in `b`.|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
 |`è`|Pop `a`|Pushes `a % 2 == 1` (odd).|
 |`ö`|Pop `a`|Pushes `a != 0`.|
