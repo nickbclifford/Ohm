@@ -102,6 +102,7 @@ These components will execute all components between them and a `;` character (o
 |`è`|Pop `a`|Pushes `a % 2 == 1` (odd).|
 |`ö`|Pop `a`|Pushes `a != 0`.|
 |`Ö`|Pop `a`|Pushes `a == 0`.|
+|`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|
 |`¢`|Get `a`|Sets the value of the register to `a`.|
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
@@ -118,6 +119,7 @@ These components will execute all components between them and a `;` character (o
 |`┴`|Pop `a`|Pushes `a` in all upper-case.|
 |`┬`|Pop `a`|Pushes `a` in all lower-case.|
 |`├`|Pop `a`, `b`|Pushes `a[0, b]` (slice).|
+|`─`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|
 |`╟`|Pop `a`|Pushes `a` randomly shuffled.|
 |`╬`|Pop `a`|Pushes a random element from `a`.|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|
@@ -130,6 +132,7 @@ These components will execute all components between them and a `;` character (o
 |`τ`|N/A|Pushes the number 10.|
 |`φ`|Pop `a`|Pushes the Euler totient/phi function of `a`.|
 |`ε`|Pop `a`, `b`|Pushes whether or not `b` is in `a`.|
+|`∩`|Pop `a`, `b`|Pushes set intersection of `a` and `b`.|
 |`≡`|Pop `a`|Pushes `a` three times (triplicate).|
 |`±`|Pop `a`, `b`|Pushes the `b`th root of `a`.|
 |`≥`|Pop `a`|Pushes `a + 1` (increment).|
