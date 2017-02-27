@@ -61,6 +61,7 @@ These components will execute all components between them and a `;` character (o
 |`L`|Pop `a`|Prints `a` to standard output (*without* trailing newline).|
 |`N`|Pop `a`, `b`|Pushes `a != b` (inequality).|
 |`P`|Pop `a`|Pushes all primes up to `a`.|
+|`Q`|N/A|Reverses stack.|
 |`R`|Pop `a`|Pushes `a` reversed.|
 |`S`|Pop `a`|Pushes `a` sorted.|
 |`T`|N/A|Pushes boolean `true`.|
@@ -88,6 +89,7 @@ These components will execute all components between them and a `;` character (o
 |`p`|Pop `a`|Pushes whether or not `a` is a prime number.|
 |`s`|Pop `a`|Pushes `a` as a string.|
 |`t`|Pop `a`, `b`|Pushes `a` converted to base 10 from base `b`.|
+|`u`|Pop `a`, `b`|Pushes the index of the first occurrence of subarray `b` in `a`.|
 |`w`|Pop `a`|Pushes `[a]` (wrap).|
 |`x`|Pop `a`|Pushes `a` in hexadecimal (base 16).|
 |`{`|Pop `a`|Pushes `a` deep flattened.|
@@ -115,6 +117,7 @@ These components will execute all components between them and a `;` character (o
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
 |`┴`|Pop `a`|Pushes `a` in all upper-case.|
 |`┬`|Pop `a`|Pushes `a` in all lower-case.|
+|`├`|Pop `a`, `b`|Pushes `a[0, b]` (slice).|
 |`╟`|Pop `a`|Pushes `a` randomly shuffled.|
 |`╬`|Pop `a`|Pushes a random element from `a`.|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|

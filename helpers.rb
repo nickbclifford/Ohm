@@ -112,6 +112,13 @@ class Ohm
       subset | subset.map {|a| a | [popped]}
     end
 
+    def subarray_index(haystack, needle)
+      haystack.each_index do |i|
+        return 1 + i if haystack[i...i + needle.length] == needle
+      end
+      0
+    end
+
     def to_base(num, base)
       # Special cases
       return '0' if num.zero?
