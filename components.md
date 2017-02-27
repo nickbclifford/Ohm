@@ -86,6 +86,7 @@ These components will execute all components between them and a `;` character (o
 |`n`|Pop `a`|Pushes *exponents* of prime factorization of `a`.|
 |`o`|Pop `a`|Pushes full prime factorization of `a`.|
 |`p`|Pop `a`|Pushes whether or not `a` is a prime number.|
+|`s`|Pop `a`|Pushes `a` as a string.|
 |`t`|Pop `a`, `b`|Pushes `a` converted to base 10 from base `b`.|
 |`w`|Pop `a`|Pushes `[a]` (wrap).|
 |`x`|Pop `a`|Pushes `a` in hexadecimal (base 16).|
@@ -94,6 +95,7 @@ These components will execute all components between them and a `;` character (o
 |`}`|Pop `a`|Pushes `a` split into slices of 1 (shorthand for `1σ`).|
 |`~`|Pop `a`|Pushes `-a` (negative).|
 |`Ç`|Pop `a`, `b`|Pushes an array of each every `b` consecutive elements in `b`.|
+|`ü`|N/A|Pushes a space character (` `).|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
 |`è`|Pop `a`|Pushes `a % 2 == 1` (odd).|
 |`ö`|Pop `a`|Pushes `a != 0`.|
@@ -102,6 +104,7 @@ These components will execute all components between them and a `;` character (o
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
 |`ñ`|Pop `a`|Pushes whether or not `s` is a Fibonacci number.|
+|`Ñ`|N/A|Pushes a newline character (`\n`).|
 |`ª`|Pop `a`|Pushes `a[b]` (element at index).|
 |`º`|Pop `a`|Pushes 2<sup>`a`</sup>.|
 |`⌐`|Pop `a`|Pushes all permutations of `a`.|
@@ -163,5 +166,9 @@ These components will execute all components between them and a `;` character (o
 |Component|Description|
 |---------|-----------|
 |`αK`|Pushes all the keys on a keyboard (`` `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ ``).|
+|`αc`|Pushes all the consonants (`bcdfghjklmnpqrstvwxyz`).|
+|`αe`|Pushes all the consonants **without `y`** (`bcdfghjklmnpqrstvwxz`).|
 |`αk`|Pushes the alphabet ordered like it is on a keyboard (`qwertyuiopasdfghjklzxcvbnm`).|
+|`αv`|Pushes all the vowels (`aeiou`).|
+|`αy`|Pushes all the vowels **including `y`** (`aeiouy`).|
 |`αß`|Pushes the normal alphabet (`abcdefghijklmnopqrstuvwxyz`).|
