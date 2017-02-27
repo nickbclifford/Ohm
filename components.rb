@@ -74,7 +74,7 @@ class Ohm
     'q' => ->{},
     'r' => ->{},
     's' => ->(a){a.to_s},
-    't' => ->(a, b){from_base(a.to_i, b.to_i)},
+    't' => ->(a, b){from_base(a.to_s, b.to_i)},
     'u' => ->(a, b){subarray_index(*[a, b].map {|x| arr_else_str(x)})},
     'v' => ->{},
     'w' => ->(a){[a]},
