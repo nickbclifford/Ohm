@@ -116,6 +116,7 @@ These components will execute all components between them and a `;` character (o
 |`σ`|Pop `a`, `b`|Pushes `a` split in elements of length `b`.|
 |`µ`|Pop `a`|If `a` is an array, pushes the total product of `a`, else pushes the total product of the stack.|
 |`τ`|N/A|Pushes the number 10.|
+|`φ`|Pop `a`|Pushes the Euler totient/phi function of `a`.|
 |`ε`|Pop `a`, `b`|Pushes whether or not `b` is in `a`.|
 |`≡`|Pop `a`|Pushes `a` three times (triplicate).|
 |`±`|Pop `a`, `b`|Pushes the `b`th root of `a`.|
