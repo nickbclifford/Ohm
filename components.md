@@ -143,7 +143,6 @@ These components will execute all components between them and a `;` character (o
 |`ÆL`|Pop `a`|Pushes the natural logarithm of `a`.|
 |`ÆM`|Pop `a`|Pushes the base 10 logarithm of `a`.|
 |`ÆN`|Pop `a`|Pushes the base 2 logarithm of `a`.|
-|`ÆR`|Pop `a`, `b`|Pushes `a / b` as an array (`[numerator, denominator]`).|
 |`ÆS`|Pop `a`|Pushes the sine of `a` radians.|
 |`ÆT`|Pop `a`|Pushes the tangent of `a` radians.|
 |`Æc`|Pop `a`|Pushes the arccosine of `a`.|
