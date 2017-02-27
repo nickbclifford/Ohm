@@ -24,16 +24,9 @@ class Ohm
       %i(pop last).each do |i|
         @stack.define_singleton_method(i) do |n = 1|
           len = length # The length changes after the call to `super`, so we get it first.
-          if n == 1
-            result = super()
-            if len.zero?
-              result = $stdin.gets.chomp
-            end
-          else
-            result = super(n)
-            if n > len
-              (n - len).times {result << $stdin.gets.chomp}
-            end
+          result = super(n)
+          if n > len
+            (n - len).times {result << $stdin.gets.chomp}
           end
           result
         end
@@ -99,7 +92,7 @@ class Ohm
 
         execute = true
 
-        if @stack.pop
+        if @stack.pop[0]
           block_str = @wire[@pointer...(else_index || cond_end)] # Get block string up to else component or end
           puts 'Condition is true, executing if block' if @debug
         elsif else_index
@@ -122,7 +115,7 @@ class Ohm
         loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
         loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
 
-        popped = @stack.pop
+        popped = @stack.pop[0]
 
         (popped.is_a?(String) ? popped.each_char : popped).each_with_index do |v, i|
           new_vars = @vars.clone
@@ -144,9 +137,15 @@ class Ohm
         instance_exec(:map, &method(:arr_operation))
       when "\u2560"
         instance_exec(:sort_by, &method(:arr_operation))
+      when "\u2568"
+        instance_exec(:max_by, &method(:arr_operation))
+      when "\u2565"
+        instance_exec(:min_by, &method(:arr_operation))
+      when "\u256B"
+        instance_exec(:minmax_by, &method(:arr_operation))
       # Special behavior for calling wires
       when "\u03A6"
-        instance_exec(@stack.pop.to_i, &method(:exec_wire_at_index))
+        instance_exec(@stack.pop[0].to_i, &method(:exec_wire_at_index))
       when "\u0398"
         instance_exec(@top_level[:index] - 1, &method(:exec_wire_at_index))
       when "\u03A9"
@@ -169,13 +168,7 @@ class Ohm
           STACK_GET.include?(current_component) ? :last : :pop
         ).call(component_lambda.arity)
 
-        result =
-          if component_lambda.arity == 1
-            args.flatten!(1) if args.is_a?(Array)
-            instance_exec(args, &component_lambda)
-          else
-            instance_exec(*args, &component_lambda)
-          end
+        result = instance_exec(*args, &component_lambda)
 
         unless result.nil? && !PUSH_NILS.include?(current_component)
           if MULTIPLE_PUSH.include?(current_component)

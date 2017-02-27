@@ -23,9 +23,10 @@ class Ohm
       loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
       loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
 
-      popped = @stack.pop
+      popped = @stack.pop[0]
 
       args = amount_pop.nil? ? nil : @stack.pop(amount_pop)
+      args = args[0] if amount_pop == 1
 
       @stack << (popped.is_a?(String) ? popped.each_char : popped).method(meth).call(*args).each_with_index do |v, i|
         new_vars = @vars.clone
@@ -35,7 +36,7 @@ class Ohm
         block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
         @printed ||= block.printed
         @stack = block.stack
-        @stack.pop unless @stack.dup.last.nil? # Using `.dup` doesn't clone over the singleton methods.
+        @stack.pop[0] unless @stack.dup.last.nil? # Using `.dup` doesn't clone over the singleton methods.
       end
 
       @pointer = loop_end

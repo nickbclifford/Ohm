@@ -15,6 +15,9 @@ These components will execute all components between them and a `;` character (o
 |`▒`|Same as above, except `false` instead of `true` (reject).|
 |`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|
 |`╠`|Pops `a` and pushes `a` sorted by the results of running its associated block once for every element in `a`.|
+|`╨`|Pops `a` and pushes the element in `a` that gives the maximum value from its associated block.|
+|`╥`|Pops `a` and pushes the element in `a` that gives the minimum value from its associated block.|
+|`╫`|Pops `a` and pushes the elements in `a` that give the minimum and maximum value from its associated block.|
 
 ### Wire flow
 |Component|Description|
@@ -109,8 +112,11 @@ These components will execute all components between them and a `;` character (o
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
 |`┴`|Pop `a`|Pushes `a` in all upper-case.|
 |`┬`|Pop `a`|Pushes `a` in all lower-case.|
+|`╟`|Pop `a`|Pushes `a` randomly shuffled.|
 |`╬`|Pop `a`|Pushes a random element from `a`.|
-|`╫`|Pop `a`|Pushes `a` randomly shuffled.|
+|`╧`|Pop `a`|Pushes maximum element in `a`.|
+|`╤`|Pop `a`|Pushes minimum element in `a`.|
+|`╪`|Pop `a`|Pushes minimum and maximum element in `a` as an array in the form `[min, max]`.|
 |`π`|Pop `a`|Pushes the `a`th prime number.|
 |`Σ`|Pop `a`|If `a` is an array, pushes the total sum of `a`, else pushes the total sum of the stack.|
 |`σ`|Pop `a`, `b`|Pushes `a` split in elements of length `b`.|
