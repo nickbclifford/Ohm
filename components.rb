@@ -139,7 +139,7 @@ class Ohm
     "\u00D1" => ->{"\n"},
     "\u00AA" => ->(a, b){a[b.to_i]},
     "\u00BA" => ->(a){2 ** a.to_f},
-    "\u2310" => ->(a){arr_else_chars_join(a) {|a| a.permutation.to_a}},
+    "\u2310" => ->(a){x = arr_else_chars(a).permutation.to_a; a.is_a?(String) ? x.map {|e| e.join('')} : x},
     "\u00AC" => ->(a){powerset(a)},
     "\u00BD" => ->(a){a.to_f / 2},
     "\u00BC" => ->{@vars[:counter]},
