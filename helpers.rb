@@ -28,7 +28,7 @@ class Ohm
       args = amount_pop.nil? ? nil : @stack.pop(amount_pop)
       args = args[0] if amount_pop == 1
 
-      @stack << (popped.is_a?(String) ? popped.each_char : popped).method(meth).call(*args).each_with_index do |v, i|
+      @stack << arr_else_chars(args).method(meth).call(*args).each_with_index do |v, i|
         new_vars = @vars.clone
         new_vars[:value] = v
         new_vars[:index] = i
