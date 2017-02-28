@@ -119,6 +119,7 @@ These components will execute all components between them and a `;` character (o
 |`¼`|N/A|Pushes the current value of the counter.|
 |`¡`|N/A|Increments the counter by 1.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
+|`╜`|Pop `a`|Pushes `a` rotated once to the left.|
 |`┴`|Pop `a`|Pushes `a` in all upper-case.|
 |`┬`|Pop `a`|Pushes `a` in all lower-case.|
 |`├`|Pop `a`, `b`|Pushes `a[0, b]` (slice).|
@@ -127,6 +128,7 @@ These components will execute all components between them and a `;` character (o
 |`╬`|Pop `a`|Pushes a random element from `a`.|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|
 |`╤`|Pop `a`|Pushes minimum element in `a`.|
+|`╙`|Pop `a`|Pushes `a` rotated once to the right.|
 |`╪`|Pop `a`|Pushes minimum and maximum element in `a` as an array in the form `[min, max]`.|
 |`π`|Pop `a`|Pushes the `a`th prime number.|
 |`Σ`|Pop `a`|If `a` is an array, pushes the total sum of `a`, else pushes the total sum of the stack.|
