@@ -25,7 +25,6 @@ These components will execute all components between them and a `;` character (o
 |`Φ`|Pops `a` and executes the wire at index `a`.|
 |`Θ`|Executes the wire at the index before the current one.|
 |`Ω`|Executes the wire at the index after the current one.|
-|`∞`|Re-executes the *current* wire.|
 
 ### Utility
 |Component|Action|Description|
@@ -133,6 +132,7 @@ These components will execute all components between them and a `;` character (o
 |`σ`|Pop `a`, `b`|Pushes `a` split in elements of length `b`.|
 |`µ`|Pop `a`|If `a` is an array, pushes the total product of `a`, else pushes the total product of the stack.|
 |`τ`|N/A|Pushes the number 10.|
+|`∞`|N/A|Returns execution pointer to beginning of wire.|
 |`φ`|Pop `a`|Pushes the Euler totient/phi function of `a`.|
 |`ε`|Pop `a`, `b`|Pushes whether or not `b` is in `a`.|
 |`∩`|Pop `a`, `b`|Pushes set intersection of `a` and `b`.|

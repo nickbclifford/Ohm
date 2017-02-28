@@ -150,8 +150,6 @@ class Ohm
         instance_exec(@top_level[:index] - 1, &method(:exec_wire_at_index))
       when "\u03A9"
         instance_exec(@top_level[:index] + 1, &method(:exec_wire_at_index))
-      when "\u221E"
-        instance_exec(&method(:exec_wire_at_index))
       else
         component_lambda =
           case COMPONENTS[current_component]

@@ -157,14 +157,9 @@ class Ohm
       n.is_a?(Numeric) ? format("%.#{n.to_s.length}g", n) : n.to_s
     end
 
-    def exec_wire_at_index(i = nil)
-      if i.nil?
-        # Don't create a new hash if we're using the same index
-        new_index = @top_level
-      else
-        new_index = @top_level.clone
-        new_index[:index] = i
-      end
+    def exec_wire_at_index(i)
+      new_index = @top_level.clone
+      new_index[:index] = i
 
       puts "Executing wire at index #{i}" if @debug
       new_wire = Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @vars).exec

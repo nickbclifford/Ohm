@@ -27,8 +27,6 @@ Wires are a way to splinter your code into different functions (similar to links
 
 The `Ω` component will execute the wire below the current one, whereas `Θ` will execute the one above it, and `Φ` will pop an element from the stack and execute the wire at that index.
 
-There is one special component, `∞`, that will re-execute the **current** wire. This can be very useful for things like recursion, but be warned, as this can easily cause an infinite loop!
-
 #### Example
 ```
 25@Ωτ@ΩΣ
@@ -43,7 +41,7 @@ The Ohm interpreter is written in Ruby 2.x. It does not rely on any external gem
 ### Interpreter Options
 |Flag|Usage|
 |----|-----|
-|`-c, --cp437`|Reads the given file with CP437 encoding.|
+|`-c, --cp437`|Reads the given file with CP437 encoding (default UTF-8).|
 |`-d, --debug`|Activates **debug mode**, which prints the current command and stack at every iteration.|
 |`-e, --eval`|Evaluates the given circuit as Ohm code.|
 |`-h, --help`|Prints usage help.|
