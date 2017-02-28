@@ -104,6 +104,7 @@ class Ohm
     "\u00C9" => ->{},
     "\u00E6" => ->{},
     "\u00C6" => {
+      'A' => ->(a, b){ackermann(a.to_i, b.to_i)},
       'C' => ->(a){Math.cos(a.to_f)},
       'D' => ->(a){a.to_f * (180 / Math::PI)},
       'E' => ->(a){a.to_f * (Math::PI / 180)},

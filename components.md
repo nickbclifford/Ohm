@@ -155,6 +155,7 @@ These components will execute all components between them and a `;` character (o
 ### Arithmetic (`Æ`)
 |Component|Action|Description|
 |---------|------|-----------|
+|`ÆA`|Pop `a`, `b`|Pushes the Ackermann function of `a` and `b`.|
 |`ÆC`|Pop `a`|Pushes the cosine of `a` radians.|
 |`ÆD`|Pop `a`|Pushes `a` radians converted to degrees.|
 |`ÆE`|Pop `a`|Pushes `a` degrees converted to radians.|
