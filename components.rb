@@ -153,7 +153,7 @@ class Ohm
     "\u2562" => ->{},
     "\u2556" => ->{},
     "\u2555" => ->{},
-    "\u2563" => ->{},
+    "\u2563" => ->(a){x = arr_else_chars(a); x.length.times.map {|i| c = x.rotate(i); a.is_a?(Array) ? c : c.join}},
     "\u2557" => ->{},
     "\u255D" => ->{},
     "\u255C" => ->(a){arr_else_chars_join(a, &:rotate)},

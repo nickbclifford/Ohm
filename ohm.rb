@@ -13,7 +13,7 @@ class Ohm
   }
 
   attr_accessor :counter, :register
-  attr_reader :stack, :printed
+  attr_reader :broken, :stack, :printed
 
   # Represents an Ohm circuit.
   def initialize(circuit, debug, top_level = nil, stack = [], vars = DEFAULT_VARS)
@@ -45,6 +45,8 @@ class Ohm
 
     # This is so the interpreter doesn't print the top of stack at the end of execution
     @printed = false
+
+    @broken = false
   end
 
   # Executes circuits given in #initialize.
@@ -92,7 +94,7 @@ class Ohm
 
         execute = true
 
-        if @stack.pop
+        if @stack.pop[0]
           block_str = @wire[@pointer...(else_index || cond_end)] # Get block string up to else component or end
           puts 'Condition is true, executing if block' if @debug
         elsif else_index
@@ -125,6 +127,7 @@ class Ohm
           block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
+          break if block.broken
         end
 
         @pointer = loop_end
@@ -143,6 +146,11 @@ class Ohm
         instance_exec(:min_by, &method(:arr_operation))
       when "\u256B"
         instance_exec(:minmax_by, &method(:arr_operation))
+      when "\u00C5"
+        # By default, Enumerable#all? returns a boolean instead of an enumerator if no block was given
+        # So in order to keep everything DRY, we'll just map over the block and call #all? on the resulting array
+        instance_exec(:map, &method(:arr_operation))
+        @stack << @stack.pop[0].all?
       # Special behavior for calling wires
       when "\u03A6"
         instance_exec(@stack.pop[0].to_i, &method(:exec_wire_at_index))
@@ -150,6 +158,11 @@ class Ohm
         instance_exec(@top_level[:index] - 1, &method(:exec_wire_at_index))
       when "\u03A9"
         instance_exec(@top_level[:index] + 1, &method(:exec_wire_at_index))
+      # Break statement
+      when "\u25A0"
+        @broken = true
+        puts 'Breaking out of current wire/block' if @debug
+        break
       else
         component_lambda =
           case COMPONENTS[current_component]

@@ -46,6 +46,7 @@ class Ohm
         block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
         @printed ||= block.printed
         @stack = block.stack
+        break if block.broken
         @stack.pop[0] unless @stack.dup.last.nil? # Using `.dup` doesn't clone over the singleton methods.
       end
 

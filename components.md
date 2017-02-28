@@ -18,13 +18,16 @@ These components will execute all components between them and a `;` character (o
 |`╨`|Pops `a` and pushes the element in `a` that gives the maximum value from its associated block.|
 |`╥`|Pops `a` and pushes the element in `a` that gives the minimum value from its associated block.|
 |`╫`|Pops `a` and pushes the elements in `a` that give the minimum and maximum value from its associated block.|
+|`Å`|Pops `a` and pushes whether or not all the elements in `a` push `true` from its associated block.|
 
-### Wire flow
+### Wire/block flow
 |Component|Description|
 |---------|-----------|
 |`Φ`|Pops `a` and executes the wire at index `a`.|
 |`Θ`|Executes the wire at the index before the current one.|
 |`Ω`|Executes the wire at the index after the current one.|
+|`∞`|Returns execution pointer to beginning of block/wire.|
+|`■`|Breaks out of the current block/wire.|
 
 ### Utility
 |Component|Action|Description|
@@ -118,6 +121,7 @@ These components will execute all components between them and a `;` character (o
 |`½`|Pop `a`|Pushes `a / 2` (half).|
 |`¼`|N/A|Pushes the current value of the counter.|
 |`¡`|N/A|Increments the counter by 1.|
+|`╣`|Pop `a`|Pushes all possible rotations of `a`.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
 |`╜`|Pop `a`|Pushes `a` rotated once to the left.|
 |`┴`|Pop `a`|Pushes `a` in all upper-case.|
@@ -136,7 +140,6 @@ These components will execute all components between them and a `;` character (o
 |`µ`|Pop `a`|If `a` is an array, pushes the total product of `a`, else pushes the total product of the stack.|
 |`τ`|N/A|Pushes the number 10.|
 |`δ`|Pop `a`|Pushes an array with the deltas of (distance between) consecutive elements in `a`.|
-|`∞`|N/A|Returns execution pointer to beginning of wire.|
 |`φ`|Pop `a`|Pushes the Euler totient/phi function of `a`.|
 |`ε`|Pop `a`, `b`|Pushes whether or not `b` is in `a`.|
 |`∩`|Pop `a`, `b`|Pushes set intersection of `a` and `b`.|
