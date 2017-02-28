@@ -74,6 +74,7 @@ These components will execute all components between them and a `;` character (o
 |`^`|N/A|Pushes index of current element in array being looped over.|
 |`_`|N/A|Pushes current element in array being looped over.|
 |`` ` ``|Pop `a`|Pushes char code of `a`.|
+|`a`|Pop `a`, `b`|Pushes `b`, `a` (swap).|
 |`b`|Pop `a`|Pushes `a` in binary (base 2).|
 |`c`|Pop `a`, `b`|Pushes `a nCr b` (binomial coefficient).|
 |`d`|Pop `a`|Pushes `a * 2` (double).|
@@ -100,6 +101,8 @@ These components will execute all components between them and a `;` character (o
 |`ü`|N/A|Pushes a space character (` `).|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
 |`è`|Pop `a`|Pushes `a % 2 == 1` (odd).|
+|`î`|Pop `a`|Pushes `a` as an integer.|
+|`ô`|Pop `a`|Pushes `a` as a float.|
 |`ö`|Pop `a`|Pushes `a != 0`.|
 |`Ö`|Pop `a`|Pushes `a == 0`.|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|

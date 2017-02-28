@@ -55,7 +55,7 @@ class Ohm
     '^' => ->{@vars[:index]},
     '_' => ->{@vars[:value]},
     '`' => ->(a){untyped_to_s(a).ord},
-    'a' => ->{},
+    'a' => ->(a, b){return b, a},
     'b' => ->(a){to_base(a.to_i, 2)},
     'c' => ->(a, b){nCr(a.to_i, b.to_i)},
     'd' => ->(a){a.to_f * 2},  
@@ -97,7 +97,7 @@ class Ohm
     "\u00EB" => ->{},
     "\u00E8" => ->(a){a.to_f % 2 == 1},
     "\u00EF" => ->{},
-    "\u00EE" => ->{},
+    "\u00EE" => ->(a){a.to_i},
     "\u00EC" => ->{},
     "\u00C4" => ->{},
     "\u00C5" => ->{},
@@ -118,7 +118,7 @@ class Ohm
       't' => ->(a){Math.atan(a.to_f)},
       'u' => ->(a, b){Math.atan2(b.to_f, a.to_f)},
     },
-    "\u00F4" => ->{},
+    "\u00F4" => ->(a){a.to_f},
     "\u00F6" => ->(a){a.to_f != 0.0},
     "\u00F2" => ->{},
     "\u00FB" => ->{},
@@ -231,7 +231,7 @@ class Ohm
   STACK_GET = %W(=)
 
   # When these components are run, their return value will be appended to the stack with a splat operator.
-  MULTIPLE_PUSH = %W(D \u2261)
+  MULTIPLE_PUSH = %W(D a \u2261)
 
   # When these components are run, their return value will be appended to the stack even if it's nil.
   PUSH_NILS = %W(k)
