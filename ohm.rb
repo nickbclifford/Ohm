@@ -92,7 +92,7 @@ class Ohm
 
         execute = true
 
-        if @stack.pop[0]
+        if @stack.pop
           block_str = @wire[@pointer...(else_index || cond_end)] # Get block string up to else component or end
           puts 'Condition is true, executing if block' if @debug
         elsif else_index

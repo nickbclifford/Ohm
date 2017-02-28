@@ -67,6 +67,7 @@ These components will execute all components between them and a `;` character (o
 |`U`|Pop `a`|Pushes `a` uniquified.|
 |`V`|Pop `a`|Pushes divisors of `a`.|
 |`W`|N/A|Pushes `[stack]` (wrap).|
+|`X`|Pop `a`, `b`|Pushes `b` prepended to `a`.|
 |`[`|Pop `a`|Pushes `stack[a]`.|
 |`\`|Pop `a`|Pushes `!a` (boolean NOT).|
 |`]`|Pop `a`|Pushes `a` flattened one level.|
