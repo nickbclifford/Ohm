@@ -25,7 +25,7 @@ class Ohm
     def arr_else_chars_join(arg, &block)
       result = block.call(arr_else_chars(arg))
 
-      arg.is_a?(String) ? result.join : result
+      arg.is_a?(Array) ? result : result.join
     end
 
     def arr_operation(meth, amount_pop = nil)
