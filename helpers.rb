@@ -43,7 +43,7 @@ class Ohm
         new_vars[:value] = v
         new_vars[:index] = i
 
-        block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
+        block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
         @printed ||= block.printed
         @stack = block.stack
         break if block.broken
@@ -86,6 +86,19 @@ class Ohm
       str.reverse.each_char.each_with_index.reduce(0) do |memo, kv|
         char, i = kv
         memo + (BASE_DIGITS.index(char) * (base ** i))
+      end
+    end
+
+    def input
+      @inputs << i = $stdin.gets.chomp
+      i
+    end
+
+    def input_access(i)
+      if @inputs[i].nil?
+        input
+      else
+        @inputs[i]
       end
     end
 
@@ -163,7 +176,7 @@ class Ohm
       new_index[:index] = i
 
       puts "Executing wire at index #{i}" if @debug
-      new_wire = Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @vars).exec
+      new_wire = Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @inputs, @vars).exec
       @printed ||= new_wire.printed
       @stack = new_wire.stack
 

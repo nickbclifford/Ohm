@@ -31,7 +31,7 @@ class Ohm
     'F' => ->{false},
     'G' => ->(a, b){(a.to_i..b.to_i).to_a},
     'H' => ->(a, b){a.push(arr_else_str(b))},
-    'I' => ->{$stdin.gets.chomp},
+    'I' => ->{input},
     'J' => ->(a){arr_or_stack(a, &:join)},
     'K' => ->{},
     'L' => ->(a){@printed = true; print untyped_to_s(a)},
@@ -99,7 +99,7 @@ class Ohm
     "\u00EF" => ->{},
     "\u00EE" => ->(a){a.to_i},
     "\u00EC" => ->{},
-    "\u00C4" => ->{},
+    "\u00C4" => ->(a, b){Array.new(b.to_i) {a}},
     "\u00C5" => ->{},
     "\u00C9" => ->{},
     "\u00E6" => ->{},
@@ -164,7 +164,7 @@ class Ohm
     "\u252C" => ->(a){untyped_to_s(a).downcase},
     "\u251C" => ->(a, b){arr_else_str(a)[0, b.to_i]},
     "\u2500" => ->(a, b){arr_else_chars(a) - arr_else_chars(b)},
-    "\u253C" => ->{},
+    "\u253C" => ->{input_access(0)},
     "\u255E" => ->{},
     "\u255F" => ->(a){arr_else_chars_join(a, &:shuffle)},
     "\u255A" => ->{},
@@ -184,8 +184,8 @@ class Ohm
     "\u2553" => ->{},
     "\u256B" => ->{},
     "\u256A" => ->(a){arr_else_chars(a).minmax},
-    "\u2518" => ->{},
-    "\u250C" => ->{},
+    "\u2518" => ->{input_access(1)},
+    "\u250C" => ->{input_access(2)},
     "\u2588" => ->{},
     "\u2584" => ->{},
     "\u258C" => ->{},
@@ -208,7 +208,7 @@ class Ohm
     "\u00B5" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(1, :*)}},
     "\u03C4" => ->{10},
     "\u03B4" => ->(a){a.each_cons(2).map {|a, b| (a.to_f - b.to_f).abs}},
-    "\u221E" => ->{@pointer = -1; nil},
+    "\u221E" => ->{@pointer = -1; nil}, 
     "\u03C6" => ->(a){a.prime_division.map {|x| 1 - (1.0 / x[0])}.reduce(a, :*).to_i},
     "\u03B5" => ->(a, b){arr_else_chars(a).include?(arr_else_str(b))},
     "\u2229" => ->(a, b){arr_else_chars(a) & arr_else_chars(b)},
@@ -233,7 +233,7 @@ class Ohm
   STACK_GET = %W(=)
 
   # When these components are run, their return value will be appended to the stack with a splat operator.
-  MULTIPLE_PUSH = %W(D a \u2261)
+  MULTIPLE_PUSH = %W(D a \u00C4 \u2261)
 
   # When these components are run, their return value will be appended to the stack even if it's nil.
   PUSH_NILS = %W(k)

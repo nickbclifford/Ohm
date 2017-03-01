@@ -13,25 +13,28 @@ class Ohm
   }
 
   attr_accessor :counter, :register
-  attr_reader :broken, :stack, :printed
+  attr_reader :broken, :inputs, :stack, :printed
 
   # Represents an Ohm circuit.
-  def initialize(circuit, debug, top_level = nil, stack = [], vars = DEFAULT_VARS)
+  def initialize(circuit, debug, top_level = nil, stack = [], inputs = [], vars = DEFAULT_VARS)
     @stack = stack
 
     # Only define singleton methods if top-level
     if top_level.nil?
+      this = self
       %i(pop last).each do |i|
         @stack.define_singleton_method(i) do |n = 1|
           len = length # The length changes after the call to `super`, so we get it first.
           result = super(n)
           if n > len
-            (n - len).times {result << $stdin.gets.chomp}
+            (n - len).times {result << instance_exec(&this.method(:input))}
           end
           result
         end
       end
     end
+
+    @inputs = inputs
 
     @top_level = top_level || {wires: circuit.split("\n"), index: 0}
     raise IndexError, "invalid wire index #{@top_level[:index]}" if @top_level[:wires][@top_level[:index]].nil?
@@ -106,7 +109,7 @@ class Ohm
         end
 
         if execute
-          block = Ohm.new(block_str, @debug, @top_level, @stack, @vars).exec
+          block = Ohm.new(block_str, @debug, @top_level, @stack, @inputs, @vars).exec
           @printed ||= block.printed
           @stack = block.stack
         end
@@ -124,7 +127,25 @@ class Ohm
           new_vars[:value] = v
           new_vars[:index] = i
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, new_vars).exec
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
+          @printed ||= block.printed
+          @stack = block.stack
+          break if block.broken
+        end
+
+        @pointer = loop_end
+      when 'M'
+        @pointer += 1
+        loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
+        loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
+
+        popped = @stack.pop[0]
+
+        popped.to_i.times do |i|
+          new_vars = @vars.clone
+          new_vars[:index] = i
+
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken

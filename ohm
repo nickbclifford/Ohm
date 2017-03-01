@@ -25,8 +25,8 @@ end.parse!
 start = Time.now if opts[:time]
 circuit = Ohm.new(opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8').strip, opts[:debug]).exec
 the_end = Time.now if opts[:time]
-    
-puts Ohm::Helpers.untyped_to_s(circuit.stack.last.is_a?(Array) ? circuit.stack.last[0] : circuit.stack.last) unless circuit.printed
+
+puts Ohm::Helpers.untyped_to_s(circuit.stack.dup.last) unless circuit.printed # Look at me, being clever by getting rid of singleton methods.
 puts "Stack at end of circuit: #{circuit.stack}" if opts[:debug]
 
 puts "Time taken: #{the_end - start} seconds" if opts[:time]

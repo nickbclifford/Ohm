@@ -128,12 +128,15 @@ These components will execute all components between them and a `;` character (o
 |`┬`|Pop `a`|Pushes `a` in all lower-case.|
 |`├`|Pop `a`, `b`|Pushes `a[0, b]` (slice).|
 |`─`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|
+|`┼`|N/A|Pushes the first input given.|
 |`╟`|Pop `a`|Pushes `a` randomly shuffled.|
 |`╬`|Pop `a`|Pushes a random element from `a`.|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|
 |`╤`|Pop `a`|Pushes minimum element in `a`.|
 |`╙`|Pop `a`|Pushes `a` rotated once to the right.|
 |`╪`|Pop `a`|Pushes minimum and maximum element in `a` as an array in the form `[min, max]`.|
+|`┘`|N/A|Pushes the second input given.|
+|`┌`|N/A|Pushes the third input given.|
 |`π`|Pop `a`|Pushes the `a`th prime number.|
 |`Σ`|Pop `a`|If `a` is an array, pushes the total sum of `a`, else pushes the total sum of the stack.|
 |`σ`|Pop `a`, `b`|Pushes `a` split in elements of length `b`.|
