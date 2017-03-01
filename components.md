@@ -106,6 +106,7 @@ These components will execute all components between them and a `;` character (o
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
 |`è`|Pop `a`|Pushes `a % 2 == 1` (odd).|
 |`î`|Pop `a`|Pushes `a` as an integer.|
+|`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|
 |`ô`|Pop `a`|Pushes `a` as a float.|
 |`ö`|Pop `a`|Pushes `a != 0`.|
 |`Ö`|Pop `a`|Pushes `a == 0`.|
