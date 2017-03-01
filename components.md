@@ -11,6 +11,8 @@ These components will execute all components between them and a `;` character (o
 |`?`|Pops `a`, and if true, executes its associated block (if statement).|
 |`¿`|If this component is between a `?` and `;`, the block from `¿` to `;` will be executed if the condition given to `?` is false (else clause).|
 |`:`|Pops `a` and executes its associated block for each element in `a`, with the special components `^` and `_` set as the index and element currently being looped, respectively (foreach loop).|
+|`M`|Pops `a` and runs its associated block `a` times.|
+|`Å`|Pops `a` and pushes whether or not all the elements in `a` push `true` from its associated block.|
 |`░`|Pops `a` and pushes an array containing all elements of `a` for which its associated block pushes `true` (filter/select).|
 |`▒`|Same as above, except `false` instead of `true` (reject).|
 |`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|
@@ -18,8 +20,6 @@ These components will execute all components between them and a `;` character (o
 |`╨`|Pops `a` and pushes the element in `a` that gives the maximum value from its associated block.|
 |`╥`|Pops `a` and pushes the element in `a` that gives the minimum value from its associated block.|
 |`╫`|Pops `a` and pushes the elements in `a` that give the minimum and maximum value from its associated block.|
-|`Å`|Pops `a` and pushes whether or not all the elements in `a` push `true` from its associated block.|
-|`M`|Pops `a` and runs its associated block `a` times.|
 
 ### Wire/block flow
 |Component|Description|
@@ -41,7 +41,7 @@ These components will execute all components between them and a `;` character (o
 |`&`|Pop `a`, `b`|Pushes `a && b` (boolean AND).|
 |`'`|Pop `a`|Pushes the character with char code `a`.|
 |`(`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
-|`)`|Pop `a`|If `a` is an array, pushes `a` without the last element, else removes the last element from the stack.|
+|`)`|Pop `a`|Pushes `a` without the last element.|
 |`*`|Pop `a`, `b`|Pushes `a * b` (multiplication).|
 |`+`|Pop `a`, `b`|Pushes `a + b` (addition).|
 |`,`|Pop `a`|Prints `a` to standard output (with trailing newline).|
@@ -63,6 +63,7 @@ These components will execute all components between them and a `;` character (o
 |`J`|Pop `a`|If `a` is an array, pushes `a.join('')`, else pushes `stack.join('')`.|
 |`L`|Pop `a`|Prints `a` to standard output (*without* trailing newline).|
 |`N`|Pop `a`, `b`|Pushes `a != b` (inequality).|
+|`O`|N/A|Removes last element of stack.|
 |`P`|Pop `a`|Pushes all primes up to `a`.|
 |`Q`|N/A|Reverses stack.|
 |`R`|Pop `a`|Pushes `a` reversed.|
@@ -123,15 +124,17 @@ These components will execute all components between them and a `;` character (o
 |`½`|Pop `a`|Pushes `a / 2` (half).|
 |`¼`|N/A|Pushes the current value of the counter.|
 |`¡`|N/A|Increments the counter by 1.|
+|`┤`|Pop `a`, `b`|Pushes `a[b, a.length]` (slice from end).|
 |`╣`|Pop `a`|Pushes all possible rotations of `a`.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
 |`╜`|Pop `a`|Pushes `a` rotated once to the left.|
 |`┴`|Pop `a`|Pushes `a` in all upper-case.|
 |`┬`|Pop `a`|Pushes `a` in all lower-case.|
-|`├`|Pop `a`, `b`|Pushes `a[0, b]` (slice).|
+|`├`|Pop `a`, `b`|Pushes `a[0, b]` (slice from beginning).|
 |`─`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|
 |`┼`|N/A|Pushes the first input given.|
 |`╟`|Pop `a`|Pushes `a` randomly shuffled.|
+|`═`|Pop `a`, `b`, `c`|Pushes `a[b, c]` (slice arbitrarily).|
 |`╬`|Pop `a`|Pushes a random element from `a`.|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|
 |`╤`|Pop `a`|Pushes minimum element in `a`.|

@@ -13,7 +13,7 @@ class Ohm
     '&' => ->(a, b){a && b},
     '\'' => ->(a){a.to_i.chr},
     '(' => ->(a, b){return a, b},
-    ')' => ->(a){a.is_a?(Array) ? a[0...a.length - 1] : (@stack = @stack[0..@stack.length]; nil)},
+    ')' => ->(a){arr_else_str(a)[0, a.length - 1]},
     '*' => ->(a, b){a.to_f * b.to_f},
     '+' => ->(a, b){a.to_f + b.to_f},
     ',' => ->(a){@printed = true; puts untyped_to_s(a)},
@@ -37,7 +37,7 @@ class Ohm
     'L' => ->(a){@printed = true; print untyped_to_s(a)},
     'M' => ->{},
     'N' => ->(a, b){untyped_to_s(a) != untyped_to_s(b)},
-    'O' => ->{},
+    'O' => ->{@stack = @stack[0, @stack.length - 1]; nil},
     'P' => ->(a){Prime.entries(a.to_i)},
     'Q' => ->{@stack = @stack.reverse; nil},
     'R' => ->(a){arr_else_str(a).reverse},
@@ -148,7 +148,7 @@ class Ohm
     "\u00AB" => ->{},
     "\u00BB" => ->{},
     "\u2502" => ->{},
-    "\u2524" => ->{},
+    "\u2524" => ->(a, b){arr_else_str(a)[b.to_i, a.length]},
     "\u2561" => ->{},
     "\u2562" => ->{},
     "\u2556" => ->{},
@@ -172,7 +172,7 @@ class Ohm
     "\u2569" => ->{},
     "\u2566" => ->{},
     "\u2560" => ->{},
-    "\u2550" => ->{},
+    "\u2550" => ->(a, b, c){arr_else_str(a)[b.to_i, c.to_i]},
     "\u256C" => ->(a){arr_else_chars(a).sample},
     "\u2567" => ->(a){arr_else_chars(a).max},
     "\u2568" => ->{},
@@ -239,5 +239,5 @@ class Ohm
   PUSH_NILS = %W(k)
 
   # These components mark the opening statement of a block.
-  OPENERS = %W(? : \u2591 \u2592 \u2593)
+  OPENERS = %W(? : M \u00C5 \u2591 \u2592 \u2593 \u2560 \u2568 \u2565 \u256B)
 end
