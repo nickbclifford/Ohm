@@ -19,6 +19,7 @@ These components will execute all components between them and a `;` character (o
 |`╥`|Pops `a` and pushes the element in `a` that gives the minimum value from its associated block.|
 |`╫`|Pops `a` and pushes the elements in `a` that give the minimum and maximum value from its associated block.|
 |`Å`|Pops `a` and pushes whether or not all the elements in `a` push `true` from its associated block.|
+|`M`|Pops `a` and runs its associated block `a` times.|
 
 ### Wire/block flow
 |Component|Description|
