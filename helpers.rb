@@ -90,8 +90,14 @@ class Ohm
     end
 
     def input
-      @inputs << i = $stdin.gets.chomp
-      i
+      i = $stdin.gets.chomp
+      @inputs << x = 
+        if /\[(.*?)\]/ =~ i || i == 'true' || i == 'false'
+          eval(i)
+        else
+          i
+        end
+      x
     end
 
     def input_access(i)
