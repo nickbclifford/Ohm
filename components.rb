@@ -54,7 +54,7 @@ class Ohm
     ']' => ->(a){a.is_a?(Array) ? a.flatten(1) : a},
     '^' => ->{@vars[:index]},
     '_' => ->{@vars[:value]},
-    '`' => ->(a){untyped_to_s(a).ord},
+    '`' => ->(a){x = untyped_to_s(a); x.length == 1 ? x.ord : x.each_char.map(&:ord)},
     'a' => ->(a, b){return b, a},
     'b' => ->(a){to_base(a.to_i, 2)},
     'c' => ->(a, b){nCr(a.to_i, b.to_i)},
