@@ -238,5 +238,5 @@ class Ohm
   PUSH_NILS = %W(k)
 
   # These components mark the opening statement of a block.
-  OPENERS = %W(? : M \u00C5 \u2591 \u2592 \u2593 \u2560 \u2568 \u2565 \u256B)
+  OPENERS = %W(? : M \u00C5 \u2591 \u2592 \u2593 \u2560 \u2568 \u2565 \u256B \u221E)
 end
