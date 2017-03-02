@@ -112,6 +112,7 @@ class Ohm
           block = Ohm.new(block_str, @debug, @top_level, @stack, @inputs, @vars).exec
           @printed ||= block.printed
           @stack = block.stack
+          @broken = block.broken
         end
 
         @pointer = cond_end
