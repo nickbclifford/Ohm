@@ -208,7 +208,6 @@ class Ohm
     "\u00B5" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(1, :*)}},
     "\u03C4" => ->{10},
     "\u03B4" => ->(a){a.each_cons(2).map {|a, b| (a.to_f - b.to_f).abs}},
-    "\u221E" => ->{@pointer = -1; nil}, 
     "\u03C6" => ->(a){a.prime_division.map {|x| 1 - (1.0 / x[0])}.reduce(a, :*).to_i},
     "\u03B5" => ->(a, b){arr_else_chars(a).include?(arr_else_str(b))},
     "\u2229" => ->(a, b){arr_else_chars(a) & arr_else_chars(b)},

@@ -152,6 +152,24 @@ class Ohm
         end
 
         @pointer = loop_end
+      when "\u221E"
+        @pointer += 1
+        loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
+        loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
+
+        counter = 0
+        loop do
+          new_vars = @vars.clone
+          new_vars[:index] = counter
+
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
+          @printed ||= block.printed
+          @stack = block.stack
+          break if block.broken
+          counter += 1
+        end
+
+        @pointer = loop_end
       # Array operations
       when "\u2591"
         instance_exec(:select, &method(:arr_operation))

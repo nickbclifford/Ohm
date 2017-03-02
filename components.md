@@ -20,6 +20,7 @@ These components will execute all components between them and a `;` character (o
 |`╨`|Pops `a` and pushes the element in `a` that gives the maximum value from its associated block.|
 |`╥`|Pops `a` and pushes the element in `a` that gives the minimum value from its associated block.|
 |`╫`|Pops `a` and pushes the elements in `a` that give the minimum and maximum value from its associated block.|
+|`∞`|Runs its associated block infinitely.|
 
 ### Wire/block flow
 |Component|Description|
@@ -27,7 +28,6 @@ These components will execute all components between them and a `;` character (o
 |`Φ`|Pops `a` and executes the wire at index `a`.|
 |`Θ`|Executes the wire at the index before the current one.|
 |`Ω`|Executes the wire at the index after the current one.|
-|`∞`|Returns execution pointer to beginning of block/wire.|
 |`■`|Breaks out of the current block/wire.|
 
 ### Utility
