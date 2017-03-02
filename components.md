@@ -117,6 +117,8 @@ These components will execute all components between them and a `;` character (o
 |`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
+|`ó`|Pop `a`|Pushes `a` converted to base 10 from binary (base 2).|
+|`ú`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|
 |`ñ`|Pop `a`|Pushes whether or not `s` is a Fibonacci number.|
 |`Ñ`|N/A|Pushes a newline character (`\n`).|
 |`ª`|Pop `a`|Pushes `a[b]` (element at index).|
