@@ -40,7 +40,7 @@ These components will execute all components between them and a `;` character (o
 |`%`|Pop `a`, `b`|Pushes `a % b` (modulo).|
 |`&`|Pop `a`, `b`|Pushes `a && b` (boolean AND).|
 |`'`|Pop `a`|Pushes the character with char code `a`.|
-|`(`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
+|`(`|Pop `a`|Pushes `a` without the first element.|
 |`)`|Pop `a`|Pushes `a` without the last element.|
 |`*`|Pop `a`, `b`|Pushes `a * b` (multiplication).|
 |`+`|Pop `a`, `b`|Pushes `a + b` (addition).|
@@ -114,6 +114,7 @@ These components will execute all components between them and a `;` character (o
 |`Ö`|Pop `a`|Pushes `a == 0`.|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|
 |`¢`|Get `a`|Sets the value of the register to `a`.|
+|`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
 |`ñ`|Pop `a`|Pushes whether or not `s` is a Fibonacci number.|
@@ -125,6 +126,7 @@ These components will execute all components between them and a `;` character (o
 |`½`|Pop `a`|Pushes `a / 2` (half).|
 |`¼`|N/A|Pushes the current value of the counter.|
 |`¡`|N/A|Increments the counter by 1.|
+|`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
 |`┤`|Pop `a`, `b`|Pushes `a[b, a.length]` (slice from end).|
 |`╣`|Pop `a`|Pushes all possible rotations of `a`.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
