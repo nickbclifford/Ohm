@@ -72,7 +72,7 @@ class Ohm
     'o' => ->(a){a.to_i.prime_division},
     'p' => ->(a){a.to_i.prime?},
     'q' => ->{},
-    'r' => ->{},
+    'r' => ->(a, b, c){untyped_to_s(a).tr(untyped_to_s(b), untyped_to_s(c))},
     's' => ->(a){a.to_s},
     't' => ->(a, b){from_base(a.to_s, b.to_i)},
     'u' => ->(a, b){subarray_index(*[a, b].map {|x| arr_else_str(x)})},

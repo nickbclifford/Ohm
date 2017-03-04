@@ -94,6 +94,7 @@ These components will execute all components between them and a `;` character (o
 |`n`|Pop `a`|Pushes *exponents* of prime factorization of `a`.|
 |`o`|Pop `a`|Pushes full prime factorization of `a`.|
 |`p`|Pop `a`|Pushes whether or not `a` is a prime number.|
+|`r`|Pop `a`, `b`, `c`|Pushes `a.tr(b, c)`.|
 |`s`|Pop `a`|Pushes `a` as a string.|
 |`t`|Pop `a`, `b`|Pushes `a` converted to base 10 from base `b`.|
 |`u`|Pop `a`, `b`|Pushes the index of the first occurrence of subarray `b` in `a`.|
