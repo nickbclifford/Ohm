@@ -106,7 +106,7 @@ These components will execute all components between them and a `;` character (o
 |`Ç`|Pop `a`, `b`|Pushes an array of each every `b` consecutive elements in `b`.|
 |`ü`|N/A|Pushes a space character (` `).|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
-|`è`|Pop `a`|Pushes `a % 2 == 1` (odd).|
+|`è`|Pop `a`|Pushes `a % 2 != 0` (odd).|
 |`ï`|Pop `a`, `b`|Pushes `a.split(b)`.|
 |`î`|Pop `a`|Pushes `a` as an integer.|
 |`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|
@@ -203,3 +203,9 @@ These components will execute all components between them and a `;` character (o
 |`αv`|Pushes all the vowels (`aeiou`).|
 |`αy`|Pushes all the vowels **including `y`** (`aeiouy`).|
 |`αß`|Pushes the normal alphabet (`abcdefghijklmnopqrstuvwxyz`).|
+
+### Extras (`∙`)
+|Component|Action|Description|
+|---------|------|-----------|
+|`∙p`|Pop `a`|Pushes all prefixes of `a`.|
+|`∙s`|Pop `a`|Pushes all suffixes of `a`.|

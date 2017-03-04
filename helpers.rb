@@ -19,13 +19,19 @@ class Ohm
     end
 
     def arr_else_chars(arg)
-      arg.is_a?(Array) ? arg : untyped_to_s(arg).each_char.to_a
+      arg.is_a?(Array) ? arg : untyped_to_s(arg).chars
     end
 
     def arr_else_chars_join(arg, &block)
       result = block.call(arr_else_chars(arg))
 
       arg.is_a?(Array) ? result : result.join
+    end
+
+    def arr_else_chars_inner_join(arg, &block)
+      result = block.call(arr_else_chars(arg))
+
+      arg.is_a?(Array) ? result : result.map(&:join)
     end
 
     def arr_operation(meth, amount_pop = nil)
