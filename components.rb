@@ -23,7 +23,7 @@ class Ohm
     '=' => ->(a){@printed = true; puts untyped_to_s(a)},
     '>' => ->(a, b){a.to_f > b.to_f},
     '@' => ->(a){(1..a.to_f).to_a},
-    'A' => ->{},
+    'A' => ->(a){a.to_f.abs},
     'B' => ->(a, b){to_base(a.to_i, b.to_i)},
     'C' => ->(a, b){arr_else_str(a).concat(arr_else_str(b))},
     'D' => ->(a){return a, a},

@@ -52,6 +52,7 @@ These components will execute all components between them and a `;` character (o
 |`=`|Get `a`|Prints `a` to standard output (with trailing newline)|.
 |`>`|Pop `a`, `b`|Pushes `a > b` (greater than).|
 |`@`|Pop `a`|Pushes the range `1..a`.|
+|`A`|Pop `a`|Pushes the absolute value of `a`.|
 |`B`|Pop `a`, `b`|Pushes `a` converted to base `b`.|
 |`C`|Pop `a`, `b`|Pushes `a` concatenated with `b`.|
 |`D`|Pop `a`|Pushes `a` twice (duplicate).|
