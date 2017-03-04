@@ -99,6 +99,7 @@ These components will execute all components between them and a `;` character (o
 |`u`|Pop `a`, `b`|Pushes the index of the first occurrence of subarray `b` in `a`.|
 |`w`|Pop `a`|Pushes `[a]` (wrap).|
 |`x`|Pop `a`|Pushes `a` in hexadecimal (base 16).|
+|`y`|Pop `a`|Pushes the sign of `a` (`1` if positive, `-1` if negative, `0` if zero).|
 |`{`|Pop `a`|Pushes `a` deep flattened.|
 |`|`|Pop `a`, `b`|Pushes `a || b` (boolean OR).|
 |`}`|Pop `a`|Pushes `a` split into slices of 1 (shorthand for `1σ`).|

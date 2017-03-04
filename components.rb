@@ -79,7 +79,7 @@ class Ohm
     'v' => ->{},
     'w' => ->(a){[a]},
     'x' => ->(a){to_base(a.to_i, 16)},
-    'y' => ->{},
+    'y' => ->(a){a.to_f <=> 0},
     'z' => ->{},
     '{' => ->(a){a.is_a?(Array) ? a.flatten : a},
     '|' => ->(a, b){a || b},
