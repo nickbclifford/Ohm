@@ -74,6 +74,7 @@ These components will execute all components between them and a `;` character (o
 |`V`|Pop `a`|Pushes divisors of `a`.|
 |`W`|N/A|Pushes `[stack]` (wrap).|
 |`X`|Pop `a`, `b`|Pushes `b` prepended to `a`.|
+|`Y`|Pop `a`|Pushes proper divisors of `a`.|
 |`[`|Pop `a`|Pushes `stack[a]`.|
 |`\`|Pop `a`|Pushes `!a` (boolean NOT).|
 |`]`|Pop `a`|Pushes `a` flattened one level.|
@@ -98,6 +99,7 @@ These components will execute all components between them and a `;` character (o
 |`s`|Pop `a`|Pushes `a` as a string.|
 |`t`|Pop `a`, `b`|Pushes `a` converted to base 10 from base `b`.|
 |`u`|Pop `a`, `b`|Pushes the index of the first occurrence of subarray `b` in `a`.|
+|`v`|Pop `a`, `b`|Pushes `a // b` (integer/floor division).|
 |`w`|Pop `a`|Pushes `[a]` (wrap).|
 |`x`|Pop `a`|Pushes `a` in hexadecimal (base 16).|
 |`y`|Pop `a`|Pushes the sign of `a` (`1` if positive, `-1` if negative, `0` if zero).|
