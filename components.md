@@ -110,6 +110,7 @@ These components will execute all components between them and a `;` character (o
 |`Ç`|Pop `a`, `b`|Pushes an array of each every `b` consecutive elements in `b`.|
 |`ü`|N/A|Pushes a space character (` `).|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
+|`â`|Pop `a`|Pushes the first `a` prime numbers.|
 |`è`|Pop `a`|Pushes `a % 2 != 0` (odd).|
 |`ï`|Pop `a`, `b`|Pushes `a.split(b)`.|
 |`î`|Pop `a`|Pushes `a` as an integer.|
