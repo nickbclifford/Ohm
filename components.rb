@@ -197,7 +197,9 @@ class Ohm
       'k' => ->{'qwertyuiopasdfghjklzxcvbnm'},
       'v' => ->{'aeiou'},
       'y' => ->{'aeiouy'},
+      "\u00EA" => ->{Math::E},
       "\u00DF" => ->{'abcdefghijklmnopqrstuvwxyz'}, # Heh. Alpha-beta.
+      "\u03C0" => ->{Math::PI},
     },
     "\u00DF" => ->{},
     "\u0393" => ->{},

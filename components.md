@@ -216,7 +216,9 @@ These components will execute all components between them and a `;` character (o
 |`αk`|Pushes the alphabet ordered like it is on a keyboard (`qwertyuiopasdfghjklzxcvbnm`).|
 |`αv`|Pushes all the vowels (`aeiou`).|
 |`αy`|Pushes all the vowels **including `y`** (`aeiouy`).|
+|`αê`|Pushes Euler's constant `e` (`2.718281...`).|
 |`αß`|Pushes the normal alphabet (`abcdefghijklmnopqrstuvwxyz`).|
+|`απ`|Pushes pi (`3.1415926...`).|
 
 ### Extras (`∙`)
 |Component|Action|Description|
