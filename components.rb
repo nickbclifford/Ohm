@@ -126,7 +126,7 @@ class Ohm
     "\u00D6" => ->(a){a.to_f == 0},
     "\u00DC" => ->(a, b){arr_else_chars(a) | arr_else_chars(b)},
     "\u00A2" => ->(a){@vars[:register] = a}, # This doesn't have to go under GET since assignment still returns the value
-    "\u00A3" => ->{},
+    "\u00A3" => ->(a){sleep(a.to_f); nil},
     "\u00A5" => ->(a, b){a.to_f % b.to_f == 0},
     "\u20A7" => ->(a){untyped_to_s(a) == untyped_to_s(a).reverse},
     "\u0192" => ->(a){nth_fibonacci(a.to_i)},

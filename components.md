@@ -121,6 +121,7 @@ These components will execute all components between them and a `;` character (o
 |`Ö`|Pop `a`|Pushes `a == 0`.|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|
 |`¢`|Get `a`|Sets the value of the register to `a`.|
+|`£`|Pop `a`|Sleeps execution for `a` seconds.|
 |`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
