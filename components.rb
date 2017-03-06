@@ -35,7 +35,6 @@ class Ohm
     'J' => ->(a){arr_or_stack(a, &:join)},
     'K' => ->{},
     'L' => ->(a){@printed = true; print untyped_to_s(a)},
-    'M' => ->{},
     'N' => ->(a, b){untyped_to_s(a) != untyped_to_s(b)},
     'O' => ->{@stack = @stack[0, @stack.length - 1]; nil},
     'P' => ->(a){Prime.entries(a.to_i)},
@@ -100,7 +99,6 @@ class Ohm
     "\u00EE" => ->(a){a.to_i},
     "\u00EC" => ->{},
     "\u00C4" => ->(a, b){Array.new(b.to_i) {a}},
-    "\u00C5" => ->{},
     "\u00C9" => ->{},
     "\u00E6" => ->{},
     "\u00C6" => {
@@ -124,7 +122,7 @@ class Ohm
     "\u00F2" => ->{},
     "\u00FB" => ->{},
     "\u00F9" => ->{},
-    "\u00FF" => ->{},
+    "\u00FF" => ->{''},
     "\u00D6" => ->(a){a.to_f == 0},
     "\u00DC" => ->(a, b){arr_else_chars(a) | arr_else_chars(b)},
     "\u00A2" => ->(a){@vars[:register] = a}, # This doesn't have to go under GET since assignment still returns the value

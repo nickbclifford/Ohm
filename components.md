@@ -117,6 +117,7 @@ These components will execute all components between them and a `;` character (o
 |`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|
 |`ô`|Pop `a`|Pushes `a` as a float.|
 |`ö`|Pop `a`|Pushes `a != 0`.|
+|`ÿ`|N/A|Pushes empty string (`''`).|
 |`Ö`|Pop `a`|Pushes `a == 0`.|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|
 |`¢`|Get `a`|Sets the value of the register to `a`.|
