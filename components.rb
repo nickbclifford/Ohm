@@ -97,7 +97,7 @@ class Ohm
     "\u00E8" => ->(a){a.to_f % 2 != 0},
     "\u00EF" => ->(a, b){untyped_to_s(a).split(untyped_to_s(b))},
     "\u00EE" => ->(a){a.to_i},
-    "\u00EC" => ->{},
+    "\u00EC" => ->(a){a.to_f % 1 == 0},
     "\u00C4" => ->(a, b){Array.new(b.to_i) {a}},
     "\u00C9" => ->{},
     "\u00E6" => ->{},

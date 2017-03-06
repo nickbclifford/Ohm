@@ -114,6 +114,7 @@ These components will execute all components between them and a `;` character (o
 |`è`|Pop `a`|Pushes `a % 2 != 0` (odd).|
 |`ï`|Pop `a`, `b`|Pushes `a.split(b)`.|
 |`î`|Pop `a`|Pushes `a` as an integer.|
+|`ì`|Pop `a`|Pushes if `a` is an integer.|
 |`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|
 |`ô`|Pop `a`|Pushes `a` as a float.|
 |`ö`|Pop `a`|Pushes `a != 0`.|
