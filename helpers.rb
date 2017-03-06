@@ -1,3 +1,5 @@
+require 'set'
+
 require_relative 'constants'
 
 class Ohm
@@ -146,6 +148,18 @@ class Ohm
       popped = set.pop
       subset = powerset(set)
       subset | subset.map {|a| a | [popped]}
+    end
+
+    # Adapted from a Python answer on StackOverflow
+    def square?(int)
+      x = int.div(2)
+      seen = Set.new([x])
+      until (x ** 2) == int
+        x = (x + int.div(x)).div(2)
+        return false if seen.include?(x)
+        seen << x
+      end
+      true
     end
 
     def subarray_index(haystack, needle)

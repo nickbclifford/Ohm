@@ -176,7 +176,7 @@ These components will execute all components between them and a `;` character (o
 |`⌡`|Pop `a`|Pushes `a` rounded *down* to the nearest integer (floor).|
 |`÷`|Pop `a`|Pushes `1 / a` (reciprocal).|
 |`≈`|Pop `a`|Pushes `a` rounded to the nearest integer.|
-|`°`|Pop `a`|Pushes 10<sup>`a`</sup>|
+|`°`|Pop `a`|Pushes 10<sup>`a`</sup>.|
 |`·`|Pop `a`, `b`|Pushes `a` repeated `b` times.|
 |`√`|Pop `a`|Pushes the square root of `a`.|
 |`ⁿ`|Pop `a`, `b`|Pushes `a`<sup>`b`</sup>.|
@@ -201,6 +201,7 @@ These components will execute all components between them and a `;` character (o
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
+|`Æ²`|Pop `a`|Pushes whether or not `a` is a perfect square.|
 
 ### Constants (`α`)
 **Note**: Because these are constants, they only push to the stack.

@@ -116,6 +116,7 @@ class Ohm
       's' => ->(a){Math.asin(a.to_f)},
       't' => ->(a){Math.atan(a.to_f)},
       'u' => ->(a, b){Math.atan2(b.to_f, a.to_f)},
+      "\u00B2" => ->(a){square?(a.to_i)},
     },
     "\u00F4" => ->(a){a.to_f},
     "\u00F6" => ->(a){a.to_f != 0},
