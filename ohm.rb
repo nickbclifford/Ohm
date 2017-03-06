@@ -200,9 +200,11 @@ class Ohm
         instance_exec(@top_level[:index] + 1, &method(:exec_wire_at_index))
       # Break statement
       when "\u25A0"
-        @broken = true
-        puts 'Breaking out of current wire/block' if @debug
-        break
+        if @stack.pop[0]
+          @broken = true
+          puts 'Breaking out of current wire/block' if @debug
+          break
+        end
       else
         component_lambda =
           case COMPONENTS[current_component]

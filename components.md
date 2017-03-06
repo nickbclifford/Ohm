@@ -28,7 +28,7 @@ These components will execute all components between them and a `;` character (o
 |`Φ`|Pops `a` and executes the wire at index `a`.|
 |`Θ`|Executes the wire at the index before the current one.|
 |`Ω`|Executes the wire at the index after the current one.|
-|`■`|Breaks out of the current block/wire.|
+|`■`|Pops `a` and breaks out of the current block/wire if `a` is true.|
 
 ### Utility
 |Component|Action|Description|
