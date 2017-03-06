@@ -145,6 +145,10 @@ These components will execute all components between them and a `;` character (o
 |`─`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|
 |`┼`|N/A|Pushes the first input given.|
 |`╟`|Pop `a`|Pushes `a` randomly shuffled.|
+|`╚`|Pop `a`, `b`|Pushes `a` with `b` spaces *prepended*.|
+|`╔`|Pop `a`, `b`|Pushes `a` with `b` spaces *appended*.|
+|`╩`|Pop `a`, `b`|Pushes `a` left-justified to length `b` (with spaces).|
+|`╦`|Pop `a`, `b`|Pushes `a` right-justified to length `b` (with spaces).|
 |`═`|Pop `a`, `b`, `c`|Pushes `a[b, c]` (slice arbitrarily).|
 |`╬`|Pop `a`|Pushes a random element from `a`.|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|
