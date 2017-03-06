@@ -138,6 +138,7 @@ These components will execute all components between them and a `;` character (o
 |`¼`|N/A|Pushes the current value of the counter.|
 |`¡`|N/A|Increments the counter by 1.|
 |`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
+|`»`|Pop `a`|Pushes a *single component* mapped over all values of `a`.|
 |`┤`|Pop `a`, `b`|Pushes `a[b, a.length]` (slice from end).|
 |`╣`|Pop `a`|Pushes all possible rotations of `a`.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|

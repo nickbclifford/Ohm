@@ -155,6 +155,7 @@ class Ohm
       x = int.div(2)
       seen = Set.new([x])
       until (x ** 2) == int
+        x = 1 if x.zero?
         x = (x + int.div(x)).div(2)
         return false if seen.include?(x)
         seen << x
