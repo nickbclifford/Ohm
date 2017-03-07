@@ -84,7 +84,7 @@ class Ohm
     '|' => ->(a, b){a || b},
     '}' => ->(a){(a.is_a?(Array) ? a.each_slice(1) : untyped_to_s(a).each_char).to_a},
     '~' => ->(a){-a.to_f},
-    "\u00C7" => ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_cons(b.to_i)}},
+    "\u00C7" => ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_cons(b.to_i).to_a}},
     "\u00FC" => ->{' '},
     "\u00E9" => ->(a){a.to_f % 2 == 0},
     "\u00E2" => ->(a){Prime.first(a.to_i)},
