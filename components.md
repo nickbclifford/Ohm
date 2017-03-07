@@ -62,6 +62,7 @@ These components will execute all components between them and a `;` character (o
 |`H`|Pop `a`, `b`|Pushes `a.push(b)` (Note that this **does not work** with strings).|
 |`I`|N/A|Pushes input from standard input.|
 |`J`|Pop `a`|If `a` is an array, pushes `a.join('')`, else pushes `stack.join('')`.|
+|`K`|Pop `a`, `b`|Pushes the amount of times that `b` occurs in `a`.|
 |`L`|Pop `a`|Prints `a` to standard output (*without* trailing newline).|
 |`N`|Pop `a`, `b`|Pushes `a != b` (inequality).|
 |`O`|N/A|Removes last element of stack.|
