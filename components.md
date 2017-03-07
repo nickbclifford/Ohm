@@ -28,7 +28,7 @@ These components will execute all components between them and a `;` character (o
 |`Φ`|Pops `a` and executes the wire at index `a`.|
 |`Θ`|Executes the wire at the index before the current one.|
 |`Ω`|Executes the wire at the index after the current one.|
-|`■`|Breaks out of the current block/wire.|
+|`■`|Pops `a` and breaks out of the current block/wire if `a` is true.|
 
 ### Utility
 |Component|Action|Description|
@@ -114,6 +114,7 @@ These components will execute all components between them and a `;` character (o
 |`è`|Pop `a`|Pushes `a % 2 != 0` (odd).|
 |`ï`|Pop `a`, `b`|Pushes `a.split(b)`.|
 |`î`|Pop `a`|Pushes `a` as an integer.|
+|`ì`|Pop `a`|Pushes if `a` is an integer.|
 |`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|
 |`ô`|Pop `a`|Pushes `a` as a float.|
 |`ö`|Pop `a`|Pushes `a != 0`.|
@@ -121,6 +122,7 @@ These components will execute all components between them and a `;` character (o
 |`Ö`|Pop `a`|Pushes `a == 0`.|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|
 |`¢`|Get `a`|Sets the value of the register to `a`.|
+|`£`|Pop `a`|Sleeps execution for `a` seconds.|
 |`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
@@ -136,6 +138,7 @@ These components will execute all components between them and a `;` character (o
 |`¼`|N/A|Pushes the current value of the counter.|
 |`¡`|N/A|Increments the counter by 1.|
 |`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
+|`»`|Pop `a`|Pushes a *single component* mapped over all values of `a`.|
 |`┤`|Pop `a`, `b`|Pushes `a[b, a.length]` (slice from end).|
 |`╣`|Pop `a`|Pushes all possible rotations of `a`.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
@@ -158,6 +161,7 @@ These components will execute all components between them and a `;` character (o
 |`╪`|Pop `a`|Pushes minimum and maximum element in `a` as an array in the form `[min, max]`.|
 |`┘`|N/A|Pushes the second input given.|
 |`┌`|N/A|Pushes the third input given.|
+|`█`|N/A|Pushes empty array (`[]`).|
 |`π`|Pop `a`|Pushes the `a`th prime number.|
 |`Σ`|Pop `a`|If `a` is an array, pushes the total sum of `a`, else pushes the total sum of the stack.|
 |`σ`|Pop `a`, `b`|Pushes `a` split in elements of length `b`.|
@@ -175,7 +179,7 @@ These components will execute all components between them and a `;` character (o
 |`⌡`|Pop `a`|Pushes `a` rounded *down* to the nearest integer (floor).|
 |`÷`|Pop `a`|Pushes `1 / a` (reciprocal).|
 |`≈`|Pop `a`|Pushes `a` rounded to the nearest integer.|
-|`°`|Pop `a`|Pushes 10<sup>`a`</sup>|
+|`°`|Pop `a`|Pushes 10<sup>`a`</sup>.|
 |`·`|Pop `a`, `b`|Pushes `a` repeated `b` times.|
 |`√`|Pop `a`|Pushes the square root of `a`.|
 |`ⁿ`|Pop `a`, `b`|Pushes `a`<sup>`b`</sup>.|
@@ -200,6 +204,7 @@ These components will execute all components between them and a `;` character (o
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
+|`Æ²`|Pop `a`|Pushes whether or not `a` is a perfect square.|
 
 ### Constants (`α`)
 **Note**: Because these are constants, they only push to the stack.
@@ -212,7 +217,9 @@ These components will execute all components between them and a `;` character (o
 |`αk`|Pushes the alphabet ordered like it is on a keyboard (`qwertyuiopasdfghjklzxcvbnm`).|
 |`αv`|Pushes all the vowels (`aeiou`).|
 |`αy`|Pushes all the vowels **including `y`** (`aeiouy`).|
+|`αê`|Pushes Euler's constant `e` (`2.718281...`).|
 |`αß`|Pushes the normal alphabet (`abcdefghijklmnopqrstuvwxyz`).|
+|`απ`|Pushes pi (`3.1415926...`).|
 
 ### Extras (`∙`)
 |Component|Action|Description|

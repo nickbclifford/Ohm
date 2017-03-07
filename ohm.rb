@@ -58,13 +58,13 @@ class Ohm
     @pointer = 0
 
     while @pointer < @wire.length
-      current_component = @wire[@pointer]
-      break if current_component == "\n"
-      puts "Component: #{current_component} || Stack: #{@stack}" if @debug
+      @component = @wire[@pointer]
+      break if @component == "\n"
+      puts "Component: #{@component} || Stack: #{@stack}" if @debug
 
       # Special cases where the behavior can't be described with a concise lambda
       # Literals
-      case current_component
+      case @component
       when /[0-9]/ # Number literal
         number = @wire[@pointer..@wire.length][/[0-9]+/]
         @pointer += number.length - 1
@@ -171,58 +171,81 @@ class Ohm
         end
 
         @pointer = loop_end
+      when "\u00BB"
+        @pointer += 1
+        @component = @wire[@pointer]
+
+        # Multi-character component support
+        if COMPONENTS[@component].is_a?(Hash)
+          @pointer += 1
+          @component << @wire[@pointer]
+        end
+
+        @stack << @stack.pop[0].map do |e|
+          comp = Ohm.new(@component, @debug, @top_level, @stack << e, @inputs, @vars).exec
+          @printed ||= comp.printed
+          break if comp.broken
+          @stack = comp.stack
+          comp.stack[0]
+        end
+
+        @stack.delete_at(@stack.length - 2) # The `<< e` bit adds an extra element, so we remove it
       # Array operations
       when "\u2591"
-        instance_exec(:select, &method(:arr_operation))
+        arr_operation(:select)
       when "\u2592"
-        instance_exec(:reject, &method(:arr_operation))
+        arr_operation(:reject)
       when "\u2593"
-        instance_exec(:map, &method(:arr_operation))
+        arr_operation(:map)
       when "\u2560"
-        instance_exec(:sort_by, &method(:arr_operation))
+        arr_operation(:sort_by)
       when "\u2568"
-        instance_exec(:max_by, &method(:arr_operation))
+        arr_operation(:max_by)
       when "\u2565"
-        instance_exec(:min_by, &method(:arr_operation))
+        arr_operation(:min_by)
       when "\u256B"
-        instance_exec(:minmax_by, &method(:arr_operation))
+        arr_operation(:minmax_by)
       when "\u00C5"
         # By default, Enumerable#all? returns a boolean instead of an enumerator if no block was given
         # So in order to keep everything DRY, we'll just map over the block and call #all? on the resulting array
-        instance_exec(:map, &method(:arr_operation))
+        arr_operation(:map)
         @stack << @stack.pop[0].all?
       # Special behavior for calling wires
       when "\u03A6"
-        instance_exec(@stack.pop[0].to_i, &method(:exec_wire_at_index))
+        exec_wire_at_index(@stack.pop[0].to_i)
       when "\u0398"
-        instance_exec(@top_level[:index] - 1, &method(:exec_wire_at_index))
+        exec_wire_at_index(@top_level[:index] - 1)
       when "\u03A9"
-        instance_exec(@top_level[:index] + 1, &method(:exec_wire_at_index))
+        exec_wire_at_index(@top_level[:index] + 1)
       # Break statement
       when "\u25A0"
-        @broken = true
-        puts 'Breaking out of current wire/block' if @debug
-        break
+        if @stack.pop[0]
+          @broken = true
+          puts 'Breaking out of current wire/block' if @debug
+          break
+        end
       else
-        component_lambda =
-          case COMPONENTS[current_component]
+        comp_lambda = 
+          case COMPONENTS[@component]
           when Hash # Multi-character component
             @pointer += 1
-            COMPONENTS[current_component][@wire[@pointer]]
+            l = COMPONENTS[@component][@wire[@pointer]]
+            @component << @wire[@pointer]
+            l
           when nil # Component not found
             ->{} # No-op
           else
-            COMPONENTS[current_component]
+            COMPONENTS[@component]
           end
 
         args = @stack.method(
-          STACK_GET.include?(current_component) ? :last : :pop
-        ).call(component_lambda.arity)
+          STACK_GET.include?(@component) ? :last : :pop
+        ).call(comp_lambda.arity)
 
-        result = instance_exec(*args, &component_lambda)
+        result = instance_exec(*args, &comp_lambda)
 
-        unless result.nil? && !PUSH_NILS.include?(current_component)
-          if MULTIPLE_PUSH.include?(current_component)
+        unless result.nil? && !PUSH_NILS.include?(@component)
+          if MULTIPLE_PUSH.include?(@component)
             @stack.push(*result)
           else
             @stack << result
