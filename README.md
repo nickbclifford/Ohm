@@ -51,3 +51,6 @@ The Ohm interpreter is written in Ruby 2.x. It does not rely on any external gem
 If some of the components you're using seem to be no-ops (i.e. they either don't do anything or hang execution), make sure your terminal is in **UTF-8** mode. This can be achieved on Windows with the command `chcp 65001`.
 
 If that doesn't fix it, feel free to open an issue here on GitHub.
+
+## TODO
+- Proper vectorization of components
