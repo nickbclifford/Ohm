@@ -203,7 +203,7 @@ class Ohm
       "\u03C0" => ->{Math::PI},
     },
     "\u00DF" => ->{},
-    "\u0393" => ->{},
+    "\u0393" => ->{-1},
     "\u03C0" => ->(a){Prime.first(a.to_i).last},
     "\u03A3" => ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(0, :+)}},
     "\u03C3" => ->(a, b){a.is_a?(Array) ? a.each_slice(b.to_i).to_a : untyped_to_s(a).scan(/.{1,#{b.to_i}}/)},

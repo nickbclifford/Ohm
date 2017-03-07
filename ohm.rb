@@ -182,14 +182,11 @@ class Ohm
         end
 
         @stack << @stack.pop[0].map do |e|
-          comp = Ohm.new(@component, @debug, @top_level, @stack << e, @inputs, @vars).exec
+          comp = Ohm.new(@component, @debug, @top_level, @stack.clone << e, @inputs, @vars).exec
           @printed ||= comp.printed
           break if comp.broken
-          @stack = comp.stack
-          comp.stack[0]
+          comp.stack.last[0]
         end
-
-        @stack.delete_at(@stack.length - 2) # The `<< e` bit adds an extra element, so we remove it
       # Array operations
       when "\u2591"
         arr_operation(:select)
