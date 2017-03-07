@@ -87,7 +87,7 @@ These components will execute all components between them and a `;` character (o
 |`c`|Pop `a`, `b`|Pushes `a nCr b` (binomial coefficient).|
 |`d`|Pop `a`|Pushes `a * 2` (double).|
 |`e`|Pop `a`, `b`|Pushes `a nPr b` (permutations).|
-|`f`|Pop `a`|Pushes all Fibonacci numbers up to `f`.|
+|`f`|Pop `a`|Pushes all Fibonacci numbers up to `a`.|
 |`g`|Pop `a`, `b`|Pushes the range `a...b`.|
 |`j`|Pop `a`, `b`|If `a` is an array, pushes `a.join(b)`, else pushes `stack.join(b)`.|
 |`k`|Pop `a`, `b`|Pushes index of `b` in `a`.|
