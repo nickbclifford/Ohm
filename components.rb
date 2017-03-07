@@ -240,7 +240,7 @@ class Ohm
   MULTIPLE_PUSH = %W(D a \u00C4 \u2261)
 
   # When these components are run, their return value will be appended to the stack even if it's nil.
-  PUSH_NILS = %W(k)
+  PUSH_NILS = %W(k \u00A2 \u00AA)
 
   # These components mark the opening statement of a block.
   OPENERS = %W(? : M \u00C5 \u2591 \u2592 \u2593 \u2560 \u2568 \u2565 \u256B \u221E)
