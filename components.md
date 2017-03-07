@@ -204,6 +204,7 @@ These components will execute all components between them and a `;` character (o
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
+|`Æⁿ`|Pop `a`, `b`|Pushes whether or not `a` is a perfect `b`th power.|
 |`Æ²`|Pop `a`|Pushes whether or not `a` is a perfect square.|
 
 ### Constants (`α`)

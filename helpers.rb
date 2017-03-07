@@ -150,13 +150,13 @@ class Ohm
       subset | subset.map {|a| a | [popped]}
     end
 
-    # Adapted from a Python answer on StackOverflow
-    def square?(int)
-      x = int.div(2)
+    # Partially adapted from a Python answer on StackOverflow
+    def perfect_exp?(int, exp)
+      x = int.div(exp)
       seen = Set.new([x])
-      until (x ** 2) == int
+      until (x ** exp) == int
         x = 1 if x.zero?
-        x = (x + int.div(x)).div(2)
+        x = (((exp - 1) * x) + int.div(x ** (exp - 1))).div(exp)
         return false if seen.include?(x)
         seen << x
       end
