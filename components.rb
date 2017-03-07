@@ -92,7 +92,7 @@ class Ohm
     "\u00E0" => ->{},
     "\u00E5" => ->{},
     "\u00E7" => ->{},
-    "\u00EA" => ->{},
+    "\u00EA" => ->(a){a.to_i.times.map {|i| nth_fibonacci(i + 1)}},
     "\u00EB" => ->{},
     "\u00E8" => ->(a){a.to_f % 2 != 0},
     "\u00EF" => ->(a, b){untyped_to_s(a).split(untyped_to_s(b))},
