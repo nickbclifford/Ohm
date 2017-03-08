@@ -91,7 +91,7 @@ class Ohm
     "\u00E4" => ->{},
     "\u00E0" => ->{},
     "\u00E5" => ->{},
-    "\u00E7" => ->{},
+    "\u00E7" => ->(a, b){arr_else_chars_inner_join(a) {|a| a.combination(b.to_i).to_a}},
     "\u00EA" => ->(a){a.to_i.times.map {|i| nth_fibonacci(i + 1)}},
     "\u00EB" => ->{},
     "\u00E8" => ->(a){a.to_f % 2 != 0},

@@ -112,6 +112,7 @@ These components will execute all components between them and a `;` character (o
 |`ü`|N/A|Pushes a space character (` `).|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
 |`â`|Pop `a`|Pushes the first `a` prime numbers.|
+|`ç`|Pop `a`, `b`|Pushes all possible combinations of length `b` of elements in `a`.|
 |`ê`|Pop `a`|Pushes the first `a` Fibonacci numbers.|
 |`è`|Pop `a`|Pushes `a % 2 != 0` (odd).|
 |`ï`|Pop `a`, `b`|Pushes `a.split(b)`.|
