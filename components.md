@@ -232,4 +232,4 @@ These components will execute all components between them and a `;` character (o
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
 |`∙⌐`|Pop `a`, `b`|Pushes whether or not `a` and `b` are permutations of each other.|
-|`∙·`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|
+|`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|
