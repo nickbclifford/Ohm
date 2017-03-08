@@ -44,7 +44,7 @@ class Ohm
     'T' => ->{true},
     'U' => ->(a){arr_else_chars_join(a, &:uniq)},
     'V' => ->(a){(1..a.to_i).select {|n| a.to_i % n == 0}},
-    'W' => ->{@stack = [@stack]; nil},
+    'W' => ->{@stack = Stack.new(self, [@stack]); nil},
     'X' => ->(a, b){arr_else_chars_join(a) {|a| a.unshift(b)}},
     'Y' => ->(a){(1...a.to_i).select {|n| a.to_i % n == 0}},
     'Z' => ->{},

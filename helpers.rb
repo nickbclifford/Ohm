@@ -52,7 +52,7 @@ class Ohm
         @printed ||= block.printed
         @stack = block.stack
         break if block.broken
-        @stack.pop[0] unless @stack.dup.last.nil? # Using `.dup` doesn't clone over the singleton methods.
+        @stack.pop[0] unless @stack.last[0].nil?
       end
 
       @pointer = loop_end
@@ -62,7 +62,7 @@ class Ohm
       if arg.is_a?(Array)
         block.call(arg)
       else
-        @stack = [block.call(@stack << arg)] # The argument gets popped, so we have to push it back
+        @stack = Stack.new(self, [block.call(@stack << arg)]) # The argument gets popped, so we have to push it back
         nil
       end
     end

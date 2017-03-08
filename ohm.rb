@@ -1,6 +1,24 @@
 require_relative 'components'
 
 class Ohm
+  class Stack < Array
+    def initialize(ohm, *args)
+      @ohm = ohm
+      super(*args)
+    end
+
+    %i(pop last).each do |i|
+      define_method(i) do |n = 1|
+        len = length # The length changes after the call to `super`, so we get it first.
+        result = super(n)
+        if n > len
+          (n - len).times {result << @ohm.instance_exec(&@ohm.method(:input))}
+        end
+        result
+      end
+    end
+  end
+
   DEFAULT_VARS = {
     # Like 05AB1E, there is an integer counter that can only be incremented.
     counter: 0,
@@ -16,23 +34,8 @@ class Ohm
   attr_reader :broken, :inputs, :stack, :printed
 
   # Represents an Ohm circuit.
-  def initialize(circuit, debug, top_level = nil, stack = [], inputs = [], vars = DEFAULT_VARS)
+  def initialize(circuit, debug, top_level = nil, stack = Stack.new(self), inputs = [], vars = DEFAULT_VARS)
     @stack = stack
-
-    # Only define singleton methods if top-level
-    # if top_level.nil?
-      this = self
-      %i(pop last).each do |i|
-        @stack.define_singleton_method(i) do |n = 1|
-          len = length # The length changes after the call to `super`, so we get it first.
-          result = super(n)
-          if n > len
-            (n - len).times {result << instance_exec(&this.method(:input))}
-          end
-          result
-        end
-      end
-    # end
 
     @inputs = inputs
 
@@ -206,7 +209,7 @@ class Ohm
         # By default, Enumerable#all? returns a boolean instead of an enumerator if no block was given
         # So in order to keep everything DRY, we'll just map over the block and call #all? on the resulting array
         arr_operation(:map)
-        @stack << @stack.pop[0].all?
+        @stack << @stack.pop[0].all?  
       # Special behavior for calling wires
       when "\u03A6"
         exec_wire_at_index(@stack.pop[0].to_i)
