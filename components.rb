@@ -225,8 +225,10 @@ class Ohm
     "\u2219" => {
       'p' => ->(a){arr_else_chars_inner_join(a) {|a| acc = []; a.map {|i| acc += arr_else_chars(i)}}},
       's' => ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
+      "\u2310" => ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
+      '*' => ->(a, b){Array.new(b.to_i) {a}},
     },
-    "\u00B7" => ->(a, b){a * b.to_i}, # Repeat string
+    "\u00B7" => ->(a, b){untyped_to_s(a) * b.to_i}, # Repeat string
     "\u221A" => ->(a){Math.sqrt(a.to_f)},
     "\u207F" => ->(a, b){a.to_f ** b.to_f},
     "\u00B2" => ->(a){a.to_f ** 2},
