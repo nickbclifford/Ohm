@@ -36,17 +36,14 @@ class Ohm
       arg.is_a?(Array) ? result : result.map(&:join)
     end
 
-    def arr_operation(meth, amount_pop = nil)
+    def arr_operation(meth, amount_pop = 1)
       @pointer += 1
       loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
       loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
 
       popped = @stack.pop[0]
 
-      args = amount_pop.nil? ? nil : @stack.pop(amount_pop)
-      args = args[0] if amount_pop == 1
-
-      @stack << arr_else_chars(popped).method(meth).call(*args).each_with_index do |v, i|
+      @stack << arr_else_chars(popped).method(meth).call(*@stack.pop(amount_pop)).each_with_index do |v, i|
         new_vars = @vars.clone
         new_vars[:value] = v
         new_vars[:index] = i

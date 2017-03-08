@@ -20,7 +20,7 @@ class Ohm
     @stack = stack
 
     # Only define singleton methods if top-level
-    if top_level.nil?
+    # if top_level.nil?
       this = self
       %i(pop last).each do |i|
         @stack.define_singleton_method(i) do |n = 1|
@@ -32,7 +32,7 @@ class Ohm
           result
         end
       end
-    end
+    # end
 
     @inputs = inputs
 
