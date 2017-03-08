@@ -76,6 +76,7 @@ These components will execute all components between them and a `;` character (o
 |`W`|N/A|Pushes `[stack]` (wrap).|
 |`X`|Pop `a`, `b`|Pushes `b` prepended to `a`.|
 |`Y`|Pop `a`|Pushes proper divisors of `a`.|
+|`Z`|Pop `a`|Pushes `a` split on newlines.|
 |`[`|Pop `a`|Pushes `stack[a]`.|
 |`\`|Pop `a`|Pushes `!a` (boolean NOT).|
 |`]`|Pop `a`|Pushes `a` flattened one level.|
@@ -104,6 +105,7 @@ These components will execute all components between them and a `;` character (o
 |`w`|Pop `a`|Pushes `[a]` (wrap).|
 |`x`|Pop `a`|Pushes `a` in hexadecimal (base 16).|
 |`y`|Pop `a`|Pushes the sign of `a` (`1` if positive, `-1` if negative, `0` if zero).|
+|`z`|Pop `a`|Pushes `a` split on spaces.|
 |`{`|Pop `a`|Pushes `a` deep flattened.|
 |`|`|Pop `a`, `b`|Pushes `a || b` (boolean OR).|
 |`}`|Pop `a`|Pushes `a` split into slices of 1 (shorthand for `1σ`).|
@@ -119,6 +121,7 @@ These components will execute all components between them and a `;` character (o
 |`î`|Pop `a`|Pushes `a` as an integer.|
 |`ì`|Pop `a`|Pushes if `a` is an integer.|
 |`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|
+|`æ`|Pop `a`|Pushes `a` as a palindrome.|
 |`ô`|Pop `a`|Pushes `a` as a float.|
 |`ö`|Pop `a`|Pushes `a != 0`.|
 |`ÿ`|N/A|Pushes empty string (`''`).|
