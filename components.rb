@@ -48,7 +48,7 @@ class Ohm
     'X' => ->(a, b){arr_else_chars_join(a) {|a| a.unshift(b)}},
     'Y' => ->(a){(1...a.to_i).select {|n| a.to_i % n == 0}},
     'Z' => ->(a){untyped_to_s(a).split("\n")},
-    '[' => ->(a){@stack[a]},
+    '[' => ->(a){@stack[a.to_i]},
     '\\' => ->(a){!a},
     ']' => ->(a){a.is_a?(Array) ? a.flatten(1) : a},
     '^' => ->{@vars[:index]},

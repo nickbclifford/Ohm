@@ -211,4 +211,66 @@ RSpec.describe Ohm do
   describe 'Z' do
     include_examples 'component', 'a string split on newlines', '"unitÑtest"Z', ['unit', 'test']
   end
+
+  describe '[' do
+    include_examples 'component', 'the element of the stack at an index', '9 8 7 2 1[', '8'
+  end
+
+  describe '\\' do
+    include_examples 'component', 'NOT a boolean', 'T\\', false
+  end
+
+  describe ']' do
+    include_examples 'component', 'an array flattened one level', '5@2@H]', [1, 2, 3, 4, 5, 1, 2]
+  end
+
+  describe '^' do
+    include_examples 'component', 'the index being looped (default 2)', '2M^;W', [0, 1]
+  end
+
+  describe '_' do
+    include_examples 'component', 'the element being looped (default 5)', '2@:_;W', [1, 2]
+  end
+
+  describe '`' do
+    include_examples 'component', 'the char code or array of char codes from a string', '.a`', 97
+  end
+
+  describe 'a' do
+    it 'swaps the top two elements of the stack' do
+      expect(Ohm.new('3 5a', false).exec.stack).to eq(['5', '3'])
+    end
+  end
+
+  describe 'b' do
+    include_examples 'component', 'a number converted to binary', '31b', '11111'
+  end
+
+  describe 'c' do
+    include_examples 'component', 'the binomial coefficient of two numbers (nCr)', '5 3c', 10
+  end
+
+  describe 'd' do
+    include_examples 'component', 'a number doubled', '5d', 10
+  end
+
+  describe 'e' do
+    include_examples 'component', 'the number of permutations of two numbers (nPr)', '5 3e', 60
+  end
+
+  describe 'f' do
+    include_examples 'component', 'all Fibonacci numbers up to a number', '13f', [1, 1, 2, 3, 5, 8, 13]
+  end
+
+  describe 'g' do
+    include_examples 'component', 'the range of integers between two numbers, exclusive to the second', '2 9g', (2...9).to_a
+  end
+
+  describe 'j' do
+    include_examples 'component', 'an array joined into a string with another string as a delimiter', '5#.aj', '0a1a2a3a4a5'
+  end
+
+  describe 'k' do
+    include_examples 'component', 'the index of an item in an array', '1 3 4W3k', 1
+  end
 end
