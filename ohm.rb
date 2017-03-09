@@ -205,11 +205,14 @@ class Ohm
         arr_operation(:min_by)
       when "\u256B"
         arr_operation(:minmax_by)
+      # By default, Enumerable#all? and #any? return a boolean instead of an enumerator if no block was given
+      # So in order to keep everything DRY, we'll just map over the block and call the method on the resulting array
       when "\u00C5"
-        # By default, Enumerable#all? returns a boolean instead of an enumerator if no block was given
-        # So in order to keep everything DRY, we'll just map over the block and call #all? on the resulting array
         arr_operation(:map)
-        @stack << @stack.pop[0].all?  
+        @stack << @stack.pop[0].all?
+      when "\u00C9"
+        arr_operation(:map)
+        @stack << @stack.pop[0].any?
       # Special behavior for calling wires
       when "\u03A6"
         exec_wire_at_index(@stack.pop[0].to_i)

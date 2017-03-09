@@ -99,7 +99,6 @@ class Ohm
     "\u00EE" => ->(a){a.to_i},
     "\u00EC" => ->(a){a.to_f % 1 == 0},
     "\u00C4" => ->(a, b){Array.new(b.to_i) {a}},
-    "\u00C9" => ->{},
     "\u00E6" => ->(a){arr_else_chars_join(a) {|a| a + a.reverse[1, a.length]}},
     "\u00C6" => {
       'A' => ->(a, b){ackermann(a.to_i, b.to_i)},

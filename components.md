@@ -13,6 +13,7 @@ These components will execute all components between them and a `;` character (o
 |`:`|Pops `a` and executes its associated block for each element in `a`, with the special components `^` and `_` set as the index and element currently being looped, respectively (foreach loop).|
 |`M`|Pops `a` and runs its associated block `a` times.|
 |`Å`|Pops `a` and pushes whether or not all the elements in `a` push `true` from its associated block.|
+|`É`|Pops `a` and pushes whether or not any of the elements in `a` push `true` from its associated block.|
 |`░`|Pops `a` and pushes an array containing all elements of `a` for which its associated block pushes `true` (filter/select).|
 |`▒`|Same as above, except `false` instead of `true` (reject).|
 |`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|
