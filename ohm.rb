@@ -31,7 +31,7 @@ class Ohm
   }
 
   attr_accessor :counter, :register
-  attr_reader :broken, :inputs, :stack, :printed
+  attr_reader :broken, :inputs, :stack, :printed, :vars
 
   # Represents an Ohm circuit.
   def initialize(circuit, debug, top_level = nil, stack = Stack.new(self), inputs = [], vars = DEFAULT_VARS)

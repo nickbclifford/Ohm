@@ -36,7 +36,10 @@ The `Ω` component will execute the wire below the current one, whereas `Θ` wil
 As you can see, it saves bytes by only requiring the `:` block to be declared once.
 
 ## Running
-The Ohm interpreter is written in Ruby 2.x. It does not rely on any external gems other than the standard library.
+The Ohm interpreter is written in Ruby 2.x. The core interpreter does not rely on any external gems other than the standard library, but the unit tests rely on [RSpec](http://rspec.info/).
+
+### Tests
+To run unit tests, run `rspec spec`.
 
 ### Interpreter Options
 |Flag|Usage|
