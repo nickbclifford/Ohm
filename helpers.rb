@@ -171,8 +171,8 @@ class Ohm
       # Special cases
       return '0' if num.zero?
 
-      if num.negative? || !base.between?(2, BASE_DIGITS.length)
-        if num.positive? && base == 1
+      if num < 0 || !base.between?(2, BASE_DIGITS.length)
+        if num > 0 && base == 1
           # Unary
           '0' * num
         else
