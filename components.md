@@ -12,8 +12,8 @@ These components will execute all components between them and a `;` character (o
 |`¿`|If this component is between a `?` and `;`, the block from `¿` to `;` will be executed if the condition given to `?` is false (else clause).|
 |`:`|Pops `a` and executes its associated block for each element in `a`, with the special components `^` and `_` set as the index and element currently being looped, respectively (foreach loop).|
 |`M`|Pops `a` and runs its associated block `a` times.|
-|`Å`|Pops `a` and pushes whether or not all the elements in `a` push `true` from its associated block.|
-|`É`|Pops `a` and pushes whether or not any of the elements in `a` push `true` from its associated block.|
+|`Å`|Pops `a` and pushes whether all the elements in `a` push `true` from its associated block.|
+|`É`|Pops `a` and pushes whether any of the elements in `a` push `true` from its associated block.|
 |`░`|Pops `a` and pushes an array containing all elements of `a` for which its associated block pushes `true` (filter/select).|
 |`▒`|Same as above, except `false` instead of `true` (reject).|
 |`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|
@@ -97,7 +97,7 @@ These components will execute all components between them and a `;` character (o
 |`m`|Pop `a`|Pushes prime factors of `a`.|
 |`n`|Pop `a`|Pushes *exponents* of prime factorization of `a`.|
 |`o`|Pop `a`|Pushes full prime factorization of `a`.|
-|`p`|Pop `a`|Pushes whether or not `a` is a prime number.|
+|`p`|Pop `a`|Pushes whether `a` is a prime number.|
 |`r`|Pop `a`, `b`, `c`|Pushes `a.tr(b, c)`.|
 |`s`|Pop `a`|Pushes `a` as a string.|
 |`t`|Pop `a`, `b`|Pushes `a` converted to base 10 from base `b`.|
@@ -135,7 +135,7 @@ These components will execute all components between them and a `;` character (o
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
 |`ó`|Pop `a`|Pushes `a` converted to base 10 from binary (base 2).|
 |`ú`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|
-|`ñ`|Pop `a`|Pushes whether or not `s` is a Fibonacci number.|
+|`ñ`|Pop `a`|Pushes whether `s` is a Fibonacci number.|
 |`Ñ`|N/A|Pushes a newline character (`\n`).|
 |`ª`|Pop `a`|Pushes `a[b]` (element at index).|
 |`º`|Pop `a`|Pushes 2<sup>`a`</sup>.|
@@ -177,7 +177,7 @@ These components will execute all components between them and a `;` character (o
 |`τ`|N/A|Pushes the number 10.|
 |`δ`|Pop `a`|Pushes an array with the deltas of (distance between) consecutive elements in `a`.|
 |`φ`|Pop `a`|Pushes the Euler totient/phi function of `a`.|
-|`ε`|Pop `a`, `b`|Pushes whether or not `b` is in `a`.|
+|`ε`|Pop `a`, `b`|Pushes whether `b` is in `a`.|
 |`∩`|Pop `a`, `b`|Pushes set intersection of `a` and `b`.|
 |`≡`|Pop `a`|Pushes `a` three times (triplicate).|
 |`±`|Pop `a`, `b`|Pushes the `b`th root of `a`.|
@@ -212,8 +212,8 @@ These components will execute all components between them and a `;` character (o
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
-|`Æⁿ`|Pop `a`, `b`|Pushes whether or not `a` is a perfect `b`th power.|
-|`Æ²`|Pop `a`|Pushes whether or not `a` is a perfect square.|
+|`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|
+|`Æ²`|Pop `a`|Pushes whether `a` is a perfect square.|
 
 ### Constants (`α`)
 **Note**: Because these are constants, they only push to the stack.
@@ -235,5 +235,5 @@ These components will execute all components between them and a `;` character (o
 |---------|------|-----------|
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
-|`∙⌐`|Pop `a`, `b`|Pushes whether or not `a` and `b` are permutations of each other.|
+|`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
 |`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|
