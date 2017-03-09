@@ -11,6 +11,10 @@ RSpec.describe Ohm do
     include_examples 'component', 'the factorial of a number', '5!', 120
   end
 
+  describe '"' do
+    include_examples 'component', 'a string literal', '"asdf', 'asdf'
+  end
+
   describe '#' do
     include_examples 'component', 'the inclusive range of integers between 0 and a number', '5#', (0..5).to_a
   end
@@ -58,6 +62,10 @@ RSpec.describe Ohm do
     include_examples 'component', 'the difference of two numbers', '5 3-', 2
   end
 
+  describe '.' do
+    include_examples 'component', 'a character literal', '.a', 'a'
+  end
+
   describe '/' do
     include_examples 'component', 'the quotient of two numbers', '6 3/', 2
   end
@@ -76,6 +84,12 @@ RSpec.describe Ohm do
 
   describe '>' do
     include_examples 'component', 'whether one number is greater than another', '9 2>', true
+  end
+
+  describe '?' do
+    it 'conditionally executes a block of code' do
+      expect(Ohm.new('T?8 1+', false).exec.stack.last[0]).to eq(9)
+    end
   end
 
   describe '@' do
@@ -119,11 +133,82 @@ RSpec.describe Ohm do
   describe 'I' do
     it 'pushes user input' do
       allow($stdin).to receive(:gets) {'a'}
-      expect(Ohm.new('I', false).exec.stack.last[0]).to eq 'a'
+      expect(Ohm.new('I', false).exec.stack.last[0]).to eq('a')
     end
   end
 
-  describe 'H' do
+  describe 'J' do
     include_examples 'component', 'an array joined into a string', '5#J', '012345'
+  end
+
+  describe 'K' do
+    include_examples 'component', 'the amount of times an item appears in an array or string', '"unit testing is fun".iK', 3
+  end
+
+  # Alright so it looks to me like RSpec can't really tell the difference between `puts` and `print`
+  # I'm going to skip this spec
+  # describe 'L' do
+  # end
+  
+  describe 'M' do
+    it 'executes a block of code a number of times' do
+      expect(Ohm.new('3DM8+', false).exec.stack.last[0]).to eq(27)
+    end
+  end
+
+  describe 'N' do
+    include_examples 'component', 'whether two items are inequal', '5 1N', true
+  end
+
+  describe 'O' do
+    it 'removes the last item of the stack' do
+      expect(Ohm.new('5 2 3 4O', false).exec.stack).to eq(['5', '2', '3'])
+    end
+  end
+
+  describe 'P' do
+    include_examples 'component', 'all primes up to a number', '9P', [2, 3, 5, 7]
+  end
+
+  describe 'Q' do
+    it 'reverses the stack' do
+      expect(Ohm.new('5 2 3 4Q', false).exec.stack).to eq(['4', '3', '2', '5'])
+    end
+  end
+
+  describe 'R' do
+    include_examples 'component', 'an array or string reversed', '"unit"R', 'tinu'
+  end
+
+  describe 'S' do
+    include_examples 'component', 'an array or string sorted', '"unit"S', 'intu'
+  end
+
+  describe 'T' do
+    include_examples 'component', 'true', 'T', true
+  end
+
+  describe 'U' do
+    include_examples 'component', 'an array or string uniquified', '"testingisfun"U', 'tesingfu'
+  end
+
+  describe 'V' do
+    include_examples 'component', 'all the divisors of a number', '24V', [1, 2, 3, 4, 6, 8, 12, 24]
+  end
+
+  describe 'W' do
+    include_examples 'component', 'the whole stack wrapped as an array', '5 1 2 4 2W', ['5', '1', '2', '4', '2']
+  end
+
+  describe 'X' do
+    include_examples 'component', 'an item prepended to an array or string', '"unit testing""foo"X', 'foounit testing'
+  end
+
+  describe 'Y' do
+    include_examples 'component', 'all the proper divisors of a number', '24Y', [1, 2, 3, 4, 6, 8, 12]
+  end
+
+  describe 'Z' do
+    include_examples 'component', 'a string split on newlines', '"unitÑtest"Z', ['unit', 'test']
   end
 end

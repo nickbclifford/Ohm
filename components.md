@@ -136,7 +136,7 @@ These components will execute all components between them and a `;` character (o
 |`ó`|Pop `a`|Pushes `a` converted to base 10 from binary (base 2).|
 |`ú`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|
 |`ñ`|Pop `a`|Pushes whether `s` is a Fibonacci number.|
-|`Ñ`|N/A|Pushes a newline character (`\n`).|
+|`Ñ`|N/A|Pushes a newline character (`\n`), functions as a newline inside string literals.|
 |`ª`|Pop `a`|Pushes `a[b]` (element at index).|
 |`º`|Pop `a`|Pushes 2<sup>`a`</sup>.|
 |`⌐`|Pop `a`|Pushes all permutations of `a`.|
