@@ -45,6 +45,7 @@ The Ohm interpreter is written in Ruby 2.x. It does not rely on any external gem
 |`-d, --debug`|Activates **debug mode**, which prints the current command and stack at every iteration.|
 |`-e, --eval`|Evaluates the given circuit as Ohm code.|
 |`-h, --help`|Prints usage help.|
+|`-l, --length`|Prints the length of the program.|
 |`-t, --time`|Shows the time taken to execute (in seconds) after completion.|
 
 ## Troubleshooting
