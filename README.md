@@ -1,4 +1,4 @@
-# Ohm
+# Ohm [![Build Status](https://travis-ci.org/MiningPotatoes/Ohm.svg?branch=master)](https://travis-ci.org/MiningPotatoes/Ohm)
 Ohm is a stack-oriented programming language inspired by [05AB1E](https://github.com/Adriandmen/05AB1E/) and [Jelly](https://github.com/DennisMitchell/jelly) designed specifically for [code golf](https://en.wikipedia.org/wiki/Code_golf).
 
 Does tacit programming make no sense to you, but you really wish you could use Jelly's links? If so, Ohm is the language for you.
