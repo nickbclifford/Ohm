@@ -39,7 +39,7 @@ As you can see, it saves bytes by only requiring the `:` block to be declared on
 The Ohm interpreter is written in Ruby 2.x. The core interpreter does not rely on any external gems other than the standard library, but the unit tests rely on [RSpec](http://rspec.info/).
 
 ### Tests
-To run unit tests, run `rspec spec`.
+To run unit tests, run `rake test`.
 
 ### Interpreter Options
 |Flag|Usage|
