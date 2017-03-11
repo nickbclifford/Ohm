@@ -1,4 +1,4 @@
-require_relative 'components'
+require_relative 'lib/components'
 
 class Ohm
   class Stack < Array

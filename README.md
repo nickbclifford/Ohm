@@ -36,10 +36,10 @@ The `Ω` component will execute the wire below the current one, whereas `Θ` wil
 As you can see, it saves bytes by only requiring the `:` block to be declared once.
 
 ## Running
-The Ohm interpreter is written in Ruby 2.x. The core interpreter does not rely on any external gems except for [rake-compiler](https://github.com/rake-compiler/rake-compiler), and the unit tests rely on [RSpec](http://rspec.info/).
+The Ohm interpreter is written in Ruby 2.x. The core interpreter does not rely on any external gems except for [rake](https://github.com/ruby/rake) and [rake-compiler](https://github.com/rake-compiler/rake-compiler), and the unit tests rely on [RSpec](http://rspec.info/).
 
 ### Installation
-To build [Smaz](https://github.com/antirez/smaz) for use within Ohm circuits, run `rake` or `rake compile`.
+To build [Smaz](https://github.com/antirez/smaz) for use within Ohm circuits, run `rake` or `rake build`.
 
 ### Tests
 To run unit tests, run `rake test`.
