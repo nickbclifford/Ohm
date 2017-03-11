@@ -26,11 +26,10 @@ void Init_smaz_ohm() {
 }
 
 VALUE method_compress(VALUE self, VALUE str) {
-	char* str_c = RSTRING_PTR(str);
 	int len = RSTRING_LEN(str);
 	char* output = malloc(len); // This'll be plenty of space, especially since this will be compressed
 
-	int out_size = smaz_compress(str_c, len, output, len);
+	int out_size = smaz_compress(RSTRING_PTR(str), len, output, len);
 	if(out_size > len)
 		rb_raise(BadCompression, "compressed string is longer than uncompressed");
 
