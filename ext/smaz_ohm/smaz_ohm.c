@@ -23,7 +23,7 @@ void Init_smaz_ohm() {
 }
 
 VALUE method_compress(VALUE self, VALUE str) {
-	char* output;
+	char* output = "";
 	int len =  RSTRING_LEN(str);
 
 	// FIXME: At runtime, the following line causes a segfault on my machine.
