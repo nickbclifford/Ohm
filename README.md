@@ -35,6 +35,9 @@ The `Ω` component will execute the wire below the current one, whereas `Θ` wil
 
 As you can see, it saves bytes by only requiring the `:` block to be declared once.
 
+### String Compression
+Ohm uses a slightly-modified version of the [Smaz](https://github.com/antirez/smaz) compression library. Inside Ohm circuits, compressed string literals are delimited by `▀` characters. In order to generate a compressed string, use the `Ohm::Smaz.compress` method. **NOTE:** As of Mar 12, 2017, this is slightly broken, probably to do with my subpar C skills.
+
 ## Running
 The Ohm interpreter is written in Ruby 2.x. The core interpreter does not rely on any external gems except for [rake](https://github.com/ruby/rake) and [rake-compiler](https://github.com/rake-compiler/rake-compiler), and the unit tests rely on [RSpec](http://rspec.info/).
 
