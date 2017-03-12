@@ -189,7 +189,6 @@ class Ohm
     "\u2584" => ->{},
     "\u258C" => ->{},
     "\u2590" => ->{},
-    "\u2580" => ->{},
     "\u03B1" => {
       'K' => ->{'`1234567890-=qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./'},
       'c' => ->{'bcdfghjklmnpqrstvwxyz'},

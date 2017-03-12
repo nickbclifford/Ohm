@@ -1,4 +1,5 @@
 require_relative 'lib/components'
+require_relative 'lib/smaz'
 
 class Ohm
   class Stack < Array
@@ -81,6 +82,13 @@ class Ohm
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
         @stack << @wire[@pointer...lit_end].gsub("\u00D1", "\n")
+        @pointer = lit_end
+      when "\u2580" # Smaz-compressed string literal
+        @pointer += 1
+        lit_end = @wire[@pointer..@wire.length].index("\u2580")
+        lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
+
+        @stack << Smaz.decompress(@wire[@pointer...lit_end])
         @pointer = lit_end
       when "\u2551" # Base-220 number literal
         @pointer += 1
