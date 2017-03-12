@@ -16,7 +16,7 @@ RSpec.describe Ohm do
   end
 
   describe '#' do
-    include_examples 'component', 'the inclusive range of integers between 0 and a number', '5#', (0..5).to_a
+    include_examples 'component', 'the inclusive range of integers between 0 and a number', '5~#', [0, -1, -2, -3, -4, -5]
   end
 
   describe '$' do

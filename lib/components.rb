@@ -7,7 +7,7 @@ class Ohm
   # These lambdas are executed during Ohm#exec.
   COMPONENTS = {
     '!' => ->(a){factorial(a.to_i)},
-    '#' => ->(a){(0..a.to_i).to_a},
+    '#' => ->(a){a = a.to_i; (a <= 0 ? 0.downto(a) : (0..a)).to_a},
     '$' => ->{@vars[:register]},
     '%' => ->(a, b){a.to_f % b.to_f},
     '&' => ->(a, b){a && b},
@@ -22,7 +22,7 @@ class Ohm
     '<' => ->(a, b){a.to_f < b.to_f},
     '=' => ->(a){@printed = true; puts untyped_to_s(a)},
     '>' => ->(a, b){a.to_f > b.to_f},
-    '@' => ->(a){(1..a.to_f).to_a},
+    '@' => ->(a){a = a.to_i; (a <= 1 ? 1.downto(a) : (1..a)).to_a},
     'A' => ->(a){a.to_f.abs},
     'B' => ->(a, b){to_base(a.to_i, b.to_i)},
     'C' => ->(a, b){arr_else_str(a).concat(arr_else_str(b))},
