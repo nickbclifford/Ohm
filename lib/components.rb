@@ -209,7 +209,7 @@ class Ohm
     "\u03C4" => ->{10},
     "\u03B4" => ->(a){a.each_cons(2).map {|a, b| a.to_f - b.to_f}},
     "\u03C6" => ->(a){a.prime_division.map {|x| 1 - (1.0 / x[0])}.reduce(a, :*).to_i},
-    "\u03B5" => ->(a, b){arr_else_chars(a).include?(b)},
+    "\u03B5" => ->(a, b){arr_else_str(a).include?(b)},
     "\u2229" => ->(a, b){arr_else_chars(a) & arr_else_chars(b)},
     "\u2261" => ->(a){[a, a, a]},
     "\u00B1" => ->(a, b){a.to_f ** (1 / b.to_f)},
