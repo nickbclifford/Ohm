@@ -27,9 +27,10 @@ void Init_smaz_ohm() {
 VALUE method_compress_c(VALUE self, VALUE str) {
 	// We use Ruby's ALLOC macro instead of C's native malloc() so that it invokes the garbage collector.
 	char* output = ALLOC(char);
-	int len = RSTRING_LEN(str);
+	char* str_c = StringValueCStr(str);
+	int len = strlen(str_c);
 
-	int out_size = smaz_compress(RSTRING_PTR(str), len, output, len);
+	int out_size = smaz_compress(str_c, len, output, len);
 	if(out_size > len)
 		rb_raise(BadCompression, "compressed string is longer than uncompressed");
 
@@ -40,9 +41,10 @@ VALUE method_compress_c(VALUE self, VALUE str) {
 
 VALUE method_decompress_c(VALUE self, VALUE compressed) {
 	char* output = ALLOC(char);
+	char* comp_c = StringValueCStr(compressed);
 
 	// This is slightly broken, not sure why. Compression still works fine?
-	int out_size = smaz_decompress(RSTRING_PTR(compressed), RSTRING_LEN(compressed), output, MAX_COMP_LEN);
+	int out_size = smaz_decompress(comp_c, strlen(comp_c), output, MAX_COMP_LEN);
 	if(out_size > MAX_COMP_LEN)
 		rb_raise(TooLongError, "decompressed string is longer than maximum length (%d bytes)", MAX_COMP_LEN);
 
