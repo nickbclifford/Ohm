@@ -273,4 +273,76 @@ RSpec.describe Ohm do
   describe 'k' do
     include_examples 'component', 'the index of an item in an array', '1 3 4W3k', 1
   end
+
+  describe 'l' do
+    include_examples 'component', 'the length of an item', '"unit test"l', 9
+  end
+
+  describe 'm' do
+    include_examples 'component', 'the prime factors of a number', '24m', [2, 3]
+  end
+
+  describe 'n' do
+    include_examples 'component', 'the exponents of the prime factorization of a number', '24n', [3, 1]
+  end
+
+  describe 'o' do
+    include_examples 'component', 'the prime factorization of a number', '24o', [[2, 3], [3, 1]]
+  end
+
+  describe 'p' do
+    include_examples 'component', 'whether a number is prime', '9p', false
+  end
+
+  describe 'r' do
+    include_examples 'component', 'the transposition of three strings', '"unit testing""ti""yo"r', 'unoy yesyong'
+  end
+
+  describe 's' do
+    include_examples 'component', 'the string representation of an item', '3ds', '6'
+  end
+
+  describe 't' do
+    include_examples 'component', 'the base 10 representation of a number in another base', '323 4t', 59
+  end
+
+  describe 'u' do
+    include_examples 'component', 'the first occurrence of a subarray in an array', '9@2 3Gu', 2
+  end
+
+  describe 'v' do
+    include_examples 'component', 'the floor division of two numbers', '9 2v', 4
+  end
+
+  describe 'w' do
+    include_examples 'component', 'an item wrapped in an array', '5w', ['5']
+  end
+
+  describe 'x' do
+    include_examples 'component', 'a number converted to hexadecimal', '28x', '1C'
+  end
+
+  describe 'y' do
+    include_examples 'component', 'the sign of a number', '2~y', -1
+  end
+
+  describe 'z' do
+    include_examples 'component', 'a string split on spaces', '"unit tests"z', ['unit', 'tests']
+  end
+
+  describe '{' do
+    include_examples 'component', 'an array deep flattened', '4@w5@W{', [1, 2, 3, 4, 1, 2, 3, 4, 5]
+  end
+
+  describe '|' do
+    include_examples 'component', 'a boolean OR another boolean', 'TF|', true
+  end
+
+  describe '}' do
+    include_examples 'component', 'an item split into single elements', '"unit"}', ['u', 'n', 'i', 't']
+  end
+
+  describe '~' do
+    include_examples 'component', 'a number negated', '5~', -5
+  end
 end
