@@ -1,5 +1,3 @@
-#define MAX_COMP_LEN 1024
-
 #include "ruby.h"
 #include "smaz.h"
 #include <stdio.h>
@@ -24,36 +22,39 @@ void Init_smaz_ohm() {
 	rb_define_module_function(Smaz, "decompress_c", method_decompress_c, 1);
 }
 
-// FIXME: Something is inserting garbage data here, and I'm fairly sure it's to do with NUL-termination.
-
 VALUE method_compress_c(VALUE self, VALUE str) {
 	char* str_c = StringValueCStr(str);
 	int len = strlen(str_c);
 
 	// We use Ruby's ALLOC macro instead of C's native malloc() so that it invokes the garbage collector.
-	char* output = ALLOC(char);
-	output[0] = '\0';
+	char* output = ALLOC_N(char, len + 1);
+	output[len] = '\0';
 
 	int out_size = smaz_compress(str_c, len, output, len);
 	if(out_size > len)
 		rb_raise(BadCompression, "compressed string is longer than uncompressed");
 
-	free(output);
+	xfree(output);
 
 	return rb_str_new_cstr(output);
 }
 
+// FIXME: There are issues with length here, so occasionally it adds some garbage data.
 VALUE method_decompress_c(VALUE self, VALUE compressed) {
 	char* comp_c = StringValueCStr(compressed);
 
-	char* output = ALLOC(char);
-	output[0] = '\0';
+	int max_len = strlen(comp_c) * 10;
 
-	int out_size = smaz_decompress(comp_c, strlen(comp_c), output, MAX_COMP_LEN);
-	if(out_size > MAX_COMP_LEN)
-		rb_raise(TooLongError, "decompressed string is longer than maximum length (%d bytes)", MAX_COMP_LEN);
+	char* output = ALLOC_N(char, max_len + 1);
+	output[max_len] = '\0';
 
-	free(output);
+	// TODO: Figure out how to allocate additional memory if `output` is not large enough.
+
+	int out_size = smaz_decompress(comp_c, strlen(comp_c), output, max_len);
+	if(out_size > max_len)
+		rb_raise(TooLongError, "decompressed string is longer than maximum length (%d bytes)", max_len);
+
+	xfree(output);
 
 	return rb_str_new_cstr(output);
 }
