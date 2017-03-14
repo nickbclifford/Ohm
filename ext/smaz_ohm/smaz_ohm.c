@@ -39,20 +39,21 @@ VALUE method_compress_c(VALUE self, VALUE str) {
 	return rb_str_new_cstr(output);
 }
 
-// FIXME: There are issues with length here, so occasionally it adds some garbage data.
 VALUE method_decompress_c(VALUE self, VALUE compressed) {
 	char* comp_c = StringValueCStr(compressed);
+	char* output;
+	int out_size = 1;
+	int len;
 
-	int max_len = strlen(comp_c) * 10;
-
-	char* output = ALLOC_N(char, max_len + 1);
-	output[max_len] = '\0';
-
-	// TODO: Figure out how to allocate additional memory if `output` is not large enough.
-
-	int out_size = smaz_decompress(comp_c, strlen(comp_c), output, max_len);
-	if(out_size > max_len)
-		rb_raise(TooLongError, "decompressed string is longer than maximum length (%d bytes)", max_len);
+	// FIXME: For some reason, the smaz_decompress function stops incrementing out_size after the first iteration, so it goes into an infinite loop.
+	do {
+		output = REALLOC_N(output, char, out_size + 1);
+		output[out_size] = '\0';
+		len = strlen(output);
+		printf("before decomp | output: %s, len: %d, out_size: %d\n", output, len, out_size);
+		out_size = smaz_decompress(comp_c, strlen(comp_c), output, len);
+		printf("after decomp | output: %s, len: %d, out_size: %d\n", output, len, out_size);
+	} while(out_size > len);
 
 	xfree(output);
 
