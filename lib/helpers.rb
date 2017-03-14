@@ -72,8 +72,7 @@ class Ohm
     end
 
     def fibonacci?(n)
-      perf_sqr = ->(x){Math.sqrt(x).to_i == Math.sqrt(x)}
-      perf_sqr.call(5 * (n ** 2) + 4) || perf_sqr.call(5 * (n ** 2) + 4)
+      perfect_exp?(5 * (n ** 2) + 4, 2) || perfect_exp?(5 * (n ** 2) - 4, 2)
     end
 
     def fibonacci_upto(n)

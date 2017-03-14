@@ -111,7 +111,7 @@ These components will execute all components between them and a `;` character (o
 |`|`|Pop `a`, `b`|Pushes `a || b` (boolean OR).|
 |`}`|Pop `a`|Pushes `a` split into slices of 1 (shorthand for `1σ`).|
 |`~`|Pop `a`|Pushes `-a` (negative).|
-|`Ç`|Pop `a`, `b`|Pushes an array of each every `b` consecutive elements in `b`.|
+|`Ç`|Pop `a`, `b`|Pushes an array of every consecutive group of `b` elements in `a`.|
 |`ü`|N/A|Pushes a space character (` `).|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
 |`â`|Pop `a`|Pushes the first `a` prime numbers.|

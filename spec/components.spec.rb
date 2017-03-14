@@ -345,4 +345,122 @@ RSpec.describe Ohm do
   describe '~' do
     include_examples 'component', 'a number negated', '5~', -5
   end
+
+  describe "\u00C7" do
+    include_examples 'component', 'an array of all the consecutive groups of (a number) elements in an item', "3@2\u00C7", [[1, 2], [2, 3]]
+  end
+
+  describe "\u00FC" do
+    include_examples 'component', 'a space character', "\u00FC", ' '
+  end
+
+  describe "\u00E9" do
+    include_examples 'component', 'whether a number is even', "4\u00E9", true
+  end
+
+  describe "\u00E2" do
+    include_examples 'component', 'the first (a number) prime numbers', "4\u00E2", [2, 3, 5, 7]
+  end
+
+  describe "\u00E7" do
+    include_examples 'component', 'an array of all possible combinations of a certain length of the elements in an array', "4@2\u00E7", [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
+  end
+
+  describe "\u00EA" do
+    include_examples 'component', 'the first (a number) Fibonacci numbers', "4\u00EA", [1, 1, 2, 3]
+  end
+
+  describe "\u00E8" do
+    include_examples 'component', 'whether a number is odd', "4\u00E8", false
+  end
+
+  describe "\u00EF" do
+    include_examples 'component', 'a string split on another string', "\"unit testing\".i\u00EF", ['un', 't test', 'ng']
+  end
+
+  describe "\u00EE" do
+    include_examples 'component', 'the integer representation of an item', "9 2/\u00EE", 4
+  end
+
+  describe "\u00EC" do
+    include_examples 'component', 'whether an item is an integer', "9 2/\u00EC", false
+  end
+
+  describe "\u00C4" do
+    it 'pushes an item on the stack a certain number of times' do
+      expect(Ohm.new("3 5\u00C4", false).exec.stack).to eq(['3', '3', '3', '3', '3'])
+    end
+  end
+
+  describe "\u00E6" do
+    include_examples 'component', 'an item palindromized', "\"asdf\"\u00E6", 'asdfdsa'
+  end
+
+  describe "\u00F4" do
+    include_examples 'component', 'the float representation of an item', "9\u00F4", 9.0
+  end
+
+  describe "\u00F6" do
+    include_examples 'component', 'whether an item is not zero', "9\u00F6", true
+  end
+
+  describe "\u00FF" do
+    include_examples 'component', 'an empty string', "\u00FF", ''
+  end
+
+  describe "\u00D6" do
+    include_examples 'component', 'whether an item is zero', "0\u00D6", true
+  end
+
+  describe "\u00DC" do
+    include_examples 'component', 'the union of two arrays', "2#3@\u00DC", [0, 1, 2, 3]
+  end
+
+  describe "\u00A2" do
+    it 'sets the register value to an item and keeps it on the stack' do
+      ohm = Ohm.new("5\u00A2", false).exec
+      expect(ohm.stack.last[0]).to eq('5')
+      expect(ohm.vars[:register]).to eq('5')
+    end
+  end
+
+  describe "\u00A3" do
+    it 'sleeps execution for a certain number of seconds' do
+      ohm = Ohm.new("1\u00A3", false)
+      expect(ohm).to receive(:sleep)
+      expect(ohm.exec.stack[0]).to be_nil
+    end
+  end
+
+  describe "\u00A5" do
+    include_examples 'component', 'whether an number is divisible by another', "24 3\u00A5", true
+  end
+
+  describe "\u00D6" do
+    include_examples 'component', 'whether an item is zero', "0\u00D6", true
+  end
+
+  describe "\u20A7" do
+    include_examples 'component', 'whether an item is a palindrome', "\"blah\"\u20A7", false
+  end
+
+  describe "\u0192" do
+    include_examples 'component', 'the Fibonacci number at an index, 1-indexed', "4\u0192", 3
+  end
+
+  describe "\u00F3" do
+    include_examples 'component', 'a number converted from binary to base 10', "1101\u00F3", 13
+  end
+
+  describe "\u00FA" do
+    include_examples 'component', 'a number converted from hexadecimal to base 10', "\"1E\"\u00FA", 30
+  end
+
+  describe "\u00F1" do
+    include_examples 'component', 'whether a number is a Fibonacci number', "13\u00F1", true
+  end
+
+  describe "\u00D1" do
+    include_examples 'component', 'a newline', "\u00D1", "\n"
+  end
 end

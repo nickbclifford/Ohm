@@ -6,7 +6,7 @@ require 'rspec/core/rake_task'
 Rake::ExtensionTask.new('smaz_ohm')
 
 RSpec::Core::RakeTask.new(:test) do |t|
-  t.rspec_opts = '--color --pattern spec/**/*.spec.rb --require spec_helper'
+  t.rspec_opts = '--color --pattern spec/**/*.spec.rb --require spec_helper --format documentation'
 end
 
 desc 'Set up DevKit environment on Windows, call :compile task'
