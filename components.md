@@ -213,6 +213,8 @@ These components will execute all components between them and a `;` character (o
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
+|`Æ┴`|Pop `a`, `b`|Pushes the greatest common divisor of `a` and `b`.|
+|`Æ┬`|Pop `a`, `b`|Pushes the least common multiple of `a` and `b`.|
 |`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|
 |`Æ²`|Pop `a`|Pushes whether `a` is a perfect square.|
 

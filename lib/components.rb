@@ -115,6 +115,8 @@ class Ohm
       's' => ->(a){Math.asin(a.to_f)},
       't' => ->(a){Math.atan(a.to_f)},
       'u' => ->(a, b){Math.atan2(b.to_f, a.to_f)},
+      "\u2534" => ->(a, b){a.to_i.gcd(b.to_i)},
+      "\u252C" => ->(a, b){a.to_i.lcm(b.to_i)},
       "\u207F" => ->(a, b){perfect_exp?(a.to_i, b.to_i)},
       "\u00B2" => ->(a){perfect_exp?(a.to_i, 2)},
     },
