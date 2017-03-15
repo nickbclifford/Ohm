@@ -149,6 +149,7 @@ These components will execute all components between them and a `;` character (o
 |`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
 |`»`|Pop `a`|Pushes a *single component* mapped over all values of `a`.|
 |`┤`|Pop `a`, `b`|Pushes `a[b, a.length]` (slice from end).|
+|`╡`|Pop `a`|Pushes the first and last elements of `a` as an array.|
 |`╣`|Pop `a`|Pushes all possible rotations of `a`.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
 |`╜`|Pop `a`|Pushes `a` rotated once to the left.|
