@@ -221,7 +221,9 @@ RSpec.describe Ohm do
   end
 
   describe ']' do
-    include_examples 'component', 'an array flattened one level', '5@2@H]', [1, 2, 3, 4, 5, 1, 2]
+    it 'flattens an array by one level onto the stack' do
+      expect(Ohm.new('5@2@H]', false).exec.stack).to eq([1, 2, 3, 4, 5, 1, 2])
+    end
   end
 
   describe '^' do
@@ -338,8 +340,10 @@ RSpec.describe Ohm do
     include_examples 'component', 'a string split on spaces', '"unit tests"z', ['unit', 'tests']
   end
 
-  describe '{' do
-    include_examples 'component', 'an array deep flattened', '4@w5@W{', [1, 2, 3, 4, 1, 2, 3, 4, 5]
+  describe ']' do
+    it 'deep flattens an array onto the stack' do
+      expect(Ohm.new('4@w5@W{', false).exec.stack).to eq([1, 2, 3, 4, 1, 2, 3, 4, 5])
+    end
   end
 
   describe '|' do

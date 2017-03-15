@@ -80,7 +80,7 @@ These components will execute all components between them and a `;` character (o
 |`Z`|Pop `a`|Pushes `a` split on newlines.|
 |`[`|Pop `a`|Pushes `stack[a]`.|
 |`\`|Pop `a`|Pushes `!a` (boolean NOT).|
-|`]`|Pop `a`|Pushes `a` flattened one level.|
+|`]`|Pop `a`|Flattens `a` by one level onto the stack.|
 |`^`|N/A|Pushes index of current element in array being looped over.|
 |`_`|N/A|Pushes current element in array being looped over.|
 |`` ` ``|Pop `a`|Pushes char code of `a`.|
@@ -109,7 +109,7 @@ These components will execute all components between them and a `;` character (o
 |`x`|Pop `a`|Pushes `a` in hexadecimal (base 16).|
 |`y`|Pop `a`|Pushes the sign of `a` (`1` if positive, `-1` if negative, `0` if zero).|
 |`z`|Pop `a`|Pushes `a` split on spaces.|
-|`{`|Pop `a`|Pushes `a` deep flattened.|
+|`{`|Pop `a`|Deep flattens `a` onto the stack.|
 |`|`|Pop `a`, `b`|Pushes `a || b` (boolean OR).|
 |`}`|Pop `a`|Pushes `a` split into slices of 1 (shorthand for `1σ`).|
 |`~`|Pop `a`|Pushes `-a` (negative).|

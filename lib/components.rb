@@ -239,7 +239,7 @@ class Ohm
   STACK_GET = %W(=)
 
   # When these components are run, their return value will be appended to the stack with a splat operator.
-  MULTIPLE_PUSH = %W(D a \u00C4 \u2261)
+  MULTIPLE_PUSH = %W(D ] a { \u00C4 \u2261)
 
   # When these components are run, their return value will be appended to the stack even if it's nil.
   PUSH_NILS = %W(k \u00A2 \u00AA)
