@@ -91,6 +91,8 @@ These components will execute all components between them and a `;` character (o
 |`e`|Pop `a`, `b`|Pushes `a nPr b` (permutations).|
 |`f`|Pop `a`|Pushes all Fibonacci numbers up to `a`.|
 |`g`|Pop `a`, `b`|Pushes the range `a...b`.|
+|`h`|Pop `a`|Pushes the first element of `a`.|
+|`i`|Pop `a`|Pushes the last element of `a`.|
 |`j`|Pop `a`, `b`|If `a` is an array, pushes `a.join(b)`, else pushes `stack.join(b)`.|
 |`k`|Pop `a`, `b`|Pushes index of `b` in `a`.|
 |`l`|Pop `a`|Pushes length of `a`.|

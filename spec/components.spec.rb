@@ -266,6 +266,14 @@ RSpec.describe Ohm do
     include_examples 'component', 'the range of integers between two numbers, exclusive to the second', '2 9g', (2...9).to_a
   end
 
+  describe 'h' do
+    include_examples 'component', 'the first element of an item', '"unit"h', 'u'
+  end
+
+  describe 'i' do
+    include_examples 'component', 'the last element of an item', '"unit"i', 't'
+  end
+
   describe 'j' do
     include_examples 'component', 'an array joined into a string with another string as a delimiter', '5#.aj', '0a1a2a3a4a5'
   end
