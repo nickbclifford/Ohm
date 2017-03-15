@@ -173,10 +173,11 @@ These components will execute all components between them and a `;` character (o
 |`┌`|N/A|Pushes the third input given.|
 |`█`|N/A|Pushes empty array (`[]`).|
 |`▀`|N/A|Creates a compressed string literal (see README).|
+|`ß`|Pop `a`, `b`|Pushes `a` split into `b` groups.|
 |`Γ`|N/A|Pushes -1.|
 |`π`|Pop `a`|Pushes the `a`th prime number.|
 |`Σ`|Pop `a`|If `a` is an array, pushes the total sum of `a`, else pushes the total sum of the stack.|
-|`σ`|Pop `a`, `b`|Pushes `a` split in elements of length `b`.|
+|`σ`|Pop `a`, `b`|Pushes `a` split into groups of length `b`.|
 |`µ`|Pop `a`|If `a` is an array, pushes the total product of `a`, else pushes the total product of the stack.|
 |`τ`|N/A|Pushes the number 10.|
 |`δ`|Pop `a`|Pushes an array with the deltas of (distance between) consecutive elements in `a`.|

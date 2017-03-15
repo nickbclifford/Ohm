@@ -36,6 +36,19 @@ class Ohm
       arg.is_a?(Array) ? result : result.map(&:join)
     end
 
+    # Stolen from the ActiveSupport library.
+    def arr_in_groups(arr, num)
+      modulo = arr.length % num
+      groups = []
+      start = 0
+      num.times do |i|
+        length = (arr.length.div(num)) + (modulo > 0 && modulo > i ? 1 : 0)
+        groups << arr[start, length]
+        start += length
+      end
+      groups
+    end
+
     def arr_operation(meth, amount_pop = nil)
       @pointer += 1
       loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
