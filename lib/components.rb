@@ -112,6 +112,7 @@ class Ohm
       'T' => ->(a){Math.tan(a.to_f)},
       'c' => ->(a){Math.acos(a.to_f)},
       'l' => ->(a, b){Math.log(b.to_f) / Math.log(a.to_f)},
+      'p' => ->(a, b){a.to_i.gcd(b.to_i) == 1},
       's' => ->(a){Math.asin(a.to_f)},
       't' => ->(a){Math.atan(a.to_f)},
       'u' => ->(a, b){Math.atan2(b.to_f, a.to_f)},

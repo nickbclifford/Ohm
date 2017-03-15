@@ -213,6 +213,7 @@ These components will execute all components between them and a `;` character (o
 |`ÆT`|Pop `a`|Pushes the tangent of `a` radians.|
 |`Æc`|Pop `a`|Pushes the arccosine of `a`.|
 |`Æl`|Pop `a`, `b`|Pushes the base `a` logarithm of `b`.|
+|`Æp`|Pop `a`, `b`|Pushes whether `a` and `b` are coprime.|
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
