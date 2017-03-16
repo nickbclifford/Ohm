@@ -135,6 +135,7 @@ These components will execute all components between them and a `;` character (o
 |`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
+|`í`|Pop `a`|Pushes `a` zipped.|
 |`ó`|Pop `a`|Pushes `a` converted to base 10 from binary (base 2).|
 |`ú`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|
 |`ñ`|Pop `a`|Pushes whether `s` is a Fibonacci number.|
@@ -245,5 +246,4 @@ These components will execute all components between them and a `;` character (o
 |`∙\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
-|`∙|`|Pop `a`|Pushes the columns of `a`, assuming `a` is a matrix.|
 |`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|

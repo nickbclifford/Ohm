@@ -135,7 +135,7 @@ class Ohm
     "\u20A7" => ->(a){untyped_to_s(a) == untyped_to_s(a).reverse},
     "\u0192" => ->(a){nth_fibonacci(a.to_i)},
     "\u00E1" => ->{},
-    "\u00ED" => ->{},
+    "\u00ED" => ->(a){zip_arr(a)},
     "\u00F3" => ->(a){from_base(a.to_s, 2)},
     "\u00FA" => ->(a){from_base(a.to_s, 16)},
     "\u00F1" => ->(a){fibonacci?(a.to_i)},

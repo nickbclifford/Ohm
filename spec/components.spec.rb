@@ -460,6 +460,10 @@ RSpec.describe Ohm do
     include_examples 'component', 'the Fibonacci number at an index, 1-indexed', "4\u0192", 3
   end
 
+  describe "\u00ED" do
+    include_examples 'component', 'an array zipped', "9@3σ\u00ED", [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+  end
+
   describe "\u00F3" do
     include_examples 'component', 'a number converted from binary to base 10', "1101\u00F3", 13
   end
