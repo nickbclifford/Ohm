@@ -80,6 +80,17 @@ class Ohm
       end
     end
 
+    def columns(mat)
+      mat[0].zip(*mat.drop(1))
+    end
+
+    # Shamefully stolen from Jelly.
+    def diagonals(mat)
+      shifted = Array.new(mat.length, nil)
+      mat.reverse.each_with_index {|r, i| shifted[~i] = Array.new(i, nil) + r}
+      columns(shifted).rotate(mat.length - 1).map(&:compact)
+    end
+
     def factorial(n)
       (1..n).reduce(1, :*)
     end

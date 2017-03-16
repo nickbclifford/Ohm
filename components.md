@@ -241,7 +241,9 @@ These components will execute all components between them and a `;` character (o
 ### Extras (`∙`)
 |Component|Action|Description|
 |---------|------|-----------|
+|`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|
+|`∙\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
+|`∙|`|Pop `a`|Pushes the columns of `a`, assuming `a` is a matrix.|
 |`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
-|`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|

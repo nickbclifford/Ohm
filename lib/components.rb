@@ -224,10 +224,12 @@ class Ohm
     "\u2248" => ->(a){a.to_f.round},
     "\u00B0" => ->(a){10 ** a.to_f},
     "\u2219" => {
+      '*' => ->(a, b){Array.new(b.to_i) {a}},
+      '\\' => ->(a){diagonals(a)},
       'p' => ->(a){arr_else_chars_inner_join(a) {|a| acc = []; a.map {|i| acc += arr_else_chars(i)}}},
       's' => ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
+      '|' => ->(a){columns(a)},
       "\u2310" => ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
-      '*' => ->(a, b){Array.new(b.to_i) {a}},
     },
     "\u00B7" => ->(a, b){untyped_to_s(a) * b.to_i}, # Repeat string
     "\u221A" => ->(a){Math.sqrt(a.to_f)},
