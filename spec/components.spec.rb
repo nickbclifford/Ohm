@@ -416,6 +416,10 @@ RSpec.describe Ohm do
     include_examples 'component', 'whether an item is not zero', "9\u00F6", true
   end
 
+  describe "\u00FB" do
+    include_examples 'component', 'the range between two numbers in steps of another number', "2 8 2\u00FB", [2, 4, 6, 8]
+  end
+
   describe "\u00FF" do
     include_examples 'component', 'an empty string', "\u00FF", ''
   end

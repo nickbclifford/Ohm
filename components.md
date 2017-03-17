@@ -127,6 +127,7 @@ These components will execute all components between them and a `;` character (o
 |`æ`|Pop `a`|Pushes `a` as a palindrome.|
 |`ô`|Pop `a`|Pushes `a` as a float.|
 |`ö`|Pop `a`|Pushes `a != 0`.|
+|`û`|Pop `a`, `b`, `c`|Pushes the range between `a` and `b` in steps of `c`.|
 |`ÿ`|N/A|Pushes empty string (`''`).|
 |`Ö`|Pop `a`|Pushes `a == 0`.|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|
@@ -247,3 +248,4 @@ These components will execute all components between them and a `;` character (o
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
 |`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
+|`∙≈`|Pop `a`, `b`|Pushes `a` rounded to `b` decimal places.|

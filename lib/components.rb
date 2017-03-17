@@ -124,7 +124,7 @@ class Ohm
     "\u00F4" => ->(a){a.to_f},
     "\u00F6" => ->(a){a.to_f != 0},
     "\u00F2" => ->{},
-    "\u00FB" => ->{},
+    "\u00FB" => ->(a, b, c){a.to_f.step(b.to_f, c.to_f).to_a},
     "\u00F9" => ->{},
     "\u00FF" => ->{''},
     "\u00D6" => ->(a){a.to_f == 0},
@@ -230,6 +230,7 @@ class Ohm
       's' => ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
       '|' => ->(a){columns(a)},
       "\u2310" => ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
+      "\u2248" => ->(a, b){a.to_f.round(b.to_i)},
     },
     "\u00B7" => ->(a, b){untyped_to_s(a) * b.to_i}, # Repeat string
     "\u221A" => ->(a){Math.sqrt(a.to_f)},
