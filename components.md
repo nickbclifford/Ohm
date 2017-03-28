@@ -12,6 +12,7 @@ These components will execute all components between them and a `;` character (o
 |`¿`|If this component is between a `?` and `;`, the block from `¿` to `;` will be executed if the condition given to `?` is false (else clause).|
 |`:`|Pops `a` and executes its associated block for each element in `a`, with the special components `^` and `_` set as the index and element currently being looped, respectively (foreach loop).|
 |`M`|Pops `a` and runs its associated block `a` times.|
+|`ë`|Pops `a` and pushes a 2D array where the first element contains all the elements of `a` that pushed `true` and the second element contains all the elements of `a` that pushed `false`.|
 |`Å`|Pops `a` and pushes whether all the elements in `a` push `true` from its associated block.|
 |`É`|Pops `a` and pushes whether any of the elements in `a` push `true` from its associated block.|
 |`░`|Pops `a` and pushes an array containing all elements of `a` for which its associated block pushes `true` (filter/select).|
@@ -49,6 +50,7 @@ These components will execute all components between them and a `;` character (o
 |`-`|Pop `a`, `b`|Pushes `a - b` (subtraction).|
 |`.`|N/A|Creates a character literal (i.e. `.a` ⇒ `'a'`).|
 |`/`|Pop `a`, `b`|Pushes `a / b` (division).|
+|Digits `0-9`|N/A|Creates a number literal.|
 |`<`|Pop `a`, `b`|Pushes `a < b` (less than).|
 |`=`|Get `a`|Prints `a` to standard output (with trailing newline)|.
 |`>`|Pop `a`, `b`|Pushes `a > b` (greater than).|
@@ -160,6 +162,7 @@ These components will execute all components between them and a `;` character (o
 |`├`|Pop `a`, `b`|Pushes `a[0, b]` (slice from beginning).|
 |`─`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|
 |`┼`|N/A|Pushes the first input given.|
+|`╞`|Pop `a`|Pushes `a` grouped by identical elements.|
 |`╟`|Pop `a`|Pushes `a` randomly shuffled.|
 |`╚`|Pop `a`, `b`|Pushes `a` with `b` spaces *prepended*.|
 |`╔`|Pop `a`, `b`|Pushes `a` with `b` spaces *appended*.|
@@ -230,6 +233,8 @@ These components will execute all components between them and a `;` character (o
 
 |Component|Description|
 |---------|-----------|
+|`α0`|Pushes all the digits from 0-9 (`0123456789`).|
+|`α1`|Pushes all the digits from 1-9 (`123456789`).|
 |`αK`|Pushes all the keys on a keyboard (`` `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ ``).|
 |`αc`|Pushes all the consonants (`bcdfghjklmnpqrstvwxyz`).|
 |`αe`|Pushes all the consonants **without `y`** (`bcdfghjklmnpqrstvwxz`).|

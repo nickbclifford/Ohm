@@ -199,6 +199,8 @@ class Ohm
           comp.stack.last[0]
         end
       # Array operations
+      when "\u00EB"
+        arr_operation(:partition)
       when "\u2591"
         arr_operation(:select)
       when "\u2592"
