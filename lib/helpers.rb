@@ -117,6 +117,18 @@ class Ohm
       end
     end
 
+    def group_equal_indices(arr)
+      grouped = {}
+      arr.each_with_index do |v, i|
+        if grouped.include?(v)
+          grouped[v] << i
+        else
+          grouped[v] = [i]
+        end
+      end
+      grouped.values
+    end
+
     def input
       i = $stdin.gets.chomp
       @inputs << x = 

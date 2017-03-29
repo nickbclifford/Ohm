@@ -253,4 +253,5 @@ These components will execute all components between them and a `;` character (o
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
 |`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
+|`∙╞`|Pop `a`|Pushes the indices of `a` grouped together by equal values.|
 |`∙≈`|Pop `a`, `b`|Pushes `a` rounded to `b` decimal places.|

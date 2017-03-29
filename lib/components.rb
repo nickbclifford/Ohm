@@ -229,6 +229,7 @@ class Ohm
       'p' => ->(a){arr_else_chars_inner_join(a) {|a| acc = []; a.map {|i| acc += arr_else_chars(i)}}},
       's' => ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
       "\u2310" => ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
+      "\u255E" => ->(a){group_equal_indices(arr_else_chars(a))},
       "\u2248" => ->(a, b){a.to_f.round(b.to_i)},
     },
     "\u00B7" => ->(a, b){untyped_to_s(a) * b.to_i}, # Repeat string
