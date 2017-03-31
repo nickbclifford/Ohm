@@ -187,10 +187,7 @@ class Ohm
         @component = @wire[@pointer]
 
         # Multi-character component support
-        if COMPONENTS[@component].is_a?(Hash)
-          @pointer += 1
-          @component << @wire[@pointer]
-        end
+        @component << @wire[@pointer += 1] if COMPONENTS[@component].keys.all? {|k| k.is_a?(String)}
 
         @stack << @stack.pop[0].map do |e|
           comp = Ohm.new(@component, @debug, @top_level, @stack.clone << e, @inputs, @vars).exec
@@ -238,27 +235,24 @@ class Ohm
           break
         end
       else
-        comp_lambda = 
-          case COMPONENTS[@component]
-          when Hash # Multi-character component
-            @pointer += 1
-            l = COMPONENTS[@component][@wire[@pointer]]
-            @component << @wire[@pointer]
-            l
-          when nil # Component not found
-            ->{} # No-op
-          else
-            COMPONENTS[@component]
-          end
+        comp_hash = COMPONENTS[@component] || {nop: true}
+
+        # Check if multi-char component
+        if comp_hash.keys.all? {|k| k.is_a?(String)}
+          @component << next_comp = @wire[@pointer += 1]
+          comp_hash = comp_hash[next_comp]
+        end
+
+        comp_lambda = comp_hash[:call] || ->{}
 
         args = @stack.method(
-          STACK_GET.include?(@component) ? :last : :pop
+          comp_hash[:get] ? :last : :pop
         ).call(comp_lambda.arity)
 
         result = instance_exec(*args, &comp_lambda)
 
-        unless result.nil? && !PUSH_NILS.include?(@component)
-          if MULTIPLE_PUSH.include?(@component)
+        unless result.nil? && !comp_hash[:nils]
+          if comp_hash[:multi]
             @stack.push(*result)
           else
             @stack << result

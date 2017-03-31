@@ -84,6 +84,10 @@ class Ohm
       mat[0].zip(*mat.drop(1))
     end
 
+    def depth(arr)
+      arr.is_a?(Array) ? 1 + arr.map {|a| depth(a)}.max : 0
+    end
+
     # Shamefully stolen from Jelly.
     def diagonals(mat)
       shifted = Array.new(mat.length, nil)
