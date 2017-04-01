@@ -24,14 +24,14 @@ class Ohm
       arg.is_a?(Array) ? arg : untyped_to_s(arg).chars
     end
 
-    def arr_else_chars_join(arg, &block)
-      result = block.call(arr_else_chars(arg))
+    def arr_else_chars_join(arg)
+      result = yield arr_else_chars(arg)
 
       arg.is_a?(Array) ? result : result.join
     end
 
-    def arr_else_chars_inner_join(arg, &block)
-      result = block.call(arr_else_chars(arg))
+    def arr_else_chars_inner_join(arg)
+      result = yield arr_else_chars(arg)
 
       arg.is_a?(Array) ? result : result.map(&:join)
     end
@@ -71,17 +71,13 @@ class Ohm
       @pointer = loop_end
     end
 
-    def arr_or_stack(arg, &block)
+    def arr_or_stack(arg)
       if arg.is_a?(Array)
-        block.call(arg)
+       yield arg
       else
-        @stack = Stack.new(self, [block.call(@stack << arg)]) # The argument gets popped, so we have to push it back
+        @stack = Stack.new(self, [yield(@stack << arg)]) # The argument gets popped, so we have to push it back
         nil
       end
-    end
-
-    def zip_arr(mat)
-      mat[0].zip(*mat.drop(1))
     end
 
     def depth(arr)
@@ -93,6 +89,44 @@ class Ohm
       shifted = Array.new(mat.length, nil)
       mat.reverse.each_with_index {|r, i| shifted[~i] = Array.new(i, nil) + r}
       zip_arr(shifted).rotate(mat.length - 1).map(&:compact)
+    end
+
+    def exec_component_hash
+      comp_hash = COMPONENTS[@component] || {nop: true}
+
+      # Check if multi-char component
+      if comp_hash.keys.all? {|k| k.is_a?(String)}
+        @component << next_comp = @wire[@pointer += 1]
+        comp_hash = comp_hash[next_comp]
+      end
+
+      comp_lambda = comp_hash[:call] || ->{}
+
+      args = @stack.method(
+        comp_hash[:get] ? :last : :pop
+      ).call(comp_lambda.arity)
+
+      result = instance_exec(*args, &comp_lambda)
+
+      unless result.nil? && !comp_hash[:nils]
+        if comp_hash[:multi]
+          @stack.push(*result)
+        else
+          @stack << result
+        end
+      end
+    end
+
+    def exec_wire_at_index(i)
+      new_index = @top_level.clone
+      new_index[:index] = i
+
+      puts "Executing wire at index #{i}" if @debug
+      new_wire = Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @inputs, @vars).exec
+      @printed ||= new_wire.printed
+      @stack = new_wire.stack
+
+      puts "Done executing wire at index #{i}\n" if @debug
     end
 
     def factorial(n)
@@ -234,16 +268,8 @@ class Ohm
       n.is_a?(Numeric) ? format("%.#{n.to_s.length}g", n) : n.to_s
     end
 
-    def exec_wire_at_index(i)
-      new_index = @top_level.clone
-      new_index[:index] = i
-
-      puts "Executing wire at index #{i}" if @debug
-      new_wire = Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @inputs, @vars).exec
-      @printed ||= new_wire.printed
-      @stack = new_wire.stack
-
-      puts "Done executing wire at index #{i}\n" if @debug
+    def zip_arr(mat)
+      mat[0].zip(*mat.drop(1))
     end
   end
 end

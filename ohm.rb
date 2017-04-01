@@ -235,29 +235,7 @@ class Ohm
           break
         end
       else
-        comp_hash = COMPONENTS[@component] || {nop: true}
-
-        # Check if multi-char component
-        if comp_hash.keys.all? {|k| k.is_a?(String)}
-          @component << next_comp = @wire[@pointer += 1]
-          comp_hash = comp_hash[next_comp]
-        end
-
-        comp_lambda = comp_hash[:call] || ->{}
-
-        args = @stack.method(
-          comp_hash[:get] ? :last : :pop
-        ).call(comp_lambda.arity)
-
-        result = instance_exec(*args, &comp_lambda)
-
-        unless result.nil? && !comp_hash[:nils]
-          if comp_hash[:multi]
-            @stack.push(*result)
-          else
-            @stack << result
-          end
-        end
+        exec_component_hash
       end
 
       @pointer += 1
