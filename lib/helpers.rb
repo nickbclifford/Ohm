@@ -97,15 +97,16 @@ class Ohm
       when 0
         instance_exec(&lam)
       when 1
-        flat = false || comp_hash[:depth].nil?
-        arg_depth = flat || depth(args[0])
-        if flat || comp_hash[:depth][0] == arg_depth
+        # FIXME: I neglected to consider the implications of translating Python (0 = False, 1 = True) to Ruby (it's all true).
+        # flat = false || comp_hash[:depth].nil?
+        # arg_depth = flat || depth(args[0])
+        # if flat || comp_hash[:depth][0] == arg_depth
           instance_exec(args[0], &lam)
-        elsif comp_hash[:depth][0] > arg_depth
-          exec_component_hash([args[0]], comp_hash)
-        else
-          args[0].map {|a| exec_component_hash([a], comp_hash)}
-        end          
+        # elsif comp_hash[:depth][0] > arg_depth
+        #   exec_component_hash([args[0]], comp_hash)
+        # else
+        #   args[0].map {|a| exec_component_hash([a], comp_hash)}
+        # end          
       when 2
         # TODO
       when 3
