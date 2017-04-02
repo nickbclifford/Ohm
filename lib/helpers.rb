@@ -81,7 +81,7 @@ class Ohm
     end
 
     def depth(arr)
-      arr.is_a?(Array) ? 1 + arr.map {|a| depth(a)}.max : 0
+      arr.is_a?(Array) ? 1 + arr.map(&method(:depth)).max : 0
     end
 
     # Shamefully stolen from Jelly.
@@ -91,29 +91,25 @@ class Ohm
       zip_arr(shifted).rotate(mat.length - 1).map(&:compact)
     end
 
-    def exec_component_hash
-      comp_hash = COMPONENTS[@component] || {nop: true}
-
-      # Check if multi-char component
-      if comp_hash.keys.all? {|k| k.is_a?(String)}
-        @component << next_comp = @wire[@pointer += 1]
-        comp_hash = comp_hash[next_comp]
-      end
-
-      comp_lambda = comp_hash[:call] || ->{}
-
-      args = @stack.method(
-        comp_hash[:get] ? :last : :pop
-      ).call(comp_lambda.arity)
-
-      result = instance_exec(*args, &comp_lambda)
-
-      unless result.nil? && !comp_hash[:nils]
-        if comp_hash[:multi]
-          @stack.push(*result)
+    def exec_component_hash(args, comp_hash)
+      lam = comp_hash[:call]
+      case lam.arity
+      when 0
+        instance_exec(&lam)
+      when 1
+        flat = false || comp_hash[:depth].nil?
+        arg_depth = flat || depth(args[0])
+        if flat || comp_hash[:depth][0] == arg_depth
+          instance_exec(args[0], &lam)
+        elsif comp_hash[:depth][0] > arg_depth
+          exec_component_hash([args[0]], comp_hash)
         else
-          @stack << result
-        end
+          args[0].map {|a| exec_component_hash([a], comp_hash)}
+        end          
+      when 2
+        # TODO
+      when 3
+        # TODO
       end
     end
 
