@@ -152,14 +152,14 @@ These components will execute all components between them and a `;` character (o
 |`¡`|N/A|Increments the counter by 1.|
 |`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
 |`»`|Pop `a`|Pushes a *single component* mapped over all values of `a`.|
-|`┤`|Pop `a`, `b`|Pushes `a[b, a.length]` (slice from end).|
+|`┤`|Pop `a`, `b`|Pushes `a[b..a.length]` (slice from end).|
 |`╡`|Pop `a`|Pushes the first and last elements of `a` as an array.|
 |`╣`|Pop `a`|Pushes all possible rotations of `a`.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
 |`╜`|Pop `a`|Pushes `a` rotated once to the left.|
 |`┴`|Pop `a`|Pushes `a` in all upper-case.|
 |`┬`|Pop `a`|Pushes `a` in all lower-case.|
-|`├`|Pop `a`, `b`|Pushes `a[0, b]` (slice from beginning).|
+|`├`|Pop `a`, `b`|Pushes `a[0..b]` (slice from beginning).|
 |`─`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|
 |`┼`|N/A|Pushes the first input given.|
 |`╞`|Pop `a`|Pushes `a` grouped by identical elements.|
@@ -168,7 +168,7 @@ These components will execute all components between them and a `;` character (o
 |`╔`|Pop `a`, `b`|Pushes `a` with `b` spaces *appended*.|
 |`╩`|Pop `a`, `b`|Pushes `a` left-justified to length `b` (with spaces).|
 |`╦`|Pop `a`, `b`|Pushes `a` right-justified to length `b` (with spaces).|
-|`═`|Pop `a`, `b`, `c`|Pushes `a[b, c]` (slice arbitrarily).|
+|`═`|Pop `a`, `b`, `c`|Pushes `a[b..c]` (slice arbitrarily).|
 |`╬`|Pop `a`|Pushes a random element from `a`.|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|
 |`╤`|Pop `a`|Pushes minimum element in `a`.|
