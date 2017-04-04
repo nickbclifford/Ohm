@@ -444,7 +444,7 @@ class Ohm
       call: ->{},
     },
     "\u2524" => {
-      call: ->(a, b){arr_else_str(a)[b.to_i, a.length]},
+      call: ->(a, b){arr_else_str(a)[b.to_i..a.length]},
     },
     "\u2561" => {
       call: ->(a){a = arr_else_chars(a); [a.first, a.last]},
@@ -486,7 +486,7 @@ class Ohm
       call: ->(a){untyped_to_s(a).downcase},
     },
     "\u251C" => {
-      call: ->(a, b){arr_else_str(a)[0, b.to_i]},
+      call: ->(a, b){arr_else_str(a)[0..b.to_i]},
     },
     "\u2500" => {
       call: ->(a, b){arr_else_chars(a) - arr_else_chars(b)},
@@ -513,7 +513,7 @@ class Ohm
       call: ->(a, b){untyped_to_s(a).rjust(b.to_i)},
     },
     "\u2550" => {
-      call: ->(a, b, c){arr_else_str(a)[b.to_i, c.to_i]},
+      call: ->(a, b, c){arr_else_str(a)[b.to_i..c.to_i]},
     },
     "\u256C" => {
       call: ->(a){arr_else_chars(a).sample},
