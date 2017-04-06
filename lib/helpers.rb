@@ -80,8 +80,8 @@ class Ohm
       end
     end
 
-    def depth(arr)
-      arr.is_a?(Array) ? 1 + arr.map(&method(:depth)).max : 0
+    def depth(a)
+      a.is_a?(Array) ? 1 + a.map(&method(:depth)).max : 0
     end
 
     # Shamefully stolen from Jelly.
@@ -97,20 +97,25 @@ class Ohm
       when 0
         instance_exec(&lam)
       when 1
-        # FIXME: I neglected to consider the implications of translating Python (0 = False, 1 = True) to Ruby (it's all true).
-        # flat = false || comp_hash[:depth].nil?
-        # arg_depth = flat || depth(args[0])
-        # if flat || comp_hash[:depth][0] == arg_depth
+        # FIXME: Components that work on both strings and arrays and the stack
+        comp_depth = comp_hash[:depth]&.[](0) || 0
+        arg_depth = depth(args[0])
+        if comp_depth == arg_depth || comp_hash[:no_vec]
+          p 'first branch'
           instance_exec(args[0], &lam)
-        # elsif comp_hash[:depth][0] > arg_depth
-        #   exec_component_hash([args[0]], comp_hash)
-        # else
-        #   args[0].map {|a| exec_component_hash([a], comp_hash)}
-        # end          
+        elsif comp_depth > arg_depth
+          p 'second branch'
+          exec_component_hash([args[0]], comp_hash)
+        else
+          p 'last branch'
+          args[0].map {|a| exec_component_hash([a], comp_hash)}
+        end          
       when 2
         # TODO
+        instance_exec(*args, &lam)
       when 3
         # TODO
+        instance_exec(*args, &lam)
       end
     end
 

@@ -40,6 +40,7 @@ class Ohm
     },
     ',' => {
       call: ->(a){@printed = true; puts untyped_to_s(a)},
+      no_vec: true,
     },
     '-' => {
       call: ->(a, b){a.to_f - b.to_f},
@@ -53,6 +54,7 @@ class Ohm
     '=' => {
       call: ->(a){@printed = true; puts untyped_to_s(a)},
       get: true,
+      no_vec: true,
     },
     '>' => {
       call: ->(a, b){a.to_f > b.to_f},
@@ -72,6 +74,7 @@ class Ohm
     'D' => {
       call: ->(a){[a, a]},
       multi: true,
+      no_vec: true,
     },
     'E' => {
       call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
@@ -97,6 +100,7 @@ class Ohm
     },
     'L' => {
       call: ->(a){@printed = true; print untyped_to_s(a)},
+      no_vec: true
     },
     'N' => {
       call: ->(a, b){untyped_to_s(a) != untyped_to_s(b)},
@@ -112,15 +116,18 @@ class Ohm
     },
     'R' => {
       call: ->(a){arr_else_str(a).reverse},
+      depth: [1],
     },
     'S' => {
       call: ->(a){arr_else_chars_join(a, &:sort)},
+      depth: [1],
     },
     'T' => {
       call: ->{true},
     },
     'U' => {
       call: ->(a){arr_else_chars_join(a, &:uniq)},
+      depth: [1],
     },
     'V' => {
       call: ->(a){(1..a.to_i).select {|n| a.to_i % n == 0}},
@@ -146,6 +153,7 @@ class Ohm
     ']' => {
       call: ->(a){a.is_a?(Array) ? a.flatten(1) : a},
       multi: true,
+      no_vec: true,
     },
     '^' => {
       call: ->{@vars[:index]},
@@ -159,6 +167,7 @@ class Ohm
     'a' => {
       call: ->(a, b){[b, a]},
       multi: true,
+      no_vec: true,
     },
     'b' => {
       call: ->(a){to_base(a.to_i, 2)},
@@ -180,9 +189,11 @@ class Ohm
     },
     'h' => {
       call: ->(a){arr_else_chars(a).first},
+      depth: [1],
     },
     'i' => {
       call: ->(a){arr_else_chars(a).last},
+      depth: [1],
     },
     'j' => {
       call: ->(a, b){arr_or_stack(a) {|a| a.join(untyped_to_s(b))}},
@@ -193,6 +204,7 @@ class Ohm
     },
     'l' => {
       call: ->(a){arr_else_str(a).length},
+      depth: [1]
     },
     'm' => {
       call: ->(a){a.to_i.prime_division.map {|x| x[0]}},
@@ -226,6 +238,7 @@ class Ohm
     },
     'w' => {
       call: ->(a){[a]},
+      no_vec: true,
     },
     'x' => {
       call: ->(a){to_base(a.to_i, 16)},
@@ -239,12 +252,14 @@ class Ohm
     '{' => {
       call: ->(a){a.is_a?(Array) ? a.flatten : a},
       multi: true,
+      no_vec: true
     },
     '|' => {
       call: ->(a, b){a || b},
     },
     '}' => {
       call: ->(a){(a.is_a?(Array) ? a.each_slice(1) : untyped_to_s(a).each_char).to_a},
+      depth: [1]
     },
     '~' => {
       call: ->(a){-a.to_f},
@@ -294,6 +309,7 @@ class Ohm
     },
     "\u00E6" => {
       call: ->(a){arr_else_chars_join(a) {|a| a + a.reverse[1, a.length]}},
+      depth: [1],
     },
     "\u00C6" => {
       'A' => {
@@ -381,6 +397,7 @@ class Ohm
     "\u00A2" => {
       call: ->(a){@vars[:register] = a},
       nils: true,
+      no_vec: true,
     }, # This doesn't have to go under GET since assignment still returns the value
     "\u00A3" => {
       call: ->(a){sleep(a.to_f); nil},
@@ -399,6 +416,7 @@ class Ohm
     },
     "\u00ED" => {
       call: ->(a){zip_arr(a)},
+      depth: [2],
     },
     "\u00F3" => {
       call: ->(a){from_base(a.to_s, 2)},
@@ -421,9 +439,11 @@ class Ohm
     },
     "\u2310" => {
       call: ->(a){arr_else_chars_inner_join(a) {|a| a.permutation.to_a}},
+      depth: [1],
     },
     "\u00AC" => {
       call: ->(a){arr_else_chars_inner_join(a) {|a| powerset(a)}},
+      depth: [1],
     },
     "\u00BD" => {
       call: ->(a){a.to_f / 2},
@@ -445,9 +465,11 @@ class Ohm
     },
     "\u2524" => {
       call: ->(a, b){arr_else_str(a)[b.to_i..a.length]},
+      depth: [1]
     },
     "\u2561" => {
       call: ->(a){a = arr_else_chars(a); [a.first, a.last]},
+      depth: [1],
     },
     "\u2562" => {
       call: ->{},
@@ -460,6 +482,7 @@ class Ohm
     },
     "\u2563" => {
       call: ->(a){arr_else_chars_inner_join(a) {|a| a.length.times.map {|i| c = a.rotate(i)}}},
+      depth: [1]
     },
     "\u2557" => {
       call: ->{},
@@ -534,6 +557,7 @@ class Ohm
     },
     "\u2559" => {
       call: ->(a){arr_else_chars_join(a) {|a| a.rotate(-1)}},
+      depth: [1],
     },
     "\u2558" => {
       call: ->{},
@@ -629,6 +653,7 @@ class Ohm
     },
     "\u03B4" => {
       call: ->(a){a.each_cons(2).map {|a, b| b.to_f - a.to_f}},
+      depth: [1],
     },
     "\u03C6" => {
       call: ->(a){a = a.to_i; a.prime_division.map {|x| 1 - (1.0 / x[0])}.reduce(a, :*).to_i},
@@ -642,6 +667,7 @@ class Ohm
     "\u2261" => {
       call: ->(a){[a, a, a]},
       multi: true,
+      no_vec: true,
     },
     "\u00B1" => {
       call: ->(a, b){a.to_f ** (1 / b.to_f)},
@@ -673,18 +699,22 @@ class Ohm
       },
       '\\' => {
         call: ->(a){diagonals(a)},
+        depth: [2],
       },
       'p' => {
         call: ->(a){arr_else_chars_inner_join(a) {|a| acc = []; a.map {|i| acc += arr_else_chars(i)}}},
+        depth: [1],
       },
       's' => {
         call: ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
+        depth: [1],
       },
       "\u2310" => {
         call: ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
       },
       "\u255E" => {
         call: ->(a){group_equal_indices(arr_else_chars(a))},
+        depth: [1],
       },
       "\u2248" => {
         call: ->(a, b){a.to_f.round(b.to_i)},
