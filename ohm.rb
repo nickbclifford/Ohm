@@ -243,11 +243,11 @@ class Ohm
           comp_hash = comp_hash[next_comp]
         end
 
-        comp_lambda = comp_hash[:call] || ->{}
+        comp_hash[:call] ||= ->{}
 
         args = @stack.method(
           comp_hash[:get] ? :last : :pop
-        ).call(comp_lambda.arity)
+        ).call(comp_hash[:call].arity)
 
         result = exec_component_hash(args, comp_hash)
 

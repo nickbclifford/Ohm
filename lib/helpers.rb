@@ -81,7 +81,7 @@ class Ohm
     end
 
     def depth(a)
-      a.is_a?(Array) ? 1 + a.map(&method(:depth)).max : 0
+      a.is_a?(Array) ? 1 + a.map(&method(:depth)).min : 0
     end
 
     # Shamefully stolen from Jelly.
@@ -97,24 +97,20 @@ class Ohm
       when 0
         instance_exec(&lam)
       when 1
-        # FIXME: Components that work on both strings and arrays and the stack
         comp_depth = comp_hash[:depth]&.[](0) || 0
         arg_depth = depth(args[0])
-        if comp_depth == arg_depth || comp_hash[:no_vec]
-          p 'first branch'
-          instance_exec(args[0], &lam)
+        if comp_depth == arg_depth || comp_hash[:no_vec] || (comp_hash[:arr_stack] && arg_depth.zero?)
+          instance_exec(args[0], &lam) # Not vectorized
         elsif comp_depth > arg_depth
-          p 'second branch'
-          exec_component_hash([args[0]], comp_hash)
+          exec_component_hash([args[0]], comp_hash) # Wrapped for depth
         else
-          p 'last branch'
-          args[0].map {|a| exec_component_hash([a], comp_hash)}
+          args[0].map {|a| exec_component_hash([a], comp_hash)} # Vectorized
         end          
       when 2
-        # TODO
+        # TODO: vectorization
         instance_exec(*args, &lam)
       when 3
-        # TODO
+        # TODO: vectorization
         instance_exec(*args, &lam)
       end
     end
