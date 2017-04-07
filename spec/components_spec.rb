@@ -340,7 +340,7 @@ RSpec.describe Ohm do
     include_examples 'component', 'a string split on spaces', '"unit tests"z', ['unit', 'tests']
   end
 
-  describe ']' do
+  describe '{' do
     it 'deep flattens an array onto the stack' do
       expect(Ohm.new('4@w5@W{', false).exec.stack).to eq([1, 2, 3, 4, 1, 2, 3, 4, 5])
     end
@@ -465,7 +465,7 @@ RSpec.describe Ohm do
   end
 
   describe "\u00ED" do
-    include_examples 'component', 'an array zipped', "9@3σ\u00ED", [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+    include_examples 'component', 'an array zipped', "9@3\u03C3\u00ED", [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
   end
 
   describe "\u00F3" do

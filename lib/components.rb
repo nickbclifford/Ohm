@@ -70,6 +70,7 @@ class Ohm
     },
     'C' => {
       call: ->(a, b){arr_else_str(a).concat(arr_else_str(b))},
+      no_vec: true,
     },
     'D' => {
       call: ->(a){[a, a]},
@@ -87,6 +88,8 @@ class Ohm
     },
     'H' => {
       call: ->(a, b){a.push(b)},
+      # depth: [1], FIXME
+      no_vec: true,
     },
     'I' => {
       call: ->{input},
@@ -98,6 +101,7 @@ class Ohm
     },
     'K' => {
       call: ->(a, b){arr_else_chars(a).count(b)},
+      no_vec: true,
     },
     'L' => {
       call: ->(a){@printed = true; print untyped_to_s(a)},
@@ -138,6 +142,7 @@ class Ohm
     },
     'X' => {
       call: ->(a, b){arr_else_chars_join(a) {|a| a.unshift(b)}},
+      no_vec: true,
     },
     'Y' => {
       call: ->(a){(1...a.to_i).select {|n| a.to_i % n == 0}},
@@ -198,10 +203,12 @@ class Ohm
     },
     'j' => {
       call: ->(a, b){arr_or_stack(a) {|a| a.join(untyped_to_s(b))}},
+      depth: [1],
       arr_stack: true,
     },
     'k' => {
       call: ->(a, b){arr_else_str(a).index(b)},
+      depth: [1],
       nils: true,
     },
     'l' => {
@@ -234,6 +241,7 @@ class Ohm
     },
     'u' => {
       call: ->(a, b){subarray_index(*[a, b].map {|x| arr_else_str(x)})},
+      depth: [1, 1]
     },
     'v' => {
       call: ->(a, b){a.to_f.div(b.to_f)},
@@ -268,6 +276,7 @@ class Ohm
     },
     "\u00C7" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_cons(b.to_i).to_a}},
+      no_vec: true,
     },
     "\u00FC" => {
       call: ->{' '},
@@ -289,6 +298,7 @@ class Ohm
     },
     "\u00E7" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.combination(b.to_i).to_a}},
+      no_vec: true,
     },
     "\u00EA" => {
       call: ->(a){a.to_i.times.map {|i| nth_fibonacci(i + 1)}},
@@ -395,6 +405,7 @@ class Ohm
     },
     "\u00DC" => {
       call: ->(a, b){arr_else_chars(a) | arr_else_chars(b)},
+      no_vec: true,
     },
     "\u00A2" => {
       call: ->(a){@vars[:register] = a},
@@ -433,8 +444,9 @@ class Ohm
       call: ->{"\n"},
     },
     "\u00AA" => {
-      call: ->(a, b){a[b.to_i]},
+      call: ->(a, b){arr_else_str(a)[b.to_i]},
       nils: true,
+      no_vec: true,
     },
     "\u00BA" => {
       call: ->(a){2 ** a.to_f},
@@ -458,6 +470,7 @@ class Ohm
     },
     "\u00AB" => {
       call: ->(a, b){[a, b]},
+      no_vec: true,
     },
     "\u00BB" => {
       call: ->{},
@@ -467,7 +480,7 @@ class Ohm
     },
     "\u2524" => {
       call: ->(a, b){arr_else_str(a)[b.to_i..a.length]},
-      depth: [1]
+      no_vec: true,
     },
     "\u2561" => {
       call: ->(a){a = arr_else_chars(a); [a.first, a.last]},
@@ -542,6 +555,7 @@ class Ohm
     },
     "\u2550" => {
       call: ->(a, b, c){arr_else_str(a)[b.to_i..c.to_i]},
+      no_vec: true,
     },
     "\u256C" => {
       call: ->(a){arr_else_chars(a).sample},
@@ -636,6 +650,7 @@ class Ohm
     },
     "\u00DF" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| arr_in_groups(a, b.to_i)}},
+      no_vec: true,
     },
     "\u0393" => {
       call: ->{-1},
@@ -650,6 +665,7 @@ class Ohm
     },
     "\u03C3" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_slice(b.to_i).to_a}},
+      no_vec: true,
     },
     "\u00B5" => {
       call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(1, :*)}},
@@ -668,9 +684,11 @@ class Ohm
     },
     "\u03B5" => {
       call: ->(a, b){arr_else_str(a).include?(b)},
+      no_vec: true,
     },
     "\u2229" => {
       call: ->(a, b){arr_else_chars(a) & arr_else_chars(b)},
+      no_vec: true,
     },
     "\u2261" => {
       call: ->(a){[a, a, a]},
@@ -719,6 +737,7 @@ class Ohm
       },
       "\u2310" => {
         call: ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
+        no_vec: true,
       },
       "\u255E" => {
         call: ->(a){group_equal_indices(arr_else_chars(a))},
