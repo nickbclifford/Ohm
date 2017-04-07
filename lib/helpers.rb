@@ -105,7 +105,7 @@ class Ohm
           exec_component_hash([args[0]], comp_hash) # Wrapped for depth
         else
           args[0].map {|a| exec_component_hash([a], comp_hash)} # Vectorized
-        end          
+        end
       when 2
         # TODO: vectorization
         instance_exec(*args, &lam)
