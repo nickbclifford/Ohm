@@ -80,8 +80,10 @@ class Ohm
       end
     end
 
-    def depth(a)
-      a.is_a?(Array) ? 1 + a.map(&method(:depth)).min : 0
+    def comp_arg_depth(a, hsh)
+      x = a.is_a?(Array) ? 1 + a.map {|c| comp_arg_depth(c, hsh)}.max : 0
+      x += 1 if a.is_a?(String) && hsh[:arr_str]
+      x
     end
 
     # Shamefully stolen from Jelly.
@@ -99,7 +101,7 @@ class Ohm
         instance_exec(&lam)
       when 1
         comp_depth = comp_hash[:depth]&.[](0) || 0
-        arg_depth = depth(args[0])
+        arg_depth = comp_arg_depth(args[0], comp_hash)
 
         if comp_depth == arg_depth || comp_hash[:no_vec] || (comp_hash[:arr_stack] && arg_depth.zero?)
           instance_exec(args[0], &lam) # Not vectorized
@@ -110,7 +112,8 @@ class Ohm
         end
       when 2
         comp_depths = 2.times.map {|i| comp_hash[:depth]&.[](i) || 0}
-        arg_depths = args.map(&method(:depth))
+        arg_depths = args.map {|a| comp_arg_depth(a, comp_hash)}
+        arg_depths[1] -= 1 if comp_hash[:arr_str] && comp_hash[:depth]&.[](1).nil?
 
         if comp_depths == arg_depths || comp_hash[:no_vec] || (comp_hash[:arr_stack] && arg_depths.all?(&:zero?)) # || other stuff
           instance_exec(*args, &lam)
