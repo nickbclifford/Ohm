@@ -93,14 +93,14 @@ class Ohm
       zip_arr(shifted).rotate(mat.length - 1).map(&:compact)
     end
 
-    # TODO: Fix vectorizing for arr_else_str, et al.
     def exec_component_hash(args, comp_hash)
+      comp_hash[:depth] ||= []
       lam = comp_hash[:call]
-      x = case lam.arity
+      case lam.arity
       when 0
         instance_exec(&lam)
       when 1
-        comp_depth = comp_hash[:depth]&.[](0) || 0
+        comp_depth = comp_hash[:depth][0] || 0
         arg_depth = comp_arg_depth(args[0], comp_hash)
 
         if comp_depth == arg_depth || comp_hash[:no_vec] || (comp_hash[:arr_stack] && arg_depth.zero?)
@@ -111,9 +111,9 @@ class Ohm
           args[0].map {|a| exec_component_hash([a], comp_hash)} # Vectorized
         end
       when 2
-        comp_depths = 2.times.map {|i| comp_hash[:depth]&.[](i) || 0}
+        comp_depths = Array.new(2) {|i| comp_hash[:depth][i] || 0}
         arg_depths = args.map {|a| comp_arg_depth(a, comp_hash)}
-        arg_depths[1] -= 1 if comp_hash[:arr_str] && comp_hash[:depth]&.[](1).nil? && args[1].is_a?(String)
+        arg_depths[1] -= 1 if comp_hash[:arr_str] && comp_hash[:depth][1].nil? && args[1].is_a?(String)
 
         if comp_depths == arg_depths || comp_hash[:no_vec] || (comp_hash[:arr_stack] && arg_depths.all?(&:zero?)) # || other stuff
           instance_exec(*args, &lam)

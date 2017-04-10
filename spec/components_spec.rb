@@ -154,7 +154,7 @@ RSpec.describe Ohm do
 
   describe 'O' do
     it 'removes the last item of the stack' do
-      expect(Ohm.new('5 2 3 4O', false).exec.stack).to eq(['5', '2', '3'])
+      expect(Ohm.new('5 2 3 4O', false).exec.stack).to eq(%w(5 2 3))
     end
   end
 
@@ -164,7 +164,7 @@ RSpec.describe Ohm do
 
   describe 'Q' do
     it 'reverses the stack' do
-      expect(Ohm.new('5 2 3 4Q', false).exec.stack).to eq(['4', '3', '2', '5'])
+      expect(Ohm.new('5 2 3 4Q', false).exec.stack).to eq(%w(4 3 2 5))
     end
   end
 
@@ -189,7 +189,7 @@ RSpec.describe Ohm do
   end
 
   describe 'W' do
-    include_examples 'component', 'the whole stack wrapped as an array', '5 1 2 4 2W', ['5', '1', '2', '4', '2']
+    include_examples 'component', 'the whole stack wrapped as an array', '5 1 2 4 2W', %w(5 1 2 4 2)
   end
 
   describe 'X' do
@@ -201,7 +201,7 @@ RSpec.describe Ohm do
   end
 
   describe 'Z' do
-    include_examples 'component', 'a string split on newlines', '"unitÑtest"Z', ['unit', 'test']
+    include_examples 'component', 'a string split on newlines', '"unitÑtest"Z', %w(unit test)
   end
 
   describe '[' do
@@ -329,7 +329,7 @@ RSpec.describe Ohm do
   end
 
   describe 'z' do
-    include_examples 'component', 'a string split on spaces', '"unit tests"z', ['unit', 'tests']
+    include_examples 'component', 'a string split on spaces', '"unit tests"z', %w(unit tests)
   end
 
   describe '{' do
@@ -343,7 +343,7 @@ RSpec.describe Ohm do
   end
 
   describe '}' do
-    include_examples 'component', 'an item split into single elements', '"unit"}', ['u', 'n', 'i', 't']
+    include_examples 'component', 'an item split into single elements', '"unit"}', %w(u n i t)
   end
 
   describe '~' do
