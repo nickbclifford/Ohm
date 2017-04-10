@@ -1,11 +1,3 @@
-require_relative '../ohm'
-
-RSpec.shared_examples 'component' do |desc, circuit, result|
-  it "pushes #{desc}" do
-    expect(Ohm.new(circuit, false).exec.stack.last[0]).to eq(result)
-  end
-end
-
 RSpec.describe Ohm do
   describe '!' do
     include_examples 'component', 'the factorial of a number', '5!', 120
@@ -149,7 +141,7 @@ RSpec.describe Ohm do
   # I'm going to skip this spec
   # describe 'L' do
   # end
-  
+
   describe 'M' do
     it 'executes a block of code a number of times' do
       expect(Ohm.new('3DM8+', false).exec.stack.last[0]).to eq(27)

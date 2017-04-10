@@ -191,7 +191,7 @@ class Ohm
     },
     'd' => {
       call: ->(a){a.to_f * 2},
-    },  
+    },
     'e' => {
       call: ->(a, b){nPr(a.to_i, b.to_i)},
     },
@@ -225,8 +225,9 @@ class Ohm
     },
     'l' => {
       call: ->(a){arr_else_str(a).length},
-      depth: [1],
-      arr_str: true,
+      # depth: [1],
+      # arr_str: true,
+      no_vec: true,
     },
     'm' => {
       call: ->(a){a.to_i.prime_division.map {|x| x[0]}},
