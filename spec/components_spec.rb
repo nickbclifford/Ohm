@@ -1,11 +1,3 @@
-require_relative '../ohm'
-
-RSpec.shared_examples 'component' do |desc, circuit, result|
-  it "pushes #{desc}" do
-    expect(Ohm.new(circuit, false).exec.stack.last[0]).to eq(result)
-  end
-end
-
 RSpec.describe Ohm do
   describe '!' do
     include_examples 'component', 'the factorial of a number', '5!', 120
@@ -149,7 +141,7 @@ RSpec.describe Ohm do
   # I'm going to skip this spec
   # describe 'L' do
   # end
-  
+
   describe 'M' do
     it 'executes a block of code a number of times' do
       expect(Ohm.new('3DM8+', false).exec.stack.last[0]).to eq(27)
@@ -162,7 +154,7 @@ RSpec.describe Ohm do
 
   describe 'O' do
     it 'removes the last item of the stack' do
-      expect(Ohm.new('5 2 3 4O', false).exec.stack).to eq(['5', '2', '3'])
+      expect(Ohm.new('5 2 3 4O', false).exec.stack).to eq(%w(5 2 3))
     end
   end
 
@@ -172,7 +164,7 @@ RSpec.describe Ohm do
 
   describe 'Q' do
     it 'reverses the stack' do
-      expect(Ohm.new('5 2 3 4Q', false).exec.stack).to eq(['4', '3', '2', '5'])
+      expect(Ohm.new('5 2 3 4Q', false).exec.stack).to eq(%w(4 3 2 5))
     end
   end
 
@@ -197,7 +189,7 @@ RSpec.describe Ohm do
   end
 
   describe 'W' do
-    include_examples 'component', 'the whole stack wrapped as an array', '5 1 2 4 2W', ['5', '1', '2', '4', '2']
+    include_examples 'component', 'the whole stack wrapped as an array', '5 1 2 4 2W', %w(5 1 2 4 2)
   end
 
   describe 'X' do
@@ -209,7 +201,7 @@ RSpec.describe Ohm do
   end
 
   describe 'Z' do
-    include_examples 'component', 'a string split on newlines', '"unitÑtest"Z', ['unit', 'test']
+    include_examples 'component', 'a string split on newlines', '"unitÑtest"Z', %w(unit test)
   end
 
   describe '[' do
@@ -337,10 +329,10 @@ RSpec.describe Ohm do
   end
 
   describe 'z' do
-    include_examples 'component', 'a string split on spaces', '"unit tests"z', ['unit', 'tests']
+    include_examples 'component', 'a string split on spaces', '"unit tests"z', %w(unit tests)
   end
 
-  describe ']' do
+  describe '{' do
     it 'deep flattens an array onto the stack' do
       expect(Ohm.new('4@w5@W{', false).exec.stack).to eq([1, 2, 3, 4, 1, 2, 3, 4, 5])
     end
@@ -351,7 +343,7 @@ RSpec.describe Ohm do
   end
 
   describe '}' do
-    include_examples 'component', 'an item split into single elements', '"unit"}', ['u', 'n', 'i', 't']
+    include_examples 'component', 'an item split into single elements', '"unit"}', %w(u n i t)
   end
 
   describe '~' do
@@ -465,7 +457,7 @@ RSpec.describe Ohm do
   end
 
   describe "\u00ED" do
-    include_examples 'component', 'an array zipped', "9@3σ\u00ED", [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+    include_examples 'component', 'an array zipped', "9@3\u03C3\u00ED", [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
   end
 
   describe "\u00F3" do

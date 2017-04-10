@@ -1,5 +1,3 @@
-require_relative '../ohm'
-
 RSpec.describe Ohm::Stack do
   describe '#pop, #last' do
     it 'gets additional user input if there are not enough elements' do

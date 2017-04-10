@@ -22,6 +22,9 @@ Since Ohm is a golfing language, many things are done implicitly in order to sav
 - If there are not enough items on the stack when a component tries to pop from it, Ohm will push user input to the stack until there are enough.
 - If a circuit has not printed anything once execution completes, the top element of the stack will automatically be printed.
 
+### Vectorization
+Most components will automatically *vectorize*, meaning that if you pass in an array(s), it will automatically perform its function over those arguments. For example, passing `[1, 2, 3]` to the `²` component will return `[1, 4, 9]`. This is more efficient than mapping or using the `«` component.
+
 ### Wires
 Wires are a way to splinter your code into different functions (similar to links in Jelly). New wires are placed on a separate line, and the top-most wire is always executed as the main wire.
 
