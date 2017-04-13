@@ -296,6 +296,12 @@ RSpec.describe Ohm do
     include_examples 'component', 'whether a number is prime', '9p', false
   end
 
+  describe 'q' do
+    it 'prematurely exits the program' do
+      expect(Ohm.new('2q4', false).exec.stack.last[0]).to eq('2')
+    end
+  end
+
   describe 'r' do
     include_examples 'component', 'the transposition of three strings', '"unit testing""ti""yo"r', 'unoy yesyong'
   end

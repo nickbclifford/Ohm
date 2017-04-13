@@ -102,6 +102,7 @@ These components will execute all components between them and a `;` character (o
 |`n`|Pop `a`|Pushes *exponents* of prime factorization of `a`.|
 |`o`|Pop `a`|Pushes full prime factorization of `a`.|
 |`p`|Pop `a`|Pushes whether `a` is a prime number.|
+|`q`|N/A|Immediately stops program execution.|
 |`r`|Pop `a`, `b`, `c`|Pushes `a.tr(b, c)`.|
 |`s`|Pop `a`|Pushes `a` as a string.|
 |`t`|Pop `a`, `b`|Pushes `a` converted to base 10 from base `b`.|
@@ -152,6 +153,7 @@ These components will execute all components between them and a `;` character (o
 |`¡`|N/A|Increments the counter by 1.|
 |`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
 |`»`|Pop `a`|Pushes a *single component* mapped over all values of `a`.|
+|`│`|Pop `a`|Pushes if `a` is empty.|
 |`┤`|Pop `a`, `b`|Pushes `a[b..a.length]` (slice from end).|
 |`╡`|Pop `a`|Pushes the first and last elements of `a` as an array.|
 |`╣`|Pop `a`|Pushes all possible rotations of `a`.|
@@ -228,6 +230,19 @@ These components will execute all components between them and a `;` character (o
 |`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|
 |`Æ²`|Pop `a`|Pushes whether `a` is a perfect square.|
 
+### Time (`╫`)
+|Component|Action|Description|
+|---------|------|-----------|
+|`╫%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|
+|`╫D`|N/A|Pushes the current day.|
+|`╫H`|N/A|Pushes the current hour.|
+|`╫M`|N/A|Pushes the current month.|
+|`╫N`|N/A|Pushes the current nanosecond (yes, really).|
+|`╫S`|N/A|Pushes the current second.|
+|`╫W`|N/A|Pushes the current weekday (1-7).|
+|`╫Y`|N/A|Pushes the current year.|
+|`╫m`|N/A|Pushes the current minute.|
+
 ### Constants (`α`)
 **Note**: Because these are constants, they only push to the stack.
 
@@ -235,14 +250,17 @@ These components will execute all components between them and a `;` character (o
 |---------|-----------|
 |`α0`|Pushes all the digits from 0-9 (`0123456789`).|
 |`α1`|Pushes all the digits from 1-9 (`123456789`).|
+|`αA`|Pushes the normal uppercase alphabet (`ABCDEFGHIJKLMNOPQRSTUVWXYZ`).|
 |`αK`|Pushes all the keys on a keyboard (`` `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ ``).|
 |`αc`|Pushes all the consonants (`bcdfghjklmnpqrstvwxyz`).|
 |`αe`|Pushes all the consonants **without `y`** (`bcdfghjklmnpqrstvwxz`).|
 |`αk`|Pushes the alphabet ordered like it is on a keyboard (`qwertyuiopasdfghjklzxcvbnm`).|
 |`αv`|Pushes all the vowels (`aeiou`).|
 |`αy`|Pushes all the vowels **including `y`** (`aeiouy`).|
+|`αå`|Pushes all the tokens that match the `\w` regex metachar (`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_`).|
 |`αê`|Pushes Euler's constant `e` (`2.718281...`).|
-|`αß`|Pushes the normal alphabet (`abcdefghijklmnopqrstuvwxyz`).|
+|`αÅ`|Same as `αå`, except with the uppercase and lowercase characters switched.|
+|`αß`|Pushes the normal lowercase alphabet (`abcdefghijklmnopqrstuvwxyz`).|
 |`απ`|Pushes pi (`3.1415926...`).|
 
 ### Extras (`∙`)
@@ -252,6 +270,8 @@ These components will execute all components between them and a `;` character (o
 |`∙\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
+|`∙I`|Pop `a`|Pushes the `a`th input.|
+|`∙î`|Pop `a`|Pushes whether `a` is an integer.|
 |`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
 |`∙╞`|Pop `a`|Pushes the indices of `a` grouped together by equal values.|
 |`∙≈`|Pop `a`, `b`|Pushes `a` rounded to `b` decimal places.|

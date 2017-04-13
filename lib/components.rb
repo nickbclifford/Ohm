@@ -241,9 +241,6 @@ class Ohm
     'p' => {
       call: ->(a){a.to_i.prime?},
     },
-    'q' => {
-      call: ->{},
-    },
     'r' => {
       call: ->(a, b, c){untyped_to_s(a).tr(untyped_to_s(b), untyped_to_s(c))},
     },
@@ -494,11 +491,10 @@ class Ohm
       call: ->(a, b){[a, b]},
       no_vec: true,
     },
-    "\u00BB" => {
-      call: ->{},
-    },
     "\u2502" => {
-      call: ->{},
+      call: ->(a){arr_else_str(a).empty?},
+      depth: [1],
+      arr_str: true,
     },
     "\u2524" => {
       call: ->(a, b){a = arr_else_str(a); a[b.to_i..a.length]},
@@ -626,7 +622,33 @@ class Ohm
       call: ->{},
     },
     "\u256B" => {
-      call: ->{},
+      '%' => {
+        call: ->(a){Time.now.strftime(untyped_to_s(a))},
+      },
+      'D' => {
+        call: ->{Time.now.day},
+      },
+      'H' => {
+        call: ->{Time.now.hour},
+      },
+      'M' => {
+        call: ->{Time.now.month},
+      },
+      'N' => {
+        call: ->{Time.now.nsec},
+      },
+      'S' => {
+        call: ->{Time.now.sec},
+      },
+      'W' => {
+        call: ->{Time.now.wday},
+      },
+      'Y' => {
+        call: ->{Time.now.year},
+      },
+      'm' => {
+        call: ->{Time.now.minute},
+      },
     },
     "\u256A" => {
       call: ->(a){arr_else_chars(a).minmax},
@@ -658,6 +680,9 @@ class Ohm
       '1' => {
         call: ->{'123456789'},
       },
+      'A' => {
+        call: ->{'ABCDEFGHIJKLMNOPQRSTUVWXYZ'},
+      },
       'K' => {
         call: ->{'`1234567890-=qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./'},
       },
@@ -676,8 +701,14 @@ class Ohm
       'y' => {
         call: ->{'aeiouy'},
       },
+      "\u00E5" => {
+        call: ->{'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'},
+      },
       "\u00EA" => {
         call: ->{Math::E},
+      },
+      "\u00C5" => {
+        call: ->{'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_'},
       },
       "\u00DF" => {
         call: ->{'abcdefghijklmnopqrstuvwxyz'},
@@ -766,6 +797,9 @@ class Ohm
       '*' => {
         call: ->(a, b){Array.new(b.to_i) {a}},
       },
+      'I' => {
+        call: ->(a){input_access(a.to_i)},
+      },
       '\\' => {
         call: ->(a){diagonals(a)},
         depth: [2],
@@ -779,6 +813,9 @@ class Ohm
         call: ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
         depth: [1],
         arr_str: true,
+      },
+      "\u00EE" => {
+        call: ->(a){begin Integer(a) rescue return false end; true},
       },
       "\u2310" => {
         call: ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},

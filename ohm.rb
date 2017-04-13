@@ -50,6 +50,8 @@ class Ohm
 
     @vars = vars
 
+    @exit = false
+
     # This is so the interpreter doesn't print the top of stack at the end of execution
     @printed = false
 
@@ -62,6 +64,7 @@ class Ohm
     @pointer = 0
 
     while @pointer < @wire.length
+      return self if @exit
       @component = @wire[@pointer]
       break if @component == "\n"
       puts "Component: #{@component} || Stack: #{@stack}" if @debug
@@ -97,6 +100,9 @@ class Ohm
 
         @stack << from_base(@wire[@pointer...lit_end], BASE_DIGITS.length)
         @pointer = lit_end
+      when 'q' # Quit prematurely
+        @exit = true
+        break
       # Conditionals/loops
       when '?'
         @pointer += 1
