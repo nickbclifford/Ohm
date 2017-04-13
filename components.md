@@ -230,18 +230,18 @@ These components will execute all components between them and a `;` character (o
 |`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|
 |`Æ²`|Pop `a`|Pushes whether `a` is a perfect square.|
 
-### Time (`╫`)
+### Time (`╓`)
 |Component|Action|Description|
 |---------|------|-----------|
-|`╫%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|
-|`╫D`|N/A|Pushes the current day.|
-|`╫H`|N/A|Pushes the current hour.|
-|`╫M`|N/A|Pushes the current month.|
-|`╫N`|N/A|Pushes the current nanosecond (yes, really).|
-|`╫S`|N/A|Pushes the current second.|
-|`╫W`|N/A|Pushes the current weekday (1-7).|
-|`╫Y`|N/A|Pushes the current year.|
-|`╫m`|N/A|Pushes the current minute.|
+|`╓%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|
+|`╓D`|N/A|Pushes the current day.|
+|`╓H`|N/A|Pushes the current hour.|
+|`╓M`|N/A|Pushes the current month.|
+|`╓N`|N/A|Pushes the current nanosecond (yes, really).|
+|`╓S`|N/A|Pushes the current second.|
+|`╓W`|N/A|Pushes the current weekday (1-7).|
+|`╓Y`|N/A|Pushes the current year.|
+|`╓m`|N/A|Pushes the current minute.|
 
 ### Constants (`α`)
 **Note**: Because these are constants, they only push to the stack.

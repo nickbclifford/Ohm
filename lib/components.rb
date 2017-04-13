@@ -619,9 +619,6 @@ class Ohm
       call: ->{},
     },
     "\u2553" => {
-      call: ->{},
-    },
-    "\u256B" => {
       '%' => {
         call: ->(a){Time.now.strftime(untyped_to_s(a))},
       },
@@ -647,7 +644,7 @@ class Ohm
         call: ->{Time.now.year},
       },
       'm' => {
-        call: ->{Time.now.minute},
+        call: ->{Time.now.min},
       },
     },
     "\u256A" => {
