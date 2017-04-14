@@ -1,4 +1,5 @@
 require 'prime'
+require 'time'
 
 require_relative 'helpers'
 
@@ -673,6 +674,9 @@ class Ohm
       'y' => {
         call: ->(a){Time.at(a.to_f).year},
       },
+      "\u20A7" => {
+        call: ->(a, b){Time.strptime(untyped_to_s(a), untyped_to_s(b)).to_i},
+      },
     },
     "\u256A" => {
       call: ->(a){arr_else_chars(a).minmax},
@@ -821,6 +825,9 @@ class Ohm
       '*' => {
         call: ->(a, b){Array.new(b.to_i) {a}},
       },
+      '/' => {
+        call: ->(a, b){untyped_to_s(a).match(untyped_to_s(b)).to_a},
+      },
       'I' => {
         call: ->(a){input_access(a.to_i)},
       },
@@ -837,6 +844,10 @@ class Ohm
         call: ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
         depth: [1],
         arr_str: true,
+      },
+      '~' => {
+        call: ->(a, b){untyped_to_s(a) =~ Regexp.new(untyped_to_s(b))},
+        nils: true,
       },
       "\u00EE" => {
         call: ->(a){begin Integer(a) rescue return false end; true},

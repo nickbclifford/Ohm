@@ -251,6 +251,7 @@ These components will execute all components between them and a `;` character (o
 |`╓s`|Pop `a`|Pushes the second specified by timestamp `a`.|
 |`╓w`|Pop `a`|Pushes the weekday (1-7) specified by timestamp `a`.|
 |`╓y`|Pop `a`|Pushes the year specified by timestamp `a`.|
+|`╓₧`|Pop `a`, `b`|Pushes the timestamp of the time given by parsing `a`, using `b` as a `strptime` format string.|
 
 ### Constants (`α`)
 **Note**: Because these are constants, they only push to the stack.
@@ -276,10 +277,12 @@ These components will execute all components between them and a `;` character (o
 |Component|Action|Description|
 |---------|------|-----------|
 |`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|
+|`∙/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|
+|`∙I`|Pop `a`|Pushes the `a`th input.|
 |`∙\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
-|`∙I`|Pop `a`|Pushes the `a`th input.|
+|`∙~`|Pop `a`, `b`|If `a` matches regex `b`, pushes the index of the first match, else pushes `nil`.|
 |`∙î`|Pop `a`|Pushes whether `a` is an integer.|
 |`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
 |`∙╞`|Pop `a`|Pushes the indices of `a` grouped together by equal values.|

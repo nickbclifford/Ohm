@@ -249,6 +249,8 @@ class Ohm
           comp_hash = comp_hash[next_comp]
         end
 
+        comp_hash ||= {nop: true}
+
         comp_hash[:call] ||= ->{}
 
         args = @stack.method(
