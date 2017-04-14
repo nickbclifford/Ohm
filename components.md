@@ -234,14 +234,23 @@ These components will execute all components between them and a `;` character (o
 |Component|Action|Description|
 |---------|------|-----------|
 |`╓%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|
+|`╓&`|Pop `a`, `b`|Pushes the time specified by timestamp `a` formatted using `b` as a `strftime` format string.|
 |`╓D`|N/A|Pushes the current day.|
 |`╓H`|N/A|Pushes the current hour.|
+|`╓I`|N/A|Pushes the current minute.|
 |`╓M`|N/A|Pushes the current month.|
 |`╓N`|N/A|Pushes the current nanosecond (yes, really).|
 |`╓S`|N/A|Pushes the current second.|
 |`╓W`|N/A|Pushes the current weekday (1-7).|
 |`╓Y`|N/A|Pushes the current year.|
-|`╓m`|N/A|Pushes the current minute.|
+|`╓d`|Pop `a`|Pushes the day specified by timestamp `a`.|
+|`╓h`|Pop `a`|Pushes the hour specified by timestamp `a`.|
+|`╓i`|Pop `a`|Pushes the minute specified by timestamp `a`.|
+|`╓m`|Pop `a`|Pushes the month specified by timestamp `a`.|
+|`╓n`|Pop `a`|Pushes the nanosecond specified by timestamp `a`.|
+|`╓s`|Pop `a`|Pushes the second specified by timestamp `a`.|
+|`╓w`|Pop `a`|Pushes the weekday (1-7) specified by timestamp `a`.|
+|`╓y`|Pop `a`|Pushes the year specified by timestamp `a`.|
 
 ### Constants (`α`)
 **Note**: Because these are constants, they only push to the stack.

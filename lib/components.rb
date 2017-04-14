@@ -622,11 +622,17 @@ class Ohm
       '%' => {
         call: ->(a){Time.now.strftime(untyped_to_s(a))},
       },
+      '&' => {
+        call: ->(a, b){Time.at(a.to_f).strftime(untyped_to_s(b))},
+      },
       'D' => {
         call: ->{Time.now.day},
       },
       'H' => {
         call: ->{Time.now.hour},
+      },
+      'I' => {
+        call: ->{Time.now.min},
       },
       'M' => {
         call: ->{Time.now.month},
@@ -643,8 +649,29 @@ class Ohm
       'Y' => {
         call: ->{Time.now.year},
       },
+      'd' => {
+        call: ->(a){Time.at(a.to_f).day},
+      },
+      'h' => {
+        call: ->(a){Time.at(a.to_f).hour},
+      },
+      'i' => {
+        call: ->(a){Time.at(a.to_f).min},
+      },
       'm' => {
-        call: ->{Time.now.min},
+        call: ->(a){Time.at(a.to_f).month},
+      },
+      'n' => {
+        call: ->(a){Time.at(a.to_f).nsec},
+      },
+      's' => {
+        call: ->(a){Time.at(a.to_f).sec},
+      },
+      'w' => {
+        call: ->(a){Time.at(a.to_f).wday},
+      },
+      'y' => {
+        call: ->(a){Time.at(a.to_f).year},
       },
     },
     "\u256A" => {
