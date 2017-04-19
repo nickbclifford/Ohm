@@ -391,6 +391,9 @@ class Ohm
       "\u252C" => {
         call: ->(a, b){a.to_i.lcm(b.to_i)},
       },
+      "\u2588" => {
+        call: ->(a, b){b = b.to_i; ((a.to_i - 2) * ((b * (b  - 1)) / 2)) + b},
+      },
       "\u207F" => {
         call: ->(a, b){perfect_exp?(a.to_i, b.to_i)},
       },
@@ -411,7 +414,9 @@ class Ohm
       call: ->(a, b, c){a.to_f.step(b.to_f, c.to_f).to_a},
     },
     "\u00F9" => {
-      call: ->{},
+      call: ->(a){arr_or_stack(a) {|a| a.join(' ')}},
+      depth: [1],
+      arr_stack: true,
     },
     "\u00FF" => {
       call: ->{''},
@@ -421,8 +426,7 @@ class Ohm
     },
     "\u00DC" => {
       call: ->(a, b){arr_else_chars(a) | arr_else_chars(b)},
-      depth: [1, 1],
-      arr_str: true,
+      no_vec: true,
     },
     "\u00A2" => {
       call: ->(a){@vars[:register] = a},
@@ -442,7 +446,9 @@ class Ohm
       call: ->(a){nth_fibonacci(a.to_i)},
     },
     "\u00E1" => {
-      call: ->{},
+      call: ->(a){arr_or_stack(a) {|a| a.join("\n")}},
+      depth: [1],
+      arr_stack: true,
     },
     "\u00ED" => {
       call: ->(a){zip_arr(a)},
@@ -554,8 +560,7 @@ class Ohm
     },
     "\u2500" => {
       call: ->(a, b){arr_else_chars(a) - arr_else_chars(b)},
-      depth: [1, 1],
-      arr_str: true,
+      no_vec: true,
     },
     "\u253C" => {
       call: ->{input_access(0)},
@@ -617,9 +622,13 @@ class Ohm
       call: ->{},
     },
     "\u2552" => {
-      call: ->{},
+      call: ->(a, b){x = arr_else_chars(a).product(arr_else_chars(b)); [a, b].any? {|i| p i.is_a?(Array)} ? x : x.map(&:join)},
+      no_vec: true,
     },
     "\u2553" => {
+      '!' => {
+        call: ->{Time.now.to_i},
+      },
       '%' => {
         call: ->(a){Time.now.strftime(untyped_to_s(a))},
       },
@@ -757,7 +766,7 @@ class Ohm
       call: ->(a){Prime.first(a.to_i).last},
     },
     "\u03A3" => {
-      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(0, :+)}},
+      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).sum}},
       depth: [1],
       arr_stack: true,
     },
@@ -789,8 +798,7 @@ class Ohm
     },
     "\u2229" => {
       call: ->(a, b){arr_else_chars(a) & arr_else_chars(b)},
-      depth: [1, 1],
-      arr_str: true,
+      no_vec: true,
     },
     "\u2261" => {
       call: ->(a){[a, a, a]},

@@ -135,6 +135,7 @@ These components will execute all components between them and a `;` character (o
 |`ö`|Pop `a`|Pushes `a != 0`.|
 |`ò`|Pop `a`|Pushes `~a` (bitwise NOT).|
 |`û`|Pop `a`, `b`, `c`|Pushes the range between `a` and `b` in steps of `c`.|
+|`ù`|Pop `a`|If `a` is an array, pushes `a.join(' ')`, else pushes `stack.join(' ')`.|
 |`ÿ`|N/A|Pushes empty string (`''`).|
 |`Ö`|Pop `a`|Pushes `a == 0`.|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|
@@ -143,6 +144,7 @@ These components will execute all components between them and a `;` character (o
 |`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|
+|`á`|Pop `a`|If `a` is an array, pushes `a.join("\n")`, else pushes `stack.join("\n")`.|
 |`í`|Pop `a`|Pushes `a` zipped.|
 |`ó`|Pop `a`|Pushes `a` converted to base 10 from binary (base 2).|
 |`ú`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|
@@ -179,6 +181,7 @@ These components will execute all components between them and a `;` character (o
 |`╧`|Pop `a`|Pushes maximum element in `a`.|
 |`╤`|Pop `a`|Pushes minimum element in `a`.|
 |`╙`|Pop `a`|Pushes `a` rotated once to the right.|
+|`╒`|Pop `a`, `b`|Pushes the Cartesian product of `a` and `b`.|
 |`╪`|Pop `a`|Pushes minimum and maximum element in `a` as an array in the form `[min, max]`.|
 |`┘`|N/A|Pushes the second input given.|
 |`┌`|N/A|Pushes the third input given.|
@@ -231,12 +234,14 @@ These components will execute all components between them and a `;` character (o
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
 |`Æ┴`|Pop `a`, `b`|Pushes the greatest common divisor of `a` and `b`.|
 |`Æ┬`|Pop `a`, `b`|Pushes the least common multiple of `a` and `b`.|
+|`Æ█`|Pop `a`, `b`|Pushes the `b`th `a`-gonal number.|
 |`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|
 |`Æ²`|Pop `a`|Pushes whether `a` is a perfect square.|
 
 ### Time (`╓`)
 |Component|Action|Description|
 |---------|------|-----------|
+|`╓!`|N/A|Pushes the current timestamp.|
 |`╓%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|
 |`╓&`|Pop `a`, `b`|Pushes the time specified by timestamp `a` formatted using `b` as a `strftime` format string.|
 |`╓D`|N/A|Pushes the current day.|
