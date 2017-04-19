@@ -120,6 +120,9 @@ These components will execute all components between them and a `;` character (o
 |`ü`|N/A|Pushes a space character (` `).|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|
 |`â`|Pop `a`|Pushes the first `a` prime numbers.|
+|`ä`|Pop `a`, `b`|Pushes `a & b` (bitwise AND).|
+|`à`|Pop `a`, `b`|Pushes `a | b` (bitwise OR).|
+|`å`|Pop `a`, `b`|Pushes `a ^ b` (bitwise XOR).|
 |`ç`|Pop `a`, `b`|Pushes all possible combinations of length `b` of elements in `a`.|
 |`ê`|Pop `a`|Pushes the first `a` Fibonacci numbers.|
 |`è`|Pop `a`|Pushes `a % 2 != 0` (odd).|
@@ -130,6 +133,7 @@ These components will execute all components between them and a `;` character (o
 |`æ`|Pop `a`|Pushes `a` as a palindrome.|
 |`ô`|Pop `a`|Pushes `a` as a float.|
 |`ö`|Pop `a`|Pushes `a != 0`.|
+|`ò`|Pop `a`|Pushes `~a` (bitwise NOT).|
 |`û`|Pop `a`, `b`, `c`|Pushes the range between `a` and `b` in steps of `c`.|
 |`ÿ`|N/A|Pushes empty string (`''`).|
 |`Ö`|Pop `a`|Pushes `a == 0`.|
