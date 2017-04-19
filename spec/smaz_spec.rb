@@ -14,16 +14,4 @@ RSpec.describe Ohm::Smaz do
       expect(Ohm::Smaz.decompress("2c\u00E4\u2591\u00EF\u2320\u2557")).to eq(str)
     end
   end
-
-  describe '#compress_c' do
-    it 'compresses a string with Smaz' do
-      expect(Ohm::Smaz.compress_c(str)).to eq("\xE0/\x0E6JT".b)
-    end
-  end
-
-  describe '#decompress_c' do
-    it 'decompresses a string with Smaz' do
-      expect(Ohm::Smaz.decompress_c("\xE0/\x0E6JT".b)).to eq(str)
-    end
-  end
 end

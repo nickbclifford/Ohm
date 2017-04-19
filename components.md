@@ -285,5 +285,7 @@ These components will execute all components between them and a `;` character (o
 |`∙~`|Pop `a`, `b`|If `a` matches regex `b`, pushes the index of the first match, else pushes `nil`.|
 |`∙î`|Pop `a`|Pushes whether `a` is an integer.|
 |`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
+|`∙«`|Pop `a`, `b`|Pushes `a << b` (left bit-shift).|
+|`∙»`|Pop `a`, `b`|Pushes `a >> b` (right bit-shift).|
 |`∙╞`|Pop `a`|Pushes the indices of `a` grouped together by equal values.|
 |`∙≈`|Pop `a`, `b`|Pushes `a` rounded to `b` decimal places.|

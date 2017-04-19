@@ -1,5 +1,8 @@
 source 'https://rubygems.org/'
 
-gem 'rake'
-gem 'rake-compiler'
-gem 'rspec'
+gem 'rsmaz'
+
+group :development do
+  gem 'rake'
+  gem 'rspec'
+end

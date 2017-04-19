@@ -302,13 +302,13 @@ class Ohm
       call: ->(a){Prime.first(a.to_i)},
     },
     "\u00E4" => {
-      call: ->{},
+      call: ->(a, b){a.to_i & b.to_i},
     },
     "\u00E0" => {
-      call: ->{},
+      call: ->(a, b){a.to_i | b.to_i},
     },
     "\u00E5" => {
-      call: ->{},
+      call: ->(a, b){a.to_i ^ b.to_i},
     },
     "\u00E7" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.combination(b.to_i).to_a}},
@@ -405,7 +405,7 @@ class Ohm
       call: ->(a){a.to_f != 0},
     },
     "\u00F2" => {
-      call: ->{},
+      call: ->(a){~a.to_i},
     },
     "\u00FB" => {
       call: ->(a, b, c){a.to_f.step(b.to_f, c.to_f).to_a},
@@ -856,6 +856,12 @@ class Ohm
         call: ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
         depth: [1, 1],
         arr_str: true,
+      },
+      "\u00AB" => {
+        call: ->(a, b){a.to_i << b.to_i},
+      },
+      "\u00BB" => {
+        call: ->(a, b){a.to_i >> b.to_i},
       },
       "\u255E" => {
         call: ->(a){group_equal_indices(arr_else_chars(a))},
