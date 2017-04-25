@@ -70,6 +70,8 @@ class Ohm
       puts "Component: #{@component} || Stack: #{@stack}" if @debug
 
       # Special cases where the behavior can't be described with a concise lambda
+      # Keyword in that sentence is "concise"
+      # Otherwise, most of these could _technically_ become lambdas
       # Literals
       case @component
       when /[0-9]/ # Number literal
@@ -227,6 +229,8 @@ class Ohm
         arr_operation(:map)
         @stack << @stack.pop[0].any?
       # Special behavior for calling wires
+      when "\u2584"
+        exec_wire_at_index(@top_level[:index])
       when "\u03A6"
         exec_wire_at_index(@stack.pop[0].to_i)
       when "\u0398"

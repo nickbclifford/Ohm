@@ -27,6 +27,7 @@ These components will execute all components between them and a `;` character (o
 ### Wire/block flow
 |Component|Description|
 |---------|-----------|
+|`▄`|Executes the current wire. (Great for recursion!)|
 |`Φ`|Pops `a` and executes the wire at index `a`.|
 |`Θ`|Executes the wire at the index before the current one.|
 |`Ω`|Executes the wire at the index after the current one.|
@@ -289,7 +290,9 @@ These components will execute all components between them and a `;` character (o
 |`∙/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|
 |`∙I`|Pop `a`|Pushes the `a`th input.|
 |`∙\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
+|`∙e`|Pop `a`|Evaluates `a` as Ohm code.|
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|
+|`∙r`|N/A|Pushes a random float between 0 and 1.|
 |`∙s`|Pop `a`|Pushes all suffixes of `a`.|
 |`∙~`|Pop `a`, `b`|If `a` matches regex `b`, pushes the index of the first match, else pushes `nil`.|
 |`∙î`|Pop `a`|Pushes whether `a` is an integer.|

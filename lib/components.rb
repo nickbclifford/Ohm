@@ -701,9 +701,6 @@ class Ohm
     "\u2588" => {
       call: ->{[]},
     },
-    "\u2584" => {
-      call: ->{},
-    },
     "\u258C" => {
       call: ->{},
     },
@@ -843,10 +840,17 @@ class Ohm
         call: ->(a){diagonals(a)},
         depth: [2],
       },
+      'e' => {
+        # I hate how this lambda is so long, but I have to stay consistent with these things.
+        call: ->(a){block = Ohm.new(untyped_to_s(a), @debug, @top_level, @stack, @inputs, @vars).exec; @printed ||= block.printed; @stack = block.stack; nil},
+      },
       'p' => {
         call: ->(a){arr_else_chars_inner_join(a) {|a| acc = []; a.map {|i| acc += arr_else_chars(i)}}},
         depth: [1],
         arr_str: true,
+      },
+      'r' => {
+        call: ->{rand},
       },
       's' => {
         call: ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
