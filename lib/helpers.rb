@@ -147,6 +147,7 @@ class Ohm
     end
 
     def factorial(n)
+      return 1 if n.zero?
       (1..n).reduce(:*)
     end
 
