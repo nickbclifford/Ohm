@@ -147,7 +147,7 @@ class Ohm
     end
 
     def factorial(n)
-      (1..n).reduce(1, :*)
+      (1..n).reduce(:*)
     end
 
     def fibonacci?(n)

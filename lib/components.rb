@@ -763,7 +763,7 @@ class Ohm
       call: ->(a){Prime.first(a.to_i).last},
     },
     "\u03A3" => {
-      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).sum}},
+      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:+)}},
       depth: [1],
       arr_stack: true,
     },
@@ -773,7 +773,7 @@ class Ohm
       arr_str: true,
     },
     "\u00B5" => {
-      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(1, :*)}},
+      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:*)}},
       depth: [1],
       arr_stack: true,
     },
