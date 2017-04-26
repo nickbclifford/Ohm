@@ -523,7 +523,7 @@ class Ohm
       call: ->{},
     },
     "\u2563" => {
-      call: ->(a){arr_else_chars_inner_join(a) {|a| a.length.times.map {|i| c = a.rotate(i)}}},
+      call: ->(a){arr_else_chars_inner_join(a) {|a| Array.new(a.length) {|i| c = a.rotate(i)}}},
       depth: [1],
       arr_str: true,
     },

@@ -372,6 +372,18 @@ RSpec.describe Ohm do
     include_examples 'component', 'the first (a number) prime numbers', "4\u00E2", [2, 3, 5, 7]
   end
 
+  describe "\u00E4" do
+    include_examples 'component', 'the bitwise AND of two integers', "82 63\u00E4", 18
+  end
+
+  describe "\u00E0" do
+    include_examples 'component', 'the bitwise OR of two integers', "82 63\u00E0", 127
+  end
+
+  describe "\u00E5" do
+    include_examples 'component', 'the bitwise XOR of two integers', "82 63\u00E5", 109
+  end
+
   describe "\u00E7" do
     include_examples 'component', 'an array of all possible combinations of a certain length of the elements in an array', "4@2\u00E7", [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
   end
@@ -414,8 +426,16 @@ RSpec.describe Ohm do
     include_examples 'component', 'whether an item is not zero', "9\u00F6", true
   end
 
+  describe "\u00F2" do
+    include_examples 'component', 'the bitwise NOT of an integer', "12\u00F2", -13
+  end
+
   describe "\u00FB" do
     include_examples 'component', 'the range between two numbers in steps of another number', "2 8 2\u00FB", [2, 4, 6, 8]
+  end
+
+  describe "\u00F9" do
+    include_examples 'component', 'an array joined on spaces', "3@\u00F9", '1 2 3'
   end
 
   describe "\u00FF" do
@@ -450,16 +470,16 @@ RSpec.describe Ohm do
     include_examples 'component', 'whether an number is divisible by another', "24 3\u00A5", true
   end
 
-  describe "\u00D6" do
-    include_examples 'component', 'whether an item is zero', "0\u00D6", true
-  end
-
   describe "\u20A7" do
     include_examples 'component', 'whether an item is a palindrome', "\"blah\"\u20A7", false
   end
 
   describe "\u0192" do
     include_examples 'component', 'the Fibonacci number at an index, 1-indexed', "4\u0192", 3
+  end
+
+  describe "\u00E1" do
+    include_examples 'component', 'an array joined on newlines', "3@\u00E1", "1\n2\n3"
   end
 
   describe "\u00ED" do
@@ -480,5 +500,59 @@ RSpec.describe Ohm do
 
   describe "\u00D1" do
     include_examples 'component', 'a newline', "\u00D1", "\n"
+  end
+
+  describe "\u00AA" do
+    include_examples 'component', 'the element of an array or string at an index', "\"test\"2\u00AA", 's'
+  end
+
+  describe "\u00BA" do
+    include_examples 'component', '2 to the power of a number', "4\u00BA", 16
+  end
+
+  describe "\u2310" do
+    include_examples 'component', 'all the permutations of an array or string', "2#\u2310", [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
+  end
+
+  describe "\u00AC" do
+    include_examples 'component', 'the powerset of an array or string', "2@\u00AC", [[], [1], [2], [1, 2]]
+  end
+
+  describe "\u00BD" do
+    include_examples 'component', 'a number halved', "3\u00BD", 1.5
+  end
+
+  describe "\u00BC" do
+    include_examples 'component', 'the current value of the counter variable', "\u00BC", 0
+  end
+
+  describe "\u00A1" do
+    it 'increments the counter variable' do
+      expect(Ohm.new("\u00A1", false).exec.vars[:counter]).to eq 1
+    end
+  end
+
+  describe "\u00AB" do
+    include_examples 'component', 'an array of two objects', "3 8\u00AB", %w(3 8)
+  end
+
+  describe "\u2502" do
+    include_examples 'component', 'whether an array or string is empty', ".a\u2502", false
+  end
+
+  describe "\u2524" do
+    include_examples 'component', 'an array or string sliced from a number to the end', "6@3\u2524", [4, 5, 6]
+  end
+
+  describe "\u2561" do
+    include_examples 'component', 'the beginning and end elements of an array or string', "6@\u2561", [1, 6]
+  end
+
+  describe "\u2563" do
+    include_examples 'component', 'all possible rotations of an array', "3@\u2563", [[1, 2, 3], [2, 3, 1], [3, 1, 2]]
+  end
+
+  describe "\u255C" do
+    include_examples 'component', 'an array or string rotated to the left', "4@\u255C", [2, 3, 4, 1]
   end
 end
