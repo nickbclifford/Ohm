@@ -425,7 +425,7 @@ class Ohm
       call: ->(a){a.to_f == 0},
     },
     "\u00DC" => {
-      call: ->(a, b){arr_else_chars(a) | arr_else_chars(b)},
+      call: ->(a, b){x = arr_else_chars(a) | arr_else_chars(b); [a, b].any? {|i| i.is_a?(Array)} ? x : x.join},
       no_vec: true,
     },
     "\u00A2" => {
@@ -559,7 +559,7 @@ class Ohm
       arr_str: true,
     },
     "\u2500" => {
-      call: ->(a, b){arr_else_chars(a) - arr_else_chars(b)},
+      call: ->(a, b){x = arr_else_chars(a) - arr_else_chars(b); [a, b].any? {|i| i.is_a?(Array)} ? x : x.join},
       no_vec: true,
     },
     "\u253C" => {
@@ -622,7 +622,7 @@ class Ohm
       call: ->{},
     },
     "\u2552" => {
-      call: ->(a, b){x = arr_else_chars(a).product(arr_else_chars(b)); [a, b].any? {|i| p i.is_a?(Array)} ? x : x.map(&:join)},
+      call: ->(a, b){x = arr_else_chars(a).product(arr_else_chars(b)); [a, b].any? {|i| i.is_a?(Array)} ? x : x.map(&:join)},
       no_vec: true,
     },
     "\u2553" => {
@@ -794,7 +794,7 @@ class Ohm
       no_arr_str: 1
     },
     "\u2229" => {
-      call: ->(a, b){arr_else_chars(a) & arr_else_chars(b)},
+      call: ->(a, b){x = arr_else_chars(a) & arr_else_chars(b); [a, b].any? {|i| i.is_a?(Array)} ? x : x.join},
       no_vec: true,
     },
     "\u2261" => {

@@ -555,4 +555,105 @@ RSpec.describe Ohm do
   describe "\u255C" do
     include_examples 'component', 'an array or string rotated to the left', "4@\u255C", [2, 3, 4, 1]
   end
+
+  describe "\u2534" do
+    include_examples 'component', 'a string converted to all uppercase', "\"UnIt test\"\u2534", 'UNIT TEST'
+  end
+
+  describe "\u252C" do
+    include_examples 'component', 'a string converted to all lowercase', "\"UnIt test\"\u252C", 'unit test'
+  end
+
+  describe "\u251C" do
+    include_examples 'component', 'an array or string sliced from the beginning to a number', "6@3\u251C", [1, 2, 3, 4]
+  end
+
+  describe "\u2500" do
+    include_examples 'component', 'the difference of two arrays or strings', "\"unit\"\"test\"\u2500", 'uni'
+  end
+
+  describe "\u253C" do
+    it 'retrieves the first input' do
+      allow($stdin).to receive(:gets) {'test'}
+      expect(Ohm.new("\u253C", false).stack.last[0]).to eq 'test'
+    end
+  end
+
+  describe "\u255E" do
+    include_examples 'component', 'an array or string grouped by equal values', "\"test\"\u255E", %w(tt e s)
+  end
+
+  describe "\u255F" do
+    srand(1234)
+    include_examples 'component', 'an array or string randomly shuffled', "\"unit test\"\u255F", 'tinus tet'
+  end
+
+  describe "\u255A" do
+    include_examples 'component', 'a string with a number of spaces prepended to it', "\"test\"2\u255A", '  test'
+  end
+
+  describe "\u2554" do
+    include_examples 'component', 'a string with a number of spaces appended to it', "\"test\"2\u2554", 'test  '
+  end
+
+  describe "\u2569" do
+    include_examples 'component', 'a string left-justified to a certain length with spaces', "\"test\"5\u2569", 'test '
+  end
+
+  describe "\u2566" do
+    include_examples 'component', 'a string right-justified to a certain length with spaces', "\"test\"5\u2566", ' test'
+  end
+
+  describe "\u2550" do
+    include_examples 'component', 'an array or string sliced from one number to another', "6@2 4\u2550", [3, 4, 5]
+  end
+
+  describe "\u256C" do
+    srand(1234)
+    include_examples 'component', 'a random element from an array or string', "\"unit test\"\u256C", 'n'
+  end
+
+  describe "\u2567" do
+    include_examples 'component', 'the maximum element from an array or string', "4 2 6 3W\u00EE\u2567", 6
+  end
+
+  describe "\u2564" do
+    include_examples 'component', 'the minimum element from an array or string', "4 2 6 3W\u00EE\u2564", 2
+  end
+
+  describe "\u2559" do
+    include_examples 'component', 'an array or string rotated to the right', "4@\u2559", [4, 1, 2, 3]
+  end
+
+  describe "\u2552" do
+    include_examples 'component', 'the Cartesian product of two arrays or strings', "3@2#\u2552", [[1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2], [3, 0], [3, 1], [3, 2]]
+  end
+
+  describe "\u256A" do
+    include_examples 'component', 'an array of the minimum and maximum element from an array or string', "4 2 6 3W\u00EE\u256A", [2, 6]
+  end
+
+  describe "\u2518" do
+    it 'retrieves the second input' do
+      %w(test unit).each do |s|
+        allow($stdin).to receive(:gets) {s}
+      end
+
+      expect(Ohm.new("\u2518", false).stack.last[0]).to eq 'unit'
+    end
+  end
+
+  describe "\u250C" do
+    it 'retrieves the third input' do
+      %w(test unit ohm).each do |s|
+        allow($stdin).to receive(:gets) {s}
+      end
+
+      expect(Ohm.new("\u250C", false).stack.last[0]).to eq 'ohm'
+    end
+  end
+
+  describe "\u2588" do
+    include_examples 'component', 'an empty array', "\u2588", []
+  end
 end
