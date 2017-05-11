@@ -556,6 +556,10 @@ RSpec.describe Ohm do
     include_examples 'component', 'an array or string rotated to the left', "4@\u255C", [2, 3, 4, 1]
   end
 
+  describe "\u255B" do
+    include_examples 'component', 'the prime factorization of an integer with repetition', "126\u255B", [2, 3, 3, 7]
+  end
+
   describe "\u2534" do
     include_examples 'component', 'a string converted to all uppercase', "\"UnIt test\"\u2534", 'UNIT TEST'
   end

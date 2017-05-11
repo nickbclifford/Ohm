@@ -352,6 +352,9 @@ class Ohm
       'E' => {
         call: ->(a){a.to_f * (Math::PI / 180)},
       },
+      'H' => {
+        call: ->(a, b){Math.hypot(a.to_i, b.to_i)},
+      },
       'L' => {
         call: ->(a){Math.log(a.to_f)},
       },
@@ -539,7 +542,7 @@ class Ohm
       arr_str: true,
     },
     "\u255B" => {
-      call: ->{},
+      call: ->(a){a.to_i.prime_division.each_with_object([]) {|(b, x), m| x.times {m << b}}},
     },
     "\u2510" => {
       call: ->{},

@@ -166,6 +166,7 @@ These components will execute all components between them and a `;` character (o
 |`╣`|Pop `a`|Pushes all possible rotations of `a`.|
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|
 |`╜`|Pop `a`|Pushes `a` rotated once to the left.|
+|`╛`|Pop `a`|Pushes full prime factorization of `a` with repetition.|
 |`┴`|Pop `a`|Pushes `a` in all upper-case.|
 |`┬`|Pop `a`|Pushes `a` in all lower-case.|
 |`├`|Pop `a`, `b`|Pushes `a[0..b]` (slice from beginning).|
@@ -222,6 +223,7 @@ These components will execute all components between them and a `;` character (o
 |`ÆC`|Pop `a`|Pushes the cosine of `a` radians.|
 |`ÆD`|Pop `a`|Pushes `a` radians converted to degrees.|
 |`ÆE`|Pop `a`|Pushes `a` degrees converted to radians.|
+|`ÆH`|Pop `a`, `b`|Pushes the hypotenuse of a right triangle with sides `a` and `b`.|
 |`ÆL`|Pop `a`|Pushes the natural logarithm of `a`.|
 |`ÆM`|Pop `a`|Pushes the base 10 logarithm of `a`.|
 |`ÆN`|Pop `a`|Pushes the base 2 logarithm of `a`.|
