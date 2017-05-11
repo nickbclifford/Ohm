@@ -353,7 +353,7 @@ class Ohm
         call: ->(a){a.to_f * (Math::PI / 180)},
       },
       'H' => {
-        call: ->(a, b){Math.hypot(a.to_i, b.to_i)},
+        call: ->(a, b){Math.hypot(a.to_f, b.to_f)},
       },
       'L' => {
         call: ->(a){Math.log(a.to_f)},
