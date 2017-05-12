@@ -66,6 +66,15 @@ class Ohm
     while @pointer < @wire.length
       return self if @exit
       @component = @wire[@pointer]
+
+      comp_hash = COMPONENTS[@component] || {nop: true}
+
+      # Check if multi-char component
+      if comp_hash.keys.all? {|k| k.is_a?(String)}
+        @component << next_comp = @wire[@pointer += 1]
+        comp_hash = comp_hash[next_comp]
+      end
+
       break if @component == "\n"
       puts "Component: #{@component} || Stack: #{@stack}" if @debug
 
@@ -74,7 +83,7 @@ class Ohm
       # Otherwise, most of these could _technically_ become lambdas
       # Literals
       case @component
-      when /[0-9]/ # Number literal
+      when /^[0-9]$/ # Number literal
         number = @wire[@pointer..@wire.length][/[0-9]+/]
         @pointer += number.length - 1
         @stack << number
@@ -244,15 +253,15 @@ class Ohm
           puts 'Breaking out of current wire/block' if @debug
           break
         end
+      when "\u2219e"
+        block = Ohm.new(untyped_to_s(@stack.pop[0]), @debug, @top_level, @stack, @inputs, @vars).exec
+        @printed ||= block.printed
+        @stack = block.stack
+      when "\u2219\u03A9"
+        @stack << find_cycle_component
+      when "\u2219\u0398"
+        @stack << find_cycle_component.last
       else
-        comp_hash = COMPONENTS[@component] || {nop: true}
-
-        # Check if multi-char component
-        if comp_hash.keys.all? {|k| k.is_a?(String)}
-          @component << next_comp = @wire[@pointer += 1]
-          comp_hash = comp_hash[next_comp]
-        end
-
         comp_hash ||= {nop: true}
 
         comp_hash[:call] ||= ->{}

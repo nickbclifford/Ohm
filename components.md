@@ -22,6 +22,8 @@ These components will execute all components between them and a `;` character (o
 |`╨`|Pops `a` and pushes the element in `a` that gives the maximum value from its associated block.|
 |`╥`|Pops `a` and pushes the element in `a` that gives the minimum value from its associated block.|
 |`╫`|Pops `a` and pushes the elements in `a` that give the minimum and maximum value from its associated block.|
+|`∙Ω`|Pops `a` and continuously evaluates its associated block until the result given has already been seen, using `a` as the initial value. Pushes the list of intermediate results.|
+|`∙Θ`|Same as about, except it only pushes the final result.|
 |`∞`|Runs its associated block infinitely.|
 
 ### Wire/block flow
@@ -272,6 +274,7 @@ These components will execute all components between them and a `;` character (o
 |---------|-----------|
 |`α0`|Pushes all the digits from 0-9 (`0123456789`).|
 |`α1`|Pushes all the digits from 1-9 (`123456789`).|
+|`α@`|Pushes all the printable ASCII characters (` ` to `~`).|
 |`αA`|Pushes the normal uppercase alphabet (`ABCDEFGHIJKLMNOPQRSTUVWXYZ`).|
 |`αK`|Pushes all the keys on a keyboard (`` `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ ``).|
 |`αc`|Pushes all the consonants (`bcdfghjklmnpqrstvwxyz`).|

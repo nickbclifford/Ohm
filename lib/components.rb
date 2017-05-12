@@ -712,13 +712,16 @@ class Ohm
     },
     "\u03B1" => {
       '0' => {
-        call: ->{'0123456789'},
+        call: ->{('0'..'9').to_a.join},
       },
       '1' => {
-        call: ->{'123456789'},
+        call: ->{('1'..'9').to_a.join},
+      },
+      '@' => {
+        call: ->{(' '..'~').to_a.join},
       },
       'A' => {
-        call: ->{'ABCDEFGHIJKLMNOPQRSTUVWXYZ'},
+        call: ->{('A'..'Z').to_a.join},
       },
       'K' => {
         call: ->{'`1234567890-=qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./'},
@@ -748,7 +751,7 @@ class Ohm
         call: ->{'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_'},
       },
       "\u00DF" => {
-        call: ->{'abcdefghijklmnopqrstuvwxyz'},
+        call: ->{('a'..'z').to_a.join},
       }, # Heh. Alpha-beta.
       "\u03C0" => {
         call: ->{Math::PI},
@@ -843,10 +846,6 @@ class Ohm
         call: ->(a){diagonals(a)},
         depth: [2],
       },
-      'e' => {
-        # I hate how this lambda is so long, but I have to stay consistent with these things.
-        call: ->(a){block = Ohm.new(untyped_to_s(a), @debug, @top_level, @stack, @inputs, @vars).exec; @printed ||= block.printed; @stack = block.stack; nil},
-      },
       'p' => {
         call: ->(a){arr_else_chars_inner_join(a) {|a| acc = []; a.map {|i| acc += arr_else_chars(i)}}},
         depth: [1],
@@ -902,5 +901,5 @@ class Ohm
   }
 
   # These components mark the opening statement of a block.
-  OPENERS = %W(? : M \u00C5 \u2591 \u2592 \u2593 \u2560 \u2568 \u2565 \u256B \u221E)
+  OPENERS = %W(? : M \u00EB \u00C9 \u00C5 \u2591 \u2592 \u2593 \u2560 \u2568 \u2565 \u256B \u221E \u2219\u03A9 \u2219\u0398)
 end

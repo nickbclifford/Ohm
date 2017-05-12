@@ -166,9 +166,45 @@ class Ohm
       result
     end
 
+    def find_cycle(init)
+      result = [init]
+
+      loop do
+        break if result.include?(term = yield(result.last))
+        result << term
+      end
+
+      result
+    end
+
+    def find_cycle_component
+      @pointer += 1
+      loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
+      loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
+
+      counter = 0
+
+      result = find_cycle(@stack.pop[0]) do |val|
+        new_vars = @vars.clone
+        new_vars[:index] = counter
+        new_vars[:value] = val
+
+        block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
+        @printed ||= block.printed
+        @stack = block.stack
+        break if block.broken
+        counter += 1
+
+        @stack.pop[0]
+      end
+
+      @pointer = loop_end
+
+      result
+    end
+
     def from_base(str, base)
-      str.reverse.each_char.each_with_index.reduce(0) do |memo, kv|
-        char, i = kv
+      str.reverse.each_char.each_with_index.reduce(0) do |memo, (char, i)|
         memo + (BASE_DIGITS.index(char) * (base ** i))
       end
     end
@@ -220,7 +256,7 @@ class Ohm
     def outermost_delim(str, delim, openers)
       amount_open = 1
 
-      str.each_char.each_with_index do |char, i|
+      str.chars.each_with_index do |char, i|
         amount_open += 1 if openers.include?(char)
         amount_open -= 1 if char == delim
         return i if amount_open.zero?
