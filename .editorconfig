@@ -5,7 +5,3 @@ end_of_line = lf
 insert_final_newlines = true
 indent_style = space
 indent_size = 2
-
-[*.c]
-indent_style = tab
-indent_size = 4

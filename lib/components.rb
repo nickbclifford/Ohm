@@ -833,6 +833,9 @@ class Ohm
       call: ->(a){10 ** a.to_f},
     },
     "\u2219" => {
+      '!' => {
+        call: ->(a, b, c){untyped_to_s(a).gsub(untyped_to_s(b), untyped_to_s(c))},
+      },
       '*' => {
         call: ->(a, b){Array.new(b.to_i) {a}},
       },

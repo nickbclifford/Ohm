@@ -291,6 +291,7 @@ These components will execute all components between them and a `;` character (o
 ### Extras (`∙`)
 |Component|Action|Description|
 |---------|------|-----------|
+|`∙!`|Pop `a`, `b`, `c`|Pushes `a` with matches of regex `b` replaced with `c`.|
 |`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|
 |`∙/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|
 |`∙I`|Pop `a`|Pushes the `a`th input.|
