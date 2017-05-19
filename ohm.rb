@@ -40,7 +40,7 @@ class Ohm
 
     @inputs = inputs
 
-    @top_level = top_level || {wires: circuit.split("\n"), index: 0}
+    @top_level = top_level || {wires: circuit.split(/[\n\u00B6](?![^#{QUOTES.join}]*[#{QUOTES.join}])/), index: 0}
     raise IndexError, "invalid wire index #{@top_level[:index]}" if @top_level[:wires][@top_level[:index]].nil?
 
     @wire = circuit
@@ -95,7 +95,7 @@ class Ohm
         lit_end = @wire[@pointer..@wire.length].index('"')
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
-        @stack << @wire[@pointer...lit_end].gsub("\u00D1", "\n")
+        @stack << @wire[@pointer...lit_end].gsub("\u00B6", "\n")
         @pointer = lit_end
       when "\u2580" # Smaz-compressed string literal
         @pointer += 1
@@ -104,9 +104,9 @@ class Ohm
 
         @stack << Smaz.decompress(@wire[@pointer...lit_end])
         @pointer = lit_end
-      when "\u2551" # Base-220 number literal
+      when "\u201C" # Base-220 number literal
         @pointer += 1
-        lit_end = @wire[@pointer..@wire.length].index("\u2551")
+        lit_end = @wire[@pointer..@wire.length].index("\u201C")
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
         @stack << from_base(@wire[@pointer...lit_end], BASE_DIGITS.length)
