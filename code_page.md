@@ -15,6 +15,6 @@
 |**C\_**|`à`|`á`|`â`|`ã`|`ä`|`å`|`ā`|`æ`|`è`|`é`|`ê`|`ë`|`ì`|`í`|`î`|`ï`|
 |**D\_**|`ò`|`ó`|`ô`|`õ`|`ö`|`ø`|`œ`|`ù`|`ú`|`û`|`ü`|`ç`|`ð`|`ñ`|`ý`|`þ`|
 |**E\_**|`¿`|`‽`|`⁇`|`⁈`|`‼`|`¡`|`‰`|`‱`|`¦`|`§`|`©`|`®`|`±`|`¬`|`¢`|`¤`|
-|**F\_**|`«`|`»`|`‹`|`›`|`“`|`”`|`‘`|`’`|TODO|TODO|TODO|TODO|TODO|TODO|TODO|TODO|
+|**F\_**|`«`|`»`|`‹`|`›`|`“`|`”`|`‘`|`’`|`·`|`‥`|`…`|`᠁`|TODO|TODO|TODO|TODO|
 
 Just like in the Jelly code page, the pilcrow `¶` and the linefeed `\n` can be used interchangeably, although pilcrows are generally used inside string literals while linefeeds are used to separate wires.
