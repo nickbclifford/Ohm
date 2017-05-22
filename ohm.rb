@@ -97,14 +97,14 @@ class Ohm
 
         @stack << @wire[@pointer...lit_end].gsub("\u00B6", "\n")
         @pointer = lit_end
-      when "\u2580" # Smaz-compressed string literal
+      when "\u00AB" # Smaz-compressed string literal
         @pointer += 1
-        lit_end = @wire[@pointer..@wire.length].index("\u2580")
+        lit_end = @wire[@pointer..@wire.length].index("\u00AB")
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
         @stack << Smaz.decompress(@wire[@pointer...lit_end])
         @pointer = lit_end
-      when "\u201C" # Base-220 number literal
+      when "\u201C" # Base-255 number literal
         @pointer += 1
         lit_end = @wire[@pointer..@wire.length].index("\u201C")
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
