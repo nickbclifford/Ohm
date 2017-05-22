@@ -75,7 +75,7 @@ class Ohm
         comp_hash = comp_hash[next_comp]
       end
 
-      break if @component == "\n"
+      break if @component == "\n" || @component == "\u00B6"
       puts "Component: #{@component} || Stack: #{@stack}" if @debug
 
       # Special cases where the behavior can't be described with a concise lambda

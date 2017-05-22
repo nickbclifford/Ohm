@@ -80,6 +80,10 @@ class Ohm
       end
     end
 
+    def bin_to_ohm(str)
+      str.bytes.map {|b| Ohm::CODE_PAGE[b]}.join
+    end
+
     def comp_arg_depth(a, hsh)
       x = a.is_a?(Array) ? 1 + a.map {|c| comp_arg_depth(c, hsh)}.max : 0
       x += 1 if a.is_a?(String) && hsh[:arr_str]
@@ -316,6 +320,10 @@ class Ohm
 
         num_converted.reverse.sub(/^0+/, '') # Remove leading zeroes
       end
+    end
+
+    def unicode_to_bin(str)
+      str.chars.map {|c| Ohm::CODE_PAGE.index(c)}.pack('C*')
     end
 
     def untyped_to_s(n)
