@@ -151,7 +151,7 @@ class Ohm
 
         popped = @stack.pop[0]
 
-        (popped.is_a?(String) ? popped.each_char : popped).each_with_index do |v, i|
+        arr_else_chars(popped).each_with_index do |v, i|
           new_vars = @vars.clone
           new_vars[:value] = v
           new_vars[:index] = i
@@ -213,21 +213,21 @@ class Ohm
           comp.stack.last[0]
         end
       # Array operations
-      when "\u00EB"
-        arr_operation(:partition)
-      when "\u2591"
+      when "\u2047"
         arr_operation(:select)
-      when "\u2592"
+      when "\u2048"
+        arr_operation(:partition)
+      when "\u203C"
         arr_operation(:reject)
-      when "\u2593"
+      when "\u20AC"
         arr_operation(:map)
-      when "\u2560"
+      when "\u03C2"
         arr_operation(:sort_by)
-      when "\u2568"
-        arr_operation(:max_by)
-      when "\u2565"
+      when "\u2018"
         arr_operation(:min_by)
-      when "\u256B"
+      when "\u2019"
+        arr_operation(:max_by)
+      when "\u03C7"
         arr_operation(:minmax_by)
       # By default, Enumerable#all? and #any? return a boolean instead of an enumerator if no block was given
       # So in order to keep everything DRY, we'll just map over the block and call the method on the resulting array
@@ -238,7 +238,7 @@ class Ohm
         arr_operation(:map)
         @stack << @stack.pop[0].any?
       # Special behavior for calling wires
-      when "\u2584"
+      when "\u03A8"
         exec_wire_at_index(@top_level[:index])
       when "\u03A6"
         exec_wire_at_index(@stack.pop[0].to_i)
@@ -247,19 +247,19 @@ class Ohm
       when "\u03A9"
         exec_wire_at_index(@top_level[:index] + 1)
       # Break statement
-      when "\u25A0"
+      when "\u203D"
         if @stack.pop[0]
           @broken = true
           puts 'Breaking out of current wire/block' if @debug
           break
         end
-      when "\u2219e"
+      when "\u00B7e"
         block = Ohm.new(untyped_to_s(@stack.pop[0]), @debug, @top_level, @stack, @inputs, @vars).exec
         @printed ||= block.printed
         @stack = block.stack
-      when "\u2219\u03A9"
+      when "\u00B7\u03A9"
         @stack << find_cycle_component
-      when "\u2219\u0398"
+      when "\u00B7\u0398"
         @stack << find_cycle_component.last
       else
         comp_hash ||= {nop: true}
