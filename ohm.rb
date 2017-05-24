@@ -21,7 +21,7 @@ class Ohm
   end
 
   DEFAULT_VARS = {
-    # Like 05AB1E, there is an integer counter that can only be incremented.
+    # Like 05AB1E, there is an integer counter that can only be incremented (and reset to 0).
     counter: 0,
     # However, like Jelly, there is only one register that can store any given value.
     register: 1,

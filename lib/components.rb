@@ -285,82 +285,95 @@ class Ohm
       call: ->(a){x = untyped_to_s(a); x.length == 1 ? x.ord : x.chars.map(&:ord)}
     },
     'a' => {
-      call: ->{}
+      call: ->(a, b){(a - b).abs},
     },
     'b' => {
-      call: ->{}
+      call: ->(a){to_base(a.to_i, 2)}
     },
     'c' => {
-      call: ->{}
+      call: ->(a, b){nCr(a.to_i, b.to_i)}
     },
     'd' => {
-      call: ->{}
+      call: ->(a){a.to_f * 2}
     },
     'e' => {
-      call: ->{}
+      call: ->(a, b){nPr(a.to_i, b.to_i)}
     },
     'f' => {
-      call: ->{}
+      call: ->(a){fibonacci_upto(a.to_i)}
     },
     'g' => {
-      call: ->{}
+      call: ->(a, b){x = (a = a.to_i).method(a > (b = b.to_i) ? :upto : :downto)[b].to_a; x[0, x.length - 1]}
     },
     'h' => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).first},
+      depth: [1],
+      arr_str: true
     },
     'i' => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).last},
+      depth: [1],
+      arr_str: true
     },
     'j' => {
-      call: ->{}
+      call: ->(a, b){arr_or_stack(a) {|x| x.join(untyped_to_s(b))}},
+      depth: [1],
+      arr_stack: true
     },
     'k' => {
-      call: ->{}
+      call: ->(a, b){arr_else_str(a).index(b)},
+      # depth: [1], FIXME
+      # arr_str: true,
+      no_vec: true,
+      nils: true,
     },
     'l' => {
-      call: ->{}
+      call: ->(a){arr_else_str(a).length},
+      no_vec: true
     },
     'm' => {
-      call: ->{}
+      call: ->(a){a.to_i.prime_division.map(&:first)},
     },
     'n' => {
-      call: ->{}
+      call: ->(a){a.to_i.prime_division.map(&:last)},
     },
     'o' => {
-      call: ->{}
+      call: ->(a){a.to_i.prime_division.each_with_object([]) {|(b, e), m| e.times {m << b}}},
     },
     'p' => {
-      call: ->{}
+      call: ->(a){a.to_i.prime?},
     },
-    'q' => {
-      call: ->{}
-    },
+    # q reserved: halt execution
     'r' => {
-      call: ->{}
+      call: ->(a, b, c){untyped_to_s(a).tr(untyped_to_s(b), untyped_to_s(c))}
     },
     's' => {
-      call: ->{}
+      call: ->(a, b){[b, a]},
+      multi: true
     },
     't' => {
-      call: ->{}
+      call: ->(a, b){from_base(untyped_to_s(a), b.to_i)},
     },
     'u' => {
-      call: ->{}
+      call: ->(a, b){subarray_index(*[a, b].map(&method(:arr_else_str)))},
+      depth: [1, 1],
+      arr_str: true
     },
     'v' => {
-      call: ->{}
+      call: ->(a, b){a.to_f.div(b.to_f)},
     },
     'w' => {
-      call: ->{}
+      call: ->(a){[a]},
+      no_vec: true
     },
     'x' => {
-      call: ->{}
+      call: ->(a){to_base(a.to_i, 16)},
     },
     'y' => {
-      call: ->{}
+      call: ->(a){a.to_f <=> 0},
     },
     'z' => {
-      call: ->{}
+      call: ->{},
     },
     '{' => {
       call: ->{}
