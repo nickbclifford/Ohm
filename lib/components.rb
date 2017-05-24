@@ -8,13 +8,13 @@ class Ohm
 
   COMPONENTS = {
     "\u00B0" => {
-      call: ->{}
+      call: ->{@inputs}
     },
     "\u00B9" => {
       call: ->{}
     },
     "\u00B2" => {
-      call: ->{}
+      call: ->(a){a.to_f ** 2}
     },
     "\u00B3" => {
       call: ->{}
@@ -44,7 +44,7 @@ class Ohm
       call: ->{}
     },
     "\u207C" => {
-      call: ->{}
+      call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)}
     },
     "\u207D" => {
       call: ->{}
@@ -53,7 +53,7 @@ class Ohm
       call: ->{}
     },
     "\u207F" => {
-      call: ->{}
+      call: ->(a, b){a.to_f ** b.to_f}
     },
     "\u00BD" => {
       call: ->{}
@@ -68,19 +68,25 @@ class Ohm
       call: ->{}
     },
     "\u2191" => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).max},
+      depth: [1],
+      arr_str: true
     },
     "\u2192" => {
       call: ->{}
     },
     "\u2193" => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).min},
+      depth: [1],
+      arr_str: true
     },
     "\u2194" => {
       call: ->{}
     },
     "\u2195" => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).minmax},
+      depth: [1],
+      arr_str: true
     },
     "\u0131" => {
       call: ->{}
@@ -104,154 +110,128 @@ class Ohm
       call: ->{}
     },
     '!' => {
-      call: ->{}
+      call: ->(a){factorial(a.to_i)}
     },
-    '"' => {
-      call: ->{}
-    },
+    # " reserved: string literal
     '#' => {
-      call: ->{}
+      call: ->(a){0.method((a = a.to_i) > 0 ? :upto : :downto)[a].to_a}
     },
     '$' => {
-      call: ->{}
+      call: ->{@vars[:register]}
     },
     '%' => {
-      call: ->{}
+      call: ->(a){a.to_f % b.to_f}
     },
     '&' => {
-      call: ->{}
+      call: ->(a, b){a && b}
     },
     '\'' => {
-      call: ->{}
+      call: ->(a){a.to_i.chr}
     },
     '(' => {
-      call: ->{}
+      call: ->(a){a = arr_else_str(a); a[1, a.length]},
+      depth: [1],
+      arr_str: true
     },
     ')' => {
-      call: ->{}
+      call: ->(a){a = arr_else_str(a); a[0, a.length - 1]},
+      depth: [1],
+      arr_str: true
     },
     '*' => {
-      call: ->{}
+      call: ->(a, b){a.to_f * b.to_f}
     },
     '+' => {
-      call: ->{}
+      call: ->(a, b){a.to_f + b.to_f}
     },
     ',' => {
-      call: ->{}
+      call: ->(a){@printed = true; puts untyped_to_s(a)}
     },
     '-' => {
-      call: ->{}
+      call: ->(a, b){a.to_f - b.to_f}
     },
-    '.' => {
-      call: ->{}
-    },
+    # . reserved: character literal
     '/' => {
-      call: ->{}
+      call: ->(a, b){a.to_f / b.to_f}
     },
-    '0' => {
-      call: ->{}
-    },
-    '1' => {
-      call: ->{}
-    },
-    '2' => {
-      call: ->{}
-    },
-    '3' => {
-      call: ->{}
-    },
-    '4' => {
-      call: ->{}
-    },
-    '5' => {
-      call: ->{}
-    },
-    '6' => {
-      call: ->{}
-    },
-    '7' => {
-      call: ->{}
-    },
-    '8' => {
-      call: ->{}
-    },
-    '9' => {
-      call: ->{}
-    },
-    ':' => {
-      call: ->{}
-    },
-    ';' => {
-      call: ->{}
-    },
+    # 0-9 reserved: numeric literal
+    # : reserved: foreach loop
     '<' => {
-      call: ->{}
+      call: ->(a, b){a.to_f < b.to_f}
     },
     '=' => {
-      call: ->{}
+      call: ->(a){@printed = true; puts untyped_to_s(a)},
+      get: true
     },
     '>' => {
-      call: ->{}
+      call: ->(a, b){a.to_f > b.to_f}
     },
-    '?' => {
-      call: ->{}
-    },
+    # ? reserved: if statement
     '@' => {
-      call: ->{}
+      call: ->(a){1.method((a = a.to_i) > 1 ? :upto : :downto)[a].to_a}
     },
     'A' => {
-      call: ->{}
+      call: ->(a){a.to_f.abs}
     },
     'B' => {
-      call: ->{}
+      call: ->(a, b){to_base(a.to_i, b.to_i)}
     },
     'C' => {
-      call: ->{}
+      call: ->(a, b){arr_else_str(a).concat(arr_else_str(b))}
     },
     'D' => {
-      call: ->{}
+      call: ->(a){[a, a]},
+      multi: true
     },
     'E' => {
-      call: ->{}
+      call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
+      no_vec: true
     },
     'F' => {
-      call: ->{}
+      call: ->{false}
     },
     'G' => {
-      call: ->{}
+      call: ->(a, b){(a = a.to_i).method(a > (b = b.to_i) ? :upto : :downto)[b].to_a}
     },
     'H' => {
-      call: ->{}
+      call: ->(a, b){a.push(b)},
+      # depth: [1], FIXME
+      no_vec: true
     },
     'I' => {
-      call: ->{}
+      call: ->{input}
     },
     'J' => {
-      call: ->{}
+      call: ->(a){arr_or_stack(a, &:join)},
+      depth: [1],
+      arr_stack: true
     },
     'K' => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).count(b)},
+      depth: [1],
+      arr_str: true
     },
     'L' => {
-      call: ->{}
+      call: ->(a){@printed = true; print untyped_to_s(a)},
+      no_vec: true
     },
-    'M' => {
-      call: ->{}
-    },
+    # M reserved: exec # times
     'N' => {
-      call: ->{}
+      call: ->(a, b){untyped_to_s(a) != untyped_to_s(b)}
     },
     'O' => {
-      call: ->{}
+      call: ->{@stack = @stack[0, @stack.length - 1]; nil}
     },
     'P' => {
-      call: ->{}
+      call: ->(a){Prime.entries(a.to_i)}
     },
     'Q' => {
-      call: ->{}
+      call: ->{@stack.reverse!; nil}
     },
     'R' => {
-      call: ->{}
+      call: ->(a){arr_else_str(a).reverse},
+      depth: [1],
+      arr_str: true
     },
     'S' => {
       call: ->{}

@@ -181,7 +181,7 @@ class Ohm
         end
 
         @pointer = loop_end
-      when "\u221E"
+      when "\u00A3"
         @pointer += 1
         loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
         loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer

@@ -73,7 +73,7 @@ class Ohm
 
     def arr_or_stack(arg)
       if arg.is_a?(Array)
-       yield arg
+        yield arg
       else
         @stack = Stack.new(self, [yield(@stack << arg)]) # The argument gets popped, so we have to push it back
         nil
@@ -107,7 +107,7 @@ class Ohm
         comp_depth = comp_hash[:depth][0] || 0
         arg_depth = comp_arg_depth(args[0], comp_hash)
 
-        if comp_depth == arg_depth || comp_hash[:no_vec] || (comp_hash[:arr_stack] && arg_depth.zero?)
+        if comp_depth == arg_depth || comp_hash[:no_vec] || comp_hash[:multi] || (comp_hash[:arr_stack] && arg_depth.zero?)
           instance_exec(args[0], &lam) # Not vectorized
         elsif comp_depth > arg_depth
           exec_component_hash([args[0]], comp_hash) # Wrapped for depth
@@ -119,7 +119,7 @@ class Ohm
         arg_depths = args.map {|a| comp_arg_depth(a, comp_hash)}
         arg_depths[1] -= 1 if comp_hash[:arr_str] && comp_hash[:depth][1].nil? && args[1].is_a?(String)
 
-        if comp_depths == arg_depths || comp_hash[:no_vec] || (comp_hash[:arr_stack] && arg_depths.all?(&:zero?)) # || other stuff
+        if comp_depths == arg_depths || comp_hash[:no_vec] || comp_hash[:multi] || (comp_hash[:arr_stack] && arg_depths.all?(&:zero?)) # || other stuff
           instance_exec(*args, &lam)
         elsif arg_depths[0] < comp_depths[0]
           exec_component_hash([[args[0]], args[1]], comp_hash)
