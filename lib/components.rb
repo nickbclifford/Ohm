@@ -17,16 +17,16 @@ class Ohm
       call: ->(a){a.to_f ** 2}
     },
     "\u00B3" => {
-      call: ->{}
+      call: ->{input_access(0)}
     },
     "\u2074" => {
-      call: ->{}
+      call: ->{input_access(1)}
     },
     "\u2075" => {
-      call: ->{}
+      call: ->{input_access(2)}
     },
     "\u2076" => {
-      call: ->{}
+      call: ->(a){input_access(a.to_i)}
     },
     "\u2077" => {
       call: ->{}
@@ -35,28 +35,30 @@ class Ohm
       call: ->{}
     },
     "\u2079" => {
-      call: ->{}
+      call: ->{@vars[:counter]}
     },
     "\u207A" => {
-      call: ->{}
+      call: ->{@vars[:counter] += 1; nil}
     },
     "\u207B" => {
-      call: ->{}
+      call: ->{@vars[:counter] = 0; nil}
     },
     "\u207C" => {
       call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)}
     },
     "\u207D" => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).first},
+      no_vec: true
     },
     "\u207E" => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).last},
+      no_vec: true
     },
     "\u207F" => {
       call: ->(a, b){a.to_f ** b.to_f}
     },
     "\u00BD" => {
-      call: ->{}
+      call: ->(a){a.to_f / 2}
     },
     "\u2153" => {
       call: ->{}
@@ -65,7 +67,9 @@ class Ohm
       call: ->{}
     },
     "\u2190" => {
-      call: ->{}
+      call: ->(a, b){arr_else_chars_join(a) {|x| x.unshift(b)}},
+      # depth: [1], FIXME
+      no_vec: true
     },
     "\u2191" => {
       call: ->(a){arr_else_chars(a).max},
@@ -73,7 +77,9 @@ class Ohm
       arr_str: true
     },
     "\u2192" => {
-      call: ->{}
+      call: ->(a, b){a.push(b)},
+      # depth: [1], FIXME
+      no_vec: true
     },
     "\u2193" => {
       call: ->(a){arr_else_chars(a).min},
@@ -194,9 +200,7 @@ class Ohm
       call: ->(a, b){(a = a.to_i).method(a > (b = b.to_i) ? :upto : :downto)[b].to_a}
     },
     'H' => {
-      call: ->(a, b){a.push(b)},
-      # depth: [1], FIXME
-      no_vec: true
+      call: ->(a){untyped_to_s(a).split(' ')}
     },
     'I' => {
       call: ->{input}
@@ -234,46 +238,51 @@ class Ohm
       arr_str: true
     },
     'S' => {
-      call: ->{}
+      call: ->(a){arr_else_chars_join(a, &:join)},
+      depth: [1],
+      arr_str: true
     },
     'T' => {
-      call: ->{}
+      call: ->{true}
     },
     'U' => {
-      call: ->{}
+      call: ->(a){arr_else_chars_join(a, &:uniq)},
+      depth: [1],
+      arr_str: true
     },
     'V' => {
-      call: ->{}
+      call: ->(a){(1..(a = a.to_i)).select {|i| (a % i).zero?}}
     },
     'W' => {
-      call: ->{}
+      call: ->{@stack = Stack.new(self, [@stack]); nil}
     },
     'X' => {
-      call: ->{}
+      call: ->(a){!a}
     },
     'Y' => {
-      call: ->{}
+      call: ->(a){(1...(a = a.to_i)).select {|i| (a % i).zero?}}
     },
     'Z' => {
-      call: ->{}
+      call: ->(a){untyped_to_s(a).split("\n")}
     },
     '[' => {
-      call: ->{}
+      call: ->(a){@stack[a.to_i]}
     },
     '\\' => {
-      call: ->{}
+      call: ->(a, b, c){untyped_to_s(a).gsub(untyped_to_s(b), untyped_to_s(c))}
     },
     ']' => {
-      call: ->{}
+      call: ->(a){a.is_a?(Array) ? a.flatten(1) : a},
+      multi: true
     },
     '^' => {
-      call: ->{}
+      call: ->{@vars[:index]}
     },
     '_' => {
-      call: ->{}
+      call: ->{@vars[:value]}
     },
     '`' => {
-      call: ->{}
+      call: ->(a){x = untyped_to_s(a); x.length == 1 ? x.ord : x.chars.map(&:ord)}
     },
     'a' => {
       call: ->{}
