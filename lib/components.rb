@@ -373,77 +373,102 @@ class Ohm
       call: ->(a){a.to_f <=> 0},
     },
     'z' => {
-      call: ->{},
+      call: ->(a){untyped_to_s(a).strip},
     },
     '{' => {
-      call: ->{}
+      call: ->(a){a.is_a?(Array) ? a.flatten : a},
+      no_vec: true
     },
     '|' => {
-      call: ->{}
+      call: ->(a, b){a || b}
     },
     '}' => {
-      call: ->{}
+      call: ->(a){a.is_a?(Array) ? a.each_slice(1).to_a : untyped_to_s(a).chars},
+      depth: [1],
+      arr_str: true
     },
     '~' => {
-      call: ->{}
+      call: ->(a){-a.to_f}
     },
-    "\u00B6" => {
-      call: ->{}
-    },
+    # pilcrow reserved: newline in circuit
     "\u03B1" => {
-      call: ->{}
+      # TODO: constants
     },
     "\u03B2" => {
-      call: ->{}
+      call: ->(a, b){arr_else_chars_inner_join(a) {|a| arr_in_groups(a, b.to_i)}},
+      depth: [1],
+      arr_str: true,
     },
     "\u03B3" => {
-      call: ->{}
+      call: ->(a){arr_else_chars_inner_join(a) {|a| Array.new(a.length) {|i| c = a.rotate(i)}}},
+      depth: [1],
+      arr_str: true,
     },
     "\u03B4" => {
-      call: ->{}
+      call: ->(a){a.each_cons(2).map {|a, b| b.to_f - a.to_f}},
+      depth: [1],
     },
     "\u03B5" => {
-      call: ->{}
+      call: ->(a, b){arr_else_str(a).include?(b)},
+      depth: [1],
+      arr_str: true,
     },
     "\u03B6" => {
-      call: ->{}
+      call: ->(a){a = arr_else_chars(a); [a.first, a.last]},
+      depth: [1],
+      arr_str: true,
     },
     "\u03B7" => {
-      call: ->{}
+      call: ->(a){arr_else_str(a).empty?},
+      depth: [1],
+      arr_str: true,
     },
     "\u03B8" => {
-      call: ->{}
+      call: ->(a, b, c){arr_else_str(a)[b.to_i..c.to_i]},
+      depth: [1],
+      arr_str: true,
     },
     "\u03B9" => {
-      call: ->{}
+      call: ->(a, b){arr_else_str(a)[0..b.to_i]},
+      depth: [1],
+      arr_str: true,
     },
     "\u03BA" => {
-      call: ->{}
+      call: ->(a, b){a = arr_else_str(a); a[b.to_i..a.length]},
+      depth: [1],
+      arr_str: true,
     },
     "\u03BB" => {
-      call: ->{}
+      call: ->(a){arr_else_chars_join(a, &:rotate)},
+      depth: [1],
+      arr_str: true,
     },
     "\u03BC" => {
-      call: ->{}
+      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:*)}},
+      depth: [1],
+      arr_stack: true,
     },
     "\u03BD" => {
       call: ->{}
     },
     "\u03BE" => {
-      call: ->{}
+      call: ->(a){[a, a, a]},
+      multi: true,
+      no_vec: true,
     },
     "\u03BF" => {
-      call: ->{}
+      call: ->(a, b){x = arr_else_chars(a).product(arr_else_chars(b)); [a, b].any? {|i| i.is_a?(Array)} ? x : x.map(&:join)},
+      no_vec: true,
     },
     "\u03C0" => {
-      call: ->{}
+      call: ->(a){Prime.first(a.to_i).last},
     },
     "\u03C1" => {
-      call: ->{}
+      call: ->(a){arr_else_chars_join(a) {|a| a.rotate(-1)}},
+      depth: [1],
+      arr_str: true,
     },
-    "\u03C2" => {
-      call: ->{}
-    },
+    # end-sigma reserved: sort by
     "\u03C3" => {
       call: ->{}
     },
@@ -454,11 +479,9 @@ class Ohm
       call: ->{}
     },
     "\u03C6" => {
-      call: ->{}
+      call: ->(a){a = a.to_i; a.prime_division.map {|x| 1 - (1.0 / x[0])}.reduce(a, :*).to_i},
     },
-    "\u03C7" => {
-      call: ->{}
-    },
+    # chi reserved: minmax by
     "\u03C8" => {
       call: ->{}
     },
