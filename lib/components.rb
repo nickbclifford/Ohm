@@ -397,76 +397,73 @@ class Ohm
     "\u03B2" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| arr_in_groups(a, b.to_i)}},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03B3" => {
       call: ->(a){arr_else_chars_inner_join(a) {|a| Array.new(a.length) {|i| c = a.rotate(i)}}},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03B4" => {
       call: ->(a){a.each_cons(2).map {|a, b| b.to_f - a.to_f}},
-      depth: [1],
+      depth: [1]
     },
     "\u03B5" => {
       call: ->(a, b){arr_else_str(a).include?(b)},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03B6" => {
       call: ->(a){a = arr_else_chars(a); [a.first, a.last]},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03B7" => {
       call: ->(a){arr_else_str(a).empty?},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03B8" => {
       call: ->(a, b, c){arr_else_str(a)[b.to_i..c.to_i]},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03B9" => {
       call: ->(a, b){arr_else_str(a)[0..b.to_i]},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03BA" => {
       call: ->(a, b){a = arr_else_str(a); a[b.to_i..a.length]},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03BB" => {
       call: ->(a){arr_else_chars_join(a, &:rotate)},
-      depth: [1],
-      arr_str: true,
+      no_vec: true
     },
     "\u03BC" => {
       call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:*)}},
       depth: [1],
-      arr_stack: true,
+      arr_stack: true
     },
     "\u03BD" => {
       call: ->{}
     },
     "\u03BE" => {
       call: ->(a){[a, a, a]},
-      multi: true,
-      no_vec: true,
+      multi: true
     },
     "\u03BF" => {
       call: ->(a, b){x = arr_else_chars(a).product(arr_else_chars(b)); [a, b].any? {|i| i.is_a?(Array)} ? x : x.map(&:join)},
-      no_vec: true,
+      no_vec: true
     },
     "\u03C0" => {
       call: ->(a){Prime.first(a.to_i).last},
     },
     "\u03C1" => {
       call: ->(a){arr_else_chars_join(a) {|a| a.rotate(-1)}},
-      depth: [1],
-      arr_str: true,
+      no_vec: true
     },
     # end-sigma reserved: sort by
     "\u03C3" => {
