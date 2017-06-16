@@ -448,7 +448,8 @@ class Ohm
       arr_stack: true
     },
     "\u03BD" => {
-      call: ->{}
+      call: ->(a, b){arr_else_str(a).include?(b)},
+      no_vec: true
     },
     "\u03BE" => {
       call: ->(a){[a, a, a]},
@@ -467,10 +468,12 @@ class Ohm
     },
     # end-sigma reserved: sort by
     "\u03C3" => {
-      call: ->{}
+      call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_slice(b.to_i).to_a}},
+      depth: [1],
+      arr_str: true,
     },
     "\u03C4" => {
-      call: ->{}
+      call: ->{10}
     },
     "\u03C5" => {
       call: ->{}
