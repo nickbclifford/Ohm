@@ -132,7 +132,8 @@ class Ohm
       call: ->(a, b){a && b}
     },
     '\'' => {
-      call: ->(a){a.to_i.chr}
+      call: ->(a){a.map(&:to_i).pack('U*')},
+      depth: [1]
     },
     '(' => {
       call: ->(a){a = arr_else_str(a); a[1, a.length]},
@@ -282,7 +283,7 @@ class Ohm
       call: ->{@vars[:value]}
     },
     '`' => {
-      call: ->(a){x = untyped_to_s(a); x.length == 1 ? x.ord : x.chars.map(&:ord)}
+      call: ->(a){x = untyped_to_s(a).unpack('U*'); x.length == 1 ? x[0] : x}
     },
     'a' => {
       call: ->(a, b){(a - b).abs},

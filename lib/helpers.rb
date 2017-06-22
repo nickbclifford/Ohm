@@ -110,7 +110,7 @@ class Ohm
         if comp_depth == arg_depth || comp_hash[:no_vec] || comp_hash[:multi] || (comp_hash[:arr_stack] && arg_depth.zero?)
           instance_exec(args[0], &lam) # Not vectorized
         elsif comp_depth > arg_depth
-          exec_component_hash([args[0]], comp_hash) # Wrapped for depth
+          exec_component_hash([args], comp_hash) # Wrapped for depth
         else
           args[0].map {|a| exec_component_hash([a], comp_hash)} # Vectorized
         end
