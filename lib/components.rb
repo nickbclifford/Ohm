@@ -29,10 +29,10 @@ class Ohm
       call: ->(a){input_access(a.to_i)}
     },
     "\u2077" => {
-      call: ->{}
+      call: ->{16}
     },
     "\u2078" => {
-      call: ->{}
+      call: ->{100}
     },
     "\u2079" => {
       call: ->{@vars[:counter]}
@@ -286,7 +286,7 @@ class Ohm
       call: ->(a){x = untyped_to_s(a).unpack('U*'); x.length == 1 ? x[0] : x}
     },
     'a' => {
-      call: ->(a, b){(a - b).abs},
+      call: ->(a, b){(a.to_f - b.to_f).abs},
     },
     'b' => {
       call: ->(a){to_base(a.to_i, 2)}
@@ -484,32 +484,31 @@ class Ohm
     },
     # chi reserved: minmax by
     "\u03C8" => {
-      call: ->{}
+      call: ->(a){arr_else_chars_inner_join(a) {|a| a.permutation.to_a}},
+      depth: [1],
+      arr_str: true
     },
     "\u03C9" => {
-      call: ->{}
+      call: ->(a){arr_else_chars_inner_join(a, &method(:powerset)},
+      depth: [1],
+      arr_str: true,
     },
     "\u0393" => {
-      call: ->{}
+      call: ->{-1}
     },
     "\u0394" => {
-      call: ->{}
+      call: ->(a){a.each_cons(2).map {|a, b| (a.to_f - b.to_f).abs}},
+      depth: [1]
     },
-    "\u0398" => {
-      call: ->{}
-    },
+    # capital theta reserved: execute previous wire
     "\u03A3" => {
-      call: ->{}
+      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:+)}},
+      depth: [1],
+      arr_stack: true
     },
-    "\u03A6" => {
-      call: ->{}
-    },
-    "\u03A8" => {
-      call: ->{}
-    },
-    "\u03A9" => {
-      call: ->{}
-    },
+    # capital phi reserved: execute wire at index
+    # capital psi reserved: execute current wire
+    # capital omega reserved: execute next wire
     "\u00C0" => {
       call: ->{}
     },
