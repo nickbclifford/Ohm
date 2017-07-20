@@ -61,11 +61,14 @@ class Ohm
         new_vars[:value] = v
         new_vars[:index] = i
 
-        block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
+        block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack << v, @inputs, new_vars).exec
         @printed ||= block.printed
         @stack = block.stack
         break if block.broken
-        @stack.pop[0] unless @stack.last[0].nil?
+
+        result = @stack.pop[0]
+
+        %i(select partition reject).include?(meth) ? truthy?(result) : result
       end
 
       @pointer = loop_end
@@ -238,7 +241,7 @@ class Ohm
 
     def input
       i = $stdin.gets
-      i.chomp! unless i.nil?
+      i.nil? ? i = '' : i.chomp!
       @inputs << x =
         if /\[(.*?)\]/ =~ i || i == 'true' || i == 'false'
           eval(i)

@@ -233,10 +233,10 @@ class Ohm
       # So in order to keep everything DRY, we'll just map over the block and call the method on the resulting array
       when "\u00C5"
         arr_operation(:map)
-        @stack << @stack.pop[0].all?
+        @stack << (@stack.pop[0].all?(&method(:truthy?)) ? 1 : 0)
       when "\u00C9"
         arr_operation(:map)
-        @stack << @stack.pop[0].any?
+        @stack << (@stack.pop[0].any?(&method(:truthy?)) ? 1 : 0)
       # Special behavior for calling wires
       when "\u03A8"
         exec_wire_at_index(@top_level[:index])
