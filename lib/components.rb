@@ -195,7 +195,7 @@ class Ohm
       no_vec: true
     },
     'F' => {
-      call: ->{false}
+      call: ->{false} # TODO: change to something useful
     },
     'G' => {
       call: ->(a, b){(a = a.to_i).method(a > (b = b.to_i) ? :upto : :downto)[b].to_a}
@@ -244,7 +244,7 @@ class Ohm
       arr_str: true
     },
     'T' => {
-      call: ->{true}
+      call: ->{true} # TODO: change to something useful
     },
     'U' => {
       call: ->(a){arr_else_chars_join(a, &:uniq)},
@@ -258,7 +258,7 @@ class Ohm
       call: ->{@stack = Stack.new(self, [@stack]); nil}
     },
     'X' => {
-      call: ->(a){!a}
+      call: ->(a){!truthy?(a)}
     },
     'Y' => {
       call: ->(a){(1...(a = a.to_i)).select {|i| (a % i).zero?}}
@@ -489,7 +489,7 @@ class Ohm
       arr_str: true
     },
     "\u03C9" => {
-      call: ->(a){arr_else_chars_inner_join(a, &method(:powerset)},
+      call: ->(a){arr_else_chars_inner_join(a, &method(:powerset))},
       depth: [1],
       arr_str: true,
     },
@@ -522,7 +522,8 @@ class Ohm
       call: ->{}
     },
     "\u00C4" => {
-      call: ->{}
+      call: ->(a, b){Array.new(b.to_i) {a}},
+      multi: true
     },
     "\u00C5" => {
       call: ->{}
@@ -591,7 +592,9 @@ class Ohm
       call: ->{}
     },
     "\u00C7" => {
-      call: ->{}
+      call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_cons(b.to_i).to_a}},
+      depth: [1],
+      arr_str: true
     },
     "\u00D0" => {
       call: ->{}

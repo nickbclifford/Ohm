@@ -18,7 +18,7 @@ ARGV << '-h' if ARGV.empty? # Print help if no arguments passed
 
 OptionParser.new do |parser|
   parser.banner << ' <circuit>' # This is ARGV[0] after parsing
-  parser.on('-c', '--cp437', 'Read file <circuit> with the Ohm encoding (default: UTF-8)') {opts[:code_page] = true}
+  parser.on('-c', '--code-page', 'Read file <circuit> with the Ohm encoding (default: UTF-8)') {opts[:code_page] = true}
   parser.on('-d', '--debug', 'Enter debug mode') {opts[:debug] = true}
   parser.on('-e', '--eval', 'Evaluate <circuit> as Ohm code') {opts[:eval] = true}
   parser.on('-h', '--help', 'Prints this help') {puts parser; exit}

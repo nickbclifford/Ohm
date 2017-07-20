@@ -50,7 +50,7 @@ To run unit tests, run `rake`.
 ### Interpreter Options
 |Flag|Usage|
 |----|-----|
-|`-c, --cp437`|Reads the given file with CP437 encoding (default UTF-8).|
+|`-c, --code-page`|Reads the given file with CP437 encoding (default UTF-8).|
 |`-d, --debug`|Activates **debug mode**, which prints the current command and stack at every iteration.|
 |`-e, --eval`|Evaluates the given circuit as Ohm code.|
 |`-h, --help`|Prints usage help.|

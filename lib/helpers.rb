@@ -84,6 +84,14 @@ class Ohm
       str.bytes.map {|b| Ohm::CODE_PAGE[b]}.join
     end
 
+    def bool_to_i(val)
+      case val
+      when TrueClass then 1
+      when FalseClass then 0
+      else val
+      end
+    end
+
     def comp_arg_depth(a, hsh)
       x = a.is_a?(Array) ? 1 + a.map {|c| comp_arg_depth(c, hsh)}.max : 0
       x += 1 if a.is_a?(String) && hsh[:arr_str]
@@ -100,42 +108,45 @@ class Ohm
     def exec_component_hash(args, comp_hash)
       comp_hash[:depth] ||= []
       lam = comp_hash[:call]
-      case lam.arity
-      when 0
-        instance_exec(&lam)
-      when 1
-        comp_depth = comp_hash[:depth][0] || 0
-        arg_depth = comp_arg_depth(args[0], comp_hash)
 
-        if comp_depth == arg_depth || comp_hash[:no_vec] || comp_hash[:multi] || (comp_hash[:arr_stack] && arg_depth.zero?)
-          instance_exec(args[0], &lam) # Not vectorized
-        elsif comp_depth > arg_depth
-          exec_component_hash([args], comp_hash) # Wrapped for depth
-        else
-          args[0].map {|a| exec_component_hash([a], comp_hash)} # Vectorized
-        end
-      when 2
-        comp_depths = Array.new(2) {|i| comp_hash[:depth][i] || 0}
-        arg_depths = args.map {|a| comp_arg_depth(a, comp_hash)}
-        arg_depths[1] -= 1 if comp_hash[:arr_str] && comp_hash[:depth][1].nil? && args[1].is_a?(String)
+      bool_to_i(
+        case lam.arity
+        when 0
+          instance_exec(&lam)
+        when 1
+          comp_depth = comp_hash[:depth][0] || 0
+          arg_depth = comp_arg_depth(args[0], comp_hash)
 
-        if comp_depths == arg_depths || comp_hash[:no_vec] || comp_hash[:multi] || (comp_hash[:arr_stack] && arg_depths.all?(&:zero?)) # || other stuff
+          if comp_depth == arg_depth || comp_hash[:no_vec] || comp_hash[:multi] || (comp_hash[:arr_stack] && arg_depth.zero?)
+            instance_exec(args[0], &lam) # Not vectorized
+          elsif comp_depth > arg_depth
+            exec_component_hash([args], comp_hash) # Wrapped for depth
+          else
+            args[0].map {|a| exec_component_hash([a], comp_hash)} # Vectorized
+          end
+        when 2
+          comp_depths = Array.new(2) {|i| comp_hash[:depth][i] || 0}
+          arg_depths = args.map {|a| comp_arg_depth(a, comp_hash)}
+          arg_depths[1] -= 1 if comp_hash[:arr_str] && comp_hash[:depth][1].nil? && args[1].is_a?(String)
+
+          if comp_depths == arg_depths || comp_hash[:no_vec] || comp_hash[:multi] || (comp_hash[:arr_stack] && arg_depths.all?(&:zero?)) # || other stuff
+            instance_exec(*args, &lam)
+          elsif arg_depths[0] < comp_depths[0]
+            exec_component_hash([[args[0]], args[1]], comp_hash)
+          elsif arg_depths[1] < comp_depths[1]
+            exec_component_hash([args[0], [args[1]]], comp_hash)
+          elsif arg_depths.reduce(:-) < comp_depths.reduce(:-)
+            args[1].map {|a| exec_component_hash([args[0], a], comp_hash)}
+          elsif arg_depths.reduce(:-) > comp_depths.reduce(:-)
+            args[0].map {|a| exec_component_hash([a, args[1]], comp_hash)}
+          else
+            zip_arr(args).map {|a| exec_component_hash(a, comp_hash)} + args[0][args[1].length..args[0].length] + args[1][args[0].length..args[1].length]
+          end
+        when 3
+          # TODO: vectorization
           instance_exec(*args, &lam)
-        elsif arg_depths[0] < comp_depths[0]
-          exec_component_hash([[args[0]], args[1]], comp_hash)
-        elsif arg_depths[1] < comp_depths[1]
-          exec_component_hash([args[0], [args[1]]], comp_hash)
-        elsif arg_depths.reduce(:-) < comp_depths.reduce(:-)
-          args[1].map {|a| exec_component_hash([args[0], a], comp_hash)}
-        elsif arg_depths.reduce(:-) > comp_depths.reduce(:-)
-          args[0].map {|a| exec_component_hash([a, args[1]], comp_hash)}
-        else
-          zip_arr(args).map {|a| exec_component_hash(a, comp_hash)} + args[0][args[1].length..args[0].length] + args[1][args[0].length..args[1].length]
         end
-      when 3
-        # TODO: vectorization
-        instance_exec(*args, &lam)
-      end
+      )
     end
 
     def exec_wire_at_index(i)
@@ -226,7 +237,8 @@ class Ohm
     end
 
     def input
-      i = $stdin.gets.chomp
+      i = $stdin.gets
+      i.chomp! unless i.nil?
       @inputs << x =
         if /\[(.*?)\]/ =~ i || i == 'true' || i == 'false'
           eval(i)
@@ -320,6 +332,12 @@ class Ohm
 
         num_converted.reverse.sub(/^0+/, '') # Remove leading zeroes
       end
+    end
+
+    # Everything is truthy except for false, nil, "", [], 0
+    # It's easier to put the negation here instead of putting it on every conditional
+    def truthy?(val)
+      !(!val || val.to_i.zero? || (!val.is_a?(Numeric) && val.empty?))
     end
 
     def unicode_to_bin(str)
