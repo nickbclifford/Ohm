@@ -222,7 +222,8 @@ class Ohm
     end
 
     def input
-      i = $stdin.gets.chomp
+      i = $stdin.gets
+      i.chomp! unless i.nil?
       @inputs << x =
         if /\[(.*?)\]/ =~ i || i == 'true' || i == 'false'
           eval(i)
