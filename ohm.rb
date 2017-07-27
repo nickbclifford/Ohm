@@ -88,14 +88,26 @@ class Ohm
         @pointer += number.length - 1
         @stack << number
       when '.' # Character literal
+        @stack << @wire[@pointer += 1]
+      when "\u2025" # Two-character literal
         @pointer += 1
-        @stack << @wire[@pointer]
+        @stack << @wire[@pointer..(@pointer += 2)]
+      when "\u2026" # Three-character literal
+        @pointer += 1
+        @stack << @wire[@pointer + 1..(@pointer += 3)]
       when '"' # String literal
         @pointer += 1
         lit_end = @wire[@pointer..@wire.length].index('"')
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
         @stack << @wire[@pointer...lit_end].gsub("\u00B6", "\n")
+        @pointer = lit_end
+      when "\u201C" # Base-255 number literal
+        @pointer += 1
+        lit_end = @wire[@pointer..@wire.length].index("\u201C")
+        lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
+
+        @stack << from_base(@wire[@pointer...lit_end], BASE_DIGITS.length)
         @pointer = lit_end
       when "\u201D" # Smaz-compressed string literal
         @pointer += 1
@@ -104,12 +116,12 @@ class Ohm
 
         @stack << Smaz.decompress(@wire[@pointer...lit_end])
         @pointer = lit_end
-      when "\u201C" # Base-255 number literal
+      when "\u1801"
         @pointer += 1
-        lit_end = @wire[@pointer..@wire.length].index("\u201C")
+        lit_end = @wire[@pointer..@wire.length].index("\u1801")
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
-        @stack << from_base(@wire[@pointer...lit_end], BASE_DIGITS.length)
+        @stack << ohm_to_bin(@wire[@pointer...lit_end])
         @pointer = lit_end
       when 'q' # Quit prematurely
         @exit = true

@@ -165,8 +165,7 @@ class Ohm
     end
 
     def factorial(n)
-      return 1 if n.zero?
-      (1..n).reduce(:*)
+      n.zero? ? 1 : (2..n).reduce(:*)
     end
 
     def fibonacci?(n)
@@ -272,6 +271,10 @@ class Ohm
       factorial(n) / factorial(n - r)
     end
 
+    def ohm_to_bin(str)
+      str.chars.map {|c| Ohm::CODE_PAGE.index(c)}
+    end
+
     def outermost_delim(str, delim, openers)
       amount_open = 1
 
@@ -341,10 +344,6 @@ class Ohm
     # It's easier to put the negation here instead of putting it on every conditional
     def truthy?(val)
       !(!val || val.to_i.zero? || (!val.is_a?(Numeric) && val.empty?))
-    end
-
-    def unicode_to_bin(str)
-      str.chars.map {|c| Ohm::CODE_PAGE.index(c)}.pack('C*')
     end
 
     def untyped_to_s(n)

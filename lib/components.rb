@@ -755,39 +755,23 @@ class Ohm
     "\u00AB" => {
       call: ->{}
     },
-    "\u00BB" => {
-      call: ->{}
-    },
+    # right double angle bracket reserved: single-component map
     "\u2039" => {
       call: ->{}
     },
     "\u203A" => {
       call: ->{}
     },
-    "\u201C" => {
-      call: ->{}
-    },
-    "\u201D" => {
-      call: ->{}
-    },
-    "\u2018" => {
-      call: ->{}
-    },
-    "\u2019" => {
-      call: ->{}
-    },
+    # left quote reserved: base-255 literal
+    # right quote reserved: Smaz-compressed string literal
+    # left single quote reserved: min by
+    # right single quote resereved: max by
     "\u00B7" => {
-      call: ->{}
+      # TODO: extended components
     },
-    "\u2025" => {
-      call: ->{}
-    },
-    "\u2026" => {
-      call: ->{}
-    },
-    "\u1801" => {
-      call: ->{}
-    },
+    # 2-dot reserved: two character literal
+    # ellipsis reserved: three character literal
+    # Mongolian ellipsis reserved: code page indexes literal
     "\u2229" => {
       call: ->{}
     },
