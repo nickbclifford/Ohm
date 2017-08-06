@@ -322,11 +322,10 @@ class Ohm
       arr_stack: true
     },
     'k' => {
-      call: ->(a, b){arr_else_str(a).index(b)},
+      call: ->(a, b){x = arr_else_str(a).index(b); x.nil? ? -1 : x},
       # depth: [1], FIXME
       # arr_str: true,
       no_vec: true,
-      nils: true,
     },
     'l' => {
       call: ->(a){arr_else_str(a).length},
@@ -704,21 +703,13 @@ class Ohm
     "\u00FE" => {
       call: ->{}
     },
-    "\u00BF" => {
-      call: ->{}
-    },
+    # upside down question mark reserved: else statement
     "\u203D" => {
       call: ->{}
     },
-    "\u2047" => {
-      call: ->{}
-    },
-    "\u2048" => {
-      call: ->{}
-    },
-    "\u203C" => {
-      call: ->{}
-    },
+    # double question mark reserved: select from array
+    # question/exclamation mark reserved: partition from array
+    # double exclamation mark reserved: reject from array
     "\u00A1" => {
       call: ->{}
     },
@@ -747,8 +738,9 @@ class Ohm
       call: ->{}
     },
     "\u00A2" => {
-      call: ->{}
-    },
+      call: ->(a){@vars[:register] = a},
+      no_vec: true
+    }, # This doesn't have to go under GET since assignment still returns the value
     "\u00A4" => {
       call: ->{}
     },

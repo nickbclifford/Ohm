@@ -284,12 +284,10 @@ class Ohm
 
         result = exec_component_hash(args, comp_hash)
 
-        unless result.nil? && !comp_hash[:nils]
-          if comp_hash[:multi]
-            @stack.push(*result)
-          else
-            @stack << result
-          end
+        if comp_hash[:multi]
+          @stack.push(*result)
+        else
+          @stack << result
         end
       end
 
