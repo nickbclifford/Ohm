@@ -596,25 +596,25 @@ class Ohm
       arr_str: true
     },
     "\u00D0" => {
-      call: ->{}
+      call: ->{' '}
     },
     "\u00D1" => {
-      call: ->{}
+      call: ->{"\n"}
     },
     "\u00DD" => {
-      call: ->{}
+      call: ->{''}
     },
     "\u00DE" => {
       call: ->{}
     },
     "\u00E0" => {
-      call: ->{}
+      call: ->(a, b){a.to_i & b.to_i}
     },
     "\u00E1" => {
-      call: ->{}
+      call: ->(a, b){a.to_i | b.to_i}
     },
     "\u00E2" => {
-      call: ->{}
+      call: ->(a, b){a.to_i ^ b.to_i}
     },
     "\u00E3" => {
       call: ->{}
@@ -629,13 +629,15 @@ class Ohm
       call: ->{}
     },
     "\u00E6" => {
-      call: ->{}
+      call: ->(a){arr_else_chars_join(a) {|a| a + a.reverse[1, a.length]}},
+      depth: [1],
+      arr_str: true
     },
     "\u00E8" => {
-      call: ->{}
+      call: ->(a){a.to_i % 2 != 0}
     },
     "\u00E9" => {
-      call: ->{}
+      call: ->(a){a.to_i % 2 == 0}
     },
     "\u00EA" => {
       call: ->{}
@@ -674,7 +676,9 @@ class Ohm
       call: ->{}
     },
     "\u0153" => {
-      call: ->{}
+      call: ->(a){x = arr_else_str(a); [x, x.reverse]},
+      depth: [1],
+      arr_str: true
     },
     "\u00F9" => {
       call: ->{}
