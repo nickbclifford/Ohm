@@ -17,14 +17,14 @@ These components will execute all components between them and a `;` character (o
 |`É`|Pops `a` and pushes whether any of the elements in `a` push `true` from its associated block.|N|
 |`░`|Pops `a` and pushes an array containing all elements of `a` for which its associated block pushes `true` (filter/select).|Y|
 |`▒`|Same as above, except `false` instead of `true` (reject).|Y|
-|`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|N|
+|`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|Y|
 |`╠`|Pops `a` and pushes `a` sorted by the results of running its associated block once for every element in `a`.|Y|
 |`╨`|Pops `a` and pushes the element in `a` that gives the maximum value from its associated block.|Y|
 |`╥`|Pops `a` and pushes the element in `a` that gives the minimum value from its associated block.|Y|
 |`╫`|Pops `a` and pushes the elements in `a` that give the minimum and maximum value from its associated block.|Y|
 |`∙Ω`|Pops `a` and continuously evaluates its associated block until the result given has already been seen, using `a` as the initial value. Pushes the list of intermediate results.|N|
 |`∙Θ`|Same as about, except it only pushes the final result.|N|
-|`∞`|Runs its associated block infinitely.|N|
+|`∞`|Runs its associated block infinitely.|Y|
 
 ### Wire/block flow
 |Component|Description|Migrated|
@@ -33,7 +33,7 @@ These components will execute all components between them and a `;` character (o
 |`Φ`|Pops `a` and executes the wire at index `a`.|Y|
 |`Θ`|Executes the wire at the index before the current one.|Y|
 |`Ω`|Executes the wire at the index after the current one.|Y|
-|`■`|Pops `a` and breaks out of the current block/wire if `a` is true.|N|
+|`■`|Pops `a` and breaks out of the current block/wire if `a` is true.|Y|
 
 ### Utility
 |Component|Action|Description|Migrated|
@@ -126,7 +126,7 @@ These components will execute all components between them and a `;` character (o
 |`ä`|Pop `a`, `b`|Pushes `a & b` (bitwise AND).|Y|
 |`à`|Pop `a`, `b`|Pushes `a | b` (bitwise OR).|Y|
 |`å`|Pop `a`, `b`|Pushes `a ^ b` (bitwise XOR).|Y|
-|`ç`|Pop `a`, `b`|Pushes all possible combinations of length `b` of elements in `a`.|N|
+|`ç`|Pop `a`, `b`|Pushes all possible combinations of length `b` of elements in `a`.|Y|
 |`ê`|Pop `a`|Pushes the first `a` Fibonacci numbers.|N|
 |`è`|Pop `a`|Pushes `a % 2 != 0` (odd).|Y|
 |`ï`|Pop `a`, `b`|Pushes `a.split(b)`.|N|
@@ -141,10 +141,10 @@ These components will execute all components between them and a `;` character (o
 |`ù`|Pop `a`|If `a` is an array, pushes `a.join(' ')`, else pushes `stack.join(' ')`.|N|
 |`ÿ`|N/A|Pushes empty string (`''`).|Y|
 |`Ö`|Pop `a`|Pushes `a == 0`.|N|
-|`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|N|
+|`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|Y|
 |`¢`|Get `a`|Sets the value of the register to `a`.|N|
 |`£`|Pop `a`|Sleeps execution for `a` seconds.|N|
-|`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|N|
+|`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|Y|
 |`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|N|
 |`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|N|
 |`á`|Pop `a`|If `a` is an array, pushes `a.join("\n")`, else pushes `stack.join("\n")`.|N|
@@ -182,14 +182,14 @@ These components will execute all components between them and a `;` character (o
 |`╦`|Pop `a`, `b`|Pushes `a` right-justified to length `b` (with spaces).|N|
 |`═`|Pop `a`, `b`, `c`|Pushes `a[b..c]` (slice arbitrarily).|Y|
 |`╬`|Pop `a`|Pushes a random element from `a`.|N|
-|`╧`|Pop `a`|Pushes maximum element in `a`.|N|
-|`╤`|Pop `a`|Pushes minimum element in `a`.|N|
+|`╧`|Pop `a`|Pushes maximum element in `a`.|Y|
+|`╤`|Pop `a`|Pushes minimum element in `a`.|Y|
 |`╙`|Pop `a`|Pushes `a` rotated once to the right.|Y|
 |`╒`|Pop `a`, `b`|Pushes the Cartesian product of `a` and `b`.|Y|
-|`╪`|Pop `a`|Pushes minimum and maximum element in `a` as an array in the form `[min, max]`.|N|
-|`┘`|N/A|Pushes the second input given.|N|
-|`┌`|N/A|Pushes the third input given.|N|
-|`█`|N/A|Pushes empty array (`[]`).|N|
+|`╪`|Pop `a`|Pushes minimum and maximum element in `a` as an array in the form `[min, max]`.|Y|
+|`┘`|N/A|Pushes the second input given.|Y|
+|`┌`|N/A|Pushes the third input given.|Y|
+|`█`|N/A|Pushes empty array (`[]`).|Y|
 |`▀`|N/A|Creates a compressed string literal (see README).|Y|
 |`ß`|Pop `a`, `b`|Pushes `a` split into `b` groups.|Y|
 |`Γ`|N/A|Pushes -1.|Y|
@@ -201,20 +201,20 @@ These components will execute all components between them and a `;` character (o
 |`δ`|Pop `a`|Pushes an array with the deltas of (distance between) consecutive elements in `a`.|Y|
 |`φ`|Pop `a`|Pushes the Euler totient/phi function of `a`.|Y|
 |`ε`|Pop `a`, `b`|Pushes whether `b` is in `a`.|Y|
-|`∩`|Pop `a`, `b`|Pushes set intersection of `a` and `b`.|N|
+|`∩`|Pop `a`, `b`|Pushes set intersection of `a` and `b`.|Y|
 |`≡`|Pop `a`|Pushes `a` three times (triplicate).|Y|
 |`±`|Pop `a`, `b`|Pushes the `b`th root of `a`.|N|
 |`≥`|Pop `a`|Pushes `a + 1` (increment).|N|
 |`≤`|Pop `a`|Pushes `a - 1` (decrement).|N|
 |`⌠`|Pop `a`|Pushes `a` rounded *up* to the nearest integer (ceiling).|N|
 |`⌡`|Pop `a`|Pushes `a` rounded *down* to the nearest integer (floor).|N|
-|`÷`|Pop `a`|Pushes `1 / a` (reciprocal).|N|
+|`÷`|Pop `a`|Pushes `1 / a` (reciprocal).|Y|
 |`≈`|Pop `a`|Pushes `a` rounded to the nearest integer.|N|
 |`°`|Pop `a`|Pushes 10<sup>`a`</sup>.|N|
-|`·`|Pop `a`, `b`|Pushes `a` repeated `b` times.|N|
+|`·`|Pop `a`, `b`|Pushes `a` repeated `b` times.|Y|
 |`√`|Pop `a`|Pushes the square root of `a`.|N|
-|`ⁿ`|Pop `a`, `b`|Pushes `a`<sup>`b`</sup>.|N|
-|`²`|Pop `a`|Pushes `a` squared.|N|
+|`ⁿ`|Pop `a`, `b`|Pushes `a`<sup>`b`</sup>.|Y|
+|`²`|Pop `a`|Pushes `a` squared.|Y|
 
 ## Multi-character
 

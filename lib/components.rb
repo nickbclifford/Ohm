@@ -101,20 +101,16 @@ class Ohm
       call: ->{}
     },
     "\u00D7" => {
-      call: ->{}
-    },
+      call: ->(a, b){untyped_to_s(a) * b.to_i}
+    }, # Repeat string
     "\u00F7" => {
-      call: ->{}
+      call: ->(a){1 / a.to_f}
     },
-    "\u00A3" => {
-      call: ->{}
-    },
+    # pound sign reserved: infinite loop
     "\u00A5" => {
-      call: ->{}
+      call: ->(a, b){a.to_f % b.to_f == 0}
     },
-    "\u20AC" => {
-      call: ->{}
-    },
+    # euro sign reserved: map
     '!' => {
       call: ->(a){factorial(a.to_i)}
     },
@@ -129,7 +125,7 @@ class Ohm
       call: ->(a){a.to_f % b.to_f}
     },
     '&' => {
-      call: ->(a, b){a && b}
+      call: ->(a, b){truthy?(a) && truthy?(b)}
     },
     '\'' => {
       call: ->(a){a.map(&:to_i).pack('U*')},
@@ -325,7 +321,7 @@ class Ohm
       call: ->(a, b){x = arr_else_str(a).index(b); x.nil? ? -1 : x},
       # depth: [1], FIXME
       # arr_str: true,
-      no_vec: true,
+      no_vec: true
     },
     'l' => {
       call: ->(a){arr_else_str(a).length},
@@ -380,7 +376,7 @@ class Ohm
       no_vec: true
     },
     '|' => {
-      call: ->(a, b){a || b}
+      call: ->(a, b){truthy?(a) || truthy?(b)}
     },
     '}' => {
       call: ->(a){a.is_a?(Array) ? a.each_slice(1).to_a : untyped_to_s(a).chars},
@@ -470,7 +466,7 @@ class Ohm
     "\u03C3" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_slice(b.to_i).to_a}},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u03C4" => {
       call: ->{10}
@@ -490,7 +486,7 @@ class Ohm
     "\u03C9" => {
       call: ->(a){arr_else_chars_inner_join(a, &method(:powerset))},
       depth: [1],
-      arr_str: true,
+      arr_str: true
     },
     "\u0393" => {
       call: ->{-1}
@@ -605,7 +601,7 @@ class Ohm
       call: ->{''}
     },
     "\u00DE" => {
-      call: ->{}
+      call: ->{[]}
     },
     "\u00E0" => {
       call: ->(a, b){a.to_i & b.to_i}
@@ -617,14 +613,12 @@ class Ohm
       call: ->(a, b){a.to_i ^ b.to_i}
     },
     "\u00E3" => {
-      call: ->{}
+      call: ->(a){~a.to_i}
     },
     "\u00E4" => {
       call: ->{}
     },
-    "\u00E5" => {
-      call: ->{}
-    },
+    # capital A with ring reserved: all truthy in array
     "\u0101" => {
       call: ->{}
     },
@@ -693,7 +687,9 @@ class Ohm
       call: ->{}
     },
     "\u00E7" => {
-      call: ->{}
+      call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.combination(b.to_i).to_a}},
+      depth: [1],
+      arr_str: true
     },
     "\u00F0" => {
       call: ->{}
@@ -708,9 +704,7 @@ class Ohm
       call: ->{}
     },
     # upside down question mark reserved: else statement
-    "\u203D" => {
-      call: ->{}
-    },
+    # interrobang reserved: break out of block/wire
     # double question mark reserved: select from array
     # question/exclamation mark reserved: partition from array
     # double exclamation mark reserved: reject from array
@@ -769,10 +763,12 @@ class Ohm
     # ellipsis reserved: three character literal
     # Mongolian ellipsis reserved: code page indexes literal
     "\u2229" => {
-      call: ->{}
+      call: ->(a, b){x = arr_else_chars(a) & arr_else_chars(b); [a, b].any? {|i| i.is_a?(Array)} ? x : x.join},
+      no_vec: true
     },
     "\u222A" => {
-      call: ->{}
+      call: ->(a, b){x = arr_else_chars(a) | arr_else_chars(b); [a, b].any? {|i| i.is_a?(Array)} ? x : x.join},
+      no_vec: true
     },
     "\u2282" => {
       call: ->{}
