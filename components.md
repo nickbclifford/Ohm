@@ -122,45 +122,45 @@ These components will execute all components between them and a `;` character (o
 |`Ç`|Pop `a`, `b`|Pushes an array of every consecutive group of `b` elements in `a`.|Y|
 |`ü`|N/A|Pushes a space character (` `).|Y|
 |`é`|Pop `a`|Pushes `a % 2 == 0` (even).|Y|
-|`â`|Pop `a`|Pushes the first `a` prime numbers.|N|
+|`â`|Pop `a`|Pushes the first `a` prime numbers.|Y|
 |`ä`|Pop `a`, `b`|Pushes `a & b` (bitwise AND).|Y|
 |`à`|Pop `a`, `b`|Pushes `a | b` (bitwise OR).|Y|
 |`å`|Pop `a`, `b`|Pushes `a ^ b` (bitwise XOR).|Y|
 |`ç`|Pop `a`, `b`|Pushes all possible combinations of length `b` of elements in `a`.|Y|
-|`ê`|Pop `a`|Pushes the first `a` Fibonacci numbers.|N|
+|`ê`|Pop `a`|Pushes the first `a` Fibonacci numbers.|Y|
 |`è`|Pop `a`|Pushes `a % 2 != 0` (odd).|Y|
-|`ï`|Pop `a`, `b`|Pushes `a.split(b)`.|N|
-|`î`|Pop `a`|Pushes `a` as an integer.|N|
-|`ì`|Pop `a`|Pushes if `a` is an integer.|N|
+|`ï`|Pop `a`, `b`|Pushes `a.split(b)`.|Y|
+|`î`|Pop `a`|Pushes `a` as an integer.|Y|
+|`ì`|Pop `a`|Pushes if `a` is an integer.|Y|
 |`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|Y|
 |`æ`|Pop `a`|Pushes `a` as a palindrome.|Y|
-|`ô`|Pop `a`|Pushes `a` as a float.|N|
+|`ô`|Pop `a`|Pushes `a` as a float.|Y|
 |`ö`|Pop `a`|Pushes `a != 0`.|N|
-|`ò`|Pop `a`|Pushes `~a` (bitwise NOT).|N|
-|`û`|Pop `a`, `b`, `c`|Pushes the range between `a` and `b` in steps of `c`.|N|
-|`ù`|Pop `a`|If `a` is an array, pushes `a.join(' ')`, else pushes `stack.join(' ')`.|N|
+|`ò`|Pop `a`|Pushes `~a` (bitwise NOT).|Y|
+|`û`|Pop `a`, `b`, `c`|Pushes the range between `a` and `b` in steps of `c`.|Y|
+|`ù`|Pop `a`|If `a` is an array, pushes `a.join(' ')`, else pushes `stack.join(' ')`.|Y|
 |`ÿ`|N/A|Pushes empty string (`''`).|Y|
 |`Ö`|Pop `a`|Pushes `a == 0`.|N|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|Y|
-|`¢`|Get `a`|Sets the value of the register to `a`.|N|
-|`£`|Pop `a`|Sleeps execution for `a` seconds.|N|
+|`¢`|Get `a`|Sets the value of the register to `a`.|Y|
+|`£`|Pop `a`|Sleeps execution for `a` seconds.|Y|
 |`¥`|Pop `a`, `b`|Pushes `a % b == 0` (divisibility).|Y|
-|`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|N|
-|`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|N|
-|`á`|Pop `a`|If `a` is an array, pushes `a.join("\n")`, else pushes `stack.join("\n")`.|N|
-|`í`|Pop `a`|Pushes `a` zipped.|N|
-|`ó`|Pop `a`|Pushes `a` converted to base 10 from binary (base 2).|N|
-|`ú`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|N|
-|`ñ`|Pop `a`|Pushes whether `s` is a Fibonacci number.|N|
+|`₧`|Pop `a`|Pushes `a == a.reverse` (palindrome).|Y|
+|`ƒ`|Pop `a`|Pushes the `a`th Fibonacci number.|Y|
+|`á`|Pop `a`|If `a` is an array, pushes `a.join("\n")`, else pushes `stack.join("\n")`.|Y|
+|`í`|Pop `a`|Pushes `a` zipped.|Y|
+|`ó`|Pop `a`|Pushes `a` converted to base 10 from binary (base 2).|Y|
+|`ú`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|Y|
+|`ñ`|Pop `a`|Pushes whether `s` is a Fibonacci number.|Y|
 |`Ñ`|N/A|Pushes a newline character (`\n`), functions as a newline inside string literals.|Y|
 |`ª`|Pop `a`|Pushes `a[b]` (element at index).|N|
 |`º`|Pop `a`|Pushes 2<sup>`a`</sup>.|N|
 |`⌐`|Pop `a`|Pushes all permutations of `a`.|Y|
 |`¬`|Pop `a`|Pushes the power set of `a`.|Y|
-|`½`|Pop `a`|Pushes `a / 2` (half).|N|
-|`¼`|N/A|Pushes the current value of the counter.|N|
-|`¡`|N/A|Increments the counter by 1.|N|
-|`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|N|
+|`½`|Pop `a`|Pushes `a / 2` (half).|Y|
+|`¼`|N/A|Pushes the current value of the counter.|Y|
+|`¡`|N/A|Increments the counter by 1.|Y|
+|`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|Y|
 |`»`|Pop `a`|Pushes a *single component* mapped over all values of `a`.|Y|
 |`│`|Pop `a`|Pushes if `a` is empty.|Y|
 |`┤`|Pop `a`, `b`|Pushes `a[b..a.length]` (slice from end).|Y|

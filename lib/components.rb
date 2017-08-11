@@ -439,9 +439,8 @@ class Ohm
       no_vec: true
     },
     "\u03BC" => {
-      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:*)}},
-      depth: [1],
-      arr_stack: true
+      call: ->(a, b){x = arr_else_chars(a).product(arr_else_chars(b)); [a, b].any? {|i| i.is_a?(Array)} ? x : x.map(&:join)},
+      no_vec: true
     },
     "\u03BD" => {
       call: ->(a, b){arr_else_str(a).include?(b)},
@@ -450,10 +449,6 @@ class Ohm
     "\u03BE" => {
       call: ->(a){[a, a, a]},
       multi: true
-    },
-    "\u03BF" => {
-      call: ->(a, b){x = arr_else_chars(a).product(arr_else_chars(b)); [a, b].any? {|i| i.is_a?(Array)} ? x : x.map(&:join)},
-      no_vec: true
     },
     "\u03C0" => {
       call: ->(a){Prime.first(a.to_i).last},
@@ -496,6 +491,11 @@ class Ohm
       depth: [1]
     },
     # capital theta reserved: execute previous wire
+    "\u03A0" => {
+      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:*)}},
+      depth: [1],
+      arr_stack: true
+    },
     "\u03A3" => {
       call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:+)}},
       depth: [1],
@@ -634,31 +634,32 @@ class Ohm
       call: ->(a){a.to_i % 2 == 0}
     },
     "\u00EA" => {
-      call: ->{}
+      call: ->(a){Array.new(a.to_i) {|i| nth_fibonacci(i + 1)}}
     },
     "\u00EB" => {
-      call: ->{}
+      call: ->(a){Prime.first(a.to_i)},
     },
     "\u00EC" => {
-      call: ->{}
+      call: ->(a){a.to_i}
     },
     "\u00ED" => {
-      call: ->{}
+      call: ->(a){a.to_f}
     },
     "\u00EE" => {
-      call: ->{}
+      call: ->(a){!!Integer(a) rescue false}
     },
     "\u00EF" => {
-      call: ->{}
+      call: ->(a, b){untyped_to_s(a).split(untyped_to_s(b))},
     },
     "\u00F2" => {
-      call: ->{}
+      call: ->(a){zip_arr(a)},
+      depth: [2]
     },
     "\u00F3" => {
-      call: ->{}
+      call: ->(a){from_base(a.to_s, 2)},
     },
     "\u00F4" => {
-      call: ->{}
+      call: ->(a){from_base(a.to_s, 16)},
     },
     "\u00F5" => {
       call: ->{}
@@ -675,13 +676,17 @@ class Ohm
       arr_str: true
     },
     "\u00F9" => {
-      call: ->{}
+      call: ->(a){arr_or_stack(a) {|a| a.join(' ')}},
+      depth: [1],
+      arr_stack: true
     },
     "\u00FA" => {
-      call: ->{}
+      call: ->(a){arr_or_stack(a) {|a| a.join("\n")}},
+      depth: [1],
+      arr_stack: true
     },
     "\u00FB" => {
-      call: ->{}
+      call: ->(a, b, c){a.to_f.step(b.to_f, c.to_f).to_a}
     },
     "\u00FC" => {
       call: ->{}
@@ -692,16 +697,16 @@ class Ohm
       arr_str: true
     },
     "\u00F0" => {
-      call: ->{}
+      call: ->(a){untyped_to_s(a) == untyped_to_s(a).reverse}
     },
     "\u00F1" => {
-      call: ->{}
+      call: ->(a){fibonacci?(a.to_i)}
     },
     "\u00FD" => {
-      call: ->{}
+      call: ->(a){nth_fibonacci(a.to_i)}
     },
     "\u00FE" => {
-      call: ->{}
+      call: ->(a){sleep(a.to_f); nil}
     },
     # upside down question mark reserved: else statement
     # interrobang reserved: break out of block/wire
@@ -743,7 +748,8 @@ class Ohm
       call: ->{}
     },
     "\u00AB" => {
-      call: ->{}
+      call: ->(a, b){[a, b]},
+      no_vec: true
     },
     # right double angle bracket reserved: single-component map
     "\u2039" => {
