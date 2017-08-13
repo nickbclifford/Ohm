@@ -95,10 +95,10 @@ class Ohm
       arr_str: true
     },
     "\u0131" => {
-      call: ->{}
+      call: ->(a){a.to_f.ceil}
     },
     "\u0237" => {
-      call: ->{}
+      call: ->(a){a.to_f.floor}
     },
     "\u00D7" => {
       call: ->(a, b){untyped_to_s(a) * b.to_i}
@@ -439,7 +439,7 @@ class Ohm
       no_vec: true
     },
     "\u03BC" => {
-      call: ->(a, b){x = arr_else_chars(a).product(arr_else_chars(b)); [a, b].any? {|i| i.is_a?(Array)} ? x : x.map(&:join)},
+      call: ->(a, b){arr_else_chars_inner_join(a, b) {|a, b| a.product(b)}},
       no_vec: true
     },
     "\u03BD" => {
@@ -467,7 +467,7 @@ class Ohm
       call: ->{10}
     },
     "\u03C5" => {
-      call: ->{}
+      # TODO: time components
     },
     "\u03C6" => {
       call: ->(a){a = a.to_i; a.prime_division.map {|x| 1 - (1.0 / x[0])}.reduce(a, :*).to_i},
@@ -520,9 +520,7 @@ class Ohm
       call: ->(a, b){Array.new(b.to_i) {a}},
       multi: true
     },
-    "\u00C5" => {
-      call: ->{}
-    },
+    # capital A with ring reserved: all truthy in array
     "\u0100" => {
       call: ->{}
     },
@@ -532,9 +530,7 @@ class Ohm
     "\u00C8" => {
       call: ->{}
     },
-    "\u00C9" => {
-      call: ->{}
-    },
+    # capital E with acute reserved: any truthy in array
     "\u00CA" => {
       call: ->{}
     },
@@ -618,7 +614,9 @@ class Ohm
     "\u00E4" => {
       call: ->{}
     },
-    # capital A with ring reserved: all truthy in array
+    "\u00E5" => {
+      call: ->{}
+    },
     "\u0101" => {
       call: ->{}
     },
@@ -646,7 +644,7 @@ class Ohm
       call: ->(a){a.to_f}
     },
     "\u00EE" => {
-      call: ->(a){!!Integer(a) rescue false}
+      call: ->(a){a.to_f % 1 == 0}
     },
     "\u00EF" => {
       call: ->(a, b){untyped_to_s(a).split(untyped_to_s(b))},
@@ -717,28 +715,32 @@ class Ohm
       call: ->{}
     },
     "\u2030" => {
-      call: ->{}
+      call: ->(a){2 ** a.to_f}
     },
     "\u2031" => {
-      call: ->{}
+      call: ->(a){10 ** a.to_f}
     },
     "\u00A6" => {
-      call: ->{}
+      call: ->(a){a.to_f.round},
     },
     "\u00A7" => {
-      call: ->{}
+      call: ->(a){arr_else_chars(a).sample},
+      depth: [1],
+      arr_str: true
     },
     "\u00A9" => {
-      call: ->{}
-    },
+      call: ->(a){untyped_to_s(a) * 2}
+    }, # String duplication
     "\u00AE" => {
-      call: ->{}
+      call: ->(a, b){arr_else_str(a)[b.to_i]},
+      depth: [1],
+      arr_str: true
     },
     "\u00B1" => {
-      call: ->{}
+      call: ->(a, b){a.to_f ** (1 / b.to_f)},
     },
     "\u00AC" => {
-      call: ->{}
+      call: ->(a){Math.sqrt(a.to_f)},
     },
     "\u00A2" => {
       call: ->(a){@vars[:register] = a},
@@ -753,10 +755,10 @@ class Ohm
     },
     # right double angle bracket reserved: single-component map
     "\u2039" => {
-      call: ->{}
+      call: ->(a){a.to_f - 1}
     },
     "\u203A" => {
-      call: ->{}
+      call: ->(a){a.to_f + 1}
     },
     # left quote reserved: base-255 literal
     # right quote reserved: Smaz-compressed string literal
@@ -769,11 +771,11 @@ class Ohm
     # ellipsis reserved: three character literal
     # Mongolian ellipsis reserved: code page indexes literal
     "\u2229" => {
-      call: ->(a, b){x = arr_else_chars(a) & arr_else_chars(b); [a, b].any? {|i| i.is_a?(Array)} ? x : x.join},
+      call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a & b}},
       no_vec: true
     },
     "\u222A" => {
-      call: ->(a, b){x = arr_else_chars(a) | arr_else_chars(b); [a, b].any? {|i| i.is_a?(Array)} ? x : x.join},
+      call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a | b}},
       no_vec: true
     },
     "\u2282" => {

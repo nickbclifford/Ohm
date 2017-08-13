@@ -13,8 +13,8 @@ These components will execute all components between them and a `;` character (o
 |`:`|Pops `a` and executes its associated block for each element in `a`, with the special components `^` and `_` set as the index and element currently being looped, respectively (foreach loop).|Y|
 |`M`|Pops `a` and runs its associated block `a` times.|Y|
 |`ë`|Pops `a` and pushes a 2D array where the first element contains all the elements of `a` that pushed `true` and the second element contains all the elements of `a` that pushed `false`.|Y|
-|`Å`|Pops `a` and pushes whether all the elements in `a` push `true` from its associated block.|N|
-|`É`|Pops `a` and pushes whether any of the elements in `a` push `true` from its associated block.|N|
+|`Å`|Pops `a` and pushes whether all the elements in `a` push `true` from its associated block.|Y|
+|`É`|Pops `a` and pushes whether any of the elements in `a` push `true` from its associated block.|Y|
 |`░`|Pops `a` and pushes an array containing all elements of `a` for which its associated block pushes `true` (filter/select).|Y|
 |`▒`|Same as above, except `false` instead of `true` (reject).|Y|
 |`▓`|Pops `a` and pushes an array with the results of running its associated block once for every element in `a` (map/collect).|Y|
@@ -135,12 +135,12 @@ These components will execute all components between them and a `;` character (o
 |`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|Y|
 |`æ`|Pop `a`|Pushes `a` as a palindrome.|Y|
 |`ô`|Pop `a`|Pushes `a` as a float.|Y|
-|`ö`|Pop `a`|Pushes `a != 0`.|N|
+|`ö`|Pop `a`|Pushes `a != 0`.|X|
 |`ò`|Pop `a`|Pushes `~a` (bitwise NOT).|Y|
 |`û`|Pop `a`, `b`, `c`|Pushes the range between `a` and `b` in steps of `c`.|Y|
 |`ù`|Pop `a`|If `a` is an array, pushes `a.join(' ')`, else pushes `stack.join(' ')`.|Y|
 |`ÿ`|N/A|Pushes empty string (`''`).|Y|
-|`Ö`|Pop `a`|Pushes `a == 0`.|N|
+|`Ö`|Pop `a`|Pushes `a == 0`.|X|
 |`Ü`|Pop `a`, `b`|Pushes set union of `a` and `b`.|Y|
 |`¢`|Get `a`|Sets the value of the register to `a`.|Y|
 |`£`|Pop `a`|Sleeps execution for `a` seconds.|Y|
@@ -153,8 +153,8 @@ These components will execute all components between them and a `;` character (o
 |`ú`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|Y|
 |`ñ`|Pop `a`|Pushes whether `s` is a Fibonacci number.|Y|
 |`Ñ`|N/A|Pushes a newline character (`\n`), functions as a newline inside string literals.|Y|
-|`ª`|Pop `a`|Pushes `a[b]` (element at index).|N|
-|`º`|Pop `a`|Pushes 2<sup>`a`</sup>.|N|
+|`ª`|Pop `a`|Pushes `a[b]` (element at index).|Y|
+|`º`|Pop `a`|Pushes 2<sup>`a`</sup>.|Y|
 |`⌐`|Pop `a`|Pushes all permutations of `a`.|Y|
 |`¬`|Pop `a`|Pushes the power set of `a`.|Y|
 |`½`|Pop `a`|Pushes `a / 2` (half).|Y|
@@ -181,7 +181,7 @@ These components will execute all components between them and a `;` character (o
 |`╩`|Pop `a`, `b`|Pushes `a` left-justified to length `b` (with spaces).|N|
 |`╦`|Pop `a`, `b`|Pushes `a` right-justified to length `b` (with spaces).|N|
 |`═`|Pop `a`, `b`, `c`|Pushes `a[b..c]` (slice arbitrarily).|Y|
-|`╬`|Pop `a`|Pushes a random element from `a`.|N|
+|`╬`|Pop `a`|Pushes a random element from `a`.|Y|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|Y|
 |`╤`|Pop `a`|Pushes minimum element in `a`.|Y|
 |`╙`|Pop `a`|Pushes `a` rotated once to the right.|Y|
@@ -203,16 +203,16 @@ These components will execute all components between them and a `;` character (o
 |`ε`|Pop `a`, `b`|Pushes whether `b` is in `a`.|Y|
 |`∩`|Pop `a`, `b`|Pushes set intersection of `a` and `b`.|Y|
 |`≡`|Pop `a`|Pushes `a` three times (triplicate).|Y|
-|`±`|Pop `a`, `b`|Pushes the `b`th root of `a`.|N|
-|`≥`|Pop `a`|Pushes `a + 1` (increment).|N|
-|`≤`|Pop `a`|Pushes `a - 1` (decrement).|N|
-|`⌠`|Pop `a`|Pushes `a` rounded *up* to the nearest integer (ceiling).|N|
-|`⌡`|Pop `a`|Pushes `a` rounded *down* to the nearest integer (floor).|N|
+|`±`|Pop `a`, `b`|Pushes the `b`th root of `a`.|Y|
+|`≥`|Pop `a`|Pushes `a + 1` (increment).|Y|
+|`≤`|Pop `a`|Pushes `a - 1` (decrement).|Y|
+|`⌠`|Pop `a`|Pushes `a` rounded *up* to the nearest integer (ceiling).|Y|
+|`⌡`|Pop `a`|Pushes `a` rounded *down* to the nearest integer (floor).|Y|
 |`÷`|Pop `a`|Pushes `1 / a` (reciprocal).|Y|
-|`≈`|Pop `a`|Pushes `a` rounded to the nearest integer.|N|
-|`°`|Pop `a`|Pushes 10<sup>`a`</sup>.|N|
+|`≈`|Pop `a`|Pushes `a` rounded to the nearest integer.|Y|
+|`°`|Pop `a`|Pushes 10<sup>`a`</sup>.|Y|
 |`·`|Pop `a`, `b`|Pushes `a` repeated `b` times.|Y|
-|`√`|Pop `a`|Pushes the square root of `a`.|N|
+|`√`|Pop `a`|Pushes the square root of `a`.|Y|
 |`ⁿ`|Pop `a`, `b`|Pushes `a`<sup>`b`</sup>.|Y|
 |`²`|Pop `a`|Pushes `a` squared.|Y|
 

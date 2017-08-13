@@ -24,16 +24,16 @@ class Ohm
       arg.is_a?(Array) ? arg : untyped_to_s(arg).chars
     end
 
-    def arr_else_chars_join(arg)
-      result = yield arr_else_chars(arg)
+    def arr_else_chars_join(*args)
+      result = yield *args.map(&method(:arr_else_chars))
 
-      arg.is_a?(Array) ? result : result.join
+      args.any? {|i| i.is_a?(Array)} ? result : result.join
     end
 
-    def arr_else_chars_inner_join(arg)
-      result = yield arr_else_chars(arg)
+    def arr_else_chars_inner_join(*args)
+      result = yield *args.map(&method(:arr_else_chars))
 
-      arg.is_a?(Array) ? result : result.map(&:join)
+      args.any? {|i| i.is_a?(Array)} ? result : result.map(&:join)
     end
 
     # Stolen from the ActiveSupport library.
