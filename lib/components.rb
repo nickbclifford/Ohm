@@ -386,7 +386,54 @@ class Ohm
     },
     # pilcrow reserved: newline in circuit
     "\u03B1" => {
-      # TODO: constants
+      '0' => {
+        call: ->{('0'..'9').to_a.join}
+      },
+      '1' => {
+        call: ->{('1'..'9').to_a.join}
+      },
+      '@' => {
+        call: ->{(' '..'~').to_a.join}
+      },
+      'A' => {
+        call: ->{('A'..'Z').to_a.join}
+      },
+      'C' => {
+        call: ->{'BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz'}
+      },
+      'Q' => {
+        call: ->{%w(QWERTYUIOP ASDFGHJKL ZXCVBNM)}
+      },
+      'W' => {
+        call: ->{'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_'}
+      },
+      'Y' => {
+        call: ->{'BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz'}
+      },
+      'a' => {
+        call: ->{('a'..'z').to_a.join}
+      },
+      'c' => {
+        call: ->{'AEIOUaeiou'}
+      },
+      'e' => {
+        call: ->{Math::E}
+      },
+      'q' => {
+        call: ->{%w(qwertyuiop asdfghjkl zxcvbnm)}
+      },
+      'y' => {
+        call: ->{'AEIOUYaeiouy'}
+      },
+      "\u03C0" => {
+        call: ->{Math::PI}
+      },
+      "\u03C6" => {
+        call: ->{(1 + Math.sqrt(5)) / 2}
+      },
+      "\u03A9" => {
+        call: ->{CODE_PAGE}
+      }
     },
     "\u03B2" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| arr_in_groups(a, b.to_i)}},

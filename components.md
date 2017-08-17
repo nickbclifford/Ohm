@@ -272,21 +272,21 @@ These components will execute all components between them and a `;` character (o
 
 |Component|Description|Migrated|
 |---------|-----------|--------|
-|`α0`|Pushes all the digits from 0-9 (`0123456789`).|N|
-|`α1`|Pushes all the digits from 1-9 (`123456789`).|N|
-|`α@`|Pushes all the printable ASCII characters (` ` to `~`).|N|
-|`αA`|Pushes the normal uppercase alphabet (`ABCDEFGHIJKLMNOPQRSTUVWXYZ`).|N|
-|`αK`|Pushes all the keys on a keyboard (`` `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ ``).|N|
-|`αc`|Pushes all the consonants (`bcdfghjklmnpqrstvwxyz`).|N|
-|`αe`|Pushes all the consonants **without `y`** (`bcdfghjklmnpqrstvwxz`).|N|
-|`αk`|Pushes the alphabet ordered like it is on a keyboard (`qwertyuiopasdfghjklzxcvbnm`).|N|
-|`αv`|Pushes all the vowels (`aeiou`).|N|
-|`αy`|Pushes all the vowels **including `y`** (`aeiouy`).|N|
-|`αå`|Pushes all the tokens that match the `\w` regex metachar (`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_`).|N|
-|`αê`|Pushes Euler's constant `e` (`2.718281...`).|N|
-|`αÅ`|Same as `αå`, except with the uppercase and lowercase characters switched.|N|
-|`αß`|Pushes the normal lowercase alphabet (`abcdefghijklmnopqrstuvwxyz`).|N|
-|`απ`|Pushes pi (`3.1415926...`).|N|
+|`α0`|Pushes all the digits from 0-9 (`0123456789`).|Y|
+|`α1`|Pushes all the digits from 1-9 (`123456789`).|Y|
+|`α@`|Pushes all the printable ASCII characters (` ` to `~`).|Y|
+|`αA`|Pushes the normal uppercase alphabet (`ABCDEFGHIJKLMNOPQRSTUVWXYZ`).|Y|
+|`αK`|Pushes all the keys on a keyboard (`` `1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ ``).|Y|
+|`αc`|Pushes all the consonants (`bcdfghjklmnpqrstvwxyz`).|Y|
+|`αe`|Pushes all the consonants **without `y`** (`bcdfghjklmnpqrstvwxz`).|Y|
+|`αk`|Pushes the alphabet ordered like it is on a keyboard (`qwertyuiopasdfghjklzxcvbnm`).|Y|
+|`αv`|Pushes all the vowels (`aeiou`).|Y|
+|`αy`|Pushes all the vowels **including `y`** (`aeiouy`).|Y|
+|`αå`|Pushes all the tokens that match the `\w` regex metachar (`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_`).|Y|
+|`αê`|Pushes Euler's constant `e` (`2.718281...`).|Y|
+|`αÅ`|Same as `αå`, except with the uppercase and lowercase characters switched.|Y|
+|`αß`|Pushes the normal lowercase alphabet (`abcdefghijklmnopqrstuvwxyz`).|Y|
+|`απ`|Pushes pi (`3.1415926...`).|Y|
 
 ### Extras (`∙`)
 |Component|Action|Description|Migrated|

@@ -251,6 +251,25 @@ This is a list of all (currently implemented) components that are usable in an O
 
 ### Constants (`α`)
 
+|Component|Description|
+|---------|-----------|
+|`α0`|Pushes all the digits from 0-9 (`0123456789`).|
+|`α1`|Pushes all the digits from 1-9 (`123456789`).|
+|`α@`|Pushes all the printable ASCII characters (` ` to `~`).|
+|`αA`|Pushes the normal uppercase alphabet (`ABCDEFGHIJKLMNOPQRSTUVWXYZ`).|
+|`αC`|Pushes all the consonants (`BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz`).|
+|`aQ`|Pushes the uppercase alphabet ordered as it is on a keyboard (`['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']`).|
+|`αW`|Pushes all the tokens that match the `\w` regex metachar (`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_`).|
+|`αY`|Pushes all the consonants **without `y`** (`BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz`).|
+|`αa`|Pushes the normal lowercase alphabet (`abcdefghijklmnopqrstuvwxyz`).|
+|`αc`|Pushes all the vowels (`AEIOUaeiou`).|
+|`αe`|Pushes Euler's constant `e` (`2.7182818...`).
+|`αq`|Pushes the lowercase alphabet ordered as it is on a keyboard (`['qwertyuiop', 'asdfghjkl', 'zxcvbnm']`).||
+|`αy`|Pushes all the vowels **including `y`** (`AEIOUYaeiouy`).|
+|`απ`|Pushes pi (`3.1415926...`).|
+|`αφ`|Pushes phi/the golden ratio (`1.6180339...`).|
+|`αΩ`|Pushes the Ohm codepage.|
+
 ### Time (`υ`)
 
 ### Arithmetic (`Æ`)
