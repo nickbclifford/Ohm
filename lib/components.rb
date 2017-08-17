@@ -44,7 +44,8 @@ class Ohm
       call: ->{@vars[:counter] = 0; nil}
     },
     "\u207C" => {
-      call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)}
+      call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
+      no_vec: true
     },
     "\u207D" => {
       call: ->(a){arr_else_chars(a).first},
@@ -87,7 +88,7 @@ class Ohm
       arr_str: true
     },
     "\u2194" => {
-      call: ->{}
+      call: ->(a, b){arr_else_str(a).concat(arr_else_str(b))}
     },
     "\u2195" => {
       call: ->(a){arr_else_chars(a).minmax},
@@ -180,18 +181,17 @@ class Ohm
       call: ->(a, b){to_base(a.to_i, b.to_i)}
     },
     'C' => {
-      call: ->(a, b){arr_else_str(a).concat(arr_else_str(b))}
+      call: ->{}
     },
     'D' => {
       call: ->(a){[a, a]},
       multi: true
     },
     'E' => {
-      call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
-      no_vec: true
+      call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)}
     },
     'F' => {
-      call: ->{false} # TODO: change to something useful
+      call: ->{} # TODO: change to something useful
     },
     'G' => {
       call: ->(a, b){(a = a.to_i).method(a > (b = b.to_i) ? :upto : :downto)[b].to_a}
@@ -235,12 +235,12 @@ class Ohm
       arr_str: true
     },
     'S' => {
-      call: ->(a){arr_else_chars_join(a, &:join)},
+      call: ->(a){arr_else_chars_join(a, &:sort)},
       depth: [1],
       arr_str: true
     },
     'T' => {
-      call: ->{true} # TODO: change to something useful
+      call: ->{} # TODO: change to something useful
     },
     'U' => {
       call: ->(a){arr_else_chars_join(a, &:uniq)},
@@ -351,9 +351,7 @@ class Ohm
       call: ->(a, b){from_base(untyped_to_s(a), b.to_i)},
     },
     'u' => {
-      call: ->(a, b){subarray_index(*[a, b].map(&method(:arr_else_str)))},
-      depth: [1, 1],
-      arr_str: true
+      call: ->(a){untyped_to_s(a)}
     },
     'v' => {
       call: ->(a, b){a.to_f.div(b.to_f)},
@@ -525,7 +523,7 @@ class Ohm
       call: ->{}
     },
     "\u00C6" => {
-      call: ->{}
+      # TODO: arithmetic components
     },
     "\u00C8" => {
       call: ->{}
@@ -766,6 +764,11 @@ class Ohm
     # right single quote resereved: max by
     "\u00B7" => {
       # TODO: extended components
+      'w' => {
+        call: ->(a, b){subarray_index(*[a, b].map(&method(:arr_else_str)))},
+        depth: [1, 1],
+        arr_str: true
+      }
     },
     # 2-dot reserved: two character literal
     # ellipsis reserved: three character literal

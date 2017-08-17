@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 gem 'rsmaz'
 
-group :development do
+group :test do
   gem 'rake'
   gem 'rspec'
 end

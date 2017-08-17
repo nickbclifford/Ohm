@@ -63,7 +63,7 @@ These components will execute all components between them and a `;` character (o
 |`C`|Pop `a`, `b`|Pushes `a` concatenated with `b`.|Y|
 |`D`|Pop `a`|Pushes `a` twice (duplicate).|Y|
 |`E`|Pop `a`, `b`|Pushes `a == b` (equality).|Y|
-|`F`|N/A|Pushes boolean `false`.|Y|
+|`F`|N/A|Pushes boolean `false`.|X|
 |`G`|Pop `a`, `b`|Pushes the range `a..b`.|Y|
 |`H`|Pop `a`, `b`|Pushes `a.push(b)` (Note that this **does not work** with strings).|Y|
 |`I`|N/A|Pushes input from standard input.|Y|
@@ -76,7 +76,7 @@ These components will execute all components between them and a `;` character (o
 |`Q`|N/A|Reverses stack.|Y|
 |`R`|Pop `a`|Pushes `a` reversed.|Y|
 |`S`|Pop `a`|Pushes `a` sorted.|Y|
-|`T`|N/A|Pushes boolean `true`.|Y|
+|`T`|N/A|Pushes boolean `true`.|X|
 |`U`|Pop `a`|Pushes `a` uniquified.|Y|
 |`V`|Pop `a`|Pushes divisors of `a`.|Y|
 |`W`|N/A|Pushes `[stack]` (wrap).|Y|
