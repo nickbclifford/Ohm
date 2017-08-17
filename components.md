@@ -169,17 +169,17 @@ These components will execute all components between them and a `;` character (o
 |`║`|N/A|Creates a base-220 number literal. (i.e. `║Ö╔H╪║` ⇒ `987654321`)|Y|
 |`╜`|Pop `a`|Pushes `a` rotated once to the left.|Y|
 |`╛`|Pop `a`|Pushes full prime factorization of `a` with repetition.|Y|
-|`┴`|Pop `a`|Pushes `a` in all upper-case.|N|
-|`┬`|Pop `a`|Pushes `a` in all lower-case.|N|
+|`┴`|Pop `a`|Pushes `a` in all upper-case.|Y|
+|`┬`|Pop `a`|Pushes `a` in all lower-case.|Y|
 |`├`|Pop `a`, `b`|Pushes `a[0..b]` (slice from beginning).|Y|
-|`─`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|N|
-|`┼`|N/A|Pushes the first input given.|N|
-|`╞`|Pop `a`|Pushes `a` grouped by identical elements.|N|
-|`╟`|Pop `a`|Pushes `a` randomly shuffled.|N|
-|`╚`|Pop `a`, `b`|Pushes `a` with `b` spaces *prepended*.|N|
-|`╔`|Pop `a`, `b`|Pushes `a` with `b` spaces *appended*.|N|
-|`╩`|Pop `a`, `b`|Pushes `a` left-justified to length `b` (with spaces).|N|
-|`╦`|Pop `a`, `b`|Pushes `a` right-justified to length `b` (with spaces).|N|
+|`─`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|Y|
+|`┼`|N/A|Pushes the first input given.|Y|
+|`╞`|Pop `a`|Pushes `a` grouped by identical elements.|Y|
+|`╟`|Pop `a`|Pushes `a` randomly shuffled.|Y|
+|`╚`|Pop `a`, `b`|Pushes `a` with `b` spaces *prepended*.|Y|
+|`╔`|Pop `a`, `b`|Pushes `a` with `b` spaces *appended*.|Y|
+|`╩`|Pop `a`, `b`|Pushes `a` left-justified to length `b` (with spaces).|Y|
+|`╦`|Pop `a`, `b`|Pushes `a` right-justified to length `b` (with spaces).|Y|
 |`═`|Pop `a`, `b`, `c`|Pushes `a[b..c]` (slice arbitrarily).|Y|
 |`╬`|Pop `a`|Pushes a random element from `a`.|Y|
 |`╧`|Pop `a`|Pushes maximum element in `a`.|Y|
@@ -291,10 +291,10 @@ These components will execute all components between them and a `;` character (o
 ### Extras (`∙`)
 |Component|Action|Description|Migrated|
 |---------|------|-----------|--------|
-|`∙!`|Pop `a`, `b`, `c`|Pushes `a` with matches of regex `b` replaced with `c`.|N|
+|`∙!`|Pop `a`, `b`, `c`|Pushes `a` with matches of regex `b` replaced with `c`.|Y|
 |`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|N|
 |`∙/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|N|
-|`∙I`|Pop `a`|Pushes the `a`th input.|N|
+|`∙I`|Pop `a`|Pushes the `a`th input.|Y|
 |`∙\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|N|
 |`∙e`|Pop `a`|Evaluates `a` as Ohm code.|N|
 |`∙p`|Pop `a`|Pushes all prefixes of `a`.|N|

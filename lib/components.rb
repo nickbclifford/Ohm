@@ -503,16 +503,16 @@ class Ohm
     # capital psi reserved: execute current wire
     # capital omega reserved: execute next wire
     "\u00C0" => {
-      call: ->{}
+      call: ->(a){untyped_to_s(a).downcase}
     },
     "\u00C1" => {
-      call: ->{}
+      call: ->(a){untyped_to_s(a).upcase}
     },
     "\u00C2" => {
-      call: ->{}
+      call: ->(a){untyped_to_s(a).gsub(/\w+/, &:capitalize)}
     },
     "\u00C3" => {
-      call: ->{}
+      call: ->(a){untyped_to_s(a).swapcase}
     },
     "\u00C4" => {
       call: ->(a, b){Array.new(b.to_i) {a}},
@@ -520,7 +520,7 @@ class Ohm
     },
     # capital A with ring reserved: all truthy in array
     "\u0100" => {
-      call: ->{}
+      call: ->(a){untyped_to_s(a).capitalize}
     },
     "\u00C6" => {
       # TODO: arithmetic components
@@ -563,22 +563,26 @@ class Ohm
       call: ->{}
     },
     "\u00D8" => {
-      call: ->{}
+      call: ->(a){arr_else_chars_inner_join(a) {|a| a.group_by {|x| x}.values}},
+      depth: [1],
+      arr_str: true
     },
     "\u0152" => {
-      call: ->{}
+      call: ->(a){arr_else_chars_join(a, &:shuffle)},
+      depth: [1],
+      arr_str: true
     },
     "\u00D9" => {
-      call: ->{}
+      call: ->(a, b){untyped_to_s(a) + ' ' * b.to_i}
     },
     "\u00DA" => {
-      call: ->{}
+      call: ->(a, b){' ' * b.to_i + untyped_to_s(a)}
     },
     "\u00DB" => {
-      call: ->{}
+      call: ->(a, b){untyped_to_s(a).ljust(b.to_i)}
     },
     "\u00DC" => {
-      call: ->{}
+      call: ->(a, b){untyped_to_s(a).rjust(b.to_i)}
     },
     "\u00C7" => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_cons(b.to_i).to_a}},
@@ -785,7 +789,7 @@ class Ohm
       call: ->{}
     },
     "\u2283" => {
-      call: ->{}
+      call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a - b}}
     }
   }
 end

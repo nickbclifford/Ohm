@@ -152,13 +152,13 @@ This is a list of all (currently implemented) components that are usable in an O
 |`Φ`|Pop `a`|Executes the wire at index `a`.|
 |`Ψ`|N/A|Executes the current wire. (Great for recursion!)|
 |`Ω`|N/A|Executes the wire at the index after the current one.|
-|`À`|N/A|N/A|
-|`Á`|N/A|N/A|
-|`Â`|N/A|N/A|
-|`Ã`|N/A|N/A|
+|`À`|Pop `a`|Pushes `a` in all lower-case.|
+|`Á`|Pop `a`|Pushes `a` in all upper-case.|
+|`Â`|Pop `a`|Pushes `a` in title-case.|
+|`Ã`|Pop `a`|Pushes `a` with swapped capitalization.|
 |`Ä`|Pop `a`, `b`|Pushes `a` onto the stack `b` times.|
-|`Å`|Pop `a`|Pushes whether all the elements in `a` return a truthy value from the given block.|
-|`Ā`|N/A|N/A|
+|`Å`|Pop `a`, block|Pushes whether all the elements in `a` return a truthy value from the given block.|
+|`Ā`|Pop `a`|Pushes `a` with the first letter capitalized.|
 |`È`|N/A|N/A|
 |`É`|Pop `a`|Pushes whether any of the elements in `a` return a truthy value from the given block.|
 |`Ê`|N/A|N/A|
@@ -174,10 +174,10 @@ This is a list of all (currently implemented) components that are usable in an O
 |`Ö`|N/A|N/A|
 |`Ø`|N/A|N/A|
 |`Œ`|N/A|N/A|
-|`Ù`|N/A|N/A|
-|`Ú`|N/A|N/A|
-|`Û`|N/A|N/A|
-|`Ü`|N/A|N/A|
+|`Ù`|Pop `a`, `b`|Pushes `a` with `b` spaces *appended*.|
+|`Ú`|Pop `a`, `b`|Pushes `a` with `b` spaces *prepended*.|
+|`Û`|Pop `a`, `b`|Pushes `a` left-justified to length `b` (with spaces).|
+|`Ü`|Pop `a`, `b`|Pushes `a` right-justified to length `b` (with spaces).|
 |`Ç`|Pop `a`, `b`|Pushes an array of every consecutive group of `b` elements in `a`.|
 |`Ð`|N/A|Pushes a space character (` `).|
 |`Ñ`|N/A|Pushes a newline character (`\n`).|
@@ -245,7 +245,7 @@ This is a list of all (currently implemented) components that are usable in an O
 |`∩`|Pop `a`, `b`|Pushes the set intersection of `a` and `b`.|
 |`∪`|Pop `a`, `b`|Pushes the set union of `a` and `b`.|
 |`⊂`|N/A|N/A|
-|`⊃`|N/A|N/A|
+|`⊃`|Pop `a`, `b`|Pushes set difference of `a` and `b`.|
 
 ## Multi-character
 
