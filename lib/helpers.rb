@@ -6,16 +6,6 @@ class Ohm
   module Helpers
     module_function
 
-    def ackermann(x, y)
-      if x.zero?
-        y + 1
-      elsif y.zero?
-        ackermann(x - 1, 1)
-      else
-        ackermann(x - 1, ackermann(x, y - 1))
-      end
-    end
-
     def arr_else_str(arg)
       arg.is_a?(Array) ? arg : untyped_to_s(arg)
     end

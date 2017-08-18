@@ -91,10 +91,10 @@ class Ohm
         @stack << @wire[@pointer += 1]
       when "\u2025" # Two-character literal
         @pointer += 1
-        @stack << @wire[@pointer..(@pointer += 2)]
+        @stack << @wire[@pointer..(@pointer += 1)]
       when "\u2026" # Three-character literal
         @pointer += 1
-        @stack << @wire[@pointer + 1..(@pointer += 3)]
+        @stack << @wire[@pointer..(@pointer += 2)]
       when '"' # String literal
         @pointer += 1
         lit_end = @wire[@pointer..@wire.length].index('"')

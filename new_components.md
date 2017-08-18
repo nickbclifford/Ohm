@@ -272,6 +272,56 @@ This is a list of all (currently implemented) components that are usable in an O
 
 ### Time (`υ`)
 
+|Component|Action|Description|
+|---------|------|-----------|
+|`υ!`|N/A|Pushes the current timestamp.|
+|`υ%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|
+|`υ‰`|Pop `a`, `b`|Pushes the time specified by timestamp `a` formatted using `b` as a `strftime` format string.|
+|`υD`|N/A|Pushes the current day.|
+|`υH`|N/A|Pushes the current hour.|
+|`υI`|N/A|Pushes the current minute.|
+|`υM`|N/A|Pushes the current month.|
+|`υN`|N/A|Pushes the current nanosecond (yes, really).|
+|`υS`|N/A|Pushes the current second.|
+|`υW`|N/A|Pushes the current weekday (1-7).|
+|`υY`|N/A|Pushes the current year.|
+|`υd`|Pop `a`|Pushes the day specified by timestamp `a`.|
+|`υh`|Pop `a`|Pushes the hour specified by timestamp `a`.|
+|`υi`|Pop `a`|Pushes the minute specified by timestamp `a`.|
+|`υm`|Pop `a`|Pushes the month specified by timestamp `a`.|
+|`υn`|Pop `a`|Pushes the nanosecond specified by timestamp `a`.|
+|`υs`|Pop `a`|Pushes the second specified by timestamp `a`.|
+|`υw`|Pop `a`|Pushes the weekday (1-7) specified by timestamp `a`.|
+|`υy`|Pop `a`|Pushes the year specified by timestamp `a`.|
+|`υ§`|Pop `a`, `b`|Pushes the timestamp of the time given by parsing `a`, using `b` as a `strptime` format string.|
+
 ### Arithmetic (`Æ`)
+
+|Component|Action|Description|
+|---------|------|-----------|
+|`Æ²`|Pop `a`|Pushes whether `a` is a perfect square.|
+|`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|
+|`Æ↑`|Pop `a`, `b`|Pushes the greatest common divisor of `a` and `b`.|
+|`Æ↓`|Pop `a`, `b`|Pushes the least common multiple of `a` and `b`.|
+|`Æ×`|Pop `a`, `b`|Pushes Pushes `a`<sup>`b`</sup> (complex exponentiation), where `a` and `b` are either numbers or arrays in the form `[real, imag]`.|
+|`Æ*`|Pop `a`, `b`|Pushes `a * b` (complex multiplication), where `a` and `b` are either numbers or arrays in the form `[real, imag]`.|
+|`Æ/`|Pop `a`, `b`|Pushes `a / b` (complex division), where `a` and `b` are either numbers or arrays in the form `[real, imag]`.|
+|`ÆC`|Pop `a`|Pushes the cosine of `a` radians.|
+|`ÆD`|Pop `a`|Pushes `a` radians converted to degrees.|
+|`ÆE`|Pop `a`|Pushes `a` degrees converted to radians.|
+|`ÆH`|Pop `a`, `b`|Pushes the hypotenuse of a right triangle with sides `a` and `b`.|
+|`ÆL`|Pop `a`|Pushes the natural logarithm of `a`.|
+|`ÆM`|Pop `a`|Pushes the base 10 logarithm of `a`.|
+|`ÆN`|Pop `a`|Pushes the base 2 logarithm of `a`.|
+|`ÆS`|Pop `a`|Pushes the sine of `a` radians.|
+|`ÆT`|Pop `a`|Pushes the tangent of `a` radians.|
+|`Æc`|Pop `a`|Pushes the arccosine of `a`.|
+|`Æl`|Pop `a`, `b`|Pushes the base `a` logarithm of `b`.|
+|`Æp`|Pop `a`, `b`|Pushes whether `a` and `b` are coprime.|
+|`Æs`|Pop `a`|Pushes the arcsine of `a`.|
+|`Æt`|Pop `a`|Pushes the arctangent of `a`.|
+|`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
+|`Æ¬`|Pop `a`|Pushes the *complex* square root of `a`, where `a` is either a number or an array in the form `[real, imag]`.|
+|`Æ¤`|Pop `a`, `b`|Pushes the `b`th `a`-gonal number.|
 
 ### Extras (`·`)

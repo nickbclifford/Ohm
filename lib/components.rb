@@ -1,3 +1,4 @@
+require 'cmath'
 require 'prime'
 require 'time'
 
@@ -123,7 +124,7 @@ class Ohm
       call: ->{@vars[:register]}
     },
     '%' => {
-      call: ->(a){a.to_f % b.to_f}
+      call: ->(a, b){a.to_f % b.to_f}
     },
     '&' => {
       call: ->(a, b){truthy?(a) && truthy?(b)}
@@ -512,7 +513,66 @@ class Ohm
       call: ->{10}
     },
     "\u03C5" => {
-      # TODO: time components
+      '!' => {
+        call: ->{Time.now.to_i}
+      },
+      '%' => {
+        call: ->(a){Time.now.strftime(untyped_to_s(a))}
+      },
+      'D' => {
+        call: ->{Time.now.day}
+      },
+      'H' => {
+        call: ->{Time.now.hour}
+      },
+      'I' => {
+        call: ->{Time.now.min}
+      },
+      'M' => {
+        call: ->{Time.now.month}
+      },
+      'N' => {
+        call: ->{Time.now.nsec}
+      },
+      'S' => {
+        call: ->{Time.now.sec}
+      },
+      'W' => {
+        call: ->{Time.now.wday}
+      },
+      'Y' => {
+        call: ->{Time.now.year}
+      },
+      'd' => {
+        call: ->(a){Time.at(a.to_f).day}
+      },
+      'h' => {
+        call: ->(a){Time.at(a.to_f).hour}
+      },
+      'i' => {
+        call: ->(a){Time.at(a.to_f).min}
+      },
+      'm' => {
+        call: ->(a){Time.at(a.to_f).month}
+      },
+      'n' => {
+        call: ->(a){Time.at(a.to_f).nsec}
+      },
+      's' => {
+        call: ->(a){Time.at(a.to_f).sec}
+      },
+      'w' => {
+        call: ->(a){Time.at(a.to_f).wday}
+      },
+      'y' => {
+        call: ->(a){Time.at(a.to_f).year}
+      },
+      "\u2030" => {
+        call: ->(a, b){Time.at(a.to_f).strftime(untyped_to_s(b))}
+      },
+      "\u00A7" => {
+        call: ->(a, b){Time.strptime(untyped_to_s(a), untyped_to_s(b)).to_i}
+      },
     },
     "\u03C6" => {
       call: ->(a){a = a.to_i; a.prime_division.map {|x| 1 - (1.0 / x[0])}.reduce(a, :*).to_i},
@@ -570,7 +630,82 @@ class Ohm
       call: ->(a){untyped_to_s(a).capitalize}
     },
     "\u00C6" => {
-      # TODO: arithmetic components
+      "\u00B2" => {
+        call: ->(a){perfect_exp?(a.to_i, 2)}
+      },
+      "\u207F" => {
+        call: ->(a, b){perfect_exp?(a.to_i, b.to_i)}
+      },
+      "\u2191" => {
+        call: ->(a, b){a.to_i.gcd(b.to_i)}
+      },
+      "\u2193" => {
+        call: ->(a, b){a.to_i.lcm(b.to_i)}
+      },
+      "\u00D7" => {
+        call: ->(a, b){Complex(*a.map(&:to_f)) ** Complex(*b.map(&:to_f))},
+        depth: [1]
+      },
+      '*' => {
+        call: ->(a, b){Complex(*a.map(&:to_f)) * Complex(*b.map(&:to_f))},
+        depth: [1]
+      },
+      '/' => {
+        call: ->(a, b){Complex(*a.map(&:to_f)) / Complex(*b.map(&:to_f))},
+        depth: [1]
+      },
+      'C' => {
+        call: ->(a){Math.cos(a.to_f)}
+      },
+      'D' => {
+        call: ->(a){a.to_f * (180 / Math::PI)}
+      },
+      'E' => {
+        call: ->(a){a.to_f * (Math::PI / 180)}
+      },
+      'H' => {
+        call: ->(a, b){Math.hypot(a.to_f, b.to_f)}
+      },
+      'L' => {
+        call: ->(a){Math.log(a.to_f)}
+      },
+      'M' => {
+        call: ->(a){Math.log10(a.to_f)}
+      },
+      'N' => {
+        call: ->(a){Math.log2(a.to_f)}
+      },
+      'S' => {
+        call: ->(a){Math.sin(a.to_f)}
+      },
+      'T' => {
+        call: ->(a){Math.tan(a.to_f)}
+      },
+      'c' => {
+        call: ->(a){Math.acos(a.to_f)}
+      },
+      'l' => {
+        call: ->(a, b){Math.log(b.to_f) / Math.log(a.to_f)}
+      },
+      'p' => {
+        call: ->(a, b){a.to_i.gcd(b.to_i) == 1}
+      },
+      's' => {
+        call: ->(a){Math.asin(a.to_f)}
+      },
+      't' => {
+        call: ->(a){Math.atan(a.to_f)}
+      },
+      'u' => {
+        call: ->(a, b){Math.atan2(b.to_f, a.to_f)}
+      },
+      "\u00AC" => {
+        call: ->(a){CMath.sqrt(Complex(*a.map(&:to_f)))},
+        depth: [1]
+      },
+      "\u00A4" => {
+        call: ->(a, b){b = b.to_i; ((a.to_i - 2) * ((b * (b  - 1)) / 2)) + b}
+      }
     },
     "\u00C8" => {
       call: ->{}

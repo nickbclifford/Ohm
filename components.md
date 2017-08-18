@@ -221,51 +221,51 @@ These components will execute all components between them and a `;` character (o
 ### Arithmetic (`Æ`)
 |Component|Action|Description|Migrated|
 |---------|------|-----------|--------|
-|`ÆA`|Pop `a`, `b`|Pushes the Ackermann function of `a` and `b`.|N|
-|`ÆC`|Pop `a`|Pushes the cosine of `a` radians.|N|
-|`ÆD`|Pop `a`|Pushes `a` radians converted to degrees.|N|
-|`ÆE`|Pop `a`|Pushes `a` degrees converted to radians.|N|
-|`ÆH`|Pop `a`, `b`|Pushes the hypotenuse of a right triangle with sides `a` and `b`.|N|
-|`ÆL`|Pop `a`|Pushes the natural logarithm of `a`.|N|
-|`ÆM`|Pop `a`|Pushes the base 10 logarithm of `a`.|N|
-|`ÆN`|Pop `a`|Pushes the base 2 logarithm of `a`.|N|
-|`ÆS`|Pop `a`|Pushes the sine of `a` radians.|N|
-|`ÆT`|Pop `a`|Pushes the tangent of `a` radians.|N|
-|`Æc`|Pop `a`|Pushes the arccosine of `a`.|N|
-|`Æl`|Pop `a`, `b`|Pushes the base `a` logarithm of `b`.|N|
-|`Æp`|Pop `a`, `b`|Pushes whether `a` and `b` are coprime.|N|
-|`Æs`|Pop `a`|Pushes the arcsine of `a`.|N|
-|`Æt`|Pop `a`|Pushes the arctangent of `a`.|N|
-|`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|N|
-|`Æ┴`|Pop `a`, `b`|Pushes the greatest common divisor of `a` and `b`.|N|
-|`Æ┬`|Pop `a`, `b`|Pushes the least common multiple of `a` and `b`.|N|
-|`Æ█`|Pop `a`, `b`|Pushes the `b`th `a`-gonal number.|N|
-|`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|N|
-|`Æ²`|Pop `a`|Pushes whether `a` is a perfect square.|N|
+|`ÆA`|Pop `a`, `b`|Pushes the Ackermann function of `a` and `b`.|Y|
+|`ÆC`|Pop `a`|Pushes the cosine of `a` radians.|Y|
+|`ÆD`|Pop `a`|Pushes `a` radians converted to degrees.|Y|
+|`ÆE`|Pop `a`|Pushes `a` degrees converted to radians.|Y|
+|`ÆH`|Pop `a`, `b`|Pushes the hypotenuse of a right triangle with sides `a` and `b`.|Y|
+|`ÆL`|Pop `a`|Pushes the natural logarithm of `a`.|Y|
+|`ÆM`|Pop `a`|Pushes the base 10 logarithm of `a`.|Y|
+|`ÆN`|Pop `a`|Pushes the base 2 logarithm of `a`.|Y|
+|`ÆS`|Pop `a`|Pushes the sine of `a` radians.|Y|
+|`ÆT`|Pop `a`|Pushes the tangent of `a` radians.|Y|
+|`Æc`|Pop `a`|Pushes the arccosine of `a`.|Y|
+|`Æl`|Pop `a`, `b`|Pushes the base `a` logarithm of `b`.|Y|
+|`Æp`|Pop `a`, `b`|Pushes whether `a` and `b` are coprime.|Y|
+|`Æs`|Pop `a`|Pushes the arcsine of `a`.|Y|
+|`Æt`|Pop `a`|Pushes the arctangent of `a`.|Y|
+|`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|Y|
+|`Æ┴`|Pop `a`, `b`|Pushes the greatest common divisor of `a` and `b`.|Y|
+|`Æ┬`|Pop `a`, `b`|Pushes the least common multiple of `a` and `b`.|Y|
+|`Æ█`|Pop `a`, `b`|Pushes the `b`th `a`-gonal number.|Y|
+|`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|Y|
+|`Æ²`|Pop `a`|Pushes whether `a` is a perfect square.|Y|
 
 ### Time (`╓`)
 |Component|Action|Description|Migrated|
 |---------|------|-----------|--------|
-|`╓!`|N/A|Pushes the current timestamp.|N|
-|`╓%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|N|
-|`╓&`|Pop `a`, `b`|Pushes the time specified by timestamp `a` formatted using `b` as a `strftime` format string.|N|
-|`╓D`|N/A|Pushes the current day.|N|
-|`╓H`|N/A|Pushes the current hour.|N|
-|`╓I`|N/A|Pushes the current minute.|N|
-|`╓M`|N/A|Pushes the current month.|N|
-|`╓N`|N/A|Pushes the current nanosecond (yes, really).|N|
-|`╓S`|N/A|Pushes the current second.|N|
-|`╓W`|N/A|Pushes the current weekday (1-7).|N|
-|`╓Y`|N/A|Pushes the current year.|N|
-|`╓d`|Pop `a`|Pushes the day specified by timestamp `a`.|N|
-|`╓h`|Pop `a`|Pushes the hour specified by timestamp `a`.|N|
-|`╓i`|Pop `a`|Pushes the minute specified by timestamp `a`.|N|
-|`╓m`|Pop `a`|Pushes the month specified by timestamp `a`.|N|
-|`╓n`|Pop `a`|Pushes the nanosecond specified by timestamp `a`.|N|
-|`╓s`|Pop `a`|Pushes the second specified by timestamp `a`.|N|
-|`╓w`|Pop `a`|Pushes the weekday (1-7) specified by timestamp `a`.|N|
-|`╓y`|Pop `a`|Pushes the year specified by timestamp `a`.|N|
-|`╓₧`|Pop `a`, `b`|Pushes the timestamp of the time given by parsing `a`, using `b` as a `strptime` format string.|N|
+|`╓!`|N/A|Pushes the current timestamp.|Y|
+|`╓%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|Y|
+|`╓&`|Pop `a`, `b`|Pushes the time specified by timestamp `a` formatted using `b` as a `strftime` format string.|Y|
+|`╓D`|N/A|Pushes the current day.|Y|
+|`╓H`|N/A|Pushes the current hour.|Y|
+|`╓I`|N/A|Pushes the current minute.|Y|
+|`╓M`|N/A|Pushes the current month.|Y|
+|`╓N`|N/A|Pushes the current nanosecond (yes, really).|Y|
+|`╓S`|N/A|Pushes the current second.|Y|
+|`╓W`|N/A|Pushes the current weekday (1-7).|Y|
+|`╓Y`|N/A|Pushes the current year.|Y|
+|`╓d`|Pop `a`|Pushes the day specified by timestamp `a`.|Y|
+|`╓h`|Pop `a`|Pushes the hour specified by timestamp `a`.|Y|
+|`╓i`|Pop `a`|Pushes the minute specified by timestamp `a`.|Y|
+|`╓m`|Pop `a`|Pushes the month specified by timestamp `a`.|Y|
+|`╓n`|Pop `a`|Pushes the nanosecond specified by timestamp `a`.|Y|
+|`╓s`|Pop `a`|Pushes the second specified by timestamp `a`.|Y|
+|`╓w`|Pop `a`|Pushes the weekday (1-7) specified by timestamp `a`.|Y|
+|`╓y`|Pop `a`|Pushes the year specified by timestamp `a`.|Y|
+|`╓₧`|Pop `a`, `b`|Pushes the timestamp of the time given by parsing `a`, using `b` as a `strptime` format string.|Y|
 
 ### Constants (`α`)
 **Note**: Because these are constants, they only push to the stack.
