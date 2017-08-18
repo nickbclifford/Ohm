@@ -643,16 +643,16 @@ class Ohm
         call: ->(a, b){a.to_i.lcm(b.to_i)}
       },
       "\u00D7" => {
-        call: ->(a, b){Complex(*a.map(&:to_f)) ** Complex(*b.map(&:to_f))},
-        depth: [1]
+        call: ->(a, b){(Complex(*a.map(&:to_f)) ** Complex(*b.map(&:to_f))).rect},
+        depth: [1, 1]
       },
       '*' => {
-        call: ->(a, b){Complex(*a.map(&:to_f)) * Complex(*b.map(&:to_f))},
-        depth: [1]
+        call: ->(a, b){(Complex(*a.map(&:to_f)) * Complex(*b.map(&:to_f))).rect},
+        depth: [1, 1]
       },
       '/' => {
-        call: ->(a, b){Complex(*a.map(&:to_f)) / Complex(*b.map(&:to_f))},
-        depth: [1]
+        call: ->(a, b){(Complex(*a.map(&:to_f)) / Complex(*b.map(&:to_f))).rect},
+        depth: [1, 1]
       },
       'C' => {
         call: ->(a){Math.cos(a.to_f)}
@@ -700,7 +700,7 @@ class Ohm
         call: ->(a, b){Math.atan2(b.to_f, a.to_f)}
       },
       "\u00AC" => {
-        call: ->(a){CMath.sqrt(Complex(*a.map(&:to_f)))},
+        call: ->(a){CMath.sqrt(Complex(*a.map(&:to_f))).rect},
         depth: [1]
       },
       "\u00A4" => {
