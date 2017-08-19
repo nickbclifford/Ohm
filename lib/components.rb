@@ -1,6 +1,8 @@
 require 'cmath'
+require 'net/http'
 require 'prime'
 require 'time'
+require 'uri'
 
 require_relative 'helpers'
 
@@ -962,9 +964,13 @@ class Ohm
         call: ->(a){diagonals(a)},
         depth: [2]
       },
+      'G' => {
+        call: ->(a){a.prepend('http://') unless a.start_with?('http://', 'https://'); Net::HTTP.get(URI(a))},
+        unsafe: true
+      },
       'e' => {
         call: ->(a){
-          block = Ohm.new(untyped_to_s(a), @debug, @top_level, @stack, @inputs, @vars).exec
+          block = Ohm.new(untyped_to_s(a), @debug, @safe_mode, @top_level, @stack, @inputs, @vars).exec
           @printed ||= block.printed
           @stack = block.stack
         }

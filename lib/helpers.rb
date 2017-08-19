@@ -51,7 +51,7 @@ class Ohm
         new_vars[:value] = v
         new_vars[:index] = i
 
-        block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack << v, @inputs, new_vars).exec
+        block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe_mode, @top_level, @stack << v, @inputs, new_vars).exec
         @printed ||= block.printed
         @stack = block.stack
         break if block.broken
@@ -147,7 +147,7 @@ class Ohm
       new_index[:index] = i
 
       puts "Executing wire at index #{i}" if @debug
-      new_wire = Ohm.new(new_index[:wires][new_index[:index]], @debug, new_index, @stack, @inputs, @vars).exec
+      new_wire = Ohm.new(new_index[:wires][new_index[:index]], @debug, @safe_mode, new_index, @stack, @inputs, @vars).exec
       @printed ||= new_wire.printed
       @stack = new_wire.stack
 
@@ -196,7 +196,7 @@ class Ohm
         new_vars[:index] = counter
         new_vars[:value] = val
 
-        block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack << val, @inputs, new_vars).exec
+        block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe_mode, @top_level, @stack << val, @inputs, new_vars).exec
         @printed ||= block.printed
         @stack = block.stack
         break if block.broken
