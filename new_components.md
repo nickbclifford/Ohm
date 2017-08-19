@@ -172,8 +172,8 @@ This is a list of all (currently implemented) components that are usable in an O
 |`Ô`|N/A|N/A|
 |`Õ`|N/A|N/A|
 |`Ö`|N/A|N/A|
-|`Ø`|N/A|N/A|
-|`Œ`|N/A|N/A|
+|`Ø`|Pop `a`|Pushes `a` grouped by identical elements.|
+|`Œ`|Pop `a`|Pushes `a` randomly shuffled.|
 |`Ù`|Pop `a`, `b`|Pushes `a` with `b` spaces *appended*.|
 |`Ú`|Pop `a`, `b`|Pushes `a` with `b` spaces *prepended*.|
 |`Û`|Pop `a`, `b`|Pushes `a` left-justified to length `b` (with spaces).|
@@ -204,7 +204,7 @@ This is a list of all (currently implemented) components that are usable in an O
 |`ô`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|
 |`õ`|N/A|N/A|
 |`ö`|N/A|N/A|
-|`ø`|N/A|N/A|
+|`ø`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|
 |`œ`|Pop `a`|Pushes `[a, a.reverse]`.|
 |`ù`|Pop `a`|If `a` is an array, pushes `a.join(' ')`, else pushes `stack.join(' ')`.|
 |`ú`|Pop `a`|If `a` is an array, pushes `a.join("\n")`, else pushes `stack.join("\n")`.|
@@ -323,5 +323,22 @@ This is a list of all (currently implemented) components that are usable in an O
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
 |`Æ¬`|Pop `a`|Pushes the *complex* square root of `a`, where `a` is either a number or an array in the form `[real, imag]`.|
 |`Æ¤`|Pop `a`, `b`|Pushes the `b`th `a`-gonal number.|
+|`Æ«`|Pop `a`, `b`|Pushes `a << b` (left bit-shift).|
+|`Æ»`|Pop `a`, `b`|Pushes `a >> b` (right bit-shift).|
 
 ### Extras (`·`)
+
+|Component|Action|Description|
+|---------|------|-----------|
+|`·/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|
+|`·\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
+|`·e`|Pop `a`|Evaluates `a` as Ohm code.|
+|`·p`|Pop `a`|Pushes all prefixes of `a`.|
+|`·r`|N/A|Pushes a random float between 0 and 1.|
+|`·s`|Pop `a`|Pushes all suffixes of `a`.|
+|`·~`|Pop `a`, `b`|If `a` matches regex `b`, pushes the index of the first match, else pushes `-1`.|
+|`·ψ`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
+|`·Θ`|Pop `a`, block|Continuously evaluates the given block until the result returned has already been seen, using `a` as the initial value. Pushes the final result.|
+|`·Ω`|Pop `a`, block|Same as above, except pushes the list of intermediate results.|
+|`·Ø`|Pop `a`|Pushes the indices of `a` grouped together by equal values.|
+|`·¦`|Pop `a`, `b`|Pushes `a` rounded to `b` decimal places.|

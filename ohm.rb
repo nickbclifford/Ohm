@@ -81,8 +81,13 @@ class Ohm
       # Special cases where the behavior can't be described with a concise lambda
       # Keyword in that sentence is "concise"
       # Otherwise, most of these could _technically_ become lambdas
-      # Literals
       case @component
+      # Extended components
+      when "\u00B7\u03A9"
+        @stack << find_cycle_component
+      when "\u00B7\u0398"
+        @stack << find_cycle_component.last
+      # Literals
       when /^[0-9]$/ # Number literal
         number = @wire[@pointer..@wire.length][/[0-9]+/]
         @pointer += number.length - 1
@@ -265,14 +270,6 @@ class Ohm
           puts 'Breaking out of current wire/block' if @debug
           break
         end
-      when "\u00B7e"
-        block = Ohm.new(untyped_to_s(@stack.pop[0]), @debug, @top_level, @stack, @inputs, @vars).exec
-        @printed ||= block.printed
-        @stack = block.stack
-      when "\u00B7\u03A9"
-        @stack << find_cycle_component
-      when "\u00B7\u0398"
-        @stack << find_cycle_component.last
       else
         comp_hash ||= {nop: true}
 

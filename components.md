@@ -22,8 +22,8 @@ These components will execute all components between them and a `;` character (o
 |`╨`|Pops `a` and pushes the element in `a` that gives the maximum value from its associated block.|Y|
 |`╥`|Pops `a` and pushes the element in `a` that gives the minimum value from its associated block.|Y|
 |`╫`|Pops `a` and pushes the elements in `a` that give the minimum and maximum value from its associated block.|Y|
-|`∙Ω`|Pops `a` and continuously evaluates its associated block until the result given has already been seen, using `a` as the initial value. Pushes the list of intermediate results.|N|
-|`∙Θ`|Same as about, except it only pushes the final result.|N|
+|`∙Ω`|Pops `a` and continuously evaluates its associated block until the result given has already been seen, using `a` as the initial value. Pushes the list of intermediate results.|Y|
+|`∙Θ`|Same as about, except it only pushes the final result.|Y|
 |`∞`|Runs its associated block infinitely.|Y|
 
 ### Wire/block flow
@@ -292,18 +292,18 @@ These components will execute all components between them and a `;` character (o
 |Component|Action|Description|Migrated|
 |---------|------|-----------|--------|
 |`∙!`|Pop `a`, `b`, `c`|Pushes `a` with matches of regex `b` replaced with `c`.|Y|
-|`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|N|
-|`∙/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|N|
+|`∙*`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|Y|
+|`∙/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|Y|
 |`∙I`|Pop `a`|Pushes the `a`th input.|Y|
-|`∙\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|N|
-|`∙e`|Pop `a`|Evaluates `a` as Ohm code.|N|
-|`∙p`|Pop `a`|Pushes all prefixes of `a`.|N|
-|`∙r`|N/A|Pushes a random float between 0 and 1.|N|
-|`∙s`|Pop `a`|Pushes all suffixes of `a`.|N|
-|`∙~`|Pop `a`, `b`|If `a` matches regex `b`, pushes the index of the first match, else pushes `nil`.|N|
-|`∙î`|Pop `a`|Pushes whether `a` is an integer.|N|
-|`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|N|
-|`∙«`|Pop `a`, `b`|Pushes `a << b` (left bit-shift).|N|
-|`∙»`|Pop `a`, `b`|Pushes `a >> b` (right bit-shift).|N|
-|`∙╞`|Pop `a`|Pushes the indices of `a` grouped together by equal values.|N|
-|`∙≈`|Pop `a`, `b`|Pushes `a` rounded to `b` decimal places.|N|
+|`∙\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|Y|
+|`∙e`|Pop `a`|Evaluates `a` as Ohm code.|Y|
+|`∙p`|Pop `a`|Pushes all prefixes of `a`.|Y|
+|`∙r`|N/A|Pushes a random float between 0 and 1.|Y|
+|`∙s`|Pop `a`|Pushes all suffixes of `a`.|Y|
+|`∙~`|Pop `a`, `b`|If `a` matches regex `b`, pushes the index of the first match, else pushes `nil`.|Y|
+|`∙î`|Pop `a`|Pushes whether `a` is an integer.|Y|
+|`∙⌐`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|Y|
+|`∙«`|Pop `a`, `b`|Pushes `a << b` (left bit-shift).|Y|
+|`∙»`|Pop `a`, `b`|Pushes `a >> b` (right bit-shift).|Y|
+|`∙╞`|Pop `a`|Pushes the indices of `a` grouped together by equal values.|Y|
+|`∙≈`|Pop `a`, `b`|Pushes `a` rounded to `b` decimal places.|Y|

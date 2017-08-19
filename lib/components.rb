@@ -705,7 +705,13 @@ class Ohm
       },
       "\u00A4" => {
         call: ->(a, b){b = b.to_i; ((a.to_i - 2) * ((b * (b  - 1)) / 2)) + b}
-      }
+      },
+      "\u00AB" => {
+        call: ->(a, b){a.to_i << b.to_i}
+      },
+      "\u00BB" => {
+        call: ->(a, b){a.to_i >> b.to_i}
+      },
     },
     "\u00C8" => {
       call: ->{}
@@ -850,7 +856,7 @@ class Ohm
       call: ->{}
     },
     "\u00F8" => {
-      call: ->{}
+      call: ->(a, b){Array.new(b.to_i) {a}},
     },
     "\u0153" => {
       call: ->(a){x = arr_else_str(a); [x, x.reverse]},
@@ -949,11 +955,53 @@ class Ohm
     # left single quote reserved: min by
     # right single quote resereved: max by
     "\u00B7" => {
-      # TODO: extended components
+      '/' => {
+        call: ->(a, b){untyped_to_s(a).match(untyped_to_s(b)).to_a}
+      },
+      '\\' => {
+        call: ->(a){diagonals(a)},
+        depth: [2]
+      },
+      'e' => {
+        call: ->(a){
+          block = Ohm.new(untyped_to_s(a), @debug, @top_level, @stack, @inputs, @vars).exec
+          @printed ||= block.printed
+          @stack = block.stack
+        }
+      },
+      'p' => {
+        call: ->(a){arr_else_chars_inner_join(a) {|a| acc = []; a.map {|i| acc += arr_else_chars(i)}}},
+        depth: [1],
+        arr_str: true
+      },
+      'r' => {
+        call: ->{rand}
+      },
+      's' => {
+        call: ->(a){arr_else_chars_inner_join(arr_else_str(a).reverse) {|a| acc = []; a.map {|i| (acc += arr_else_chars(i)).reverse}}},
+        depth: [1],
+        arr_str: true
+      },
       'w' => {
         call: ->(a, b){subarray_index(*[a, b].map(&method(:arr_else_str)))},
         depth: [1, 1],
         arr_str: true
+      },
+      '~' => {
+        call: ->(a, b){untyped_to_s(a) =~ Regexp.new(untyped_to_s(b))}
+      },
+      "\u03C8" => {
+        call: ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
+        depth: [1, 1],
+        arr_str: true
+      },
+      "\u00D8" => {
+        call: ->(a){group_equal_indices(arr_else_chars(a))},
+        depth: [1],
+        arr_str: true
+      },
+      "\u00A6" => {
+        call: ->(a, b){a.to_f.round(b.to_i)}
       }
     },
     # 2-dot reserved: two character literal
