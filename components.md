@@ -268,6 +268,7 @@ This is a list of all (currently implemented) components that are usable in an O
 |`αy`|Pushes all the vowels **including `y`** (`AEIOUYaeiouy`).|
 |`απ`|Pushes pi (`3.1415926...`).|
 |`αφ`|Pushes phi/the golden ratio (`1.6180339...`).|
+|`αΓ`|Pushes an ASCII goat. (Don't ask.)|
 |`αΩ`|Pushes the Ohm codepage.|
 
 ### Time (`υ`)
