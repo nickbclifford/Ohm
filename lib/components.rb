@@ -257,7 +257,8 @@ class Ohm
       call: ->{@stack = Stack.new(self, [@stack]); nil}
     },
     'X' => {
-      call: ->(a){!truthy?(a)}
+      call: ->(a){(a.is_a?(Array) && a.length >= 1) ? a.map {|a| !truthy?(a)} : !truthy?(a)},
+      no_vec: true
     },
     'Y' => {
       call: ->(a){(1...(a = a.to_i)).select {|i| (a % i).zero?}}

@@ -86,7 +86,7 @@ class Ohm
     end
 
     def comp_arg_depth(a, hsh)
-      x = a.is_a?(Array) ? 1 + a.map {|c| comp_arg_depth(c, hsh)}.max : 0
+      x = a.is_a?(Array) ? 1 + a.map {|c| comp_arg_depth(c, hsh)}.max.to_i : 0
       x += 1 if (a.is_a?(String) || a.is_a?(Numeric)) && hsh[:arr_str]
       x
     end
@@ -333,7 +333,7 @@ class Ohm
     # Everything is truthy except for false, nil, "", [], 0
     # It's easier to put the negation here instead of putting it on every conditional
     def truthy?(val)
-      !(!val || val.to_i.zero? || (!val.is_a?(Numeric) && val.empty?))
+      !(!val || (val.respond_to?(:empty?) && val.empty?) || (val.respond_to?(:to_i) && val.to_i.zero?))
     end
 
     def untyped_to_s(n)
