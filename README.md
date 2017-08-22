@@ -63,8 +63,8 @@ To run unit tests, run `rake`.
 |`-e, --eval`|Evaluates the given circuit as Ohm code.|
 |`-h, --help`|Prints usage help.|
 |`-l, --length`|Prints the length of the program.|
-|`-t, --time`|Shows the time taken to execute (in seconds) after completion.|
 |`-s, --safe`|Activates **safe mode**, which disables components like `·G` that may have unsafe side effects.|
+|`-t, --time`|Shows the time taken to execute (in seconds) after completion.|
 
 ## Troubleshooting
 When using the `-e` flag for executing from the terminal, make sure your terminal is in **UTF-8** mode. This can be achieved on Windows with the command `chcp 65001`. If the terminal is in the incorrect encoding, Ruby will raise an `Encoding::CompatibilityError` when trying to use non-ASCII characters (in my experience).

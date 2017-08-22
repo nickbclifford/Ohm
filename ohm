@@ -24,8 +24,8 @@ OptionParser.new do |parser|
   parser.on('-e', '--eval', 'Evaluate <circuit> as Ohm code') {opts[:eval] = true}
   parser.on('-h', '--help', 'Prints this help') {puts parser; exit}
   parser.on('-l', '--length', 'Print length of program') {opts[:length] = true}
-  parser.on('-t', '--time', 'Print time taken to execute <circuit>') {opts[:time] = true}
   parser.on('-s', '--safe', "Disable components like `\u00B7G` that perform network requests") {opts[:safe] = true}
+  parser.on('-t', '--time', 'Print time taken to execute <circuit>') {opts[:time] = true}
 end.parse!
 
 code =
