@@ -11,7 +11,7 @@ opts = {
   debug: false,
   eval: false,
   length: false,
-  safe_mode: false,
+  safe: false,
   time: false
 }
 
@@ -25,7 +25,7 @@ OptionParser.new do |parser|
   parser.on('-h', '--help', 'Prints this help') {puts parser; exit}
   parser.on('-l', '--length', 'Print length of program') {opts[:length] = true}
   parser.on('-t', '--time', 'Print time taken to execute <circuit>') {opts[:time] = true}
-  parser.on('-s', '--safe-mode', "Disable components like `\u00B7G` that perform network requests") {opts[:safe_mode] = true}
+  parser.on('-s', '--safe', "Disable components like `\u00B7G` that perform network requests") {opts[:safe] = true}
 end.parse!
 
 code =
@@ -38,7 +38,7 @@ code =
   end
 
 start = Time.now if opts[:time]
-circuit = Ohm.new(code, opts[:debug], opts[:safe_mode]).exec
+circuit = Ohm.new(code, opts[:debug], opts[:safe]).exec
 the_end = Time.now if opts[:time]
 
 puts Ohm::Helpers.untyped_to_s(circuit.stack.last[0]) unless circuit.printed

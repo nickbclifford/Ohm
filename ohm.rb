@@ -32,10 +32,10 @@ class Ohm
   }
 
   attr_accessor :counter, :register
-  attr_reader :broken, :inputs, :safe_mode, :stack, :printed, :vars
+  attr_reader :broken, :inputs, :safe, :stack, :printed, :vars
 
   # Represents an Ohm circuit.
-  def initialize(circuit, debug, safe_mode = false, top_level = nil, stack = Stack.new(self), inputs = [], vars = DEFAULT_VARS)
+  def initialize(circuit, debug, safe = false, top_level = nil, stack = Stack.new(self), inputs = [], vars = DEFAULT_VARS)
     @stack = stack
 
     @inputs = inputs
@@ -49,7 +49,7 @@ class Ohm
     @debug = debug
 
     # Disables components that perform network requests, etc.
-    @safe_mode = safe_mode
+    @safe = safe
 
     @vars = vars
 
@@ -157,7 +157,7 @@ class Ohm
         end
 
         if execute
-          block = Ohm.new(block_str, @debug, @safe_mode, @top_level, @stack, @inputs, @vars).exec
+          block = Ohm.new(block_str, @debug, @safe, @top_level, @stack, @inputs, @vars).exec
           @printed ||= block.printed
           @stack = block.stack
           @broken = block.broken
@@ -176,7 +176,7 @@ class Ohm
           new_vars[:value] = v
           new_vars[:index] = i
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe_mode, @top_level, @stack, @inputs, new_vars).exec
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
@@ -194,7 +194,7 @@ class Ohm
           new_vars = @vars.clone
           new_vars[:index] = i
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe_mode, @top_level, @stack, @inputs, new_vars).exec
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
@@ -211,7 +211,7 @@ class Ohm
           new_vars = @vars.clone
           new_vars[:index] = counter
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe_mode, @top_level, @stack, @inputs, new_vars).exec
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
@@ -227,7 +227,7 @@ class Ohm
         @component << @wire[@pointer += 1] if COMPONENTS[@component].keys.all? {|k| k.is_a?(String)}
 
         @stack << @stack.pop[0].map do |e|
-          comp = Ohm.new(@component, @debug, @safe_mode, @top_level, @stack.clone << e, @inputs, @vars).exec
+          comp = Ohm.new(@component, @debug, @safe, @top_level, @stack.clone << e, @inputs, @vars).exec
           @printed ||= comp.printed
           break if comp.broken
           comp.stack.last[0]
@@ -282,7 +282,7 @@ class Ohm
           comp_hash[:get] ? :last : :pop
         ).call(comp_hash[:call].arity)
 
-        result = exec_component_hash(args, comp_hash) unless comp_hash[:unsafe] && @safe_mode
+        result = exec_component_hash(args, comp_hash) unless comp_hash[:unsafe] && @safe
 
         unless result.nil?
           if comp_hash[:multi]
