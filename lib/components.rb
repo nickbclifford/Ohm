@@ -234,8 +234,7 @@ class Ohm
     },
     'R' => {
       call: ->(a){arr_else_str(a).reverse},
-      depth: [1],
-      arr_str: true
+      no_vec: true
     },
     'S' => {
       call: ->(a){arr_else_chars_join(a, &:sort)},
