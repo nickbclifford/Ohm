@@ -21,7 +21,7 @@ class Ohm
   end
 
   DEFAULT_VARS = {
-    # Like 05AB1E, there is an integer counter that can only be incremented.
+    # Like 05AB1E, there is an integer counter that can only be incremented (and reset to 0).
     counter: 0,
     # However, like Jelly, there is only one register that can store any given value.
     register: 1,
@@ -32,21 +32,24 @@ class Ohm
   }
 
   attr_accessor :counter, :register
-  attr_reader :broken, :inputs, :stack, :printed, :vars
+  attr_reader :broken, :inputs, :safe, :stack, :printed, :vars
 
   # Represents an Ohm circuit.
-  def initialize(circuit, debug, top_level = nil, stack = Stack.new(self), inputs = [], vars = DEFAULT_VARS)
+  def initialize(circuit, debug, safe = false, top_level = nil, stack = Stack.new(self), inputs = [], vars = DEFAULT_VARS)
     @stack = stack
 
     @inputs = inputs
 
-    @top_level = top_level || {wires: circuit.split("\n"), index: 0}
+    @top_level = top_level || {wires: circuit.split(/[\n\u00B6](?![^#{QUOTES.join}]*[#{QUOTES.join}])/), index: 0}
     raise IndexError, "invalid wire index #{@top_level[:index]}" if @top_level[:wires][@top_level[:index]].nil?
 
     @wire = circuit
 
     # This prints the stack and component at each iteration (like 05AB1E).
     @debug = debug
+
+    # Disables components that perform network requests, etc.
+    @safe = safe
 
     @vars = vars
 
@@ -75,41 +78,58 @@ class Ohm
         comp_hash = comp_hash[next_comp]
       end
 
-      break if @component == "\n"
+      break if @component == "\n" || @component == "\u00B6"
       puts "Component: #{@component} || Stack: #{@stack}" if @debug
 
       # Special cases where the behavior can't be described with a concise lambda
       # Keyword in that sentence is "concise"
       # Otherwise, most of these could _technically_ become lambdas
-      # Literals
       case @component
+      # Extended components
+      when "\u00B7\u03A9"
+        @stack << find_cycle_component
+      when "\u00B7\u0398"
+        @stack << find_cycle_component.last
+      # Literals
       when /^[0-9]$/ # Number literal
         number = @wire[@pointer..@wire.length][/[0-9]+/]
         @pointer += number.length - 1
         @stack << number
       when '.' # Character literal
+        @stack << @wire[@pointer += 1]
+      when "\u2025" # Two-character literal
         @pointer += 1
-        @stack << @wire[@pointer]
+        @stack << @wire[@pointer..(@pointer += 1)]
+      when "\u2026" # Three-character literal
+        @pointer += 1
+        @stack << @wire[@pointer..(@pointer += 2)]
       when '"' # String literal
         @pointer += 1
         lit_end = @wire[@pointer..@wire.length].index('"')
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
-        @stack << @wire[@pointer...lit_end].gsub("\u00D1", "\n")
+        @stack << @wire[@pointer...lit_end].gsub("\u00B6", "\n")
         @pointer = lit_end
-      when "\u2580" # Smaz-compressed string literal
+      when "\u201C" # Base-255 number literal
         @pointer += 1
-        lit_end = @wire[@pointer..@wire.length].index("\u2580")
+        lit_end = @wire[@pointer..@wire.length].index("\u201C")
+        lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
+
+        @stack << from_base(@wire[@pointer...lit_end], BASE_DIGITS.length)
+        @pointer = lit_end
+      when "\u201D" # Smaz-compressed string literal
+        @pointer += 1
+        lit_end = @wire[@pointer..@wire.length].index("\u201D")
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
         @stack << Smaz.decompress(@wire[@pointer...lit_end])
         @pointer = lit_end
-      when "\u2551" # Base-220 number literal
+      when "\u1801"
         @pointer += 1
-        lit_end = @wire[@pointer..@wire.length].index("\u2551")
+        lit_end = @wire[@pointer..@wire.length].index("\u1801")
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
-        @stack << from_base(@wire[@pointer...lit_end], BASE_DIGITS.length)
+        @stack << ohm_to_bin(@wire[@pointer...lit_end])
         @pointer = lit_end
       when 'q' # Quit prematurely
         @exit = true
@@ -125,7 +145,7 @@ class Ohm
 
         execute = true
 
-        if @stack.pop[0]
+        if truthy?(@stack.pop[0])
           block_str = @wire[@pointer...(else_index || cond_end)] # Get block string up to else component or end
           puts 'Condition is true, executing if block' if @debug
         elsif else_index
@@ -137,7 +157,7 @@ class Ohm
         end
 
         if execute
-          block = Ohm.new(block_str, @debug, @top_level, @stack, @inputs, @vars).exec
+          block = Ohm.new(block_str, @debug, @safe, @top_level, @stack, @inputs, @vars).exec
           @printed ||= block.printed
           @stack = block.stack
           @broken = block.broken
@@ -151,12 +171,12 @@ class Ohm
 
         popped = @stack.pop[0]
 
-        (popped.is_a?(String) ? popped.each_char : popped).each_with_index do |v, i|
+        arr_else_chars(popped).each_with_index do |v, i|
           new_vars = @vars.clone
           new_vars[:value] = v
           new_vars[:index] = i
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
@@ -174,14 +194,14 @@ class Ohm
           new_vars = @vars.clone
           new_vars[:index] = i
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
         end
 
         @pointer = loop_end
-      when "\u221E"
+      when "\u00A3"
         @pointer += 1
         loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
         loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
@@ -191,7 +211,7 @@ class Ohm
           new_vars = @vars.clone
           new_vars[:index] = counter
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @top_level, @stack, @inputs, new_vars).exec
+          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
@@ -207,38 +227,38 @@ class Ohm
         @component << @wire[@pointer += 1] if COMPONENTS[@component].keys.all? {|k| k.is_a?(String)}
 
         @stack << @stack.pop[0].map do |e|
-          comp = Ohm.new(@component, @debug, @top_level, @stack.clone << e, @inputs, @vars).exec
+          comp = Ohm.new(@component, @debug, @safe, @top_level, @stack.clone << e, @inputs, @vars).exec
           @printed ||= comp.printed
           break if comp.broken
           comp.stack.last[0]
         end
       # Array operations
-      when "\u00EB"
-        arr_operation(:partition)
-      when "\u2591"
+      when "\u2047"
         arr_operation(:select)
-      when "\u2592"
+      when "\u2048"
+        arr_operation(:partition)
+      when "\u203C"
         arr_operation(:reject)
-      when "\u2593"
+      when "\u20AC"
         arr_operation(:map)
-      when "\u2560"
+      when "\u03C2"
         arr_operation(:sort_by)
-      when "\u2568"
-        arr_operation(:max_by)
-      when "\u2565"
+      when "\u2018"
         arr_operation(:min_by)
-      when "\u256B"
+      when "\u2019"
+        arr_operation(:max_by)
+      when "\u03C7"
         arr_operation(:minmax_by)
       # By default, Enumerable#all? and #any? return a boolean instead of an enumerator if no block was given
       # So in order to keep everything DRY, we'll just map over the block and call the method on the resulting array
       when "\u00C5"
         arr_operation(:map)
-        @stack << @stack.pop[0].all?
+        @stack << (@stack.pop[0].all?(&method(:truthy?)) ? 1 : 0)
       when "\u00C9"
         arr_operation(:map)
-        @stack << @stack.pop[0].any?
+        @stack << (@stack.pop[0].any?(&method(:truthy?)) ? 1 : 0)
       # Special behavior for calling wires
-      when "\u2584"
+      when "\u03A8"
         exec_wire_at_index(@top_level[:index])
       when "\u03A6"
         exec_wire_at_index(@stack.pop[0].to_i)
@@ -247,20 +267,12 @@ class Ohm
       when "\u03A9"
         exec_wire_at_index(@top_level[:index] + 1)
       # Break statement
-      when "\u25A0"
-        if @stack.pop[0]
+      when "\u203D"
+        if truthy?(@stack.pop[0])
           @broken = true
           puts 'Breaking out of current wire/block' if @debug
           break
         end
-      when "\u2219e"
-        block = Ohm.new(untyped_to_s(@stack.pop[0]), @debug, @top_level, @stack, @inputs, @vars).exec
-        @printed ||= block.printed
-        @stack = block.stack
-      when "\u2219\u03A9"
-        @stack << find_cycle_component
-      when "\u2219\u0398"
-        @stack << find_cycle_component.last
       else
         comp_hash ||= {nop: true}
 
@@ -270,9 +282,9 @@ class Ohm
           comp_hash[:get] ? :last : :pop
         ).call(comp_hash[:call].arity)
 
-        result = exec_component_hash(args, comp_hash)
+        result = exec_component_hash(args, comp_hash) unless comp_hash[:unsafe] && @safe
 
-        unless result.nil? && !comp_hash[:nils]
+        unless result.nil?
           if comp_hash[:multi]
             @stack.push(*result)
           else

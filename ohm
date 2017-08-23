@@ -7,10 +7,11 @@ require_relative 'ohm'
 trap('SIGINT') {exit!}
 
 opts = {
+  code_page: false,
   debug: false,
-  encoding: 'utf-8',
   eval: false,
   length: false,
+  safe: false,
   time: false
 }
 
@@ -18,21 +19,29 @@ ARGV << '-h' if ARGV.empty? # Print help if no arguments passed
 
 OptionParser.new do |parser|
   parser.banner << ' <circuit>' # This is ARGV[0] after parsing
-  parser.on('-c', '--cp437', 'Read file <circuit> with CP-437 encoding') {opts[:encoding] = 'cp437'}
+  parser.on('-c', '--code-page', 'Read file <circuit> with the Ohm encoding (default: UTF-8)') {opts[:code_page] = true}
   parser.on('-d', '--debug', 'Enter debug mode') {opts[:debug] = true}
   parser.on('-e', '--eval', 'Evaluate <circuit> as Ohm code') {opts[:eval] = true}
   parser.on('-h', '--help', 'Prints this help') {puts parser; exit}
-  parser.on('-t', '--time', 'Print time taken to execute <circuit>') {opts[:time] = true}
   parser.on('-l', '--length', 'Print length of program') {opts[:length] = true}
+  parser.on('-s', '--safe', "Disable components like `\u00B7G` that perform network requests") {opts[:safe] = true}
+  parser.on('-t', '--time', 'Print time taken to execute <circuit>') {opts[:time] = true}
 end.parse!
 
-code = opts[:eval] ? ARGV[0] : File.read(ARGV[0], opts).encode('utf-8').strip
+code =
+  if opts[:eval]
+    ARGV[0]
+  elsif opts[:code_page]
+    Ohm::Helpers.bin_to_ohm(File.binread(ARGV[0]))
+  else
+    File.read(ARGV[0], encoding: 'utf-8')
+  end
 
 start = Time.now if opts[:time]
-circuit = Ohm.new(code, opts[:debug]).exec
+circuit = Ohm.new(code, opts[:debug], opts[:safe]).exec
 the_end = Time.now if opts[:time]
 
 puts Ohm::Helpers.untyped_to_s(circuit.stack.last[0]) unless circuit.printed
 puts "Stack at end of circuit: #{circuit.stack}" if opts[:debug]
-puts "Program length: #{code.encode('cp437').bytesize} bytes (CP-437)" if opts[:length]
+puts "Program length: #{code.length} bytes" if opts[:length]
 puts "Time taken: #{the_end - start} seconds" if opts[:time]

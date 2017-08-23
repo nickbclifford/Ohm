@@ -3,9 +3,11 @@ Ohm is a stack-oriented programming language inspired by [05AB1E](https://github
 
 Does tacit programming make no sense to you, but you really wish you could use Jelly's links? If so, Ohm is the language for you.
 
+Interested in Ohm, but don't want to clone the repository? Thanks to [Dennis](https://github.com/DennisMitchell), there is an [online interpreter](https://tio.run/#ohm) available on [TryItOnline](https://tio.run/#home).
+
 ## Programs and Syntax
 
-Check the [full list of components](https://github.com/MiningPotatoes/Ohm/blob/master/components.md) for more info!
+Check the [full list of components](https://github.com/nickbclifford/Ohm/blob/master/components.md) for more info!
 
 ### The Stack
 Ohm uses a stack memory model. Think of the stack as a big array that every component of an Ohm circuit interacts with. For example, when the instruction pointer hits a number, it will *push* that number to the stack and continue, while the `+` component *pops* two elements off the stack, adds them, and *pushes* their result. Thus, the following circuit will output 15.
@@ -39,10 +41,16 @@ The `Ω` component will execute the wire below the current one, whereas `Θ` wil
 As you can see, it saves bytes by only requiring the `:` block to be declared once.
 
 ### String Compression
-Ohm uses a slightly-modified version of the [Smaz](https://github.com/antirez/smaz) compression library. Inside Ohm circuits, compressed string literals are delimited by `▀` characters. In order to generate a compressed string, use the `Ohm::Smaz.compress` method.
+Ohm uses a slightly-modified version of the [Smaz](https://github.com/antirez/smaz) compression library. Inside Ohm circuits, compressed string literals are delimited by `”` characters. In order to generate a compressed string, use the `Ohm::Smaz.compress` method.
+
+## What's New?
+The release of Ohm v2 brought a few new changes, namely:
+- Instead of CP437, Ohm now uses its own [custom code page](https://github.com/nickbclifford/Ohm/blob/master/code_page.md).
+- `true`/`false` values have been replaced with `0` and `1`.
+- Network access is now made possible with `·G`, but safe mode will disable it.
 
 ## Running
-The Ohm interpreter is written in Ruby 2.x. The core interpreter does not rely on any external gems except for [RSmaz](https://github.com/peterc/rsmaz), and the unit tests rely on [RSpec](http://rspec.info/) and [rake](https://github.com/ruby/rake).
+The Ohm interpreter is written in Ruby 2.x (tested on >= 2.2.7). The core interpreter does not rely on any external gems except for [RSmaz](https://github.com/peterc/rsmaz), and the unit tests rely on [RSpec](http://rspec.info/) and [rake](https://github.com/ruby/rake).
 
 ### Tests
 To run unit tests, run `rake`.
@@ -50,17 +58,13 @@ To run unit tests, run `rake`.
 ### Interpreter Options
 |Flag|Usage|
 |----|-----|
-|`-c, --cp437`|Reads the given file with CP437 encoding (default UTF-8).|
+|`-c, --code-page`|Reads the given file with the Ohm encoding (default UTF-8).|
 |`-d, --debug`|Activates **debug mode**, which prints the current command and stack at every iteration.|
 |`-e, --eval`|Evaluates the given circuit as Ohm code.|
 |`-h, --help`|Prints usage help.|
 |`-l, --length`|Prints the length of the program.|
+|`-s, --safe`|Activates **safe mode**, which disables components like `·G` that may have unsafe side effects.|
 |`-t, --time`|Shows the time taken to execute (in seconds) after completion.|
 
 ## Troubleshooting
-If some of the components you're using seem to be no-ops (i.e. they either don't do anything or hang execution), make sure your terminal is in **UTF-8** mode. This can be achieved on Windows with the command `chcp 65001`.
-
-If that doesn't fix it, feel free to open an issue here on GitHub.
-
-## TODO
-- Proper vectorization of components
+When using the `-e` flag for executing from the terminal, make sure your terminal is in **UTF-8** mode. This can be achieved on Windows with the command `chcp 65001`. If the terminal is in the incorrect encoding, Ruby will raise an `Encoding::CompatibilityError` when trying to use non-ASCII characters (in my experience).
