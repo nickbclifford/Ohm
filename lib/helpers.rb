@@ -87,7 +87,7 @@ class Ohm
 
     def comp_arg_depth(a, hsh)
       x = a.is_a?(Array) ? 1 + a.map {|c| comp_arg_depth(c, hsh)}.max.to_i : 0
-      x += 1 if (a.is_a?(String) || a.is_a?(Numeric)) && hsh[:arr_str]
+      x += 1 if a.is_a?(String) && hsh[:arr_str]
       x
     end
 
