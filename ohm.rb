@@ -219,6 +219,34 @@ class Ohm
         end
 
         @pointer = loop_end
+      when "\u00A1" # Reduce
+        @pointer += 1
+        @component = @wire[@pointer]
+
+        # Multi-character component support
+        @component << @wire[@pointer += 1] if COMPONENTS[@component].keys.all? {|k| k.is_a?(String)}
+
+        @stack << @stack.pop[0].reduce do |m, e|
+          comp = Ohm.new(@component, @debug, @safe, @top_level, @stack.clone << m << e, @inputs, @vars).exec
+          @printed ||= comp.printed
+          break if comp.broken
+          comp.stack.last[0]
+        end
+      when "\u00A4" # Cumulative reduce
+        @pointer += 1
+        @component = @wire[@pointer]
+
+        # Multi-character component support
+        @component << @wire[@pointer += 1] if COMPONENTS[@component].keys.all? {|k| k.is_a?(String)}
+
+        head, *tail = @stack.pop[0]
+        @stack << tail.reduce([head]) do |m, e|
+          puts m, e, "\n"
+          comp = Ohm.new(@component, @debug, @safe, @top_level, @stack.clone << m.last << e, @inputs, @vars).exec
+          @printed ||= comp.printed
+          break if comp.broken
+          m << comp.stack.last[0]
+        end
       when "\u00BB"
         @pointer += 1
         @component = @wire[@pointer]

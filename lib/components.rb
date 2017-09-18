@@ -711,6 +711,18 @@ class Ohm
       'l' => {
         call: ->(a, b){Math.log(b.to_f) / Math.log(a.to_f)}
       },
+      'm' => {
+        call: ->(a){a.map(&:to_f).reduce(:+) / a.length},
+        depth: [1]
+      },
+      'n' => {
+        call: ->(a){a = a.map(&:to_f).sort; (a[a.length.pred / 2] + a[a.length / 2]) / 2},
+        depth: [1]
+      },
+      'o' => {
+        call: ->(a){a.select {|e| a.count(e) == a.map {|x| a.count(x)}.max}.uniq},
+        depth: [1]
+      },
       'p' => {
         call: ->(a, b){a.to_i.gcd(b.to_i) == 1}
       },

@@ -144,7 +144,7 @@ This is a list of all (currently implemented) components that are usable in an O
 |`χ`|Pop `a`, block|Pushes the elements in `a` that return the minimum and maximum value from the given block.|
 |`ψ`|Pop `a`|Pushes all permutations of `a`.|
 |`ω`|Pop `a`|Pushes the power set of `a`.|
-|`Γ`|N/A|-1|
+|`Γ`|N/A|Pushes -1.|
 |`Δ`|Pop `a`|Pushes an array of the *absolute* differences between consecutive elements in `a`.|
 |`Θ`|N/A|Executes the wire at the index before the current one.|
 |`Π`|Pop `a`|If `a` is an array, pushes the total product of `a`, else pushes the total product of the stack.|
@@ -220,7 +220,7 @@ This is a list of all (currently implemented) components that are usable in an O
 |`⁇`|Pop `a`, block|Pushes an array containing all elements of `a` for which the given block returns a truthy value (filter/select).|
 |`⁈`|Pop `a`, block|Pushes a 2D array in which the first element contains all the elements of `a` that returned a truthy value from the given block and the second element contains all the elements of `a` that returned falsy (partition).|
 |`‼`|Pop `a`, block|Same as `⁇`, except with falsy values instead of truthy ones.|
-|`¡`|N/A|N/A|
+|`¡`|Pop `a`, component|Pushes the final result of reducing the given component over `a`, using the first element of `a` as the initial memo. Equivalent to `foldl1` in Haskell.|
 |`‰`|Pop `a`|Pushes 2<sup>`a`</sup>.|
 |`‱`|Pop `a`|Pushes 10<sup>`a`</sup>.|
 |`¦`|Pop `a`|Pushes `a` rounded to the nearest integer.|
@@ -230,7 +230,7 @@ This is a list of all (currently implemented) components that are usable in an O
 |`±`|Pop `a`, `b`|Pushes the `b`th root of `a`.|
 |`¬`|Pop `a`|Pushes the square root of `a`.|
 |`¢`|Get `a`|Sets the value of the register to `a`.|
-|`¤`|N/A|N/A|
+|`¤`|Pop `a`, component|Same as `¡`, except pushes the array of intermediate results. Equivalent to `scanl1` in Haskell.|
 |`«`|Pop `a`, `b`|Pushes `[a, b]` (pair).|
 |`»`|Pop `a`, component|Pushes an array containing the results of applying the given component for each element in `a`.|
 |`‹`|Pop `a`|Pushes `a - 1` (decrement).|
@@ -318,6 +318,9 @@ This is a list of all (currently implemented) components that are usable in an O
 |`ÆT`|Pop `a`|Pushes the tangent of `a` radians.|
 |`Æc`|Pop `a`|Pushes the arccosine of `a`.|
 |`Æl`|Pop `a`, `b`|Pushes the base `a` logarithm of `b`.|
+|`Æm`|Pop `a`|Pushes the arithmetic mean of `a`.|
+|`Æn`|Pop `a`|Pushes the arithmetic median of `a`.|
+|`Æo`|Pop `a`|Pushes the arithmetic mode of `a`.|
 |`Æp`|Pop `a`, `b`|Pushes whether `a` and `b` are coprime.|
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
