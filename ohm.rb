@@ -241,7 +241,6 @@ class Ohm
 
         head, *tail = @stack.pop[0]
         @stack << tail.reduce([head]) do |m, e|
-          puts m, e, "\n"
           comp = Ohm.new(@component, @debug, @safe, @top_level, @stack.clone << m.last << e, @inputs, @vars).exec
           @printed ||= comp.printed
           break if comp.broken
