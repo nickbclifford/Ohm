@@ -3,7 +3,7 @@ Ohm is a stack-oriented programming language inspired by [05AB1E](https://github
 
 Does tacit programming make no sense to you, but you really wish you could use Jelly's links? If so, Ohm is the language for you.
 
-Interested in Ohm, but don't want to clone the repository? Thanks to [Dennis](https://github.com/DennisMitchell), there is an [online interpreter](https://tio.run/#ohm) available on [TryItOnline](https://tio.run/#home).
+Interested in Ohm, but don't want to clone the repository? Thanks to [Dennis](https://github.com/DennisMitchell), there is an [online interpreter](https://tio.run/#ohm2) available on [TryItOnline](https://tio.run/#home).
 
 ## Programs and Syntax
 
@@ -50,7 +50,7 @@ The release of Ohm v2 brought a few new changes, namely:
 - Network access is now made possible with `·G`, but safe mode will disable it.
 
 ## Running
-The Ohm interpreter is written in Ruby 2.x (tested on >= 2.2.7). The core interpreter does not rely on any external gems except for [RSmaz](https://github.com/peterc/rsmaz), and the unit tests rely on [RSpec](http://rspec.info/) and [rake](https://github.com/ruby/rake).
+The Ohm interpreter is written in Ruby 2.x (tested on >= 2.2.8). The core interpreter does not rely on any external gems except for [RSmaz](https://github.com/peterc/rsmaz), and the unit tests rely on [RSpec](http://rspec.info/) and [rake](https://github.com/ruby/rake).
 
 ### Tests
 To run unit tests, run `rake`.
