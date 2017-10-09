@@ -131,6 +131,9 @@ class Ohm
 
         @stack << ohm_to_bin(@wire[@pointer...lit_end])
         @pointer = lit_end
+      # Miscellaneous
+      when ']'
+        @stack.push(*@stack.pop[0])
       when 'q' # Quit prematurely
         @exit = true
         break

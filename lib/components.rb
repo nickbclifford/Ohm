@@ -271,10 +271,7 @@ class Ohm
     '\\' => {
       call: ->(a, b, c){untyped_to_s(a).gsub(untyped_to_s(b), untyped_to_s(c))}
     },
-    ']' => {
-      call: ->(a){a.is_a?(Array) ? a.flatten(1) : a},
-      multi: true
-    },
+    # ] reserved: flatten one level onto the stack
     '^' => {
       call: ->{@vars[:index]}
     },
@@ -838,7 +835,7 @@ class Ohm
       call: ->(a){~a.to_i}
     },
     "\u00E4" => {
-      call: ->{}
+      call: ->(a){a.to_i.prime_division}
     },
     "\u00E5" => {
       call: ->{}

@@ -117,8 +117,8 @@ This is a list of all (currently implemented) components that are usable in an O
 |`x`|Pop `a`|Pushes `a` in hexadecimal (base 16).|
 |`y`|Pop `a`|Pushes the sign of `a` (`1` if positive, `-1` if negative, `0` if zero).|
 |`z`|Pop `a`|Pushes `a` without surrounding whitespace.|
-|`{`|Pop `a`|Deep flattens `a` onto the stack.|
-|`|`|Pop `a`, `b`|Pushes `a || b` (boolean OR).|
+|`{`|Pop `a`|Deep flattens `a`.|
+|`\|`|Pop `a`, `b`|Pushes `a || b` (boolean OR).|
 |`}`|Pop `a`|Pushes `a` split into slices of 1 (shorthand for `1σ`).|
 |`~`|Pop `a`|Pushes `-a` (negative).|
 |`¶`|N/A|Alternate character for newline (`\n`).|
@@ -184,10 +184,10 @@ This is a list of all (currently implemented) components that are usable in an O
 |`Ý`|N/A|Pushes an empty string (`''`).|
 |`Þ`|N/A|Pushes an empty array (`[]`).|
 |`à`|Pop `a`, `b`|Pushes `a & b` (bitwise AND).|
-|`á`|Pop `a`, `b`|Pushes `a | b` (bitwise OR).|
+|`á`|Pop `a`, `b`|Pushes `a \| b` (bitwise OR).|
 |`â`|Pop `a`, `b`|Pushes `a ^ b` (bitwise XOR).|
 |`ã`|Pop `a`|Pushes `~a` (bitwise NOT).|
-|`ä`|N/A|N/A|
+|`ä`|Pop `a`|Pushes the prime factorization of `a` as a list of `[prime, exponent]` pairs.|
 |`å`|N/A|N/A|
 |`ā`|N/A|N/A|
 |`æ`|Pop `a`|Pushes `a` as a palindrome.|
