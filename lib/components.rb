@@ -334,7 +334,7 @@ class Ohm
       call: ->(a){a.to_i.prime_division.map(&:last)},
     },
     'o' => {
-      call: ->(a){a.to_i.prime_division.each_with_object([]) {|(b, e), m| e.times {m << b}}},
+      call: ->(a){run_length_decode(a.to_i.prime_division)},
     },
     'p' => {
       call: ->(a){a.to_i.prime?},
@@ -781,10 +781,12 @@ class Ohm
       call: ->{}
     },
     "\u00D6" => {
-      call: ->{}
+      call: ->(a){group_equal(a).map {|e| [e[0], e.length]}},
+      depth: [1],
+      arr_str: true
     },
     "\u00D8" => {
-      call: ->(a){arr_else_chars_inner_join(a) {|a| a.group_by {|x| x}.values}},
+      call: ->(a){group_equal(a)},
       depth: [1],
       arr_str: true
     },
@@ -886,7 +888,8 @@ class Ohm
       call: ->{}
     },
     "\u00F6" => {
-      call: ->{}
+      call: ->(a){x = run_length_decode(a); x.all? {|a| a.is_a?(String)} ? x.join : x},
+      depth: [2]
     },
     "\u00F8" => {
       call: ->(a, b){Array.new(b.to_i) {a}},

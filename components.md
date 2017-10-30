@@ -171,8 +171,8 @@ This is a list of all (currently implemented) components that are usable in an O
 |`Ó`|N/A|N/A|
 |`Ô`|N/A|N/A|
 |`Õ`|N/A|N/A|
-|`Ö`|N/A|N/A|
-|`Ø`|Pop `a`|Pushes `a` grouped by identical elements.|
+|`Ö`|Pop `a`|Pushes the run-length encoding of `a` (i.e. `"aabbbcca" => [["a", 2], ["b", 3], ["c", 2], ["a", 1]]`).|
+|`Ø`|Pop `a`|Pushes `a` grouped by identical (consecutive) elements.|
 |`Œ`|Pop `a`|Pushes `a` randomly shuffled.|
 |`Ù`|Pop `a`, `b`|Pushes `a` with `b` spaces *appended*.|
 |`Ú`|Pop `a`, `b`|Pushes `a` with `b` spaces *prepended*.|
@@ -203,7 +203,7 @@ This is a list of all (currently implemented) components that are usable in an O
 |`ó`|Pop `a`|Pushes `a` converted to base 10 from binary (base 2).|
 |`ô`|Pop `a`|Pushes `a` converted to base 10 from hexadecimal (base 16).|
 |`õ`|N/A|N/A|
-|`ö`|N/A|N/A|
+|`ö`|Pop `a`|Pushes the run-length decoding of `a` (i.e. `[["a", 2], ["b", 3], ["c", 2], ["a", 1]] => "aabbbcca"`).|
 |`ø`|Pop `a`, `b`|Pushes an array of size `b` filled with `a`.|
 |`œ`|Pop `a`|Pushes `[a, a.reverse]`.|
 |`ù`|Pop `a`|If `a` is an array, pushes `a.join(' ')`, else pushes `stack.join(' ')`.|

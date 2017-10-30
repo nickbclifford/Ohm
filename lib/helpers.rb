@@ -216,6 +216,10 @@ class Ohm
       end
     end
 
+    def group_equal(a)
+      arr_else_chars_inner_join(a) {|a| a.slice_when {|l, c| l != c}.to_a}
+    end
+
     def group_equal_indices(arr)
       grouped = {}
       arr.each_with_index do |v, i|
@@ -297,6 +301,10 @@ class Ohm
         seen << x
       end
       true
+    end
+
+    def run_length_decode(arr)
+      arr.each_with_object([]) {|(b, e), m| e.to_i.times {m << b}}
     end
 
     def subarray_index(haystack, needle)
