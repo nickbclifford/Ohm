@@ -10,108 +10,108 @@ class Ohm
   include Helpers
 
   COMPONENTS = {
-    "\u00B0" => {
+    '°' => {
       call: ->{@inputs}
     },
-    "\u00B9" => {
+    '¹' => {
       call: ->{}
     },
-    "\u00B2" => {
+    '²' => {
       call: ->(a){a.to_f ** 2}
     },
-    "\u00B3" => {
+    '³' => {
       call: ->{input_access(0)}
     },
-    "\u2074" => {
+    '⁴' => {
       call: ->{input_access(1)}
     },
-    "\u2075" => {
+    '⁵' => {
       call: ->{input_access(2)}
     },
-    "\u2076" => {
+    '⁶' => {
       call: ->(a){input_access(a.to_i)}
     },
-    "\u2077" => {
+    '⁷' => {
       call: ->{16}
     },
-    "\u2078" => {
+    '⁸' => {
       call: ->{100}
     },
-    "\u2079" => {
+    '⁹' => {
       call: ->{@vars[:counter]}
     },
-    "\u207A" => {
+    '⁺' => {
       call: ->{@vars[:counter] += 1; nil}
     },
-    "\u207B" => {
+    '⁻' => {
       call: ->{@vars[:counter] = 0; nil}
     },
-    "\u207C" => {
+    '⁼' => {
       call: ->(a, b){untyped_to_s(a) == untyped_to_s(b)},
       no_vec: true
     },
-    "\u207D" => {
+    '⁽' => {
       call: ->(a){arr_else_chars(a).first},
       no_vec: true
     },
-    "\u207E" => {
+    '⁾' => {
       call: ->(a){arr_else_chars(a).last},
       no_vec: true
     },
-    "\u207F" => {
+    'ⁿ' => {
       call: ->(a, b){a.to_f ** b.to_f}
     },
-    "\u00BD" => {
+    '½' => {
       call: ->(a){a.to_f / 2}
     },
-    "\u2153" => {
+    '⅓' => {
       call: ->{}
     },
-    "\u00BC" => {
+    '¼' => {
       call: ->{}
     },
-    "\u2190" => {
+    '←' => {
       call: ->(a, b){arr_else_chars_join(a) {|x| x.unshift(b)}},
       # depth: [1], FIXME
       no_vec: true
     },
-    "\u2191" => {
+    '↑' => {
       call: ->(a){arr_else_chars(a).max},
       depth: [1],
       arr_str: true
     },
-    "\u2192" => {
+    '→' => {
       call: ->(a, b){a.push(b)},
       # depth: [1], FIXME
       no_vec: true
     },
-    "\u2193" => {
+    '↓' => {
       call: ->(a){arr_else_chars(a).min},
       depth: [1],
       arr_str: true
     },
-    "\u2194" => {
+    '↔' => {
       call: ->(a, b){arr_else_str(a).concat(arr_else_str(b))}
     },
-    "\u2195" => {
+    '↕' => {
       call: ->(a){arr_else_chars(a).minmax},
       depth: [1],
       arr_str: true
     },
-    "\u0131" => {
+    'ı' => {
       call: ->(a){a.to_f.ceil}
     },
-    "\u0237" => {
+    'ȷ' => {
       call: ->(a){a.to_f.floor}
     },
-    "\u00D7" => {
+    '×' => {
       call: ->(a, b){untyped_to_s(a) * b.to_i}
     }, # Repeat string
-    "\u00F7" => {
+    '÷' => {
       call: ->(a){1 / a.to_f}
     },
     # pound sign reserved: infinite loop
-    "\u00A5" => {
+    '¥' => {
       call: ->(a, b){a.to_f % b.to_f == 0}
     },
     # euro sign reserved: map
@@ -385,7 +385,7 @@ class Ohm
       call: ->(a){-a.to_f}
     },
     # pilcrow reserved: newline in circuit
-    "\u03B1" => {
+    'α' => {
       '0' => {
         call: ->{('0'..'9').to_a.join}
       },
@@ -425,13 +425,13 @@ class Ohm
       'y' => {
         call: ->{'AEIOUYaeiouy'}
       },
-      "\u03C0" => {
+      'π' => {
         call: ->{Math::PI}
       },
-      "\u03C6" => {
+      'φ' => {
         call: ->{(1 + Math.sqrt(5)) / 2}
       },
-      "\u0393" => {
+      'Γ' => {
         call: ->{
           <<-GOAT
    ___.
@@ -453,87 +453,87 @@ class Ohm
           GOAT
         }
       },
-      "\u03A9" => {
+      'Ω' => {
         call: ->{CODE_PAGE}
       }
     },
-    "\u03B2" => {
+    'β' => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| arr_in_groups(a, b.to_i)}},
       depth: [1],
       arr_str: true
     },
-    "\u03B3" => {
+    'γ' => {
       call: ->(a){arr_else_chars_inner_join(a) {|a| Array.new(a.length) {|i| c = a.rotate(i)}}},
       depth: [1],
       arr_str: true
     },
-    "\u03B4" => {
+    'δ' => {
       call: ->(a){a.each_cons(2).map {|a, b| b.to_f - a.to_f}},
       depth: [1]
     },
-    "\u03B5" => {
+    'ε' => {
       call: ->(a, b){arr_else_str(a).include?(b)},
       depth: [1],
       arr_str: true
     },
-    "\u03B6" => {
+    'ζ' => {
       call: ->(a){a = arr_else_chars(a); [a.first, a.last]},
       depth: [1],
       arr_str: true
     },
-    "\u03B7" => {
+    'η' => {
       call: ->(a){arr_else_str(a).empty?},
       depth: [1],
       arr_str: true
     },
-    "\u03B8" => {
+    'θ' => {
       call: ->(a, b, c){arr_else_str(a)[b.to_i..c.to_i]},
       depth: [1],
       arr_str: true
     },
-    "\u03B9" => {
+    'ι' => {
       call: ->(a, b){arr_else_str(a)[0..b.to_i]},
       depth: [1],
       arr_str: true
     },
-    "\u03BA" => {
+    'κ' => {
       call: ->(a, b){a = arr_else_str(a); a[b.to_i..a.length]},
       depth: [1],
       arr_str: true
     },
-    "\u03BB" => {
+    'λ' => {
       call: ->(a){arr_else_chars_join(a, &:rotate)},
       no_vec: true
     },
-    "\u03BC" => {
+    'μ' => {
       call: ->(a, b){arr_else_chars_inner_join(a, b) {|a, b| a.product(b)}},
       no_vec: true
     },
-    "\u03BD" => {
+    'ν' => {
       call: ->(a, b){arr_else_str(a).include?(b)},
       no_vec: true
     },
-    "\u03BE" => {
+    'ξ' => {
       call: ->(a){[a, a, a]},
       multi: true
     },
-    "\u03C0" => {
+    'π' => {
       call: ->(a){Prime.first(a.to_i).last},
     },
-    "\u03C1" => {
+    'ρ' => {
       call: ->(a){arr_else_chars_join(a) {|a| a.rotate(-1)}},
       no_vec: true
     },
     # end-sigma reserved: sort by
-    "\u03C3" => {
+    'σ' => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_slice(b.to_i).to_a}},
       depth: [1],
       arr_str: true
     },
-    "\u03C4" => {
+    'τ' => {
       call: ->{10}
     },
-    "\u03C5" => {
+    'υ' => {
       '!' => {
         call: ->{Time.now.to_i}
       },
@@ -588,41 +588,41 @@ class Ohm
       'y' => {
         call: ->(a){Time.at(a.to_f).year}
       },
-      "\u2030" => {
+      '‰' => {
         call: ->(a, b){Time.at(a.to_f).strftime(untyped_to_s(b))}
       },
-      "\u00A7" => {
+      '§' => {
         call: ->(a, b){Time.strptime(untyped_to_s(a), untyped_to_s(b)).to_i}
       },
     },
-    "\u03C6" => {
+    'φ' => {
       call: ->(a){a = a.to_i; a.prime_division.map {|x| 1 - (1.0 / x[0])}.reduce(a, :*).to_i},
     },
     # chi reserved: minmax by
-    "\u03C8" => {
+    'ψ' => {
       call: ->(a){arr_else_chars_inner_join(a) {|a| a.permutation.to_a}},
       depth: [1],
       arr_str: true
     },
-    "\u03C9" => {
+    'ω' => {
       call: ->(a){arr_else_chars_inner_join(a, &method(:powerset))},
       depth: [1],
       arr_str: true
     },
-    "\u0393" => {
+    'Γ' => {
       call: ->{-1}
     },
-    "\u0394" => {
+    'Δ' => {
       call: ->(a){a.each_cons(2).map {|a, b| (a.to_f - b.to_f).abs}},
       depth: [1]
     },
     # capital theta reserved: execute previous wire
-    "\u03A0" => {
+    'Π' => {
       call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:*)}},
       depth: [1],
       arr_stack: true
     },
-    "\u03A3" => {
+    'Σ' => {
       call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:+)}},
       depth: [1],
       arr_stack: true
@@ -630,40 +630,40 @@ class Ohm
     # capital phi reserved: execute wire at index
     # capital psi reserved: execute current wire
     # capital omega reserved: execute next wire
-    "\u00C0" => {
+    'À' => {
       call: ->(a){untyped_to_s(a).downcase}
     },
-    "\u00C1" => {
+    'Á' => {
       call: ->(a){untyped_to_s(a).upcase}
     },
-    "\u00C2" => {
+    'Â' => {
       call: ->(a){untyped_to_s(a).gsub(/\w+/, &:capitalize)}
     },
-    "\u00C3" => {
+    'Ã' => {
       call: ->(a){untyped_to_s(a).swapcase}
     },
-    "\u00C4" => {
+    'Ä' => {
       call: ->(a, b){Array.new(b.to_i) {a}},
       multi: true
     },
     # capital A with ring reserved: all truthy in array
-    "\u0100" => {
+    'Ā' => {
       call: ->(a){untyped_to_s(a).capitalize}
     },
-    "\u00C6" => {
-      "\u00B2" => {
+    'Æ' => {
+      '²' => {
         call: ->(a){perfect_exp?(a.to_i, 2)}
       },
-      "\u207F" => {
+      'ⁿ' => {
         call: ->(a, b){perfect_exp?(a.to_i, b.to_i)}
       },
-      "\u2191" => {
+      '↑' => {
         call: ->(a, b){a.to_i.gcd(b.to_i)}
       },
-      "\u2193" => {
+      '↓' => {
         call: ->(a, b){a.to_i.lcm(b.to_i)}
       },
-      "\u00D7" => {
+      '×' => {
         call: ->(a, b){(Complex(*a.map(&:to_f)) ** Complex(*b.map(&:to_f))).rect},
         depth: [1, 1]
       },
@@ -732,204 +732,204 @@ class Ohm
       'u' => {
         call: ->(a, b){Math.atan2(b.to_f, a.to_f)}
       },
-      "\u00AC" => {
+      '¬' => {
         call: ->(a){CMath.sqrt(Complex(*a.map(&:to_f))).rect},
         depth: [1]
       },
-      "\u00A4" => {
+      '¤' => {
         call: ->(a, b){b = b.to_i; ((a.to_i - 2) * ((b * (b  - 1)) / 2)) + b}
       },
-      "\u00AB" => {
+      '«' => {
         call: ->(a, b){a.to_i << b.to_i}
       },
-      "\u00BB" => {
+      '»' => {
         call: ->(a, b){a.to_i >> b.to_i}
       },
     },
-    "\u00C8" => {
+    'È' => {
       call: ->{}
     },
     # capital E with acute reserved: any truthy in array
-    "\u00CA" => {
+    'Ê' => {
       call: ->{}
     },
-    "\u00CB" => {
+    'Ë' => {
       call: ->{}
     },
-    "\u00CC" => {
+    'Ì' => {
       call: ->{}
     },
-    "\u00CD" => {
+    'Í' => {
       call: ->{}
     },
-    "\u00CE" => {
+    'Î' => {
       call: ->{}
     },
-    "\u00CF" => {
+    'Ï' => {
       call: ->{}
     },
-    "\u00D2" => {
+    'Ò' => {
       call: ->{}
     },
-    "\u00D3" => {
+    'Ó' => {
       call: ->{}
     },
-    "\u00D4" => {
+    'Ô' => {
       call: ->{}
     },
-    "\u00D5" => {
+    'Õ' => {
       call: ->{}
     },
-    "\u00D6" => {
+    'Ö' => {
       call: ->(a){group_equal(a).map {|e| [e[0], e.length]}},
       depth: [1],
       arr_str: true
     },
-    "\u00D8" => {
+    'Ø' => {
       call: ->(a){group_equal(a)},
       depth: [1],
       arr_str: true
     },
-    "\u0152" => {
+    'Œ' => {
       call: ->(a){arr_else_chars_join(a, &:shuffle)},
       depth: [1],
       arr_str: true
     },
-    "\u00D9" => {
+    'Ù' => {
       call: ->(a, b){untyped_to_s(a) + ' ' * b.to_i}
     },
-    "\u00DA" => {
+    'Ú' => {
       call: ->(a, b){' ' * b.to_i + untyped_to_s(a)}
     },
-    "\u00DB" => {
+    'Û' => {
       call: ->(a, b){untyped_to_s(a).ljust(b.to_i)}
     },
-    "\u00DC" => {
+    'Ü' => {
       call: ->(a, b){untyped_to_s(a).rjust(b.to_i)}
     },
-    "\u00C7" => {
+    'Ç' => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.each_cons(b.to_i).to_a}},
       depth: [1],
       arr_str: true
     },
-    "\u00D0" => {
+    'Ð' => {
       call: ->{' '}
     },
-    "\u00D1" => {
+    'Ñ' => {
       call: ->{"\n"}
     },
-    "\u00DD" => {
+    'Ý' => {
       call: ->{''}
     },
-    "\u00DE" => {
+    'Þ' => {
       call: ->{[]}
     },
-    "\u00E0" => {
+    'à' => {
       call: ->(a, b){a.to_i & b.to_i}
     },
-    "\u00E1" => {
+    'á' => {
       call: ->(a, b){a.to_i | b.to_i}
     },
-    "\u00E2" => {
+    'â' => {
       call: ->(a, b){a.to_i ^ b.to_i}
     },
-    "\u00E3" => {
+    'ã' => {
       call: ->(a){~a.to_i}
     },
-    "\u00E4" => {
+    'ä' => {
       call: ->(a){a.to_i.prime_division}
     },
-    "\u00E5" => {
+    'å' => {
       call: ->{}
     },
-    "\u0101" => {
+    'ā' => {
       call: ->{}
     },
-    "\u00E6" => {
+    'æ' => {
       call: ->(a){arr_else_chars_join(a) {|a| a + a.reverse[1, a.length]}},
       depth: [1],
       arr_str: true
     },
-    "\u00E8" => {
+    'è' => {
       call: ->(a){a.to_i % 2 != 0}
     },
-    "\u00E9" => {
+    'é' => {
       call: ->(a){a.to_i % 2 == 0}
     },
-    "\u00EA" => {
+    'ê' => {
       call: ->(a){Array.new(a.to_i) {|i| nth_fibonacci(i + 1)}}
     },
-    "\u00EB" => {
+    'ë' => {
       call: ->(a){Prime.first(a.to_i)},
     },
-    "\u00EC" => {
+    'ì' => {
       call: ->(a){a.to_i}
     },
-    "\u00ED" => {
+    'í' => {
       call: ->(a){a.to_f}
     },
-    "\u00EE" => {
+    'î' => {
       call: ->(a){a.to_f % 1 == 0}
     },
-    "\u00EF" => {
+    'ï' => {
       call: ->(a, b){untyped_to_s(a).split(untyped_to_s(b))},
     },
-    "\u00F2" => {
+    'ò' => {
       call: ->(a){zip_arr(a)},
       depth: [2]
     },
-    "\u00F3" => {
+    'ó' => {
       call: ->(a){from_base(a.to_s, 2)},
     },
-    "\u00F4" => {
+    'ô' => {
       call: ->(a){from_base(a.to_s, 16)},
     },
-    "\u00F5" => {
+    'õ' => {
       call: ->{}
     },
-    "\u00F6" => {
+    'ö' => {
       call: ->(a){x = run_length_decode(a); x.all? {|a| a.is_a?(String)} ? x.join : x},
       depth: [2]
     },
-    "\u00F8" => {
+    'ø' => {
       call: ->(a, b){Array.new(b.to_i) {a}},
     },
-    "\u0153" => {
+    'œ' => {
       call: ->(a){x = arr_else_str(a); [x, x.reverse]},
       depth: [1],
       arr_str: true
     },
-    "\u00F9" => {
+    'ù' => {
       call: ->(a){arr_or_stack(a) {|a| a.join(' ')}},
       depth: [1],
       arr_stack: true
     },
-    "\u00FA" => {
+    'ú' => {
       call: ->(a){arr_or_stack(a) {|a| a.join("\n")}},
       depth: [1],
       arr_stack: true
     },
-    "\u00FB" => {
+    'û' => {
       call: ->(a, b, c){a.to_f.step(b.to_f, c.to_f).to_a}
     },
-    "\u00FC" => {
+    'ü' => {
       call: ->{}
     },
-    "\u00E7" => {
+    'ç' => {
       call: ->(a, b){arr_else_chars_inner_join(a) {|a| a.combination(b.to_i).to_a}},
       depth: [1],
       arr_str: true
     },
-    "\u00F0" => {
+    'ð' => {
       call: ->(a){untyped_to_s(a) == untyped_to_s(a).reverse}
     },
-    "\u00F1" => {
+    'ñ' => {
       call: ->(a){fibonacci?(a.to_i)}
     },
-    "\u00FD" => {
+    'ý' => {
       call: ->(a){nth_fibonacci(a.to_i)}
     },
-    "\u00FE" => {
+    'þ' => {
       call: ->(a){sleep(a.to_f); nil}
     },
     # upside down question mark reserved: else statement
@@ -937,60 +937,60 @@ class Ohm
     # double question mark reserved: select from array
     # question/exclamation mark reserved: partition from array
     # double exclamation mark reserved: reject from array
-    "\u00A1" => {
+    '¡' => {
       call: ->{}
     },
-    "\u2030" => {
+    '‰' => {
       call: ->(a){2 ** a.to_f}
     },
-    "\u2031" => {
+    '‱' => {
       call: ->(a){10 ** a.to_f}
     },
-    "\u00A6" => {
+    '¦' => {
       call: ->(a){a.to_f.round},
     },
-    "\u00A7" => {
+    '§' => {
       call: ->(a){arr_else_chars(a).sample},
       depth: [1],
       arr_str: true
     },
-    "\u00A9" => {
+    '©' => {
       call: ->(a){untyped_to_s(a) * 2}
     }, # String duplication
-    "\u00AE" => {
+    '®' => {
       call: ->(a, b){arr_else_str(a)[b.to_i]},
       depth: [1],
       arr_str: true
     },
-    "\u00B1" => {
+    '±' => {
       call: ->(a, b){a.to_f ** (1 / b.to_f)},
     },
-    "\u00AC" => {
+    '¬' => {
       call: ->(a){Math.sqrt(a.to_f)},
     },
-    "\u00A2" => {
+    '¢' => {
       call: ->(a){@vars[:register] = a},
       no_vec: true
     }, # This doesn't have to go under GET since assignment still returns the value
-    "\u00A4" => {
+    '¤' => {
       call: ->{}
     },
-    "\u00AB" => {
+    '«' => {
       call: ->(a, b){[a, b]},
       no_vec: true
     },
     # right double angle bracket reserved: single-component map
-    "\u2039" => {
+    '‹' => {
       call: ->(a){a.to_f - 1}
     },
-    "\u203A" => {
+    '›' => {
       call: ->(a){a.to_f + 1}
     },
     # left quote reserved: base-255 literal
     # right quote reserved: Smaz-compressed string literal
     # left single quote reserved: min by
     # right single quote resereved: max by
-    "\u00B7" => {
+    '·' => {
       '/' => {
         call: ->(a, b){untyped_to_s(a).match(untyped_to_s(b)).to_a}
       },
@@ -1030,35 +1030,35 @@ class Ohm
       '~' => {
         call: ->(a, b){untyped_to_s(a) =~ Regexp.new(untyped_to_s(b))}
       },
-      "\u03C8" => {
+      'ψ' => {
         call: ->(a, b){arr_else_chars(a).sort == arr_else_chars(b).sort},
         depth: [1, 1],
         arr_str: true
       },
-      "\u00D8" => {
+      'Ø' => {
         call: ->(a){group_equal_indices(arr_else_chars(a))},
         depth: [1],
         arr_str: true
       },
-      "\u00A6" => {
+      '¦' => {
         call: ->(a, b){a.to_f.round(b.to_i)}
       }
     },
     # 2-dot reserved: two character literal
     # ellipsis reserved: three character literal
     # Mongolian ellipsis reserved: code page indexes literal
-    "\u2229" => {
+    '∩' => {
       call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a & b}},
       no_vec: true
     },
-    "\u222A" => {
+    '∪' => {
       call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a | b}},
       no_vec: true
     },
-    "\u2282" => {
+    '⊂' => {
       call: ->{}
     },
-    "\u2283" => {
+    '⊃' => {
       call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a - b}}
     }
   }

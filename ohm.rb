@@ -40,7 +40,7 @@ class Ohm
 
     @inputs = inputs
 
-    @top_level = top_level || {wires: circuit.split(/[\n\u00B6](?![^#{QUOTES.join}]*[#{QUOTES.join}])/), index: 0}
+    @top_level = top_level || {wires: circuit.split(/[\n¶](?![^#{QUOTES.join}]*[#{QUOTES.join}])/), index: 0}
     raise IndexError, "invalid wire index #{@top_level[:index]}" if @top_level[:wires][@top_level[:index]].nil?
 
     @wire = circuit
@@ -78,7 +78,7 @@ class Ohm
         comp_hash = comp_hash[next_comp]
       end
 
-      break if @component == "\n" || @component == "\u00B6"
+      break if @component == "\n" || @component == '¶'
       puts "Component: #{@component} || Stack: #{@stack}" if @debug
 
       # Special cases where the behavior can't be described with a concise lambda
@@ -86,9 +86,9 @@ class Ohm
       # Otherwise, most of these could _technically_ become lambdas
       case @component
       # Extended components
-      when "\u00B7\u03A9"
+      when '·Ω'
         @stack << find_cycle_component
-      when "\u00B7\u0398"
+      when '·Θ'
         @stack << find_cycle_component.last
       # Literals
       when /^[0-9]$/ # Number literal
@@ -97,10 +97,10 @@ class Ohm
         @stack << number
       when '.' # Character literal
         @stack << @wire[@pointer += 1]
-      when "\u2025" # Two-character literal
+      when '‥' # Two-character literal
         @pointer += 1
         @stack << @wire[@pointer..(@pointer += 1)]
-      when "\u2026" # Three-character literal
+      when '…' # Three-character literal
         @pointer += 1
         @stack << @wire[@pointer..(@pointer += 2)]
       when '"' # String literal
@@ -108,25 +108,25 @@ class Ohm
         lit_end = @wire[@pointer..@wire.length].index('"')
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
-        @stack << @wire[@pointer...lit_end].gsub("\u00B6", "\n")
+        @stack << @wire[@pointer...lit_end].gsub('¶', "\n")
         @pointer = lit_end
-      when "\u201C" # Base-255 number literal
+      when '“' # Base-255 number literal
         @pointer += 1
-        lit_end = @wire[@pointer..@wire.length].index("\u201C")
+        lit_end = @wire[@pointer..@wire.length].index('“')
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
         @stack << from_base(@wire[@pointer...lit_end], BASE_DIGITS.length)
         @pointer = lit_end
-      when "\u201D" # Smaz-compressed string literal
+      when '”' # Smaz-compressed string literal
         @pointer += 1
-        lit_end = @wire[@pointer..@wire.length].index("\u201D")
+        lit_end = @wire[@pointer..@wire.length].index('”')
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
         @stack << Smaz.decompress(@wire[@pointer...lit_end])
         @pointer = lit_end
-      when "\u1801"
+      when '᠁'
         @pointer += 1
-        lit_end = @wire[@pointer..@wire.length].index("\u1801")
+        lit_end = @wire[@pointer..@wire.length].index('᠁')
         lit_end = lit_end.nil? ? @wire.length : lit_end + @pointer
 
         @stack << ohm_to_bin(@wire[@pointer...lit_end])
@@ -141,7 +141,7 @@ class Ohm
       when '?'
         @pointer += 1
 
-        else_index = outermost_delim(@wire[@pointer..@wire.length], "\u00BF", OPENERS)
+        else_index = outermost_delim(@wire[@pointer..@wire.length], '¿', OPENERS)
         else_index += @pointer unless else_index.nil?
         cond_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
         cond_end = cond_end.nil? ? @wire.length : cond_end + @pointer
@@ -204,7 +204,7 @@ class Ohm
         end
 
         @pointer = loop_end
-      when "\u00A3"
+      when '£'
         @pointer += 1
         loop_end = outermost_delim(@wire[@pointer..@wire.length], ';', OPENERS)
         loop_end = loop_end.nil? ? @wire.length : loop_end + @pointer
@@ -222,7 +222,7 @@ class Ohm
         end
 
         @pointer = loop_end
-      when "\u00A1" # Reduce
+      when '¡' # Reduce
         @pointer += 1
         @component = @wire[@pointer]
 
@@ -235,7 +235,7 @@ class Ohm
           break if comp.broken
           comp.stack.last[0]
         end
-      when "\u00A4" # Cumulative reduce
+      when '¤' # Cumulative reduce
         @pointer += 1
         @component = @wire[@pointer]
 
@@ -249,7 +249,7 @@ class Ohm
           break if comp.broken
           m << comp.stack.last[0]
         end
-      when "\u00BB"
+      when '»'
         @pointer += 1
         @component = @wire[@pointer]
 
@@ -263,41 +263,41 @@ class Ohm
           comp.stack.last[0]
         end
       # Array operations
-      when "\u2047"
+      when '⁇'
         arr_operation(:select)
-      when "\u2048"
+      when '⁈'
         arr_operation(:partition)
-      when "\u203C"
+      when '‼'
         arr_operation(:reject)
-      when "\u20AC"
+      when '€'
         arr_operation(:map)
-      when "\u03C2"
+      when 'ς'
         arr_operation(:sort_by)
-      when "\u2018"
+      when '‘'
         arr_operation(:min_by)
-      when "\u2019"
+      when '’'
         arr_operation(:max_by)
-      when "\u03C7"
+      when 'χ'
         arr_operation(:minmax_by)
       # By default, Enumerable#all? and #any? return a boolean instead of an enumerator if no block was given
       # So in order to keep everything DRY, we'll just map over the block and call the method on the resulting array
-      when "\u00C5"
+      when 'Å'
         arr_operation(:map)
         @stack << (@stack.pop[0].all?(&method(:truthy?)) ? 1 : 0)
-      when "\u00C9"
+      when 'É'
         arr_operation(:map)
         @stack << (@stack.pop[0].any?(&method(:truthy?)) ? 1 : 0)
       # Special behavior for calling wires
-      when "\u03A8"
+      when 'Ψ'
         exec_wire_at_index(@top_level[:index])
-      when "\u03A6"
+      when 'Φ'
         exec_wire_at_index(@stack.pop[0].to_i)
-      when "\u0398"
+      when 'Θ'
         exec_wire_at_index(@top_level[:index] - 1)
-      when "\u03A9"
+      when 'Ω'
         exec_wire_at_index(@top_level[:index] + 1)
       # Break statement
-      when "\u203D"
+      when '‽'
         if truthy?(@stack.pop[0])
           @broken = true
           puts 'Breaking out of current wire/block' if @debug
