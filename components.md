@@ -1,6 +1,9 @@
 # Components
 This is a list of all (currently implemented) components that are usable in an Ohm circuit.
 
+## Notes
+Because of input restrictions, complex numbers are represented as an array in the form `[real, imaginary]`.
+
 ## Single character
 
 |Component|Action|Description|
@@ -304,9 +307,9 @@ This is a list of all (currently implemented) components that are usable in an O
 |`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|
 |`Æ↑`|Pop `a`, `b`|Pushes the greatest common divisor of `a` and `b`.|
 |`Æ↓`|Pop `a`, `b`|Pushes the least common multiple of `a` and `b`.|
-|`Æ×`|Pop `a`, `b`|Pushes Pushes `a`<sup>`b`</sup> (complex exponentiation), where `a` and `b` are either numbers or arrays in the form `[real, imag]`.|
-|`Æ*`|Pop `a`, `b`|Pushes `a * b` (complex multiplication), where `a` and `b` are either numbers or arrays in the form `[real, imag]`.|
-|`Æ/`|Pop `a`, `b`|Pushes `a / b` (complex division), where `a` and `b` are either numbers or arrays in the form `[real, imag]`.|
+|`Æ×`|Pop `a`, `b`|Pushes Pushes `a`<sup>`b`</sup> (complex exponentiation), where `a` and `b` are either real or complex numbers.|
+|`Æ*`|Pop `a`, `b`|Pushes `a * b` (complex multiplication), where `a` and `b` are either real or complex numbers.|
+|`Æ/`|Pop `a`, `b`|Pushes `a / b` (complex division), where `a` and `b` are either real or complex numbers.|
 |`ÆC`|Pop `a`|Pushes the cosine of `a` radians.|
 |`ÆD`|Pop `a`|Pushes `a` radians converted to degrees.|
 |`ÆE`|Pop `a`|Pushes `a` degrees converted to radians.|
@@ -314,6 +317,7 @@ This is a list of all (currently implemented) components that are usable in an O
 |`ÆL`|Pop `a`|Pushes the natural logarithm of `a`.|
 |`ÆM`|Pop `a`|Pushes the base 10 logarithm of `a`.|
 |`ÆN`|Pop `a`|Pushes the base 2 logarithm of `a`.|
+|`ÆR`|Pop `a`|Pushes the roots of `a` (as a list of complex numbers), where `a` is an array containing polynomial coefficients (i.e. `[1, 1, 1] => [[-0.5, 0.866], [-0.5, -0.866]]`).|
 |`ÆS`|Pop `a`|Pushes the sine of `a` radians.|
 |`ÆT`|Pop `a`|Pushes the tangent of `a` radians.|
 |`Æc`|Pop `a`|Pushes the arccosine of `a`.|
@@ -322,9 +326,11 @@ This is a list of all (currently implemented) components that are usable in an O
 |`Æn`|Pop `a`|Pushes the arithmetic median of `a`.|
 |`Æo`|Pop `a`|Pushes the arithmetic mode of `a`.|
 |`Æp`|Pop `a`, `b`|Pushes whether `a` and `b` are coprime.|
+|`Ær`|Pop `a`|Pushes the coefficients (as a list of complex numbers) of the polynomial with roots `a` (also a list of complex numbers) (i.e. `[[-0.5, 0.866], [-0.5, -0.866]] => [[1, 0], [1, 0], [1, 0]] (approximately)`).|
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
+|`Æρ`|Pop `a`, `b`|Pushes the polynomial resulting from the multiplication of polynomials `a` and `b`, where `a`, `b`, and the result are all lists of complex numbers representing coefficients.|
 |`Æ¬`|Pop `a`|Pushes the *complex* square root of `a`, where `a` is either a number or an array in the form `[real, imag]`.|
 |`Æ¤`|Pop `a`, `b`|Pushes the `b`th `a`-gonal number.|
 |`Æ«`|Pop `a`, `b`|Pushes `a << b` (left bit-shift).|

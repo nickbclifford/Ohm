@@ -282,6 +282,19 @@ class Ohm
       nil
     end
 
+    # Technically a discrete convolution for sequences
+    def polynomial_mul(x, h)
+      result = Array.new((x.length + h.length) - 1, 0)
+
+      x.each_with_index do |ex, ix|
+        h.each_with_index do |eh, ih|
+          result[ix + ih] += ex * eh
+        end
+      end
+
+      result
+    end
+
     def powerset(set)
       return [set] if set.empty?
 

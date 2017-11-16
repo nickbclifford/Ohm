@@ -1,4 +1,5 @@
 require 'cmath'
+require 'gsl'
 require 'net/http'
 require 'prime'
 require 'time'
@@ -696,6 +697,10 @@ class Ohm
       'N' => {
         call: ->(a){Math.log2(a.to_f)}
       },
+      'R' => {
+        call: ->(a){GSL::Poly[*a.map(&:to_f)].solve.to_a.each_slice(2).to_a},
+        depth: [1]
+      },
       'S' => {
         call: ->(a){Math.sin(a.to_f)}
       },
@@ -723,6 +728,10 @@ class Ohm
       'p' => {
         call: ->(a, b){a.to_i.gcd(b.to_i) == 1}
       },
+      'r' => {
+        call: ->(a){a.reduce([1]) {|m, r| polynomial_mul(m, [Complex(1, 0), -Complex(*r.map(&:to_f))])}.map(&:rect)},
+        depth: [2]
+      },
       's' => {
         call: ->(a){Math.asin(a.to_f)}
       },
@@ -731,6 +740,10 @@ class Ohm
       },
       'u' => {
         call: ->(a, b){Math.atan2(b.to_f, a.to_f)}
+      },
+      'ρ' => {
+        call: ->(a, b){polynomial_mul(a.map(&:to_f), b.map(&:to_f))},
+        depth: [1, 1]
       },
       '¬' => {
         call: ->(a){CMath.sqrt(Complex(*a.map(&:to_f))).rect},
