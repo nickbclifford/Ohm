@@ -330,7 +330,7 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
 |`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
-|`Æρ`|Pop `a`, `b`|Pushes the polynomial resulting from the multiplication of polynomials `a` and `b`, where `a`, `b`, and the result are all lists of complex numbers representing coefficients.|
+|`Æρ`|Pop `a`, `b`|Pushes the polynomial resulting from the multiplication of polynomials `a` and `b`, where `a`, `b`, and the result are all lists of real numbers representing coefficients.|
 |`Æ¬`|Pop `a`|Pushes the *complex* square root of `a`, where `a` is either a number or an array in the form `[real, imag]`.|
 |`Æ¤`|Pop `a`, `b`|Pushes the `b`th `a`-gonal number.|
 |`Æ«`|Pop `a`, `b`|Pushes `a << b` (left bit-shift).|
