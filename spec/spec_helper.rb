@@ -52,8 +52,8 @@ end
 
 require_relative '../ohm'
 
-RSpec.shared_examples 'component' do |desc, circuit, result|
+RSpec.shared_examples 'component' do |desc, circuit, result, **opts|
   it "pushes #{desc}" do
-    expect(Ohm.new(circuit, false).exec.stack.last[0]).to eq(result)
+    expect(Ohm.new(circuit, opts).exec.stack.last[0]).to eq(result)
   end
 end

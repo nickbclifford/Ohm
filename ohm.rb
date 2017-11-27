@@ -13,7 +13,7 @@ class Ohm
         len = length # The length changes after the call to `super`, so we get it first.
         result = super(n)
         if n > len
-          (n - len).times {result << @ohm.instance_exec(&@ohm.method(:input))}
+          (n - len).times {|i| result << @ohm.instance_exec(i, &@ohm.method(:input_access))}
         end
         result
       end
@@ -35,14 +35,7 @@ class Ohm
   attr_reader :broken, :inputs, :safe, :stack, :printed, :vars
 
   # Represents an Ohm circuit.
-  def initialize(circuit, debug, safe = false, top_level = nil, stack = Stack.new(self), inputs = [], vars = DEFAULT_VARS)
-    @stack = stack
-
-    @inputs = inputs
-
-    @top_level = top_level || {wires: circuit.split(/[\n¶](?![^#{QUOTES.join}]*[#{QUOTES.join}])/), index: 0}
-    raise IndexError, "invalid wire index #{@top_level[:index]}" if @top_level[:wires][@top_level[:index]].nil?
-
+  def initialize(circuit, debug: false, safe: false, top_level: nil, stack: [], inputs: [], vars: DEFAULT_VARS)
     @wire = circuit
 
     # This prints the stack and component at each iteration (like 05AB1E).
@@ -50,6 +43,14 @@ class Ohm
 
     # Disables components that perform network requests, etc.
     @safe = safe
+
+    @top_level = top_level || {wires: circuit.split(/[\n¶](?![^#{QUOTES.join}]*[#{QUOTES.join}])/), index: 0}
+    raise IndexError, "invalid wire index #{@top_level[:index]}" if @top_level[:wires][@top_level[:index]].nil?
+
+    # Accepts either an Ohm::Stack object or an array.
+    @stack = stack.is_a?(Ohm::Stack) ? stack : Stack.new(self, stack)
+
+    @inputs = inputs
 
     @vars = vars
 
@@ -160,7 +161,7 @@ class Ohm
         end
 
         if execute
-          block = Ohm.new(block_str, @debug, @safe, @top_level, @stack, @inputs, @vars).exec
+          block = sub_ohm(block_str).exec
           @printed ||= block.printed
           @stack = block.stack
           @broken = block.broken
@@ -179,7 +180,7 @@ class Ohm
           new_vars[:value] = v
           new_vars[:index] = i
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
+          block = sub_ohm(@wire[@pointer...loop_end], vars: new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
@@ -197,7 +198,7 @@ class Ohm
           new_vars = @vars.clone
           new_vars[:index] = i
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
+          block = sub_ohm(@wire[@pointer...loop_end], vars: new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
@@ -214,7 +215,7 @@ class Ohm
           new_vars = @vars.clone
           new_vars[:index] = counter
 
-          block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack, @inputs, new_vars).exec
+          block = sub_ohm(@wire[@pointer...loop_end], vars: new_vars).exec
           @printed ||= block.printed
           @stack = block.stack
           break if block.broken
@@ -230,7 +231,7 @@ class Ohm
         @component << @wire[@pointer += 1] if COMPONENTS[@component].keys.all? {|k| k.is_a?(String)}
 
         @stack << @stack.pop[0].reduce do |m, e|
-          comp = Ohm.new(@component, @debug, @safe, @top_level, @stack.clone << m << e, @inputs, @vars).exec
+          comp = sub_ohm(@component, stack: @stack.clone << m << e).exec
           @printed ||= comp.printed
           break if comp.broken
           comp.stack.last[0]
@@ -244,7 +245,7 @@ class Ohm
 
         head, *tail = @stack.pop[0]
         @stack << tail.reduce([head]) do |m, e|
-          comp = Ohm.new(@component, @debug, @safe, @top_level, @stack.clone << m.last << e, @inputs, @vars).exec
+          comp = sub_ohm(@component, stack: @stack.clone << m.last << e).exec
           @printed ||= comp.printed
           break if comp.broken
           m << comp.stack.last[0]
@@ -257,7 +258,7 @@ class Ohm
         @component << @wire[@pointer += 1] if COMPONENTS[@component].keys.all? {|k| k.is_a?(String)}
 
         @stack << @stack.pop[0].map do |e|
-          comp = Ohm.new(@component, @debug, @safe, @top_level, @stack.clone << e, @inputs, @vars).exec
+          comp = sub_ohm(@component, stack: @stack.clone << e).exec
           @printed ||= comp.printed
           break if comp.broken
           comp.stack.last[0]
