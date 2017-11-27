@@ -51,7 +51,7 @@ class Ohm
         new_vars[:value] = v
         new_vars[:index] = i
 
-        block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack << v, @inputs, new_vars).exec
+        block = sub_ohm(@wire[@pointer...loop_end], stack: @stack << v, vars: new_vars).exec
         @printed ||= block.printed
         @stack = block.stack
         break if block.broken
@@ -147,7 +147,7 @@ class Ohm
       new_index[:index] = i
 
       puts "Executing wire at index #{i}" if @debug
-      new_wire = Ohm.new(new_index[:wires][new_index[:index]], @debug, @safe, new_index, @stack, @inputs, @vars).exec
+      new_wire = sub_ohm(new_index[:wires][new_index[:index]], top_level: new_index).exec
       @printed ||= new_wire.printed
       @stack = new_wire.stack
 
@@ -196,7 +196,7 @@ class Ohm
         new_vars[:index] = counter
         new_vars[:value] = val
 
-        block = Ohm.new(@wire[@pointer...loop_end], @debug, @safe, @top_level, @stack << val, @inputs, new_vars).exec
+        block = sub_ohm(@wire[@pointer...loop_end], stack: @stack << val, vars: new_vars).exec
         @printed ||= block.printed
         @stack = block.stack
         break if block.broken
@@ -325,6 +325,15 @@ class Ohm
         return 1 + i if haystack[i...i + needle.length] == needle
       end
       0
+    end
+
+    def sub_ohm(circuit, **in_opts)
+      Ohm.new(
+        circuit,
+        %i(debug safe top_level stack inputs vars).each_with_object({}) do |sym, opts|
+          opts[sym] = in_opts[sym] || instance_variable_get("@#{sym}")
+        end
+      )
     end
 
     def to_base(num, base)

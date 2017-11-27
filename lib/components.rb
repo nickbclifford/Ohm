@@ -1017,7 +1017,7 @@ class Ohm
       },
       'e' => {
         call: ->(a){
-          block = Ohm.new(untyped_to_s(a), @debug, @safe, @top_level, @stack, @inputs, @vars).exec
+          block = sub_ohm(untyped_to_s(a)).exec
           @printed ||= block.printed
           @stack = block.stack
         }
