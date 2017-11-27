@@ -51,5 +51,5 @@ RSpec.describe Ohm do
     describe 'αΩ' do
       include_examples 'component', 'TODO', 'αΩ', 'TODO'
     end
-    end
   end
+end

@@ -62,5 +62,5 @@ RSpec.describe Ohm do
     describe 'υ§' do
       include_examples 'component', 'TODO', 'υ§', 'TODO'
     end
-    end
   end
+end
