@@ -307,7 +307,7 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`Æⁿ`|Pop `a`, `b`|Pushes whether `a` is a perfect `b`th power.|
 |`Æ↑`|Pop `a`, `b`|Pushes the greatest common divisor of `a` and `b`.|
 |`Æ↓`|Pop `a`, `b`|Pushes the least common multiple of `a` and `b`.|
-|`Æ×`|Pop `a`, `b`|Pushes Pushes `a`<sup>`b`</sup> (complex exponentiation), where `a` and `b` are either real or complex numbers.|
+|`Æ×`|Pop `a`, `b`|Pushes `a`<sup>`b`</sup> (complex exponentiation), where `a` and `b` are either real or complex numbers.|
 |`Æ*`|Pop `a`, `b`|Pushes `a * b` (complex multiplication), where `a` and `b` are either real or complex numbers.|
 |`Æ/`|Pop `a`, `b`|Pushes `a / b` (complex division), where `a` and `b` are either real or complex numbers.|
 |`ÆC`|Pop `a`|Pushes the cosine of `a` radians.|

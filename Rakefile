@@ -17,7 +17,7 @@ task :coverage do
     'extras' => '·',
     'time' => 'υ'
   }.each do |str, char|
-    file = File.read("spec/#{str}_spec.rb")
+    file = File.read("spec/#{str}_spec.rb", encoding: 'utf-8')
 
     not_found = (
       Ohm::COMPONENTS[char] ||

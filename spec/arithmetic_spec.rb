@@ -1,25 +1,25 @@
 RSpec.describe Ohm do
   describe 'arithmetic components' do
     describe 'Æ²' do
-      include_examples 'component', 'TODO', 'Æ²', 'TODO'
+      include_examples 'component', 'whether the given number is a perfect square', '36Æ²', 1
     end
     describe 'Æⁿ' do
-      include_examples 'component', 'TODO', 'Æⁿ', 'TODO'
+      include_examples 'component', 'whether the given number is a perfect power', '216 3Æⁿ', 1
     end
     describe 'Æ↑' do
-      include_examples 'component', 'TODO', 'Æ↑', 'TODO'
+      include_examples 'component', 'the greatest common divisor of two numbers', '27 69Æ↑', 3
     end
     describe 'Æ↓' do
-      include_examples 'component', 'TODO', 'Æ↓', 'TODO'
+      include_examples 'component', 'the least common multiple of two numbers', '27 69Æ↓', 621
     end
     describe 'Æ×' do
-      include_examples 'component', 'TODO', 'Æ×', 'TODO'
+      include_examples 'component', 'the complex exponentiation of two numbers', '3 2 3~«Æ×3·¦', [-8.893, 1.383]
     end
     describe 'Æ*' do
-      include_examples 'component', 'TODO', 'Æ*', 'TODO'
+      include_examples 'component', 'the complex multiplication of two numbers', '3~ 5«2 3~«Æ*', [9, 19]
     end
     describe 'Æ/' do
-      include_examples 'component', 'TODO', 'Æ/', 'TODO'
+      include_examples 'component', 'the complex division of two numbers', '3~ 5«2 3~«Æ/3·¦', [-1.615, 0.077]
     end
     describe 'ÆC' do
       include_examples 'component', 'TODO', 'ÆC', 'TODO'
