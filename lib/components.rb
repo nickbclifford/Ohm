@@ -379,8 +379,9 @@ class Ohm
     },
     '}' => {
       call: ->(a){a.is_a?(Array) ? a.each_slice(1).to_a : untyped_to_s(a).chars},
-      depth: [1],
-      arr_str: true
+      # depth: [1],
+      # arr_str: true
+      no_vec: true
     },
     '~' => {
       call: ->(a){-a.to_f}
