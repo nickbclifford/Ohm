@@ -14,12 +14,12 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`³`|N/A|Pushes the first input.|
 |`⁴`|N/A|Pushes the second input.|
 |`⁵`|N/A|Pushes the third input.|
-|`⁶`|Pop `a`|Pushes the `a`th input.|
+|`⁶`|Pop `a`|Pushes the `a`th input (zero indexed).|
 |`⁷`|N/A|Pushes 16.|
 |`⁸`|N/A|Pushes 100.|
 |`⁹`|N/A|Pushes the value of the counter variable.|
 |`⁺`|N/A|Increments the counter variable.|
-|`⁻`|N/A|Decrements the counter variable.|
+|`⁻`|N/A|Sets the counter variable to 0.|
 |`⁼`|Pop `a`, `b`|Pushes whether `a` and `b` are equal. *Does not vectorize.*|
 |`⁽`|Pop `a`|Pushes the first element in `a`. *Does not vectorize.*|
 |`⁾`|Pop `a`|Pushes the last element in `a`. *Does not vectorize.*|
