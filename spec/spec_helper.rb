@@ -52,9 +52,16 @@ end
 
 require_relative '../ohm'
 
-RSpec.shared_examples 'component' do |desc, circuit: nil, result:, stack: []|
+RSpec.shared_examples 'component' do |desc, circuit: nil, result:, **ohm_opts|
   it "pushes #{desc}" do
     # `self.class.description` cannot be the default value of `circuit:` because it depends on the `self` context
-    expect(Ohm.new(circuit || self.class.description, stack: stack).exec.stack.last[0]).to eq(result)
+    expect(Ohm.new(circuit || self.class.description, ohm_opts).exec.stack.last[0]).to eq(result)
+  end
+end
+
+RSpec.shared_examples 'not implemented' do
+  it '(not currently implemented)' do
+    # Arity is 0, returns nil
+    expect(Ohm::COMPONENTS[self.class.description][:call].call).to be_nil
   end
 end
