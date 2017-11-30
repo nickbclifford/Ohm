@@ -3,64 +3,64 @@ require 'timecop'
 RSpec.describe Ohm do
   describe 'time components' do
     describe 'υ!' do
-      include_examples 'component', 'TODO', 'υ!', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υ%' do
-      include_examples 'component', 'TODO', 'υ%', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υD' do
-      include_examples 'component', 'TODO', 'υD', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υH' do
-      include_examples 'component', 'TODO', 'υH', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υI' do
-      include_examples 'component', 'TODO', 'υI', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υM' do
-      include_examples 'component', 'TODO', 'υM', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υN' do
-      include_examples 'component', 'TODO', 'υN', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υS' do
-      include_examples 'component', 'TODO', 'υS', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υW' do
-      include_examples 'component', 'TODO', 'υW', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υY' do
-      include_examples 'component', 'TODO', 'υY', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υd' do
-      include_examples 'component', 'TODO', 'υd', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υh' do
-      include_examples 'component', 'TODO', 'υh', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υi' do
-      include_examples 'component', 'TODO', 'υi', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υm' do
-      include_examples 'component', 'TODO', 'υm', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υn' do
-      include_examples 'component', 'TODO', 'υn', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υs' do
-      include_examples 'component', 'TODO', 'υs', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υw' do
-      include_examples 'component', 'TODO', 'υw', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υy' do
-      include_examples 'component', 'TODO', 'υy', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υ‰' do
-      include_examples 'component', 'TODO', 'υ‰', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'υ§' do
-      include_examples 'component', 'TODO', 'υ§', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
   end
 end

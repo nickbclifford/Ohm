@@ -1,55 +1,55 @@
 RSpec.describe Ohm do
   describe 'constants components' do
     describe 'α0' do
-      include_examples 'component', 'TODO', 'α0', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'α1' do
-      include_examples 'component', 'TODO', 'α1', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'α@' do
-      include_examples 'component', 'TODO', 'α@', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αA' do
-      include_examples 'component', 'TODO', 'αA', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αC' do
-      include_examples 'component', 'TODO', 'αC', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αQ' do
-      include_examples 'component', 'TODO', 'αQ', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αW' do
-      include_examples 'component', 'TODO', 'αW', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αY' do
-      include_examples 'component', 'TODO', 'αY', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αa' do
-      include_examples 'component', 'TODO', 'αa', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αc' do
-      include_examples 'component', 'TODO', 'αc', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αe' do
-      include_examples 'component', 'TODO', 'αe', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αq' do
-      include_examples 'component', 'TODO', 'αq', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αy' do
-      include_examples 'component', 'TODO', 'αy', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'απ' do
-      include_examples 'component', 'TODO', 'απ', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αφ' do
-      include_examples 'component', 'TODO', 'αφ', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αΓ' do
-      include_examples 'component', 'TODO', 'αΓ', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
     describe 'αΩ' do
-      include_examples 'component', 'TODO', 'αΩ', 'TODO'
+      include_examples 'component', 'TODO', stack: [], result: 'TODO'
     end
   end
 end
