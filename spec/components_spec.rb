@@ -53,103 +53,107 @@ RSpec.describe Ohm do
       include_examples 'component', 'the exponentiation of two numbers', stack: [4, 3], result: 64
     end
     describe '½' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a number halved', stack: [3], result: 1.5
     end
     describe '⅓' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'not implemented'
     end
     describe '¼' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'not implemented'
     end
     describe '←' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array with an object prepended to it', stack: [[4, 3, 2], 1], result: [1, 4, 3, 2]
     end
     describe '↑' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the maximum element of an array', stack: [[2, 5, 3, 3]], result: 5
     end
     describe '→' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array with an object appended to it', stack: [[4, 3, 2], 1], result: [4, 3, 2, 1]
     end
     describe '↓' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the minimum element of an array', stack: [[2, 5, 3, 3]], result: 2
     end
     describe '↔' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'two arrays or strings concatenated together', stack: ['foo', 'bar'], result: 'foobar'
     end
     describe '↕' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array containing the minimum and maximum element of the given array', stack: [[2, 5, 3, 3]], result: [2, 5]
     end
     describe 'ı' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a number rounded up to the nearest integer', stack: [3.88], result: 4
     end
     describe 'ȷ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a number rounded down to the nearest integer', stack: [3.88], result: 3
     end
     describe '×' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string repeated a certain amount of times', stack: ['foo', 3], result: 'foofoofoo'
     end
     describe '÷' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the reciprocal of a number', stack: [2], result: 0.5
     end
     describe '£' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'runs the given block infinitely' do
+        # RSpec magic
+        expect(ohm = Ohm.new('£')).to receive(:loop).and_yield
+        ohm.exec
+      end
     end
     describe '¥' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether one number is divisible by another', stack: [45, 3], result: 1
     end
     describe '€' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe ' ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the result of applying the given block to an array', circuit: '€2+', stack: [[1, 2, 3]], result: [3, 4, 5]
     end
     describe '!' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the factorial of a number', stack: [5], result: 120
     end
     describe '"' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string literal', circuit: '"foobar"', result: 'foobar'
     end
     describe '#' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the range from 0 to a number', stack: [7], result: [0, 1, 2, 3, 4, 5, 6, 7]
     end
     describe '$' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the current value of the register', result: 1
     end
     describe '%' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the modulus of two numbers', stack: [5, 3], result: 2
     end
     describe '&' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the AND of two booleans', stack: [1, 0], result: 0
     end
     describe "'" do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the character with the given char code', stack: [33], result: '!'
     end
     describe '(' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array without the first element', stack: [[1, 2, 3, 4]], result: [2, 3, 4]
     end
     describe ')' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array without the first element', stack: [[1, 2, 3, 4]], result: [1, 2, 3]
     end
     describe '*' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the multiplication of two numbers', stack: [6, 8], result: 48
     end
     describe '+' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the addition of two numbers', stack: [7, 4], result: 11
     end
     describe ',' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'prints an object to standard output with newline' do
+        expect($stdout).to receive(:puts).with('hello!')
+        Ohm.new(',', stack: ['hello!']).exec
+      end
     end
     describe '-' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the subtraction of two numbers', stack: [5, 7], result: -2
     end
     describe '.' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a character literal', circuit: '.!', result: '!'
     end
     describe '/' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the division of two numbers', stack: [6, 5], result: 1.2
     end
     describe '0-9' do
-      include_examples 'component', 'TODO', circuit: '123', stack: [], result: 'TODO'
+      include_examples 'component', 'a number literal (as a string)', circuit: '123', result: '123'
     end
     describe ':' do
       include_examples 'component', 'TODO', stack: [], result: 'TODO'
