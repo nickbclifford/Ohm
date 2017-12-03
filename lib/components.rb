@@ -198,7 +198,7 @@ class Ohm
       call: ->{} # TODO: change to something useful
     },
     'G' => {
-      call: ->(a, b){(a = a.to_i).method(a > (b = b.to_i) ? :upto : :downto)[b].to_a}
+      call: ->(a, b){(a = a.to_i).method(a < (b = b.to_i) ? :upto : :downto)[b].to_a}
     },
     'H' => {
       call: ->(a){untyped_to_s(a).split(' ')}
@@ -212,7 +212,7 @@ class Ohm
       arr_stack: true
     },
     'K' => {
-      call: ->(a){arr_else_chars(a).count(b)},
+      call: ->(a, b){arr_else_chars(a).count(b)},
       depth: [1],
       arr_str: true
     },
