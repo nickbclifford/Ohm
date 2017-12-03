@@ -102,7 +102,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'whether one number is divisible by another', stack: [45, 3], result: 1
     end
     describe '€' do
-      include_examples 'component', 'the result of applying the given block to an array', circuit: '€2+', stack: [[1, 2, 3]], result: [3, 4, 5]
+      include_examples 'component', 'the result of applying the given block to an array', stack: [[1, 2, 3]], circuit: '€2+', result: [3, 4, 5]
     end
     describe '!' do
       include_examples 'component', 'the factorial of a number', stack: [5], result: 120
@@ -140,7 +140,7 @@ RSpec.describe Ohm do
     describe ',' do
       it 'prints an object to standard output with newline' do
         expect($stdout).to receive(:puts).with('hello!')
-        Ohm.new(',', stack: ['hello!']).exec
+        Ohm.new(',', stack: %w(hello!)).exec
       end
     end
     describe '-' do
@@ -156,64 +156,79 @@ RSpec.describe Ohm do
       include_examples 'component', 'a number literal (as a string)', circuit: '123', result: '123'
     end
     describe ':' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'executes the given block for each element in an array', stack: [0, [1, 2, 3, 4]], circuit: ':_+', result: 10
     end
-    describe ';' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
+    # describe ';' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
     describe '<' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether one number is less than another', stack: [4, 5], result: 1
     end
     describe '=' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'prints an object to standard output with newline without popping' do
+        expect($stdout).to receive(:puts).with('foobar')
+        ohm = Ohm.new('=', stack: %w(foobar)).exec
+        expect(ohm.stack.last[0]).to eq('foobar')
+      end
     end
     describe '>' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether one number is greater than another', stack: [4, 5], result: 0
     end
     describe '?' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'conditionally executes the given block', stack: [0, 1], circuit: '?1', result: '1'
     end
     describe '@' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the range from 1 to a number', stack: [6], result: [1, 2, 3, 4, 5, 6]
     end
     describe 'A' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the absolute value of a number', stack: [-6], result: 6
     end
     describe 'B' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'converts a number from base 10 to an arbitrary base', stack: [31, 16], result: '1F'
     end
     describe 'C' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'not implemented'
     end
     describe 'D' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'pushes an object twice' do
+        expect(Ohm.new('D', stack: [1]).exec.stack).to eq([1, 1])
+      end
     end
     describe 'E' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether two objects are equal', stack: [3, 7], result: 0
     end
     describe 'F' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'not implemented'
     end
     describe 'G' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the inclusive range between two numbers', stack: [4, 7], result: [4, 5, 6, 7]
     end
     describe 'H' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string split on spaces', stack: ['unit testing is fun'], result: %w(unit testing is fun)
     end
     describe 'I' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'gets user input' do
+        allow($stdin).to receive(:gets) {'test input'}
+        expect(Ohm.new('I').exec.stack.last[0]).to eq('test input')
+      end
     end
     describe 'J' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array joined on empty string', stack: [%w(foo bar baz)], result: 'foobarbaz'
     end
     describe 'K' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the amount of times an element occurs in an array', stack: [[1, 2, 1, 1], 1], result: 3
     end
-    describe 'L' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
+    # RSpec doesn't like :print for whatever reason
+    # describe 'L' do
+    #   it 'prints an object to standard output without newline' do
+    #     expect($stdout).to receive(:print).with('hello!')
+    #     Ohm.new('L', stack: %w(hello!)).exec
+    #   end
+    # end
     describe 'M' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'executes the given block a number of times' do
+        expect(Ohm.new('M2+', stack: [0, 4]).exec.stack.last[0]).to eq(8)
+      end
     end
     describe 'N' do
       include_examples 'component', 'TODO', stack: [], result: 'TODO'
