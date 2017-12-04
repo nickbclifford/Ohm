@@ -231,10 +231,12 @@ RSpec.describe Ohm do
       end
     end
     describe 'N' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether two objects are not equal', stack: [5, 2], result: 1
     end
     describe 'O' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'removes the last element of the stack' do
+        expect(Ohm.new('O', stack: [1, 2]).exec.stack).to eq([1])
+      end
     end
     describe 'P' do
       include_examples 'component', 'TODO', stack: [], result: 'TODO'
