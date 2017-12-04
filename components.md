@@ -121,7 +121,7 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`y`|Pop `a`|Pushes the sign of `a` (`1` if positive, `-1` if negative, `0` if zero).|
 |`z`|Pop `a`|Pushes `a` without surrounding whitespace.|
 |`{`|Pop `a`|Deep flattens `a`.|
-|`\|`|Pop `a`, `b`|Pushes `a || b` (boolean OR).|
+|`\|`|Pop `a`, `b`|Pushes `a \|\| b` (boolean OR).|
 |`}`|Pop `a`|Pushes `a` split into slices of 1 (shorthand for `1σ`).|
 |`~`|Pop `a`|Pushes `-a` (negative).|
 |`¶`|N/A|Alternate character for newline (`\n`).|
