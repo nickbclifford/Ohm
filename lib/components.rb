@@ -270,7 +270,7 @@ class Ohm
       call: ->(a){@stack[a.to_i]}
     },
     '\\' => {
-      call: ->(a, b, c){untyped_to_s(a).gsub(untyped_to_s(b), untyped_to_s(c))}
+      call: ->(a, b, c){untyped_to_s(a).gsub(Regexp.new(untyped_to_s(b)), untyped_to_s(c))}
     },
     # ] reserved: flatten one level onto the stack
     '^' => {

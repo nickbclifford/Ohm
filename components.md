@@ -89,7 +89,7 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`Y`|Pop `a`|Pushes proper divisors of `a`.|
 |`Z`|Pop `a`|Pushes `a` split on newlines.|
 |`[`|Pop `a`|Pushes `stack[a]`.|
-|`\`|Pop `a`, `b`, `c`|Pushes `a` with all matches of `b` replaced by `c`.|
+|`\`|Pop `a`, `b`, `c`|Pushes `a` with all matches of regex `b` replaced by `c`.|
 |`]`|Pop `a`|Flattens `a` by one level onto the stack.|
 |`^`|N/A|Pushes index of current element in array being looped over.|
 |`_`|N/A|Pushes current element in array being looped over.|
