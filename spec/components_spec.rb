@@ -309,7 +309,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'the nPr function of two numbers', stack: [5, 3], result: 60
     end
     describe 'f' do
-      include_examples 'component', 'all Fibonacci numbers up to a number', stack: [60], result: [1, 1, 2, 3, 5, 8, 13, 21, 43, 55]
+      include_examples 'component', 'all Fibonacci numbers up to a number', stack: [60], result: [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
     end
     describe 'g' do
       include_examples 'component', 'the exclusive range between two numbers', stack: [4, 8], result: [4, 5, 6, 7]
@@ -321,7 +321,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'the last element of an array', stack: [[1, 2, 3]], result: 3
     end
     describe 'j' do
-      include_examples 'component', 'an array joined on a string', stack: [[1, 2, 3]], result: '1, 2, 3'
+      include_examples 'component', 'an array joined on a string', stack: [[1, 2, 3], ', '], result: '1, 2, 3'
     end
     describe 'k' do
       include_examples 'component', 'the index of an object in an array', stack: [[1, 2, 3], 2], result: 1
@@ -336,55 +336,60 @@ RSpec.describe Ohm do
       include_examples 'component', 'the exponents of the prime factorization of a number', stack: [63], result: [2, 1]
     end
     describe 'o' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the full prime factorization of a number', stack: [63], result: [3, 3, 7]
     end
     describe 'p' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether a number is prime', stack: [17], result: 1
     end
     describe 'q' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'immediately stops program execution' do
+        expect(Ohm.new('0q1').exec.stack.last[0]).to eq('0')
+      end
     end
     describe 'r' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string with the given character transposed with another', stack: %w(foo o a), result: 'faa'
     end
     describe 's' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the top two elements of the stack swapped', stack: [1, 2, 3], result: 2
     end
     describe 't' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a number converted from the given base to base 10', stack: ['21', 16], result: 33
     end
     describe 'u' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an object converted to a string', stack: [5.6], result: '5.6'
     end
     describe 'v' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the integer division of two numbers', stack: [7, 3], result: 2
     end
     describe 'w' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an object wrapped in an array', stack: [5, 6], result: [6]
     end
     describe 'x' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a number converted to hexadecimal', stack: [33], result: '21'
     end
     describe 'y' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the sign of a number', stack: [-5], result: -1
     end
     describe 'z' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string with surrounding whitespace trimmed off', stack: [' asdf '], result: 'asdf'
     end
     describe '{' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array deep flattened', stack: [[1, [2, [3, 4]], 5]], result: [1, 2, 3, 4, 5]
     end
     describe '|' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the OR of two booleans', stack: [0, 1], result: 1
     end
     describe '}' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string or array split into slices of length 1', stack: %w(foo), result: %w(f o o)
     end
     describe '~' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a number negated', stack: [1.5], result: -1.5
     end
     describe '¶' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'functions as a newline' do
+        # I'm honestly not really sure what to do here, since top_level isn't public
+        expect(Ohm.new('1¶2').exec.stack.last[0]).to eq('1')
+      end
     end
     describe 'β' do
       include_examples 'component', 'TODO', stack: [], result: 'TODO'
