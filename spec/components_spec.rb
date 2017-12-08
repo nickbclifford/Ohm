@@ -239,97 +239,101 @@ RSpec.describe Ohm do
       end
     end
     describe 'P' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'all primes up to a number', stack: [20], result: [2, 3, 5, 7, 11, 13, 17, 19]
     end
     describe 'Q' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'reverses the stack' do
+        expect(Ohm.new('Q', stack: [1, 2, 3]).exec.stack).to eq([3, 2, 1])
+      end
     end
     describe 'R' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string reversed', stack: %w(reverse), result: 'esrever'
     end
     describe 'S' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array sorted', stack: [[2, 5, 3, 1]], result: [1, 2, 3, 5]
     end
     describe 'T' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'not implemented'
     end
     describe 'U' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array uniquified', stack: [[1, 2, 2, 4, 4]], result: [1, 2, 4]
     end
     describe 'V' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the divisors of an integer', stack: [12], result: [1, 2, 3, 4, 6, 12]
     end
     describe 'W' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the stack wrapped in an array', stack: [1, 2, 3], result: [1, 2, 3]
     end
     describe 'X' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the NOT of a boolean', stack: [0], result: 1
     end
     describe 'Y' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the proper divisors of a number', stack: [12], result: [1, 2, 3, 4, 6]
     end
     describe 'Z' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string split on newlines', stack: ["unit\ntesting\nis\nfun"], result: %w(unit testing is fun)
     end
     describe '[' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the element of the stack at the given index', stack: [1, 2, 3, 4, 2], result: 3
     end
     describe '\\' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a string with occurrences of a string replaced with another string', stack: ['foobarbaz', 'ar', 'az'], result: 'foobazbaz'
     end
     describe ']' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'flattens an array onto the stack by one level' do
+        expect(Ohm.new(']', stack: [[1, [2, 4]]]).exec.stack).to eq([1, [2, 4]])
+      end
     end
     describe '^' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the current index', result: 2
     end
     describe '_' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the current value', result: 5
     end
     describe '`' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the char code of a character', stack: ['!'], result: 33
     end
     describe 'a' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the absolute difference of two numbers', stack: [2, 5], result: 3
     end
     describe 'b' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a number converted to binary', stack: [9], result: '1001'
     end
     describe 'c' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the nCr function of two numbers', stack: [7, 2], result: 21
     end
     describe 'd' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a number doubled', stack: [3.5], result: 7
     end
     describe 'e' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the nPr function of two numbers', stack: [5, 3], result: 60
     end
     describe 'f' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'all Fibonacci numbers up to a number', stack: [60], result: [1, 1, 2, 3, 5, 8, 13, 21, 43, 55]
     end
     describe 'g' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the exclusive range between two numbers', stack: [4, 8], result: [4, 5, 6, 7]
     end
     describe 'h' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the first element of an array', stack: [[1, 2, 3]], result: 1
     end
     describe 'i' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the last element of an array', stack: [[1, 2, 3]], result: 3
     end
     describe 'j' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array joined on a string', stack: [[1, 2, 3]], result: '1, 2, 3'
     end
     describe 'k' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the index of an object in an array', stack: [[1, 2, 3], 2], result: 1
     end
     describe 'l' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the length of a string or array', stack: %w(foobar), result: 6
     end
     describe 'm' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the prime factors of a number', stack: [63], result: [3, 7]
     end
     describe 'n' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the exponents of the prime factorization of a number', stack: [63], result: [2, 1]
     end
     describe 'o' do
       include_examples 'component', 'TODO', stack: [], result: 'TODO'
