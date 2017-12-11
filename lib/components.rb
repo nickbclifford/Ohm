@@ -1016,11 +1016,18 @@ class Ohm
         call: ->(a){a.prepend('http://') unless a.start_with?('http://', 'https://'); Net::HTTP.get(URI(a))},
         unsafe: true
       },
+      'c' => {
+        call: ->(a){Ohm::Smaz.compress(untyped_to_s(a))}
+      },
+      'd' => {
+        call: ->(a){Ohm::Smaz.decompress(untyped_to_s(a))}
+      },
       'e' => {
         call: ->(a){
           block = sub_ohm(untyped_to_s(a)).exec
           @printed ||= block.printed
           @stack = block.stack
+          nil
         }
       },
       'p' => {

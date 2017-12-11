@@ -343,6 +343,8 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`·/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|
 |`·\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
 |`·G`|Pop `a`|Performs a GET request to `a` and pushes the response body.|
+|`·c`|Pop `a`|Pushes `a` compressed using Ohm's custom string compression.|
+|`·d`|Pop `a`|Pushes `a` decompressed using Ohm's custom string compression.|
 |`·e`|Pop `a`|Evaluates `a` as Ohm code.|
 |`·p`|Pop `a`|Pushes all prefixes of `a`.|
 |`·r`|N/A|Pushes a random float between 0 and 1.|
