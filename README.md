@@ -40,8 +40,11 @@ The `Ω` component will execute the wire below the current one, whereas `Θ` wil
 
 As you can see, it saves bytes by only requiring the `:` block to be declared once.
 
+### Base 255
+The `B` component can handle input bases up to 255. Because of how efficient base 255 is at storing numbers, Ohm comes with a built-in method to convert base 255 back to base 10 for use in a circuit. Just surround the base 255 number with `“`. ([Here's a base 255 conversion script](https://tio.run/##y8/INfr/39PI1NTp/38LM3NTYwNLAA) for your convenience.)
+
 ### String Compression
-Ohm uses a slightly-modified version of the [Smaz](https://github.com/antirez/smaz) compression library. Inside Ohm circuits, compressed string literals are delimited by `”` characters. In order to generate a compressed string, use the `Ohm::Smaz.compress` method.
+Ohm uses a slightly-modified version of the [Smaz](https://github.com/antirez/smaz) compression library. Inside Ohm circuits, compressed string literals are delimited by `”` characters. In order to generate a compressed string, use the `Ohm::Smaz.compress` method or the `·c` component in a circuit.
 
 ## What's New?
 The release of Ohm v2 brought a few new changes, namely:
