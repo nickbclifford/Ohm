@@ -270,7 +270,7 @@ class Ohm
       call: ->(a){@stack[a.to_i]}
     },
     '\\' => {
-      call: ->(a, b, c){untyped_to_s(a).gsub(untyped_to_s(b), untyped_to_s(c))}
+      call: ->(a, b, c){untyped_to_s(a).gsub(Regexp.new(untyped_to_s(b)), untyped_to_s(c))}
     },
     # ] reserved: flatten one level onto the stack
     '^' => {
@@ -301,7 +301,7 @@ class Ohm
       call: ->(a){fibonacci_upto(a.to_i)}
     },
     'g' => {
-      call: ->(a, b){x = (a = a.to_i).method(a > (b = b.to_i) ? :upto : :downto)[b].to_a; x[0, x.length - 1]}
+      call: ->(a, b){x = (a = a.to_i).method(a < (b = b.to_i) ? :upto : :downto)[b].to_a; x[0, x.length - 1]}
     },
     'h' => {
       call: ->(a){arr_else_chars(a).first},
