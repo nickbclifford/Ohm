@@ -367,7 +367,7 @@ class Ohm
     end
 
     def untyped_to_s(n)
-      n.is_a?(Numeric) ? format("%.#{n.to_s.length}g", n) : n.to_s
+      n.is_a?(Float) ? format("%.#{n.to_s.length}g", n) : n.to_s
     end
 
     def zip_arr(mat)
