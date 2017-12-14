@@ -18,6 +18,26 @@ Ohm uses a stack memory model. Think of the stack as a big array that every comp
 
 (The numbers have to be separated with a no-op (space, in this case) since Ohm continues parsing number literals until there are no more digits left.)
 
+### Blocks
+Conditional statements and loops in Ohm are handled by a construct called a _block_. (If you're familiar with Ruby, it's pretty similar to Ruby's blocks.) They're essentially sections of code that are executed differently depending on what component they're attached to. Some components that use them are `?` for if statements, `:` for for-each loops, `⁇` for array select/filtering, and `€` for array mapping.
+
+#### If/Else
+If you want to add an `else` clause to an if statement, just place the `¿` component before the end of the block and put the alternate code in between the two.
+
+##### Example
+```
+0?"code for truthy condition"¿"code for falsy condition";
+```
+
+#### Auto-Pushing
+Most array-looping components like `€`, `⁇`, and `‼` will automatically push the current value to the top of the stack, meaning that `_` does not have to be explicitly called to get the value. **There is one exception to this: the `:` (foreach) component**. Because of the different use cases for `:`, the value is not automatically pushed and has to be explicitly pushed via `_`.
+
+##### Example
+```
+5@€^*;  Creates a new array with every element multiplied by its index
+5@:_,;  Prints each element in the array
+```
+
 ### Implicit Everything
 Since Ohm is a golfing language, many things are done implicitly in order to save bytes for the golfer.
 - If there is nothing else in the circuit, concluding components like `;` in conditional/loop blocks and `"` in string literals are inferred and do not have to be explicitly input.
@@ -41,7 +61,7 @@ The `Ω` component will execute the wire below the current one, whereas `Θ` wil
 As you can see, it saves bytes by only requiring the `:` block to be declared once.
 
 ### Base 255
-The `B` component can handle input bases up to 255. Because of how efficient base 255 is at storing numbers, Ohm comes with a built-in method to convert base 255 back to base 10 for use in a circuit. Just surround the base 255 number with `“`. ([Here's a base 255 conversion script](https://tio.run/##y8/INfr/39PI1NTp/38LM3NTYwNLAA) for your convenience.)
+The `B` component can handle input bases up to 255. Because of how efficient base 255 is at storing numbers, Ohm comes with a built-in to convert base 255 back to base 10 for use in a circuit. Just surround the base 255 number with `“`. ([Here's a base 255 conversion script](https://tio.run/##y8/INfr/39PI1NTp/38LM3NTYwNLAA) for your convenience.)
 
 ### String Compression
 Ohm uses a slightly-modified version of the [Smaz](https://github.com/antirez/smaz) compression library. Inside Ohm circuits, compressed string literals are delimited by `”` characters. In order to generate a compressed string, use the `Ohm::Smaz.compress` method or the `·c` component in a circuit.
