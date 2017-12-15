@@ -392,376 +392,386 @@ RSpec.describe Ohm do
       end
     end
     describe 'β' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array split into a number of groups', stack: [[1, 2, 3, 4, 5, 6], 2], result: [[1, 2, 3], [4, 5, 6]]
     end
     describe 'γ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'all possible rotations of an array', stack: [[1, 2, 3]], result: [[1, 2, 3], [2, 3, 1], [3, 1, 2]]
     end
     describe 'δ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the consecutive differences of an array', stack: [[1, 5, 3]], result: [4, -2]
     end
     describe 'ε' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether an object is in an array or string', stack: %w(foobar foo), result: 1
     end
     describe 'ζ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the first and last elements of an array', stack: [[1, 2, 3]], result: [1, 3]
     end
     describe 'η' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether an object is empty', stack: [''], result: 1
     end
     describe 'θ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an arbitrary slice of an array', stack: [[1, 2, 3, 4, 5], 1, 3], result: [2, 3, 4]
     end
     describe 'ι' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a slice from the beginning of an array', stack: [[1, 2, 3, 4, 5], 2], result: [1, 2, 3]
     end
     describe 'κ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'a slice from the end of an array', stack: [[1, 2, 3, 4, 5], 2], result: [3, 4, 5]
     end
     describe 'λ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array rotated once to the left', stack: [[1, 2, 3]], result: [2, 3, 1]
     end
     describe 'μ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the Cartesian product of two arrays', stack: [[1, 2], [3, 4]], result: [[1, 3], [1, 4], [2, 3], [2, 4]]
     end
     describe 'ν' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'whether an object is in an array or string (without vectorization)', stack: [[[1, 2], [3, 4]], [1, 2]], result: 1
     end
     describe 'ξ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'pushes an object three times' do
+        expect(Ohm.new('ξ', stack: [1]).exec.stack).to eq([1, 1, 1])
+      end
     end
     describe 'π' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'pushes the prime number at a given index (1-based)', stack: [3], result: 5
     end
     describe 'ρ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array rotated once to the right', stack: [[1, 2, 3]], result: [3, 1, 2]
     end
     describe 'ς' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array sorted by the results of running the given block', stack: [[-1, 1, -2, 2]], circuit: 'ςy', result: [-1, -2, 1, 2]
     end
     describe 'σ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'an array split into groups of a given length', stack: [[1, 2, 3, 4, 5, 6], 2], result: [[1, 2], [3, 4], [5, 6]]
     end
     describe 'τ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', '10', result: 10
     end
     describe 'φ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the totient function of a number', stack: [9], result: 6
     end
     describe 'χ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the elements of an array that return the minimum and maximum value from the given block', stack: [%w(foo foobar foobarbaz)], circuit: 'χl', result: %w(foo foobarbaz)
     end
     describe 'ψ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'all permutations of an array', stack: [[1, 2, 3]], result: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
     end
     describe 'ω' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the power set of an array', stack: [[1, 2]], result: [[], [1], [2], [1, 2]]
     end
     describe 'Γ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', '-1', result: -1
     end
     describe 'Δ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the absolute consecutive differences of an array', stack: [[1, 5, 3]], result: [4, 2]
     end
     describe 'Θ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'executes the previous wire' do
+        expect(Ohm.new("1\nΘ", top_level: {wires: %w(1, Θ), index: 1}).exec.stack.last[0]).to eq('1')
+      end
     end
     describe 'Π' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the total product of an array', stack: [[1, 2, 3]], result: 6
     end
     describe 'Σ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      include_examples 'component', 'the total sum of an array', stack: [[2, 3, 5]], result: 10
     end
     describe 'Φ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 'executes the wire at an index' do
+        expect(Ohm.new("Φ\n1\n2", stack: [2]).exec.stack.last[0]).to eq('2')
+      end
     end
     describe 'Ψ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
+      it 're-executes the current wire' do
+        expect(Ohm.new('⁹X?⁺Ψ;1').exec.stack.last[0]).to eq('1')
+      end
     end
     describe 'Ω' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'À' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Á' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Â' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ã' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ä' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Å' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ā' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'È' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'É' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ê' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ë' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ì' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Í' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Î' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ï' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ò' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ó' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ô' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Õ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ö' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ø' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Œ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ù' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ú' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Û' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ü' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ç' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ð' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ñ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Ý' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'Þ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'à' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'á' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'â' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ã' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ä' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'å' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ā' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'æ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'è' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'é' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ê' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ë' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ì' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'í' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'î' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ï' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ò' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ó' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ô' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'õ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ö' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ø' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'œ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ù' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ú' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'û' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ü' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ç' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ð' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ñ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'ý' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe 'þ' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '¿' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '‽' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '⁇' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '⁈' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '‼' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '¡' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '‰' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '‱' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '¦' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '§' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '©' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '®' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '±' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '¬' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '¢' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '¤' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '«' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '»' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '‹' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '›' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '“' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '”' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '‘' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '’' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '‥' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '…' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '᠁' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '∩' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '∪' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '⊂' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
-    describe '⊃' do
-      include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    end
+      it 'executes the next wire' do
+        expect(Ohm.new("Ω\n1").exec.stack.last[0]).to eq('1')
+      end
+    end
+    # describe 'À' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Á' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Â' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ã' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ä' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Å' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ā' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'È' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'É' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ê' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ë' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ì' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Í' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Î' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ï' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ò' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ó' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ô' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Õ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ö' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ø' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Œ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ù' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ú' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Û' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ü' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ç' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ð' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ñ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Ý' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'Þ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'à' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'á' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'â' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ã' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ä' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'å' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ā' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'æ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'è' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'é' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ê' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ë' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ì' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'í' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'î' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ï' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ò' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ó' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ô' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'õ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ö' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ø' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'œ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ù' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ú' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'û' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ü' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ç' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ð' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ñ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'ý' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe 'þ' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '¿' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '‽' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '⁇' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '⁈' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '‼' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '¡' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '‰' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '‱' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '¦' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '§' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '©' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '®' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '±' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '¬' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '¢' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '¤' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '«' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '»' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '‹' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '›' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '“' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '”' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '‘' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '’' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '‥' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '…' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '᠁' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '∩' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '∪' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '⊂' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
+    # describe '⊃' do
+    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
+    # end
   end
 end
