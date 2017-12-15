@@ -1,5 +1,9 @@
 RSpec.describe Ohm do
   describe 'components' do
+    before(:each) do
+      srand 1337
+    end
+
     describe '°' do
       include_examples 'component', 'all given inputs', inputs: %w(foo bar baz quux), result: %w(foo bar baz quux)
     end
@@ -439,7 +443,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'an array rotated once to the right', stack: [[1, 2, 3]], result: [3, 1, 2]
     end
     describe 'ς' do
-      include_examples 'component', 'an array sorted by the results of running the given block', stack: [[-1, 1, -2, 2]], circuit: 'ςy', result: [-1, -2, 1, 2]
+      include_examples 'component', 'an array sorted by the results of running the given block', stack: [[1, -2]], circuit: 'ςy', result: [-2, 1]
     end
     describe 'σ' do
       include_examples 'component', 'an array split into groups of a given length', stack: [[1, 2, 3, 4, 5, 6], 2], result: [[1, 2], [3, 4], [5, 6]]
@@ -491,72 +495,74 @@ RSpec.describe Ohm do
         expect(Ohm.new("Ω\n1").exec.stack.last[0]).to eq('1')
       end
     end
-    # describe 'À' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Á' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Â' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ã' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ä' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Å' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ā' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'È' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'É' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ê' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ë' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ì' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Í' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Î' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ï' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ò' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ó' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ô' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Õ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ö' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ø' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Œ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
+    describe 'À' do
+      include_examples 'component', 'a string in all lowercase', stack: %w(foOBar), result: 'foobar'
+    end
+    describe 'Á' do
+      include_examples 'component', 'a string in all uppercase', stack: %w(foOBar), result: 'FOOBAR'
+    end
+    describe 'Â' do
+      include_examples 'component', 'a string in titlecase', stack: ['foOBar baz'], result: 'Foobar Baz'
+    end
+    describe 'Ã' do
+      include_examples 'component', 'a string with capitalization swapped', stack: %w(foOBar), result: 'FOobAR'
+    end
+    describe 'Ä' do
+      it 'pushes an object a certain amount of times' do
+        expect(Ohm.new('Ä', stack: [1, 5]).exec.stack).to eq([1, 1, 1, 1, 1])
+      end
+    end
+    describe 'Å' do
+      include_examples 'component', 'whether all the elements in an array return truthy from the block', stack: [[1, 3, 5]], circuit: 'Å2%', result: 1
+    end
+    describe 'Ā' do
+      include_examples 'component', 'a string with the first letter capitalized', stack: ['foOBar baz'], result: 'Foobar baz'
+    end
+    describe 'È' do
+      include_examples 'not implemented'
+    end
+    describe 'É' do
+      include_examples 'component', 'whether any of the elements in an array return truthy from the block', stack: [[1, 2, 4]], circuit: 'É2%', result: 1
+    end
+    describe 'Ê' do
+      include_examples 'not implemented'
+    end
+    describe 'Ë' do
+      include_examples 'not implemented'
+    end
+    describe 'Ì' do
+      include_examples 'not implemented'
+    end
+    describe 'Í' do
+      include_examples 'not implemented'
+    end
+    describe 'Î' do
+      include_examples 'not implemented'
+    end
+    describe 'Ï' do
+      include_examples 'not implemented'
+    end
+    describe 'Ò' do
+      include_examples 'not implemented'
+    end
+    describe 'Ó' do
+      include_examples 'not implemented'
+    end
+    describe 'Ô' do
+      include_examples 'not implemented'
+    end
+    describe 'Õ' do
+      include_examples 'not implemented'
+    end
+    describe 'Ö' do
+      include_examples 'component', 'the run-length encoding of a string', stack: %w(aaabcc), result: [['a', 3], ['b', 1], ['c', 2]]
+    end
+    describe 'Ø' do
+      include_examples 'component', 'an array grouped by consecutive equal elements', stack: [[1, 3, 5, 3, 2, 2]], result: [[1], [3], [5], [3], [2, 2]]
+    end
+    describe 'Œ' do
+      include_examples 'component', 'an array randomly shuffled', stack: [[1, 2, 3, 4, 5]], result: [4, 3, 2, 1, 5]
+    end
     # describe 'Ù' do
     #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
     # end
