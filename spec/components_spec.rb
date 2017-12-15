@@ -563,78 +563,78 @@ RSpec.describe Ohm do
     describe 'Œ' do
       include_examples 'component', 'an array randomly shuffled', stack: [[1, 2, 3, 4, 5]], result: [4, 3, 2, 1, 5]
     end
-    # describe 'Ù' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ú' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Û' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ü' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ç' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ð' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ñ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Ý' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'Þ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'à' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'á' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'â' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ã' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ä' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'å' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ā' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'æ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'è' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'é' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ê' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ë' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ì' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'í' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'î' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
+    describe 'Ù' do
+      include_examples 'component', 'a string with spaces appended', stack: ['foo', 2], result: 'foo  '
+    end
+    describe 'Ú' do
+      include_examples 'component', 'a string with spaces prepended', stack: ['foo', 2], result: '  foo'
+    end
+    describe 'Û' do
+      include_examples 'component', 'a string left-justified to a length with spaces', stack: ['foo', 6], result: 'foo   '
+    end
+    describe 'Ü' do
+      include_examples 'component', 'a string right-justified to a length with spaces', stack: ['foo', 6], result: '   foo'
+    end
+    describe 'Ç' do
+      include_examples 'component', 'every consecutive group of a certain length in an array', stack: [[1, 2, 3, 4], 2], result: [[1, 2], [2, 3], [3, 4]]
+    end
+    describe 'Ð' do
+      include_examples 'component', 'a space character', result: ' '
+    end
+    describe 'Ñ' do
+      include_examples 'component', 'a newline character', result: "\n"
+    end
+    describe 'Ý' do
+      include_examples 'component', 'an empty string', result: ''
+    end
+    describe 'Þ' do
+      include_examples 'component', 'an empty array', result: []
+    end
+    describe 'à' do
+      include_examples 'component', 'the bitwise AND of two integers', stack: [7, 13], result: 5
+    end
+    describe 'á' do
+      include_examples 'component', 'the bitwise OR of two integers', stack: [7, 13], result: 15
+    end
+    describe 'â' do
+      include_examples 'component', 'the bitwise XOR of two integers', stack: [7, 13], result: 10
+    end
+    describe 'ã' do
+      include_examples 'component', 'the bitwise NOT of an integer', stack: [7], result: -8
+    end
+    describe 'ä' do
+      include_examples 'component', 'the prime factorization of an integer as an array of bases and exponents', stack: [63], result: [[3, 2], [7, 1]]
+    end
+    describe 'å' do
+      include_examples 'not implemented'
+    end
+    describe 'ā' do
+      include_examples 'not implemented'
+    end
+    describe 'æ' do
+      include_examples 'component', 'a string palindromized', stack: %w(bar), result: 'barab'
+    end
+    describe 'è' do
+      include_examples 'component', 'whether a number is odd', stack: [7], result: 1
+    end
+    describe 'é' do
+      include_examples 'component', 'whether a number is even', stack: [6], result: 1
+    end
+    describe 'ê' do
+      include_examples 'component', 'the Fibonacci numbers up to an index (1-based)', stack: [7], result: [1, 1, 2, 3, 5, 8, 13]
+    end
+    describe 'ë' do
+      include_examples 'component', 'the prime numbers up to an index (1-based)', stack: [7], result: [2, 3, 5, 7, 11, 13, 17]
+    end
+    describe 'ì' do
+      include_examples 'component', 'an object cast to an integer', stack: %w(7.8), result: 7
+    end
+    describe 'í' do
+      include_examples 'component', 'an object cast to a float', stack: %w(1.5), result: 1.5
+    end
+    describe 'î' do
+      include_examples 'component', 'whether a number is an integer', stack: %w(7.0), result: 1
+    end
     # describe 'ï' do
     #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
     # end
