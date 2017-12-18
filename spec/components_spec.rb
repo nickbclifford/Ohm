@@ -179,7 +179,9 @@ RSpec.describe Ohm do
       include_examples 'component', 'whether one number is greater than another', stack: [4, 5], result: 0
     end
     describe '?' do
-      include_examples 'component', 'conditionally executes the given block', stack: [0, 1], circuit: '?1', result: '1'
+      it 'conditionally executes the given block' do
+        expect(Ohm.new('?1', stack: [0, 1]).exec.stack.last[0]).to eq('1')
+      end
     end
     describe '@' do
       include_examples 'component', 'the range from 1 to a number', stack: [6], result: [1, 2, 3, 4, 5, 6]
@@ -437,7 +439,7 @@ RSpec.describe Ohm do
       end
     end
     describe 'π' do
-      include_examples 'component', 'pushes the prime number at a given index (1-based)', stack: [3], result: 5
+      include_examples 'component', 'the prime number at a given index (1-based)', stack: [3], result: 5
     end
     describe 'ρ' do
       include_examples 'component', 'an array rotated once to the right', stack: [[1, 2, 3]], result: [3, 1, 2]
@@ -635,105 +637,114 @@ RSpec.describe Ohm do
     describe 'î' do
       include_examples 'component', 'whether a number is an integer', stack: %w(7.0), result: 1
     end
-    # describe 'ï' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ò' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ó' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ô' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'õ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ö' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ø' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'œ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ù' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ú' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'û' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ü' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ç' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ð' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ñ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'ý' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe 'þ' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '¿' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '‽' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '⁇' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '⁈' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '‼' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '¡' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '‰' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '‱' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '¦' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '§' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '©' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '®' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '±' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '¬' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '¢' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '¤' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
+    describe 'ï' do
+      include_examples 'component', 'a string split on a delimiter', stack: %w(foo,bar,baz ,), result: %w(foo bar baz)
+    end
+    describe 'ò' do
+      include_examples 'component', 'an array zipped', stack: [[[1, 2], [3, 4]]], result: [[1, 3], [2, 4]]
+    end
+    describe 'ó' do
+      include_examples 'component', 'a number converted from binary', stack: %w(1010), result: 10
+    end
+    describe 'ô' do
+      include_examples 'component', 'a number converted from hexadecimal', stack: %w(FF), result: 255
+    end
+    describe 'õ' do
+      include_examples 'not implemented'
+    end
+    describe 'ö' do
+      include_examples 'component', 'the run-length decoding of an array', stack: [[['a', 3], ['b', 1], ['c', 2]]], result: 'aaabcc'
+    end
+    describe 'ø' do
+      include_examples 'component', 'an array filled with an object a certain number of times', stack: [2, 4], result: [2, 2, 2, 2]
+    end
+    describe 'œ' do
+      include_examples 'component', 'an object paired with its reverse', stack: %w(foobar), result: %w(foobar raboof)
+    end
+    describe 'ù' do
+      include_examples 'component', 'an array joined on spaces', stack: %w(foo bar baz), result: 'foo bar baz'
+    end
+    describe 'ú' do
+      include_examples 'component', 'an array joined on newlines', stack: %w(foo bar baz), result: "foo\nbar\nbaz"
+    end
+    describe 'û' do
+      include_examples 'component', 'the range between two numbers with a certain step', stack: [1, 7, 2], result: [1, 3, 5, 7]
+    end
+    describe 'ü' do
+      include_examples 'not implemented'
+    end
+    describe 'ç' do
+      include_examples 'component', 'all possible combinations of a certain number of elements in an array', stack: [[1, 2, 3], 2], result: [[1, 2], [1, 3], [2, 3]]
+    end
+    describe 'ð' do
+      include_examples 'component', 'whether a string is a palindrome', stack: %w(barab), result: 1
+    end
+    describe 'ñ' do
+      include_examples 'component', 'whether a number is in the Fibonacci sequence', stack: [13], result: 1
+    end
+    describe 'ý' do
+      include_examples 'component', 'the Fibonacci number at a given index (1-based)', stack: [7], result: 13
+    end
+    describe 'þ' do
+      it 'sleeps execution for a given number of seconds' do
+        expect(ohm = Ohm.new('þ', stack: [2])).to receive(:sleep).with(2)
+        ohm.exec
+      end
+    end
+    describe '¿' do
+      it 'executes the given block if the condition given to `?` is false' do
+        expect(Ohm.new('?1¿0', stack: [1, 0]).exec.stack.last[0]).to eq('0')
+      end
+    end
+    describe '‽' do
+      it 'conditionally breaks out of the current block' do
+        expect(Ohm.new('2M⁹‽⁺;⁹').exec.stack.last[0]).to eq(1)
+      end
+    end
+    describe '⁇' do
+      include_examples 'component', 'an array filtered with the given block', stack: [[1, 2, 3, 4, 5]], circuit: '⁇è', result: [1, 3, 5]
+    end
+    describe '⁈' do
+      include_examples 'component', 'an array partitioned by the given block', stack: [[1, 2, 3, 4, 5]], circuit: '⁈è', result: [[1, 3, 5], [2, 4]]
+    end
+    describe '‼' do
+      include_examples 'component', 'an array filtered with false results from given block', stack: [[1, 2, 3, 4, 5]], circuit: '‼è', result: [2, 4]
+    end
+    describe '¡' do
+      include_examples 'component', 'an array reduced over the given component', stack: [[1, 2, 3, 4, 5]], circuit: '¡-', result: -13
+    end
+    describe '‰' do
+      include_examples 'component', '2 to the power of a number', stack: [4], result: 16
+    end
+    describe '‱' do
+      include_examples 'component', '10 to the power of a number', stack: [4], result: 10000
+    end
+    describe '¦' do
+      include_examples 'component', 'a number rounded to the nearest integers', stack: [2.7], result: 3
+    end
+    describe '§' do
+      include_examples 'component', 'a random element from an array', stack: [[1, 2, 3, 4, 5]], result: 5
+    end
+    describe '©' do
+      include_examples 'component', 'a string duplicated', stack: %w(foobar), result: 'foobarfoobar'
+    end
+    describe '®' do
+      include_examples 'component', 'the element of an array at the given index', stack: [[1, 2, 3, 4], 2], result: 3
+    end
+    describe '±' do
+      include_examples 'component', 'the nth root of a number', stack: [8, 3], result: 2
+    end
+    describe '¬' do
+      include_examples 'component', 'the square root of a number', stack: [4], result: 2
+    end
+    describe '¢' do
+      it 'sets the value of the register to an object' do
+        expect(Ohm.new('¢', stack: [10]).exec.vars[:register]).to eq(10)
+      end
+    end
+    describe '¤' do
+      include_examples 'component', 'the intermediate results of an array reduced over the given component', stack: [[1, 2, 3, 4, 5]], circuit: '¤-', result: [1, -1, -4, -8, -13]
+    end
     # describe '«' do
     #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
     # end
