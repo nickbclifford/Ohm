@@ -745,50 +745,50 @@ RSpec.describe Ohm do
     describe '¤' do
       include_examples 'component', 'the intermediate results of an array reduced over the given component', stack: [[1, 2, 3, 4, 5]], circuit: '¤-', result: [1, -1, -4, -8, -13]
     end
-    # describe '«' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '»' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '‹' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '›' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '“' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '”' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '‘' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '’' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '‥' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '…' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '᠁' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '∩' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '∪' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '⊂' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
-    # describe '⊃' do
-    #   include_examples 'component', 'TODO', stack: [], result: 'TODO'
-    # end
+    describe '«' do
+      include_examples 'component', 'two objects paired', stack: [1, 2], result: [1, 2]
+    end
+    describe '»' do
+      include_examples 'component', 'the result of applying the given component to an array', stack: [[1, 2, 3]], circuit: '»è', result: [1, 0, 1]
+    end
+    describe '‹' do
+      include_examples 'component', 'a number decremented by 1', stack: [7], result: 6
+    end
+    describe '›' do
+      include_examples 'component', 'a number incremented by 1', stack: [6], result: 7
+    end
+    describe '“' do
+      include_examples 'component', 'a base-255 number literal', circuit: '“ζ+ó“', result: 8675309
+    end
+    describe '”' do
+      include_examples 'component', 'a compressed string literal', circuit: '”‼ΣΦ⁼3‹”', result: 'unit testing'
+    end
+    describe '‘' do
+      include_examples 'component', 'the element of an array that returns the minimum value from the given block', stack: [%w(foo foobar foobarbaz)], circuit: '‘l', result: 'foo'
+    end
+    describe '’' do
+      include_examples 'component', 'the element of an array that returns the maximum value from the given block', stack: [%w(foo foobar foobarbaz)], circuit: '’l', result: 'foobarbaz'
+    end
+    describe '‥' do
+      include_examples 'component', 'a two-character literal', circuit: '‥ab', result: 'ab'
+    end
+    describe '…' do
+      include_examples 'component', 'a three-character literal', circuit: '…abc', result: 'abc'
+    end
+    describe '᠁' do
+      include_examples 'component', 'a code page indexes literal', circuit: '᠁?¿᠁', result: [63, 224]
+    end
+    describe '∩' do
+      include_examples 'component', 'the set intersection of two arrays', stack: [[1, 2, 3], [2, 3, 4]], result: [2, 3]
+    end
+    describe '∪' do
+      include_examples 'component', 'the set union of two arrays', stack: [[1, 2, 3], [2, 3, 4]], result: [1, 2, 3, 4]
+    end
+    describe '⊂' do
+      include_examples 'not implemented'
+    end
+    describe '⊃' do
+      include_examples 'component', 'the set difference of two arrays', stack: [[1, 2, 3], [2, 3, 4]], result: [1]
+    end
   end
 end
