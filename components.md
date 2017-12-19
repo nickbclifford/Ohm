@@ -240,10 +240,10 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`›`|Pop `a`|Pushes `a + 1` (increment).|
 |`“`|N/A|Creates a base-255 number literal.|
 |`”`|N/A|Creates a compressed string literal.|
-|`‘`|Pop `a`, block|Pushes the element in `a` that returns the maximum value from the given block.|
-|`’`|Pop `a`, block|Same as `‘`, except with the minimum value instead of maximum.|
+|`‘`|Pop `a`, block|Pushes the element in `a` that returns the minimum value from the given block.|
+|`’`|Pop `a`, block|Same as `‘`, except with the maximum value instead of minimum.|
 |`‥`|N/A|Creates a two-character literal (e.g. `‥ab` => `'ab'`).|
-|`…`|N/A|Creates a two-character literal (e.g. `…abc` => `'abc'`).|
+|`…`|N/A|Creates a three-character literal (e.g. `…abc` => `'abc'`).|
 |`᠁`|N/A|Creates a code page indexes literal (e.g. `᠁?¿᠁` => `[63, 224]`)|
 |`∩`|Pop `a`, `b`|Pushes the set intersection of `a` and `b`.|
 |`∪`|Pop `a`, `b`|Pushes the set union of `a` and `b`.|
