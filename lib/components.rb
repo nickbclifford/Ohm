@@ -1080,7 +1080,8 @@ class Ohm
       call: ->{}
     },
     '⊃' => {
-      call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a - b}}
+      call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a - b}},
+      depth: [1, 1]
     }
   }
 end
