@@ -67,7 +67,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'the time specified by a timestamp formatted with a `strftime` string', stack: [timestamp, '%Y-%m-%d'], result: '2017-03-19'
     end
     describe 'υ§' do
-      include_examples 'component', 'the timestamp of the time given by parsing a string with a `strptime` format string', stack: %w(2017-03-19 %Y-%m-%d), result: 1489899600
+      include_examples 'component', 'the timestamp of the time given by parsing a string with a `strptime` format string', stack: %w(2017-03-19-UTC %Y-%m-%d-%Z), result: 1489881600
     end
   end
 end
