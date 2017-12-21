@@ -39,6 +39,9 @@ RSpec.describe Ohm do
     describe 'ÆM' do
       include_examples 'component', 'the base 10 logarithm of a number', stack: [100], result: 2
     end
+    describe 'ÆR' do
+      include_examples 'component', 'the roots of an array of polynomial coefficients', stack: [[1, 0, -1]], result: [[1, 0], [-1, 0]]
+    end
     describe 'ÆN' do
       include_examples 'component', 'the base 2 logarithm of a number', stack: [32], result: 5
     end
@@ -66,6 +69,9 @@ RSpec.describe Ohm do
     describe 'Æp' do
       include_examples 'component', 'whether two numbers are coprime', stack: [12, 19], result: 1
     end
+    describe 'Ær' do
+      include_examples 'component', 'the coefficients of an array of polynomial roots', stack: [[[1, 0], [-1, 0]]], result: [[1, 0], [0, 0], [-1, 0]]
+    end
     describe 'Æs' do
       include_examples 'component', 'the arcsine of a number', stack: [1], result: Math::PI / 2
     end
@@ -74,6 +80,9 @@ RSpec.describe Ohm do
     end
     describe 'Æu' do
       include_examples 'component', 'the arctangent of two numbers\' quotient (atan2)', stack: [1, 1], result: Math::PI / 4
+    end
+    describe 'Æρ' do
+      include_examples 'component', 'the polynomial multiplication of two arrays', stack: [[1, -2, 3], [-2, 1, 0]], result: [-2, 5, -8, 3, 0]
     end
     describe 'Æ¬' do
       include_examples 'component', 'the complex square root of a number', stack: [-4], result: [0, 2]

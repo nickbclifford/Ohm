@@ -730,7 +730,7 @@ class Ohm
         call: ->(a, b){a.to_i.gcd(b.to_i) == 1}
       },
       'r' => {
-        call: ->(a){a.reduce([1]) {|m, r| polynomial_mul(m, [Complex(1, 0), -Complex(*r.map(&:to_f))])}.map(&:rect)},
+        call: ->(a){a.reduce([1]) {|m, r| polynomial_mul(m, [1, -Complex(*r.map(&:to_f))])}.map(&:rect)},
         depth: [2]
       },
       's' => {

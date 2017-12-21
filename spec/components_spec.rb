@@ -1,9 +1,5 @@
 RSpec.describe Ohm do
   describe 'components' do
-    before(:each) do
-      srand 1337
-    end
-
     describe '°' do
       include_examples 'component', 'all given inputs', inputs: %w(foo bar baz quux), result: %w(foo bar baz quux)
     end

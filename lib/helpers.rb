@@ -322,9 +322,9 @@ class Ohm
 
     def subarray_index(haystack, needle)
       haystack.each_index do |i|
-        return 1 + i if haystack[i...i + needle.length] == needle
+        return i if haystack[i...i + needle.length] == needle
       end
-      0
+      -1
     end
 
     def sub_ohm(circuit, **in_opts)

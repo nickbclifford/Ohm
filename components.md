@@ -262,7 +262,7 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`αA`|Pushes the normal uppercase alphabet (`ABCDEFGHIJKLMNOPQRSTUVWXYZ`).|
 |`αC`|Pushes all the consonants (`BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz`).|
 |`aQ`|Pushes the uppercase alphabet ordered as it is on a keyboard (`['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']`).|
-|`αW`|Pushes all the tokens that match the `\w` regex metachar (`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_`).|
+|`αW`|Pushes all the tokens that match the `\w` regex metachar (`ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_`).|
 |`αY`|Pushes all the consonants **without `y`** (`BCDFGHJKLMNPQRSTVWXZbcdfghjklmnpqrstvwxz`).|
 |`αa`|Pushes the normal lowercase alphabet (`abcdefghijklmnopqrstuvwxyz`).|
 |`αc`|Pushes all the vowels (`AEIOUaeiou`).|
@@ -280,14 +280,13 @@ Because of input restrictions, complex numbers are represented as an array in th
 |---------|------|-----------|
 |`υ!`|N/A|Pushes the current timestamp.|
 |`υ%`|Pop `a`|Pushes the current time formatted using `a` as a `strftime` format string.|
-|`υ‰`|Pop `a`, `b`|Pushes the time specified by timestamp `a` formatted using `b` as a `strftime` format string.|
 |`υD`|N/A|Pushes the current day.|
 |`υH`|N/A|Pushes the current hour.|
 |`υI`|N/A|Pushes the current minute.|
 |`υM`|N/A|Pushes the current month.|
 |`υN`|N/A|Pushes the current nanosecond (yes, really).|
 |`υS`|N/A|Pushes the current second.|
-|`υW`|N/A|Pushes the current weekday (1-7).|
+|`υW`|N/A|Pushes the current weekday (0-6).|
 |`υY`|N/A|Pushes the current year.|
 |`υd`|Pop `a`|Pushes the day specified by timestamp `a` (UTC).|
 |`υh`|Pop `a`|Pushes the hour specified by timestamp `a` (UTC).|
@@ -295,8 +294,9 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`υm`|Pop `a`|Pushes the month specified by timestamp `a` (UTC).|
 |`υn`|Pop `a`|Pushes the nanosecond specified by timestamp `a` (UTC).|
 |`υs`|Pop `a`|Pushes the second specified by timestamp `a` (UTC).|
-|`υw`|Pop `a`|Pushes the weekday (1-7) specified by timestamp `a` (UTC).|
+|`υw`|Pop `a`|Pushes the weekday (0-6) specified by timestamp `a` (UTC).|
 |`υy`|Pop `a`|Pushes the year specified by timestamp `a` (UTC).|
+|`υ‰`|Pop `a`, `b`|Pushes the time specified by timestamp `a` formatted using `b` as a `strftime` format string.|
 |`υ§`|Pop `a`, `b`|Pushes the timestamp of the time given by parsing `a`, using `b` as a `strptime` format string.|
 
 ### Arithmetic (`Æ`)
@@ -340,7 +340,7 @@ Because of input restrictions, complex numbers are represented as an array in th
 
 |Component|Action|Description|
 |---------|------|-----------|
-|`·/`|Pop `a`, `b`|Pushes an array of all the matches/captures of `a` tested against regex `b`.|
+|`·/`|Pop `a`, `b`|Pushes an array of the matched string + captures of `a` tested against regex `b`.|
 |`·\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
 |`·G`|Pop `a`|Performs a GET request to `a` and pushes the response body.|
 |`·c`|Pop `a`|Pushes `a` compressed using Ohm's custom string compression.|
@@ -349,6 +349,7 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`·p`|Pop `a`|Pushes all prefixes of `a`.|
 |`·r`|N/A|Pushes a random float between 0 and 1.|
 |`·s`|Pop `a`|Pushes all suffixes of `a`.|
+|`·w`|Pop `a`, `b`|Pushes the index where the subarray `b` occurs in `a`.|
 |`·~`|Pop `a`, `b`|If `a` matches regex `b`, pushes the index of the first match, else pushes `-1`.|
 |`·ψ`|Pop `a`, `b`|Pushes whether `a` and `b` are permutations of each other.|
 |`·Θ`|Pop `a`, block|Continuously evaluates the given block until the result returned has already been seen, using `a` as the initial value. Pushes the final result.|
