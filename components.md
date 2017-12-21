@@ -289,14 +289,14 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`υS`|N/A|Pushes the current second.|
 |`υW`|N/A|Pushes the current weekday (1-7).|
 |`υY`|N/A|Pushes the current year.|
-|`υd`|Pop `a`|Pushes the day specified by timestamp `a`.|
-|`υh`|Pop `a`|Pushes the hour specified by timestamp `a`.|
-|`υi`|Pop `a`|Pushes the minute specified by timestamp `a`.|
-|`υm`|Pop `a`|Pushes the month specified by timestamp `a`.|
-|`υn`|Pop `a`|Pushes the nanosecond specified by timestamp `a`.|
-|`υs`|Pop `a`|Pushes the second specified by timestamp `a`.|
-|`υw`|Pop `a`|Pushes the weekday (1-7) specified by timestamp `a`.|
-|`υy`|Pop `a`|Pushes the year specified by timestamp `a`.|
+|`υd`|Pop `a`|Pushes the day specified by timestamp `a` (UTC).|
+|`υh`|Pop `a`|Pushes the hour specified by timestamp `a` (UTC).|
+|`υi`|Pop `a`|Pushes the minute specified by timestamp `a` (UTC).|
+|`υm`|Pop `a`|Pushes the month specified by timestamp `a` (UTC).|
+|`υn`|Pop `a`|Pushes the nanosecond specified by timestamp `a` (UTC).|
+|`υs`|Pop `a`|Pushes the second specified by timestamp `a` (UTC).|
+|`υw`|Pop `a`|Pushes the weekday (1-7) specified by timestamp `a` (UTC).|
+|`υy`|Pop `a`|Pushes the year specified by timestamp `a` (UTC).|
 |`υ§`|Pop `a`, `b`|Pushes the timestamp of the time given by parsing `a`, using `b` as a `strptime` format string.|
 
 ### Arithmetic (`Æ`)
