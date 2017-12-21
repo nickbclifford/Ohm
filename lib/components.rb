@@ -567,31 +567,31 @@ class Ohm
         call: ->{Time.now.year}
       },
       'd' => {
-        call: ->(a){Time.at(a.to_f).day}
+        call: ->(a){Time.at(a.to_f).utc.day}
       },
       'h' => {
-        call: ->(a){Time.at(a.to_f).hour}
+        call: ->(a){Time.at(a.to_f).utc.hour}
       },
       'i' => {
-        call: ->(a){Time.at(a.to_f).min}
+        call: ->(a){Time.at(a.to_f).utc.min}
       },
       'm' => {
-        call: ->(a){Time.at(a.to_f).month}
+        call: ->(a){Time.at(a.to_f).utc.month}
       },
       'n' => {
-        call: ->(a){Time.at(a.to_f).nsec}
+        call: ->(a){Time.at(a.to_f).utc.nsec}
       },
       's' => {
-        call: ->(a){Time.at(a.to_f).sec}
+        call: ->(a){Time.at(a.to_f).utc.sec}
       },
       'w' => {
-        call: ->(a){Time.at(a.to_f).wday}
+        call: ->(a){Time.at(a.to_f).utc.wday}
       },
       'y' => {
-        call: ->(a){Time.at(a.to_f).year}
+        call: ->(a){Time.at(a.to_f).utc.year}
       },
       '‰' => {
-        call: ->(a, b){Time.at(a.to_f).strftime(untyped_to_s(b))}
+        call: ->(a, b){Time.at(a.to_f).utc.strftime(untyped_to_s(b))}
       },
       '§' => {
         call: ->(a, b){Time.strptime(untyped_to_s(a), untyped_to_s(b)).to_i}
@@ -730,7 +730,7 @@ class Ohm
         call: ->(a, b){a.to_i.gcd(b.to_i) == 1}
       },
       'r' => {
-        call: ->(a){a.reduce([1]) {|m, r| polynomial_mul(m, [Complex(1, 0), -Complex(*r.map(&:to_f))])}.map(&:rect)},
+        call: ->(a){a.reduce([1]) {|m, r| polynomial_mul(m, [1, -Complex(*r.map(&:to_f))])}.map(&:rect)},
         depth: [2]
       },
       's' => {
@@ -1080,7 +1080,8 @@ class Ohm
       call: ->{}
     },
     '⊃' => {
-      call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a - b}}
+      call: ->(a, b){arr_else_chars_join(a, b) {|a, b| a - b}},
+      depth: [1, 1]
     }
   }
 end

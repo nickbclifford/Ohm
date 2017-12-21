@@ -46,14 +46,39 @@ RSpec.configure do |config|
   # inherited by the metadata hash of host groups and examples, rather than
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  # added by Nick
+
+  require 'timecop'
+
+  config.before(:each) do
+    srand 1337
+
+    # For whatever reason it doesn't want to work in the block form outside the specs
+    # So we have to do it here
+    # Dec 20, 2017, 9:27:10 PM UTC-0600
+    Timecop.freeze(Time.new(2017, 12, 20, 21, 27, 10, '-06:00'))
+  end
+
+  config.after(:each) do
+    Timecop.return
+  end
 end
 
 # added by Nick
 
 require_relative '../ohm'
 
-RSpec.shared_examples 'component' do |desc, circuit, result, **opts|
+RSpec.shared_examples 'component' do |desc, circuit: nil, result:, **ohm_opts|
   it "pushes #{desc}" do
-    expect(Ohm.new(circuit, opts).exec.stack.last[0]).to eq(result)
+    # `self.class.description` cannot be the default value of `circuit:` because it depends on the `self` context
+    expect(Ohm.new(circuit || self.class.description, ohm_opts).exec.stack.last[0]).to eq(result)
+  end
+end
+
+RSpec.shared_examples 'not implemented' do
+  it '(not currently implemented)' do
+    # Arity is 0, returns nil
+    expect(Ohm::COMPONENTS[self.class.description][:call].call).to be_nil
   end
 end
