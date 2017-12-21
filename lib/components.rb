@@ -567,31 +567,31 @@ class Ohm
         call: ->{Time.now.year}
       },
       'd' => {
-        call: ->(a){Time.at(a.to_f).day}
+        call: ->(a){Time.at(a.to_f).utc.day}
       },
       'h' => {
-        call: ->(a){Time.at(a.to_f).hour}
+        call: ->(a){Time.at(a.to_f).utc.hour}
       },
       'i' => {
-        call: ->(a){Time.at(a.to_f).min}
+        call: ->(a){Time.at(a.to_f).utc.min}
       },
       'm' => {
-        call: ->(a){Time.at(a.to_f).month}
+        call: ->(a){Time.at(a.to_f).utc.month}
       },
       'n' => {
-        call: ->(a){Time.at(a.to_f).nsec}
+        call: ->(a){Time.at(a.to_f).utc.nsec}
       },
       's' => {
-        call: ->(a){Time.at(a.to_f).sec}
+        call: ->(a){Time.at(a.to_f).utc.sec}
       },
       'w' => {
-        call: ->(a){Time.at(a.to_f).wday}
+        call: ->(a){Time.at(a.to_f).utc.wday}
       },
       'y' => {
-        call: ->(a){Time.at(a.to_f).year}
+        call: ->(a){Time.at(a.to_f).utc.year}
       },
       '‰' => {
-        call: ->(a, b){Time.at(a.to_f).strftime(untyped_to_s(b))}
+        call: ->(a, b){Time.at(a.to_f).utc.strftime(untyped_to_s(b))}
       },
       '§' => {
         call: ->(a, b){Time.strptime(untyped_to_s(a), untyped_to_s(b)).to_i}
