@@ -320,6 +320,18 @@ class Ohm
       arr.each_with_object([]) {|(b, e), m| e.to_i.times {m << b}}
     end
 
+    # For some reason, Ruby decided to have capturing groups be included in the array, so we have to deal with that
+    def split_wires(circuit)
+      main, *wires = circuit.split(/[\n¶](?=(?:[^#{QUOTES.join}]*([#{QUOTES.join}])[^#{QUOTES.join}]*\1)*[^#{QUOTES.join}]*\Z)/m)
+      [main, *wires.each_slice(2).map do |(head, tail)|
+        if head == '"'
+          tail
+        else
+          [head, tail]
+        end
+      end.flatten]
+    end
+
     def subarray_index(haystack, needle)
       haystack.each_index do |i|
         return i if haystack[i...i + needle.length] == needle

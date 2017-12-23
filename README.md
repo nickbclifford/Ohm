@@ -41,6 +41,7 @@ Most array-looping components like `€`, `⁇`, and `‼` will automatically pu
 ### Implicit Everything
 Since Ohm is a golfing language, many things are done implicitly in order to save bytes for the golfer.
 - If there is nothing else in the circuit, concluding components like `;` in conditional/loop blocks and `"` in string literals are inferred and do not have to be explicitly input.
+  - One exception to this is that multi-line strings **must** be terminated. (i.e. `"foo¶bar` will not work, must use `"foo¶bar"`)
 - If there are not enough items on the stack when a component tries to pop from it, Ohm will push user input to the stack until there are enough.
 - If a circuit has not printed anything once execution completes, the top element of the stack will automatically be printed.
 
@@ -48,7 +49,7 @@ Since Ohm is a golfing language, many things are done implicitly in order to sav
 Most components will automatically *vectorize*, meaning that if you pass in an array(s), it will automatically perform its function over those arguments. For example, passing `[1, 2, 3]` to the `²` component will return `[1, 4, 9]`. This is more efficient than mapping or using the `«` component.
 
 ### Wires
-Wires are a way to splinter your code into different functions (similar to links in Jelly). New wires are placed on a separate line, and the top-most wire is always executed as the main wire.
+Wires are a way to splinter your code into different functions (similar to links in Jelly). New wires are placed on a separate line (or separated with a pilcrow `¶`), and the top-most wire is always executed as the main wire.
 
 The `Ω` component will execute the wire below the current one, whereas `Θ` will execute the one above it, and `Φ` will pop an element from the stack and execute the wire at that index.
 

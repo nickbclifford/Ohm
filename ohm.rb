@@ -44,7 +44,7 @@ class Ohm
     # Disables components that perform network requests, etc.
     @safe = safe
 
-    @top_level = top_level || {wires: circuit.split(/[\n¶](?![^#{QUOTES.join}]*[#{QUOTES.join}])/), index: 0}
+    @top_level = top_level || {wires: split_wires(circuit), index: 0}
     raise IndexError, "invalid wire index #{@top_level[:index]}" if @top_level[:wires][@top_level[:index]].nil?
 
     # Accepts either an Ohm::Stack object or an array.
