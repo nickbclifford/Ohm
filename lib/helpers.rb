@@ -1,3 +1,4 @@
+require 'bigdecimal/util'
 require 'set'
 
 require_relative 'constants'
@@ -369,6 +370,14 @@ class Ohm
         end
 
         num_converted.reverse.sub(/^0+/, '') # Remove leading zeroes
+      end
+    end
+
+    def to_decimal(val)
+      begin
+        val.to_d
+      rescue ArgumentError
+        BigDecimal(0)
       end
     end
 
