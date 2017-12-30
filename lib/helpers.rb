@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require 'bigdecimal/util'
 require 'set'
 
@@ -388,7 +389,12 @@ class Ohm
     end
 
     def untyped_to_s(n)
-      n.is_a?(Float) ? format("%.#{n.to_s.length}g", n) : n.to_s
+      if n.is_a?(Numeric)
+        x = to_decimal(n).to_s('F')
+        format("%.#{x.length}g", x)
+      else
+        n.to_s
+      end
     end
 
     def zip_arr(mat)
