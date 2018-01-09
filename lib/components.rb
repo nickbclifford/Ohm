@@ -1,11 +1,12 @@
+require_relative 'helpers'
+
+require 'bigdecimal/math'
 require 'cmath'
 require 'gsl'
 require 'net/http'
 require 'prime'
 require 'time'
 require 'uri'
-
-require_relative 'helpers'
 
 class Ohm
   include Helpers
@@ -18,7 +19,7 @@ class Ohm
       call: ->{}
     },
     '²' => {
-      call: ->(a){a.to_f ** 2}
+      call: ->(a){to_decimal(a) ** 2}
     },
     '³' => {
       call: ->{input_access(0)}
@@ -60,10 +61,10 @@ class Ohm
       no_vec: true
     },
     'ⁿ' => {
-      call: ->(a, b){a.to_f ** b.to_f}
+      call: ->(a, b){to_decimal(a) ** to_decimal(b)}
     },
     '½' => {
-      call: ->(a){a.to_f / 2}
+      call: ->(a){to_decimal(a) / 2}
     },
     '⅓' => {
       call: ->{}
@@ -100,20 +101,20 @@ class Ohm
       arr_str: true
     },
     'ı' => {
-      call: ->(a){a.to_f.ceil}
+      call: ->(a){to_decimal(a).ceil}
     },
     'ȷ' => {
-      call: ->(a){a.to_f.floor}
+      call: ->(a){to_decimal(a).floor}
     },
     '×' => {
       call: ->(a, b){untyped_to_s(a) * b.to_i}
     }, # Repeat string
     '÷' => {
-      call: ->(a){1 / a.to_f}
+      call: ->(a){1 / to_decimal(a)}
     },
     # pound sign reserved: infinite loop
     '¥' => {
-      call: ->(a, b){a.to_f % b.to_f == 0}
+      call: ->(a, b){to_decimal(a) % to_decimal(b) == 0}
     },
     # euro sign reserved: map
     '!' => {
@@ -127,7 +128,7 @@ class Ohm
       call: ->{@vars[:register]}
     },
     '%' => {
-      call: ->(a, b){a.to_f % b.to_f}
+      call: ->(a, b){to_decimal(a) % to_decimal(b)}
     },
     '&' => {
       call: ->(a, b){truthy?(a) && truthy?(b)}
@@ -147,10 +148,10 @@ class Ohm
       arr_str: true
     },
     '*' => {
-      call: ->(a, b){a.to_f * b.to_f}
+      call: ->(a, b){to_decimal(a) * to_decimal(b)}
     },
     '+' => {
-      call: ->(a, b){a.to_f + b.to_f}
+      call: ->(a, b){to_decimal(a) + to_decimal(b)}
     },
     ',' => {
       call: ->(a){@printed = true; puts untyped_to_s(a)}
@@ -165,21 +166,21 @@ class Ohm
     # 0-9 reserved: numeric literal
     # : reserved: foreach loop
     '<' => {
-      call: ->(a, b){a.to_f < b.to_f}
+      call: ->(a, b){to_decimal(a) < to_decimal(b)}
     },
     '=' => {
       call: ->(a){@printed = true; puts untyped_to_s(a)},
       get: true
     },
     '>' => {
-      call: ->(a, b){a.to_f > b.to_f}
+      call: ->(a, b){to_decimal(a) > to_decimal(b)}
     },
     # ? reserved: if statement
     '@' => {
       call: ->(a){1.method((a = a.to_i) > 1 ? :upto : :downto)[a].to_a}
     },
     'A' => {
-      call: ->(a){a.to_f.abs}
+      call: ->(a){to_decimal(a).abs}
     },
     'B' => {
       call: ->(a, b){to_base(a.to_i, b.to_i)}
@@ -283,7 +284,7 @@ class Ohm
       call: ->(a){x = untyped_to_s(a).unpack('U*'); x.length == 1 ? x[0] : x}
     },
     'a' => {
-      call: ->(a, b){(a.to_f - b.to_f).abs},
+      call: ->(a, b){(to_decimal(a) - to_decimal(b)).abs},
     },
     'b' => {
       call: ->(a){to_base(a.to_i, 2)}
@@ -292,7 +293,7 @@ class Ohm
       call: ->(a, b){nCr(a.to_i, b.to_i)}
     },
     'd' => {
-      call: ->(a){a.to_f * 2}
+      call: ->(a){to_decimal(a) * 2}
     },
     'e' => {
       call: ->(a, b){nPr(a.to_i, b.to_i)}
@@ -355,7 +356,7 @@ class Ohm
       call: ->(a){untyped_to_s(a)}
     },
     'v' => {
-      call: ->(a, b){a.to_f.div(b.to_f)},
+      call: ->(a, b){to_decimal(a).div(to_decimal(b))},
     },
     'w' => {
       call: ->(a){[a]},
@@ -365,7 +366,7 @@ class Ohm
       call: ->(a){to_base(a.to_i, 16)},
     },
     'y' => {
-      call: ->(a){a.to_f <=> 0},
+      call: ->(a){to_decimal(a) <=> 0},
     },
     'z' => {
       call: ->(a){untyped_to_s(a).strip},
@@ -384,7 +385,7 @@ class Ohm
       no_vec: true
     },
     '~' => {
-      call: ->(a){-a.to_f}
+      call: ->(a){-to_decimal(a)}
     },
     # pilcrow reserved: newline in circuit
     'α' => {
@@ -470,7 +471,7 @@ class Ohm
       arr_str: true
     },
     'δ' => {
-      call: ->(a){a.each_cons(2).map {|a, b| b.to_f - a.to_f}},
+      call: ->(a){a.each_cons(2).map {|a, b| to_decimal(b) - to_decimal(a)}},
       depth: [1]
     },
     'ε' => {
@@ -567,31 +568,31 @@ class Ohm
         call: ->{Time.now.year}
       },
       'd' => {
-        call: ->(a){Time.at(a.to_f).utc.day}
+        call: ->(a){Time.at(to_decimal(a)).utc.day}
       },
       'h' => {
-        call: ->(a){Time.at(a.to_f).utc.hour}
+        call: ->(a){Time.at(to_decimal(a)).utc.hour}
       },
       'i' => {
-        call: ->(a){Time.at(a.to_f).utc.min}
+        call: ->(a){Time.at(to_decimal(a)).utc.min}
       },
       'm' => {
-        call: ->(a){Time.at(a.to_f).utc.month}
+        call: ->(a){Time.at(to_decimal(a)).utc.month}
       },
       'n' => {
-        call: ->(a){Time.at(a.to_f).utc.nsec}
+        call: ->(a){Time.at(to_decimal(a)).utc.nsec}
       },
       's' => {
-        call: ->(a){Time.at(a.to_f).utc.sec}
+        call: ->(a){Time.at(to_decimal(a)).utc.sec}
       },
       'w' => {
-        call: ->(a){Time.at(a.to_f).utc.wday}
+        call: ->(a){Time.at(to_decimal(a)).utc.wday}
       },
       'y' => {
-        call: ->(a){Time.at(a.to_f).utc.year}
+        call: ->(a){Time.at(to_decimal(a)).utc.year}
       },
       '‰' => {
-        call: ->(a, b){Time.at(a.to_f).utc.strftime(untyped_to_s(b))}
+        call: ->(a, b){Time.at(to_decimal(a)).utc.strftime(untyped_to_s(b))}
       },
       '§' => {
         call: ->(a, b){Time.strptime(untyped_to_s(a), untyped_to_s(b)).to_i}
@@ -615,7 +616,7 @@ class Ohm
       call: ->{-1}
     },
     'Δ' => {
-      call: ->(a){a.each_cons(2).map {|a, b| (a.to_f - b.to_f).abs}},
+      call: ->(a){a.each_cons(2).map {|a, b| (to_decimal(a) - to_decimal(b)).abs}},
       depth: [1]
     },
     # capital theta reserved: execute previous wire
