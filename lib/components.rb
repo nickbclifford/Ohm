@@ -157,11 +157,11 @@ class Ohm
       call: ->(a){@printed = true; puts untyped_to_s(a)}
     },
     '-' => {
-      call: ->(a, b){a.to_f - b.to_f}
+      call: ->(a, b){to_decimal(a) - to_decimal(b)}
     },
     # . reserved: character literal
     '/' => {
-      call: ->(a, b){a.to_f / b.to_f}
+      call: ->(a, b){to_decimal(a) / to_decimal(b)}
     },
     # 0-9 reserved: numeric literal
     # : reserved: foreach loop
@@ -700,7 +700,7 @@ class Ohm
         call: ->(a){Math.log2(a.to_f)}
       },
       'R' => {
-        call: ->(a){GSL::Poly[*a.map(&:to_f)].solve.to_a.each_slice(2).to_a},
+        call: ->(a){GSL::Poly[*a.map(&method(:to_decimal))].solve.to_a.each_slice(2).to_a},
         depth: [1]
       },
       'S' => {
@@ -881,10 +881,10 @@ class Ohm
       call: ->(a){a.to_i}
     },
     'í' => {
-      call: ->(a){a.to_f}
+      call: ->(a){to_decimal(a)}
     },
     'î' => {
-      call: ->(a){a.to_f % 1 == 0}
+      call: ->(a){to_decimal(a) % 1 == 0}
     },
     'ï' => {
       call: ->(a, b){untyped_to_s(a).split(untyped_to_s(b))},
@@ -945,7 +945,7 @@ class Ohm
       call: ->(a){nth_fibonacci(a.to_i)}
     },
     'þ' => {
-      call: ->(a){sleep(a.to_f); nil}
+      call: ->(a){sleep(to_decimal(a)); nil}
     },
     # upside down question mark reserved: else statement
     # interrobang reserved: break out of block/wire
@@ -956,13 +956,13 @@ class Ohm
       call: ->{}
     },
     '‰' => {
-      call: ->(a){2 ** a.to_f}
+      call: ->(a){2 ** to_decimal(a)}
     },
     '‱' => {
-      call: ->(a){10 ** a.to_f}
+      call: ->(a){10 ** to_decimal(a)}
     },
     '¦' => {
-      call: ->(a){a.to_f.round},
+      call: ->(a){to_decimal(a).round},
     },
     '§' => {
       call: ->(a){arr_else_chars(a).sample},
@@ -978,7 +978,7 @@ class Ohm
       arr_str: true
     },
     '±' => {
-      call: ->(a, b){a.to_f ** (1 / b.to_f)},
+      call: ->(a, b){to_decimal(a) ** (1 / to_decimal(b))},
     },
     '¬' => {
       call: ->(a){Math.sqrt(a.to_f)},
@@ -996,10 +996,10 @@ class Ohm
     },
     # right double angle bracket reserved: single-component map
     '‹' => {
-      call: ->(a){a.to_f - 1}
+      call: ->(a){to_decimal(a) - 1}
     },
     '›' => {
-      call: ->(a){a.to_f + 1}
+      call: ->(a){to_decimal(a) + 1}
     },
     # left quote reserved: base-255 literal
     # right quote reserved: Smaz-compressed string literal
@@ -1063,7 +1063,7 @@ class Ohm
         arr_str: true
       },
       '¦' => {
-        call: ->(a, b){a.to_f.round(b.to_i)}
+        call: ->(a, b){to_decimal(a).round(b.to_i)}
       }
     },
     # 2-dot reserved: two character literal
