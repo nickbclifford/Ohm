@@ -391,7 +391,8 @@ class Ohm
     def untyped_to_s(n)
       if n.is_a?(Numeric)
         x = to_decimal(n).to_s('F')
-        format("%.#{x.length}g", x)
+        return x[0...-2] if x =~ /\.0$/ # Remove trailing ".0" on integers
+        x
       else
         n.to_s
       end
