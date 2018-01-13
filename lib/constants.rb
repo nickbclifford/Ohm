@@ -39,5 +39,5 @@ pqrstuvwxyz{|}~¶
 
   QUOTES = %w(" “ ”)
 
-  DECIMAL_PRECISION = 10
+  DECIMAL_PRECISION = 20
 end
