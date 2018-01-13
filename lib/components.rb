@@ -621,12 +621,12 @@ class Ohm
     },
     # capital theta reserved: execute previous wire
     'Π' => {
-      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:*)}},
+      call: ->(a){arr_or_stack(a) {|a| a.map(&method(:to_decimal)).reduce(:*)}},
       depth: [1],
       arr_stack: true
     },
     'Σ' => {
-      call: ->(a){arr_or_stack(a) {|a| a.map(&:to_f).reduce(:+)}},
+      call: ->(a){arr_or_stack(a) {|a| a.map(&method(:to_decimal)).reduce(:+)}},
       depth: [1],
       arr_stack: true
     },
@@ -667,60 +667,60 @@ class Ohm
         call: ->(a, b){a.to_i.lcm(b.to_i)}
       },
       '×' => {
-        call: ->(a, b){(Complex(*a.map(&:to_f)) ** Complex(*b.map(&:to_f))).rect},
+        call: ->(a, b){(Complex(*a.map(&method(:to_decimal))) ** Complex(*b.map(&method(:to_decimal)))).rect},
         depth: [1, 1]
       },
       '*' => {
-        call: ->(a, b){(Complex(*a.map(&:to_f)) * Complex(*b.map(&:to_f))).rect},
+        call: ->(a, b){(Complex(*a.map(&method(:to_decimal))) * Complex(*b.map(&method(:to_decimal)))).rect},
         depth: [1, 1]
       },
       '/' => {
-        call: ->(a, b){(Complex(*a.map(&:to_f)) / Complex(*b.map(&:to_f))).rect},
+        call: ->(a, b){(Complex(*a.map(&method(:to_decimal))) / Complex(*b.map(&method(:to_decimal)))).rect},
         depth: [1, 1]
       },
       'C' => {
-        call: ->(a){Math.cos(a.to_f)}
+        call: ->(a){BigMath.cos(to_decimal(a), DECIMAL_PRECISION)}
       },
       'D' => {
-        call: ->(a){a.to_f * (180 / Math::PI)}
+        call: ->(a){to_decimal(a) * (180 / BigMath.PI(DECIMAL_PRECISION))}
       },
       'E' => {
-        call: ->(a){a.to_f * (Math::PI / 180)}
+        call: ->(a){to_decimal(a) * (BigMath.PI(DECIMAL_PRECISION) / 180)}
       },
       'H' => {
-        call: ->(a, b){Math.hypot(a.to_f, b.to_f)}
+        call: ->(a, b){BigMath.sqrt((to_decimal(a) ** 2) + (to_decimal(b) ** 2), DECIMAL_PRECISION)}
       },
       'L' => {
-        call: ->(a){Math.log(a.to_f)}
+        call: ->(a){BigMath.log(to_decimal(a), DECIMAL_PRECISION)}
       },
       'M' => {
-        call: ->(a){Math.log10(a.to_f)}
+        call: ->(a){BigMath.log(to_decimal(a), DECIMAL_PRECISION) / BigMath.log(to_decimal(10), DECIMAL_PRECISION)}
       },
       'N' => {
-        call: ->(a){Math.log2(a.to_f)}
+        call: ->(a){BigMath.log(to_decimal(a), DECIMAL_PRECISION) / BigMath.log(to_decimal(2), DECIMAL_PRECISION)}
       },
       'R' => {
-        call: ->(a){GSL::Poly[*a.map(&method(:to_decimal))].solve.to_a.each_slice(2).to_a},
+        call: ->(a){GSL::Poly[*a.map(&:to_f)].solve.to_a.each_slice(2).to_a},
         depth: [1]
       },
       'S' => {
-        call: ->(a){Math.sin(a.to_f)}
+        call: ->(a){BigMath.sin(to_decimal(a), DECIMAL_PRECISION)}
       },
       'T' => {
-        call: ->(a){Math.tan(a.to_f)}
+        call: ->(a){BigMath.sin(to_decimal(a), DECIMAL_PRECISION) / BigMath.cos(to_decimal(a), DECIMAL_PRECISION)}
       },
       'c' => {
         call: ->(a){Math.acos(a.to_f)}
       },
       'l' => {
-        call: ->(a, b){Math.log(b.to_f) / Math.log(a.to_f)}
+        call: ->(a, b){BigMath.log(to_decimal(b), DECIMAL_PRECISION) / BigMath.log(to_decimal(a), DECIMAL_PRECISION)}
       },
       'm' => {
-        call: ->(a){a.map(&:to_f).reduce(:+) / a.length},
+        call: ->(a){a.map(&method(:to_decimal)).reduce(:+) / a.length},
         depth: [1]
       },
       'n' => {
-        call: ->(a){a = a.map(&:to_f).sort; (a[a.length.pred / 2] + a[a.length / 2]) / 2},
+        call: ->(a){a = a.map(&method(:to_decimal)).sort; (a[a.length.pred / 2] + a[a.length / 2]) / 2},
         depth: [1]
       },
       'o' => {
@@ -731,24 +731,24 @@ class Ohm
         call: ->(a, b){a.to_i.gcd(b.to_i) == 1}
       },
       'r' => {
-        call: ->(a){a.reduce([1]) {|m, r| polynomial_mul(m, [1, -Complex(*r.map(&:to_f))])}.map(&:rect)},
+        call: ->(a){a.reduce([1]) {|m, r| polynomial_mul(m, [1, -Complex(*r.map(&method(:to_decimal)))])}.map(&:rect)},
         depth: [2]
       },
       's' => {
         call: ->(a){Math.asin(a.to_f)}
       },
       't' => {
-        call: ->(a){Math.atan(a.to_f)}
+        call: ->(a){BigMath.atan(to_decimal(a), 20)}
       },
       'u' => {
         call: ->(a, b){Math.atan2(b.to_f, a.to_f)}
       },
       'ρ' => {
-        call: ->(a, b){polynomial_mul(a.map(&:to_f), b.map(&:to_f))},
+        call: ->(a, b){polynomial_mul(a.map(&method(:to_decimal)), b.map(&method(:to_decimal)))},
         depth: [1, 1]
       },
       '¬' => {
-        call: ->(a){CMath.sqrt(Complex(*a.map(&:to_f))).rect},
+        call: ->(a){CMath.sqrt(Complex(*a.map(&method(:to_decimal)))).rect},
         depth: [1]
       },
       '¤' => {
@@ -925,7 +925,7 @@ class Ohm
       arr_stack: true
     },
     'û' => {
-      call: ->(a, b, c){a.to_f.step(b.to_f, c.to_f).to_a}
+      call: ->(a, b, c){to_decimal(a).step(to_decimal(b), to_decimal(c)).to_a}
     },
     'ü' => {
       call: ->{}
@@ -981,7 +981,7 @@ class Ohm
       call: ->(a, b){to_decimal(a) ** (1 / to_decimal(b))},
     },
     '¬' => {
-      call: ->(a){Math.sqrt(a.to_f)},
+      call: ->(a){BigMath.sqrt(to_decimal(a), 20)},
     },
     '¢' => {
       call: ->(a){@vars[:register] = a},

@@ -38,4 +38,6 @@ pqrstuvwxyz{|}~¶
   OPENERS = %w(? : M £ » ⁇ ⁈ ‼ € ς ‘ ’ χ Å É ·Ω ·Θ)
 
   QUOTES = %w(" “ ”)
+
+  DECIMAL_PRECISION = 10
 end
