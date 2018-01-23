@@ -69,10 +69,23 @@ end
 
 require_relative '../ohm'
 
-RSpec.shared_examples 'component' do |desc, circuit: nil, result:, **ohm_opts|
+RSpec.shared_examples 'component' do |desc, circuit: nil, result:, estimate: false, **ohm_opts|
   it "pushes #{desc}" do
     # `self.class.description` cannot be the default value of `circuit:` because it depends on the `self` context
-    expect(Ohm.new(circuit || self.class.description, ohm_opts).exec.stack.last[0]).to eq(result)
+    elem = Ohm.new(circuit || self.class.description, ohm_opts).exec.stack.last[0]
+    
+    # Stupid BigDecimal/Float inaccuracies
+    if estimate
+      epsilon = 1e-6
+      
+      if result.is_a?(Array)
+        result.each_with_index {|r, i| expect(elem[i]).to be_between(r - epsilon, r + epsilon)}
+      else
+        expect(elem).to be_between(result - epsilon, result + epsilon)
+      end
+    else
+      expect(elem).to eq(result)
+    end
   end
 end
 
