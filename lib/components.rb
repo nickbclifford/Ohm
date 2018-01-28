@@ -420,7 +420,7 @@ class Ohm
         call: ->{'AEIOUaeiou'}
       },
       'e' => {
-        call: ->{Math::E}
+        call: ->{BigMath.E(DECIMAL_PRECISION)}
       },
       'q' => {
         call: ->{%w(qwertyuiop asdfghjkl zxcvbnm)}
@@ -429,10 +429,10 @@ class Ohm
         call: ->{'AEIOUYaeiouy'}
       },
       'π' => {
-        call: ->{Math::PI}
+        call: ->{BigMath.PI(DECIMAL_PRECISION)}
       },
       'φ' => {
-        call: ->{(1 + Math.sqrt(5)) / 2}
+        call: ->{(1 + BigMath.sqrt(to_decimal(5), DECIMAL_PRECISION)) / 2}
       },
       'Γ' => {
         call: ->{
@@ -710,7 +710,7 @@ class Ohm
         call: ->(a){BigMath.sin(to_decimal(a), DECIMAL_PRECISION) / BigMath.cos(to_decimal(a), DECIMAL_PRECISION)}
       },
       'c' => {
-        call: ->(a){Math.acos(a.to_f)}
+        call: ->(a){x = to_decimal(a); BigMath.atan(BigMath.sqrt(1 - (x ** 2), DECIMAL_PRECISION) / x, DECIMAL_PRECISION)}
       },
       'l' => {
         call: ->(a, b){BigMath.log(to_decimal(b), DECIMAL_PRECISION) / BigMath.log(to_decimal(a), DECIMAL_PRECISION)}
@@ -735,10 +735,10 @@ class Ohm
         depth: [2]
       },
       's' => {
-        call: ->(a){Math.asin(a.to_f)}
+        call: ->(a){x = to_decimal(a); BigMath.atan(x / BigMath.sqrt(1 - (x ** 2), DECIMAL_PRECISION), DECIMAL_PRECISION)}
       },
       't' => {
-        call: ->(a){BigMath.atan(to_decimal(a), 20)}
+        call: ->(a){BigMath.atan(to_decimal(a), DECIMAL_PRECISION)}
       },
       'u' => {
         call: ->(a, b){Math.atan2(b.to_f, a.to_f)}
@@ -981,7 +981,7 @@ class Ohm
       call: ->(a, b){to_decimal(a) ** (1 / to_decimal(b))},
     },
     '¬' => {
-      call: ->(a){BigMath.sqrt(to_decimal(a), 20)},
+      call: ->(a){BigMath.sqrt(to_decimal(a), DECIMAL_PRECISION)},
     },
     '¢' => {
       call: ->(a){@vars[:register] = a},

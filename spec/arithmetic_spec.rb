@@ -73,7 +73,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'the coefficients of an array of polynomial roots', stack: [[[1, 0], [-1, 0]]], result: [[1, 0], [0, 0], [-1, 0]]
     end
     describe 'Æs' do
-      include_examples 'component', 'the arcsine of a number', stack: [1], result: Math::PI / 2
+      include_examples 'component', 'the arcsine of a number', stack: [1], result: Math::PI / 2, estimate: true
     end
     describe 'Æt' do
       include_examples 'component', 'the arctangent of a number', stack: [0], result: 0
