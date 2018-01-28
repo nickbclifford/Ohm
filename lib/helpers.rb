@@ -74,6 +74,10 @@ class Ohm
         nil
       end
     end
+    
+    def ohm_bigmath(meth, *args)
+      BigMath.method(meth).call(*args, DECIMAL_PRECISION)
+    end
 
     def bin_to_ohm(str)
       str.bytes.map {|b| Ohm::CODE_PAGE[b]}.join
@@ -91,6 +95,25 @@ class Ohm
       x = a.is_a?(Array) ? 1 + a.map {|c| comp_arg_depth(c, hsh)}.max.to_i : 0
       x += 1 if a.is_a?(String) && hsh[:arr_str]
       x
+    end
+
+    # Adapted from https://en.wikipedia.org/wiki/Atan2#Definition.
+    def decimal_atan2(y, x)
+      simple_atan = ohm_bigmath(:atan, y / x)
+      
+      if x > 0
+        simple_atan
+      elsif x < 0 && y >= 0
+        simple_atan + ohm_bigmath(:PI)
+      elsif x < 0 && y < 0
+        simple_atan - ohm_bigmath(:PI)
+      elsif x == 0 && y > 0
+        ohm_bigmath(:PI) / 2
+      elsif x == 0 && y < 0
+        -ohm_bigmath(:PI) / 2
+      else
+        to_decimal(0) # Sure, why not? It's what Jelly does.
+      end
     end
 
     # Shamefully stolen from Jelly.

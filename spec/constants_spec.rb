@@ -31,7 +31,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'all vowels', result: 'AEIOUaeiou'
     end
     describe 'αe' do
-      include_examples 'component', 'Euler\'s constant', result: BigMath.E(Ohm::DECIMAL_PRECISION)
+      include_examples 'component', 'Euler\'s constant', result: Ohm::Helpers.ohm_bigmath(:E)
     end
     describe 'αq' do
       include_examples 'component', 'the lowercase alphabet ordered like a keyboard', result: %w(qwertyuiop asdfghjkl zxcvbnm)
@@ -40,10 +40,10 @@ RSpec.describe Ohm do
       include_examples 'component', 'all vowels including `y`', result: 'AEIOUYaeiouy'
     end
     describe 'απ' do
-      include_examples 'component', 'pi', result: BigMath.PI(Ohm::DECIMAL_PRECISION)
+      include_examples 'component', 'pi', result: Ohm::Helpers.ohm_bigmath(:PI)
     end
     describe 'αφ' do
-      include_examples 'component', 'phi', result: (1 + BigMath.sqrt(Ohm::Helpers.to_decimal(5), Ohm::DECIMAL_PRECISION)) / 2
+      include_examples 'component', 'phi', result: (1 + Ohm::Helpers.ohm_bigmath(:sqrt, Ohm::Helpers.to_decimal(5))) / 2
     end
     describe 'αΓ' do
       include_examples 'component', 'an ASCII goat', result: <<-GOAT

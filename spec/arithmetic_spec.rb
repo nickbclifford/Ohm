@@ -79,7 +79,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'the arctangent of a number', stack: [0], result: 0
     end
     describe 'Æu' do
-      include_examples 'component', 'the arctangent of two numbers\' quotient (atan2)', stack: [1, 1], result: Math::PI / 4
+      include_examples 'component', 'the arctangent of two numbers\' quotient (atan2)', stack: [1, 1], result: Math::PI / 4, estimate: true
     end
     describe 'Æρ' do
       include_examples 'component', 'the polynomial multiplication of two arrays', stack: [[1, -2, 3], [-2, 1, 0]], result: [-2, 5, -8, 3, 0]

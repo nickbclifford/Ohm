@@ -420,7 +420,7 @@ class Ohm
         call: ->{'AEIOUaeiou'}
       },
       'e' => {
-        call: ->{BigMath.E(DECIMAL_PRECISION)}
+        call: ->{ohm_bigmath(:E)}
       },
       'q' => {
         call: ->{%w(qwertyuiop asdfghjkl zxcvbnm)}
@@ -429,10 +429,10 @@ class Ohm
         call: ->{'AEIOUYaeiouy'}
       },
       'π' => {
-        call: ->{BigMath.PI(DECIMAL_PRECISION)}
+        call: ->{ohm_bigmath(:PI)}
       },
       'φ' => {
-        call: ->{(1 + BigMath.sqrt(to_decimal(5), DECIMAL_PRECISION)) / 2}
+        call: ->{(1 + ohm_bigmath(:sqrt, to_decimal(5))) / 2}
       },
       'Γ' => {
         call: ->{
@@ -679,41 +679,41 @@ class Ohm
         depth: [1, 1]
       },
       'C' => {
-        call: ->(a){BigMath.cos(to_decimal(a), DECIMAL_PRECISION)}
+        call: ->(a){ohm_bigmath(:cos, to_decimal(a))}
       },
       'D' => {
-        call: ->(a){to_decimal(a) * (180 / BigMath.PI(DECIMAL_PRECISION))}
+        call: ->(a){to_decimal(a) * (180 / ohm_bigmath(:PI))}
       },
       'E' => {
-        call: ->(a){to_decimal(a) * (BigMath.PI(DECIMAL_PRECISION) / 180)}
+        call: ->(a){to_decimal(a) * (ohm_bigmath(:PI) / 180)}
       },
       'H' => {
-        call: ->(a, b){BigMath.sqrt((to_decimal(a) ** 2) + (to_decimal(b) ** 2), DECIMAL_PRECISION)}
+        call: ->(a, b){ohm_bigmath(:sqrt, (to_decimal(a) ** 2) + (to_decimal(b) ** 2))}
       },
       'L' => {
-        call: ->(a){BigMath.log(to_decimal(a), DECIMAL_PRECISION)}
+        call: ->(a){ohm_bigmath(:log, to_decimal(a))}
       },
       'M' => {
-        call: ->(a){BigMath.log(to_decimal(a), DECIMAL_PRECISION) / BigMath.log(to_decimal(10), DECIMAL_PRECISION)}
+        call: ->(a){ohm_bigmath(:log, to_decimal(a)) / ohm_bigmath(:log, to_decimal(10))}
       },
       'N' => {
-        call: ->(a){BigMath.log(to_decimal(a), DECIMAL_PRECISION) / BigMath.log(to_decimal(2), DECIMAL_PRECISION)}
+        call: ->(a){ohm_bigmath(:log, to_decimal(a)) / ohm_bigmath(:log, to_decimal(2))}
       },
       'R' => {
         call: ->(a){GSL::Poly[*a.map(&:to_f)].solve.to_a.each_slice(2).to_a},
         depth: [1]
       },
       'S' => {
-        call: ->(a){BigMath.sin(to_decimal(a), DECIMAL_PRECISION)}
+        call: ->(a){ohm_bigmath(:sin, to_decimal(a))}
       },
       'T' => {
-        call: ->(a){BigMath.sin(to_decimal(a), DECIMAL_PRECISION) / BigMath.cos(to_decimal(a), DECIMAL_PRECISION)}
+        call: ->(a){ohm_bigmath(:sin, to_decimal(a)) / ohm_bigmath(:cos, to_decimal(a))}
       },
       'c' => {
-        call: ->(a){x = to_decimal(a); BigMath.atan(BigMath.sqrt(1 - (x ** 2), DECIMAL_PRECISION) / x, DECIMAL_PRECISION)}
+        call: ->(a){x = to_decimal(a); ohm_bigmath(:atan, ohm_bigmath(:sqrt, 1 - (x ** 2)) / x)}
       },
       'l' => {
-        call: ->(a, b){BigMath.log(to_decimal(b), DECIMAL_PRECISION) / BigMath.log(to_decimal(a), DECIMAL_PRECISION)}
+        call: ->(a, b){ohm_bigmath(:log, to_decimal(b)) / ohm_bigmath(:log, to_decimal(a))}
       },
       'm' => {
         call: ->(a){a.map(&method(:to_decimal)).reduce(:+) / a.length},
@@ -735,13 +735,13 @@ class Ohm
         depth: [2]
       },
       's' => {
-        call: ->(a){x = to_decimal(a); BigMath.atan(x / BigMath.sqrt(1 - (x ** 2), DECIMAL_PRECISION), DECIMAL_PRECISION)}
+        call: ->(a){x = to_decimal(a); ohm_bigmath(:atan, x / ohm_bigmath(:sqrt, 1 - (x ** 2)))}
       },
       't' => {
-        call: ->(a){BigMath.atan(to_decimal(a), DECIMAL_PRECISION)}
+        call: ->(a){ohm_bigmath(:atan, to_decimal(a))}
       },
       'u' => {
-        call: ->(a, b){Math.atan2(b.to_f, a.to_f)}
+        call: ->(a, b){decimal_atan2(to_decimal(b), to_decimal(a))}
       },
       'ρ' => {
         call: ->(a, b){polynomial_mul(a.map(&method(:to_decimal)), b.map(&method(:to_decimal)))},
@@ -981,7 +981,7 @@ class Ohm
       call: ->(a, b){to_decimal(a) ** (1 / to_decimal(b))},
     },
     '¬' => {
-      call: ->(a){BigMath.sqrt(to_decimal(a), DECIMAL_PRECISION)},
+      call: ->(a){ohm_bigmath(:sqrt, to_decimal(a))},
     },
     '¢' => {
       call: ->(a){@vars[:register] = a},

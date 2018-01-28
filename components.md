@@ -329,7 +329,7 @@ Because of input restrictions, complex numbers are represented as an array in th
 |`Ær`|Pop `a`|Pushes the coefficients (as a list of complex numbers) of the polynomial with roots `a` (also a list of complex numbers) (i.e. `[[-0.5, 0.866], [-0.5, -0.866]] => [[1, 0], [1, 0], [1, 0]] (approximately)`).|
 |`Æs`|Pop `a`|Pushes the arcsine of `a`.|
 |`Æt`|Pop `a`|Pushes the arctangent of `a`.|
-|`Æu`|Pop `a`, `b`|Pushes the arctangent of `b / a` (`atan2`).|
+|`Æu`|Pop `a`, `b`|Pushes `atan2(b, a)`.|
 |`Æρ`|Pop `a`, `b`|Pushes the polynomial resulting from the multiplication of polynomials `a` and `b`, where `a`, `b`, and the result are all lists of real numbers representing coefficients.|
 |`Æ¬`|Pop `a`|Pushes the *complex* square root of `a`, where `a` is either a number or an array in the form `[real, imag]`.|
 |`Æ¤`|Pop `a`, `b`|Pushes the `b`th `a`-gonal number.|
