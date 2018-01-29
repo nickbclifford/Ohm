@@ -13,40 +13,40 @@ RSpec.describe Ohm do
       include_examples 'component', 'the least common multiple of two numbers', stack: [27, 69], result: 621
     end
     describe 'Æ×' do
-      include_examples 'component', 'the complex exponentiation of two numbers', stack: [3, [2, -3]], result: [-8.89315134427972, 1.3826999557878903]
+      include_examples 'component', 'the complex exponentiation of two numbers', stack: [3, [2, -3]], result: [-8.8931513443, 1.3826999557], estimate: true
     end
     describe 'Æ*' do
       include_examples 'component', 'the complex multiplication of two numbers', stack: [[-3, 5], [2, -3]], result: [9, 19]
     end
     describe 'Æ/' do
-      include_examples 'component', 'the complex division of two numbers', stack: [[-3, 5], [2, -3]], result: [-1.6153846153846154, 0.07692307692307676]
+      include_examples 'component', 'the complex division of two numbers', stack: [[-3, 5], [2, -3]], result: [-1.6153846153, 0.0769230769], estimate: true
     end
     describe 'ÆC' do
       include_examples 'component', 'the cosine of a number in radians', stack: [0], result: 1
     end
     describe 'ÆD' do
-      include_examples 'component', 'a number in radians converted to degrees', stack: [Math::PI], result: 180
+      include_examples 'component', 'a number in radians converted to degrees', stack: [Math::PI], result: 180, estimate: true
     end
     describe 'ÆE' do
-      include_examples 'component', 'a number in degrees converted to radians', stack: [180], result: Math::PI
+      include_examples 'component', 'a number in degrees converted to radians', stack: [180], result: Math::PI, estimate: true
     end
     describe 'ÆH' do
       include_examples 'component', 'the hypotenuse of a right triangle with the given sides', stack: [3, 4], result: 5
     end
     describe 'ÆL' do
-      include_examples 'component', 'the natural logarithm of a number', stack: [Math::E], result: 1
+      include_examples 'component', 'the natural logarithm of a number', stack: [Math::E], result: 1, estimate: true
     end
     describe 'ÆM' do
-      include_examples 'component', 'the base 10 logarithm of a number', stack: [100], result: 2
+      include_examples 'component', 'the base 10 logarithm of a number', stack: [100], result: 2, estimate: true
     end
     describe 'ÆR' do
       include_examples 'component', 'the roots of an array of polynomial coefficients', stack: [[1, 0, -1]], result: [[1, 0], [-1, 0]]
     end
     describe 'ÆN' do
-      include_examples 'component', 'the base 2 logarithm of a number', stack: [32], result: 5
+      include_examples 'component', 'the base 2 logarithm of a number', stack: [32], result: 5, estimate: true
     end
     describe 'ÆS' do
-      include_examples 'component', 'the sine of a number in radians', stack: [Math::PI / 2], result: 1
+      include_examples 'component', 'the sine of a number in radians', stack: [Math::PI / 2], result: 1, estimate: true
     end
     describe 'ÆT' do
       include_examples 'component', 'the tangent of a number in radians', stack: [0], result: 0
@@ -55,7 +55,7 @@ RSpec.describe Ohm do
       include_examples 'component', 'the arccosine of a number', stack: [1], result: 0
     end
     describe 'Æl' do
-      include_examples 'component', 'the base-n logarithm of a number', stack: [5, 625], result: 4
+      include_examples 'component', 'the base-n logarithm of a number', stack: [5, 625], result: 4, estimate: true
     end
     describe 'Æm' do
       include_examples 'component', 'the arithmetic mean of an array of numbers', stack: [[2, 3, 4, 5]], result: 3.5
@@ -73,13 +73,13 @@ RSpec.describe Ohm do
       include_examples 'component', 'the coefficients of an array of polynomial roots', stack: [[[1, 0], [-1, 0]]], result: [[1, 0], [0, 0], [-1, 0]]
     end
     describe 'Æs' do
-      include_examples 'component', 'the arcsine of a number', stack: [1], result: Math::PI / 2
+      include_examples 'component', 'the arcsine of a number', stack: [1], result: Math::PI / 2, estimate: true
     end
     describe 'Æt' do
       include_examples 'component', 'the arctangent of a number', stack: [0], result: 0
     end
     describe 'Æu' do
-      include_examples 'component', 'the arctangent of two numbers\' quotient (atan2)', stack: [1, 1], result: Math::PI / 4
+      include_examples 'component', 'the arctangent of two numbers\' quotient (atan2)', stack: [1, 1], result: Math::PI / 4, estimate: true
     end
     describe 'Æρ' do
       include_examples 'component', 'the polynomial multiplication of two arrays', stack: [[1, -2, 3], [-2, 1, 0]], result: [-2, 5, -8, 3, 0]

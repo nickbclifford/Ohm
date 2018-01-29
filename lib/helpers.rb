@@ -1,3 +1,5 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'set'
 
 require_relative 'constants'
@@ -72,6 +74,10 @@ class Ohm
         nil
       end
     end
+    
+    def ohm_bigmath(meth, *args)
+      BigMath.method(meth).call(*args, DECIMAL_PRECISION)
+    end
 
     def bin_to_ohm(str)
       str.bytes.map {|b| Ohm::CODE_PAGE[b]}.join
@@ -89,6 +95,25 @@ class Ohm
       x = a.is_a?(Array) ? 1 + a.map {|c| comp_arg_depth(c, hsh)}.max.to_i : 0
       x += 1 if a.is_a?(String) && hsh[:arr_str]
       x
+    end
+
+    # Adapted from https://en.wikipedia.org/wiki/Atan2#Definition.
+    def decimal_atan2(y, x)
+      simple_atan = ohm_bigmath(:atan, y / x)
+      
+      if x > 0
+        simple_atan
+      elsif x < 0 && y >= 0
+        simple_atan + ohm_bigmath(:PI)
+      elsif x < 0 && y < 0
+        simple_atan - ohm_bigmath(:PI)
+      elsif x == 0 && y > 0
+        ohm_bigmath(:PI) / 2
+      elsif x == 0 && y < 0
+        -ohm_bigmath(:PI) / 2
+      else
+        to_decimal(0) # Sure, why not? It's what Jelly does.
+      end
     end
 
     # Shamefully stolen from Jelly.
@@ -372,6 +397,14 @@ class Ohm
       end
     end
 
+    def to_decimal(val)
+      begin
+        val.to_d
+      rescue ArgumentError
+        BigDecimal(0)
+      end
+    end
+
     # Everything is truthy except for false, nil, "", [], 0
     # It's easier to put the negation here instead of putting it on every conditional
     def truthy?(val)
@@ -379,7 +412,13 @@ class Ohm
     end
 
     def untyped_to_s(n)
-      n.is_a?(Float) ? format("%.#{n.to_s.length}g", n) : n.to_s
+      if n.is_a?(Numeric)
+        x = to_decimal(n).to_s('F')
+        return x[0...-2] if x =~ /\.0$/ # Remove trailing ".0" on integers
+        x
+      else
+        n.to_s
+      end
     end
 
     def zip_arr(mat)
