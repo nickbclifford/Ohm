@@ -96,5 +96,4 @@ To run unit tests, run `rake`.
 When using the `-e` flag for executing from the terminal, make sure your terminal is in **UTF-8** mode. This can be achieved on Windows with the command `chcp 65001`. If the terminal is in the incorrect encoding, Ruby will raise an `Encoding::CompatibilityError` when trying to use non-ASCII characters (in my experience).
 
 ## TODO
-- Start using [BigDecimal](https://ruby-doc.org/stdlib-2.4.2/libdoc/bigdecimal/rdoc/BigDecimal.html) for arbitrary precision calculations instead of limiting precision with Ruby `Float` (see [#8](https://github.com/nickbclifford/Ohm/issues/8))
-- Possibly add hashing functions (see [#9](https://github.com/nickbclifford/Ohm/issues/9))
+- ¯\\\_(ツ)_/¯
