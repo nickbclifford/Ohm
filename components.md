@@ -340,6 +340,10 @@ Because of input restrictions, complex numbers are represented as an array in th
 
 |Component|Action|Description|
 |---------|------|-----------|
+|`·¹`|Pop `a`|Pushes the MD5 hash of `a`.|
+|`·²`|Pop `a`|Pushes the SHA1 hash of `a`.|
+|`·³`|Pop `a`|Pushes the SHA256 hash of `a`.|
+|`·⁴`|Pop `a`|Pushes the SHA512 hash of `a`.|
 |`·/`|Pop `a`, `b`|Pushes an array of the matched string + captures of `a` tested against regex `b`.|
 |`·\`|Pop `a`|Pushes the diagonals of `a`, assuming `a` is a matrix.|
 |`·G`|Pop `a`|Performs a GET request to `a` and pushes the response body.|

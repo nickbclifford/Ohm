@@ -2,6 +2,7 @@ require_relative 'helpers'
 
 require 'bigdecimal/math'
 require 'cmath'
+require 'digest'
 require 'gsl'
 require 'net/http'
 require 'prime'
@@ -1006,6 +1007,18 @@ class Ohm
     # left single quote reserved: min by
     # right single quote resereved: max by
     '·' => {
+      '¹' => {
+        call: ->(a){Digest::MD5.hexdigest(untyped_to_s(a))}
+      },
+      '²' => {
+        call: ->(a){Digest::SHA1.hexdigest(untyped_to_s(a))}
+      },
+      '³' => {
+        call: ->(a){Digest::SHA256.hexdigest(untyped_to_s(a))}
+      },
+      '⁴' => {
+        call: ->(a){Digest::SHA512.hexdigest(untyped_to_s(a))}
+      },
       '/' => {
         call: ->(a, b){untyped_to_s(a).match(untyped_to_s(b)).to_a}
       },
