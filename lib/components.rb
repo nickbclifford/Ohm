@@ -94,7 +94,9 @@ class Ohm
       arr_str: true
     },
     '↔' => {
-      call: ->(a, b){arr_else_str(a).concat(arr_else_str(b))}
+      call: ->(a, b){arr_else_str(a).concat(arr_else_str(b))},
+      depth: [1, 1],
+      arr_str: true
     },
     '↕' => {
       call: ->(a){arr_else_chars(a).minmax},
