@@ -415,34 +415,56 @@ RSpec.describe Ohm do
       include_examples 'component', 'all Fibonacci numbers up to a number', stack: [60], result: [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
     end
     describe 'g' do
-      include_examples 'component', 'the exclusive range between two numbers', stack: [4, 8], result: [4, 5, 6, 7]
+      include_examples 'component', 'the exclusive range between two numbers',
+                       {stack: [4, 8], result: [4, 5, 6, 7]},
+                       {stack: [4, -1], result: [4, 3, 2, 1, 0]}
     end
     describe 'h' do
-      include_examples 'component', 'the first element of an array', stack: [[1, 2, 3]], result: 1
+      include_examples 'component', 'the first element of an array',
+                       {stack: [[1, 2, 3]], result: 1},
+                       {stack: %w(asdf), result: 'a'}
     end
     describe 'i' do
-      include_examples 'component', 'the last element of an array', stack: [[1, 2, 3]], result: 3
+      include_examples 'component', 'the last element of an array',
+                       {stack: [[1, 2, 3]], result: 3},
+                       {stack: %w(asdf), result: 'f'}
     end
     describe 'j' do
-      include_examples 'component', 'an array joined on a string', stack: [[1, 2, 3], ', '], result: '1, 2, 3'
+      include_examples 'component', 'an array joined on a string',
+                       {stack: [[1, 2, 3], ', '], result: '1, 2, 3'},
+                       {stack: [[], ', '], result: ''}
     end
     describe 'k' do
-      include_examples 'component', 'the index of an object in an array', stack: [[1, 2, 3], 2], result: 1
+      include_examples 'component', 'the index of an object in an array',
+                       {stack: [[1, 2, 3], 2], result: 1},
+                       {stack: [[1, 1, 2, 2, 3, 3], 2], result: 2},
+                       {stack: [[1, 2, 3], 4], result: -1}
     end
     describe 'l' do
       include_examples 'component', 'the length of a string or array', stack: %w(foobar), result: 6
     end
     describe 'm' do
-      include_examples 'component', 'the prime factors of a number', stack: [63], result: [3, 7]
+      include_examples 'component', 'the prime factors of a number',
+                       {stack: [1], result: []},
+                       {stack: [61], result: [61]}
+                       {stack: [63], result: [3, 7]}
     end
     describe 'n' do
-      include_examples 'component', 'the exponents of the prime factorization of a number', stack: [63], result: [2, 1]
+      include_examples 'component', 'the exponents of the prime factorization of a number',
+                       {stack: [1], result: []},
+                       {stack: [61], result: [1]},
+                       {stack: [63], result: [2, 1]}
     end
     describe 'o' do
-      include_examples 'component', 'the full prime factorization of a number', stack: [63], result: [3, 3, 7]
+      include_examples 'component', 'the full prime factorization of a number',
+                       {stack: [1], result: []},
+                       {stack: [61], result: [61]}
+                       {stack: [63], result: [3, 3, 7]}
     end
     describe 'p' do
-      include_examples 'component', 'whether a number is prime', stack: [17], result: 1
+      include_examples 'component', 'whether a number is prime',
+                       {stack: [51], result: 0},
+                       {stack: [17], result: 1}
     end
     describe 'q' do
       it 'immediately stops program execution' do
