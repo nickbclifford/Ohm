@@ -484,7 +484,9 @@ RSpec.describe Ohm do
       include_examples 'component', 'an object converted to a string', stack: [5.6], result: '5.6'
     end
     describe 'v' do
-      include_examples 'component', 'the integer division of two numbers', stack: [7, 3], result: 2
+      include_examples 'component', 'the integer division of two numbers',
+                       {stack: [7, 3], result: 2},
+                       {stack: [-4, 3], result: -2}
     end
     describe 'w' do
       include_examples 'component', 'an object wrapped in an array', stack: [5, 6], result: [6]
@@ -493,7 +495,10 @@ RSpec.describe Ohm do
       include_examples 'component', 'a number converted to hexadecimal', stack: [33], result: '21'
     end
     describe 'y' do
-      include_examples 'component', 'the sign of a number', stack: [-5], result: -1
+      include_examples 'component', 'the sign of a number',
+                       {stack: [5], result: 1},
+                       {stack: [0], result: 0},
+                       {stack: [-5], result: -1}
     end
     describe 'z' do
       include_examples 'component', 'a string with surrounding whitespace trimmed off', stack: [' asdf '], result: 'asdf'
@@ -502,13 +507,19 @@ RSpec.describe Ohm do
       include_examples 'component', 'an array deep flattened', stack: [[1, [2, [3, 4]], 5]], result: [1, 2, 3, 4, 5]
     end
     describe '|' do
-      include_examples 'component', 'the OR of two booleans', stack: [0, 1], result: 1
+      include_examples 'component', 'the OR of two booleans',
+                       {stack: [0, 0], result: 0},
+                       {stack: [0, 1], result: 1}
     end
     describe '}' do
-      include_examples 'component', 'a string or array split into slices of length 1', stack: %w(foo), result: %w(f o o)
+      include_examples 'component', 'a string or array split into slices of length 1',
+                       {stack: %w(foo), result: %w(f o o)},
+                       {stack: [[1, 2, 3]], result: [[1], [2], [3]]}
     end
     describe '~' do
-      include_examples 'component', 'a number negated', stack: [1.5], result: -1.5
+      include_examples 'component', 'a number negated',
+                       {stack: [-1.5], result: 1.5},
+                       {stack: [1.5], result: -1.5}
     end
     describe '¶' do
       it 'functions as a newline' do
@@ -517,7 +528,9 @@ RSpec.describe Ohm do
       end
     end
     describe 'β' do
-      include_examples 'component', 'an array split into a number of groups', stack: [[1, 2, 3, 4, 5, 6], 2], result: [[1, 2, 3], [4, 5, 6]]
+      include_examples 'component', 'an array split into a number of groups',
+                       {stack: [[1, 2, 3, 4, 5, 6], 2], result: [[1, 2, 3], [4, 5, 6]]},
+                       {stack: ['unittest', 4], result: %w(un it te st)}
     end
     describe 'γ' do
       include_examples 'component', 'all possible rotations of an array', stack: [[1, 2, 3]], result: [[1, 2, 3], [2, 3, 1], [3, 1, 2]]
@@ -526,16 +539,23 @@ RSpec.describe Ohm do
       include_examples 'component', 'the consecutive differences of an array', stack: [[1, 5, 3]], result: [4, -2]
     end
     describe 'ε' do
-      include_examples 'component', 'whether an object is in an array or string', stack: %w(foobar foo), result: 1
+      include_examples 'component', 'whether an object is in an array or string',
+                       {stack: %w(foobar baz), result: 0},
+                       {stack: %w(foobar foo), result: 1}
     end
     describe 'ζ' do
       include_examples 'component', 'the first and last elements of an array', stack: [[1, 2, 3]], result: [1, 3]
     end
     describe 'η' do
-      include_examples 'component', 'whether an object is empty', stack: [''], result: 1
+      include_examples 'component', 'whether an object is empty',
+                       {stack: %w(not empty), result: 0},
+                       {stack: [''], result: 1},
+                       {stack: [[]], result: 1}
     end
     describe 'θ' do
-      include_examples 'component', 'an arbitrary slice of an array', stack: [[1, 2, 3, 4, 5], 1, 3], result: [2, 3, 4]
+      include_examples 'component', 'an arbitrary slice of an array',
+                       {stack: [[1, 2, 3, 4, 5], 1, 3], result: [2, 3, 4]},
+                       {stack: [[1, 2, 3, 4, 5, 6, 7], 2, -2], result: [3, 4, 5, 6]}
     end
     describe 'ι' do
       include_examples 'component', 'a slice from the beginning of an array', stack: [[1, 2, 3, 4, 5], 2], result: [1, 2, 3]
