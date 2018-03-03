@@ -558,19 +558,28 @@ RSpec.describe Ohm do
                        {stack: [[1, 2, 3, 4, 5, 6, 7], 2, -2], result: [3, 4, 5, 6]}
     end
     describe 'ι' do
-      include_examples 'component', 'a slice from the beginning of an array', stack: [[1, 2, 3, 4, 5], 2], result: [1, 2, 3]
+      include_examples 'component', 'a slice from the beginning of an array',
+                       {stack: [[1, 2, 3, 4, 5], 2], result: [1, 2, 3]},
+                       {stack: ['testing', -2], result: 'testin'}
     end
     describe 'κ' do
-      include_examples 'component', 'a slice from the end of an array', stack: [[1, 2, 3, 4, 5], 2], result: [3, 4, 5]
+      include_examples 'component', 'a slice from the end of an array',
+                       {stack: [[1, 2, 3, 4, 5], 2], result: [3, 4, 5]},
+                       {stack: ['testing', -2], result: 'ng'}
     end
     describe 'λ' do
-      include_examples 'component', 'an array rotated once to the left', stack: [[1, 2, 3]], result: [2, 3, 1]
+      include_examples 'component', 'an array rotated once to the left',
+                       {stack: [[1, 2, 3]], result: [2, 3, 1]},
+                       {stack: %w(asdf), result: 'sdfa'}
     end
     describe 'μ' do
       include_examples 'component', 'the Cartesian product of two arrays', stack: [[1, 2], [3, 4]], result: [[1, 3], [1, 4], [2, 3], [2, 4]]
     end
     describe 'ν' do
-      include_examples 'component', 'whether an object is in an array or string (without vectorization)', stack: [[[1, 2], [3, 4]], [1, 2]], result: 1
+      include_examples 'component', 'whether an object is in an array or string (without vectorization)',
+                       {stack: %w(test no), result: 0},
+                       {stack: %w(test te), result: 1},
+                       {stack: [[[1, 2], [3, 4]], [1, 2]], result: 1}
     end
     describe 'ξ' do
       it 'pushes an object three times' do
@@ -581,13 +590,17 @@ RSpec.describe Ohm do
       include_examples 'component', 'the prime number at a given index (1-based)', stack: [3], result: 5
     end
     describe 'ρ' do
-      include_examples 'component', 'an array rotated once to the right', stack: [[1, 2, 3]], result: [3, 1, 2]
+      include_examples 'component', 'an array rotated once to the right',
+                       {stack: [[1, 2, 3]], result: [3, 1, 2]},
+                       {stack: %w(asdf), result: 'fasd'}
     end
     describe 'ς' do
       include_examples 'component', 'an array sorted by the results of running the given block', stack: [[1, -2]], circuit: 'ςy', result: [-2, 1]
     end
     describe 'σ' do
-      include_examples 'component', 'an array split into groups of a given length', stack: [[1, 2, 3, 4, 5, 6], 2], result: [[1, 2], [3, 4], [5, 6]]
+      include_examples 'component', 'an array split into groups of a given length',
+                       {stack: [[1, 2, 3, 4, 5, 6], 2], result: [[1, 2], [3, 4], [5, 6]]},
+                       {stack: ['unittest', 2], result: %w(un it te st)}
     end
     describe 'τ' do
       include_examples 'component', '10', result: 10
@@ -599,10 +612,14 @@ RSpec.describe Ohm do
       include_examples 'component', 'the elements of an array that return the minimum and maximum value from the given block', stack: [%w(foo foobar foobarbaz)], circuit: 'χl', result: %w(foo foobarbaz)
     end
     describe 'ψ' do
-      include_examples 'component', 'all permutations of an array', stack: [[1, 2, 3]], result: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+      include_examples 'component', 'all permutations of an array',
+                       {stack: [[1, 2, 3]], result: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]},
+                       {stack: %w(bar), result: %w(bar bra abr arb rba rab)}
     end
     describe 'ω' do
-      include_examples 'component', 'the power set of an array', stack: [[1, 2]], result: [[], [1], [2], [1, 2]]
+      include_examples 'component', 'the power set of an array',
+                       {stack: [[1, 2]], result: [[], [1], [2], [1, 2]]},
+                       {stack: %w(bar), result: ['', 'b', 'a', 'ba', 'r', 'br', 'ar', 'bar']}
     end
     describe 'Γ' do
       include_examples 'component', '-1', result: -1
@@ -616,7 +633,7 @@ RSpec.describe Ohm do
       end
     end
     describe 'Π' do
-      include_examples 'component', 'the total product of an array', stack: [[1, 2, 3]], result: 6
+      include_examples 'component', 'the total product of an array', stack: [[1, 2, 4]], result: 8
     end
     describe 'Σ' do
       include_examples 'component', 'the total sum of an array', stack: [[2, 3, 5]], result: 10
@@ -654,7 +671,9 @@ RSpec.describe Ohm do
       end
     end
     describe 'Å' do
-      include_examples 'component', 'whether all the elements in an array return truthy from the block', stack: [[1, 3, 5]], circuit: 'Å2%', result: 1
+      include_examples 'component', 'whether all the elements in an array return truthy from the block',
+                       {stack: [[1, 3, 6]], circuit: 'Å2%', result: 0},
+                       {stack: [[1, 3, 5]], circuit: 'Å2%', result: 1}
     end
     describe 'Ā' do
       include_examples 'component', 'a string with the first letter capitalized', stack: ['foOBar baz'], result: 'Foobar baz'
@@ -663,7 +682,9 @@ RSpec.describe Ohm do
       include_examples 'not implemented'
     end
     describe 'É' do
-      include_examples 'component', 'whether any of the elements in an array return truthy from the block', stack: [[1, 2, 4]], circuit: 'É2%', result: 1
+      include_examples 'component', 'whether any of the elements in an array return truthy from the block',
+                       {stack: [[2, 4, 6]], circuit: 'É2%', result: 0},
+                       {stack: [[1, 2, 4]], circuit: 'É2%', result: 1}
     end
     describe 'Ê' do
       include_examples 'not implemented'
@@ -699,10 +720,14 @@ RSpec.describe Ohm do
       include_examples 'component', 'the run-length encoding of a string', stack: %w(aaabcc), result: [['a', 3], ['b', 1], ['c', 2]]
     end
     describe 'Ø' do
-      include_examples 'component', 'an array grouped by consecutive equal elements', stack: [[1, 3, 5, 3, 2, 2]], result: [[1], [3], [5], [3], [2, 2]]
+      include_examples 'component', 'an array grouped by consecutive equal elements',
+                       {stack: [[1, 3, 5, 3, 2, 2]], result: [[1], [3], [5], [3], [2, 2]]},
+                       {stack: %w(aabccc), result: %w(aa b ccc)}
     end
     describe 'Œ' do
-      include_examples 'component', 'an array randomly shuffled', stack: [[1, 2, 3, 4, 5]], result: [4, 3, 2, 1, 5]
+      include_examples 'component', 'an array randomly shuffled',
+                       {stack: [[1, 2, 3, 4, 5]], result: [4, 3, 2, 1, 5]},
+                       {stack: %w(test), result: 'etts'}
     end
     describe 'Ù' do
       include_examples 'component', 'a string with spaces appended', stack: ['foo', 2], result: 'foo  '
@@ -717,7 +742,9 @@ RSpec.describe Ohm do
       include_examples 'component', 'a string right-justified to a length with spaces', stack: ['foo', 6], result: '   foo'
     end
     describe 'Ç' do
-      include_examples 'component', 'every consecutive group of a certain length in an array', stack: [[1, 2, 3, 4], 2], result: [[1, 2], [2, 3], [3, 4]]
+      include_examples 'component', 'every consecutive group of a certain length in an array',
+                       {stack: [[1, 2, 3, 4], 2], result: [[1, 2], [2, 3], [3, 4]]},
+                       {stack: ['asdf', 2], result: %w(as sd df)}
     end
     describe 'Ð' do
       include_examples 'component', 'a space character', result: ' '
@@ -744,7 +771,10 @@ RSpec.describe Ohm do
       include_examples 'component', 'the bitwise NOT of an integer', stack: [7], result: -8
     end
     describe 'ä' do
-      include_examples 'component', 'the prime factorization of an integer as an array of bases and exponents', stack: [63], result: [[3, 2], [7, 1]]
+      include_examples 'component', 'the prime factorization of an integer as an array of bases and exponents',
+                       {stack: [1], result: []},
+                       {stack: [61], result: [[61, 1]]}
+                       {stack: [63], result: [[3, 2], [7, 1]]}
     end
     describe 'å' do
       include_examples 'not implemented'
@@ -753,13 +783,19 @@ RSpec.describe Ohm do
       include_examples 'not implemented'
     end
     describe 'æ' do
-      include_examples 'component', 'a string palindromized', stack: %w(bar), result: 'barab'
+      include_examples 'component', 'a string or array palindromized',
+                       {stack: %w(bar), result: 'barab'},
+                       {stack: [[1, 2, 3]], result: [1, 2, 3, 2, 1]}
     end
     describe 'è' do
-      include_examples 'component', 'whether a number is odd', stack: [7], result: 1
+      include_examples 'component', 'whether a number is odd',
+                       {stack: [6], result: 0},
+                       {stack: [7], result: 1}
     end
     describe 'é' do
-      include_examples 'component', 'whether a number is even', stack: [6], result: 1
+      include_examples 'component', 'whether a number is even',
+                       {stack: [7], result: 0},
+                       {stack: [6], result: 1}
     end
     describe 'ê' do
       include_examples 'component', 'the Fibonacci numbers up to an index (1-based)', stack: [7], result: [1, 1, 2, 3, 5, 8, 13]
@@ -774,7 +810,9 @@ RSpec.describe Ohm do
       include_examples 'component', 'an object cast to a float', stack: %w(1.5), result: 1.5
     end
     describe 'î' do
-      include_examples 'component', 'whether a number is an integer', stack: %w(7.0), result: 1
+      include_examples 'component', 'whether a number is an integer',
+                       {stack: %w(7.5), result: 0},
+                       {stack: %w(7.0), result: 1}
     end
     describe 'ï' do
       include_examples 'component', 'a string split on a delimiter', stack: %w(foo,bar,baz ,), result: %w(foo bar baz)
@@ -798,7 +836,9 @@ RSpec.describe Ohm do
       include_examples 'component', 'an array filled with an object a certain number of times', stack: [2, 4], result: [2, 2, 2, 2]
     end
     describe 'œ' do
-      include_examples 'component', 'an object paired with its reverse', stack: %w(foobar), result: %w(foobar raboof)
+      include_examples 'component', 'an object paired with its reverse',
+                       {stack: %w(foobar), result: %w(foobar raboof)},
+                       {stack: [[1, 2, 3]], result: [[1, 2, 3], [3, 2, 1]]}
     end
     describe 'ù' do
       include_examples 'component', 'an array joined on spaces', stack: %w(foo bar baz), result: 'foo bar baz'
@@ -807,19 +847,27 @@ RSpec.describe Ohm do
       include_examples 'component', 'an array joined on newlines', stack: %w(foo bar baz), result: "foo\nbar\nbaz"
     end
     describe 'û' do
-      include_examples 'component', 'the range between two numbers with a certain step', stack: [1, 7, 2], result: [1, 3, 5, 7]
+      include_examples 'component', 'the range between two numbers with a certain step',
+                       {stack: [1, 7, 2], result: [1, 3, 5, 7]},
+                       {stack: [8, 1, -2], result: [8, 6, 4, 2]}
     end
     describe 'ü' do
       include_examples 'not implemented'
     end
     describe 'ç' do
-      include_examples 'component', 'all possible combinations of a certain number of elements in an array', stack: [[1, 2, 3], 2], result: [[1, 2], [1, 3], [2, 3]]
+      include_examples 'component', 'all possible combinations of a certain number of elements in an array',
+                       {stack: [[1, 2, 3], 2], result: [[1, 2], [1, 3], [2, 3]]},
+                       {stack: ['bar', 2], result: %w(ba br ar)}
     end
     describe 'ð' do
-      include_examples 'component', 'whether a string is a palindrome', stack: %w(barab), result: 1
+      include_examples 'component', 'whether a string is a palindrome',
+                       {stack: %w(bar), result: 0},
+                       {stack: %w(barab), result: 1}
     end
     describe 'ñ' do
-      include_examples 'component', 'whether a number is in the Fibonacci sequence', stack: [13], result: 1
+      include_examples 'component', 'whether a number is in the Fibonacci sequence',
+                       {stack: [12], result: 0},
+                       {stack: [13], result: 1}
     end
     describe 'ý' do
       include_examples 'component', 'the Fibonacci number at a given index (1-based)', stack: [7], result: 13
@@ -853,13 +901,19 @@ RSpec.describe Ohm do
       include_examples 'component', 'an array reduced over the given component', stack: [[1, 2, 3, 4, 5]], circuit: '¡-', result: -13
     end
     describe '‰' do
-      include_examples 'component', '2 to the power of a number', stack: [4], result: 16
+      include_examples 'component', '2 to the power of a number',
+                       {stack: [4], result: 16},
+                       {stack: [-2], result: 0.25}
     end
     describe '‱' do
-      include_examples 'component', '10 to the power of a number', stack: [4], result: 10000
+      include_examples 'component', '10 to the power of a number',
+                       {stack: [4], result: 10000},
+                       {stack: [-2], result: 0.01}
     end
     describe '¦' do
-      include_examples 'component', 'a number rounded to the nearest integers', stack: [2.7], result: 3
+      include_examples 'component', 'a number rounded to the nearest integer',
+                       {stack: [2.2], result: 2},
+                       {stack: [2.7], result: 3}
     end
     describe '§' do
       include_examples 'component', 'a random element from an array', stack: [[1, 2, 3, 4, 5]], result: 5
@@ -891,10 +945,14 @@ RSpec.describe Ohm do
       include_examples 'component', 'the result of applying the given component to an array', stack: [[1, 2, 3]], circuit: '»è', result: [1, 0, 1]
     end
     describe '‹' do
-      include_examples 'component', 'a number decremented by 1', stack: [7], result: 6
+      include_examples 'component', 'a number decremented by 1',
+                       {stack: [7], result: 6},
+                       {stack: [-6.5], result: -7.5}
     end
     describe '›' do
-      include_examples 'component', 'a number incremented by 1', stack: [6], result: 7
+      include_examples 'component', 'a number incremented by 1',
+                       {stack: [6], result: 7},
+                       {stack: [-7.5], result: -6.5}
     end
     describe '“' do
       include_examples 'component', 'a base-255 number literal', circuit: '“ζ+ó“', result: 8675309
