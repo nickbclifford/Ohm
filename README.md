@@ -74,7 +74,9 @@ The release of Ohm v2 brought a few new changes, namely:
 - Network access is now made possible with `·G`, but safe mode will disable it.
 
 ## Running
-The Ohm interpreter is written in Ruby 2.x (tested on >= 2.2.9). The core interpreter relies on [RSmaz](https://github.com/peterc/rsmaz) for string compression and [Ruby/GSL](https://github.com/SciRuby/rb-gsl) for polynomial solving, and the unit tests rely on [RSpec](http://rspec.info/), [Timecop](https://github.com/travisjeffery/timecop), and [Rake](https://github.com/ruby/rake).
+The Ohm interpreter is written in Ruby 2.x (tested on >= 2.2.10). The core interpreter relies on [RSmaz](https://github.com/peterc/rsmaz) for string compression and [Ruby/GSL](https://github.com/SciRuby/rb-gsl) for polynomial solving, and the unit tests rely on [RSpec](http://rspec.info/), [Timecop](https://github.com/travisjeffery/timecop), and [Rake](https://github.com/ruby/rake).
+
+**NOTE**: As Ruby 2.2.x is now [out of security maintenance phase](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-2-10-released/), the Ohm interpreter will soon stop supporting the 2.2.x branch and move to 2.3.x for the minimum supported version. 
 
 To install dependencies for *normal use*, run `bundle install --without test`. To install unit testing dependencies, run `bundle install` normally.
 
